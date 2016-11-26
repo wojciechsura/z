@@ -1,0 +1,14 @@
+D:\Dokumenty\Dev\VS\Projekty\Z\Z\bin\Debug\Z.exe.config
+D:\Dokumenty\Dev\VS\Projekty\Z\Z\bin\Debug\Z.exe
+D:\Dokumenty\Dev\VS\Projekty\Z\Z\bin\Debug\Z.pdb
+D:\Dokumenty\Dev\VS\Projekty\Z\Z\obj\Debug\Z.csprojResolveAssemblyReference.cache
+D:\Dokumenty\Dev\VS\Projekty\Z\Z\obj\Debug\MainWindow.g.cs
+D:\Dokumenty\Dev\VS\Projekty\Z\Z\obj\Debug\App.g.cs
+D:\Dokumenty\Dev\VS\Projekty\Z\Z\obj\Debug\Z_MarkupCompile.cache
+D:\Dokumenty\Dev\VS\Projekty\Z\Z\obj\Debug\Z_MarkupCompile.lref
+D:\Dokumenty\Dev\VS\Projekty\Z\Z\obj\Debug\MainWindow.baml
+D:\Dokumenty\Dev\VS\Projekty\Z\Z\obj\Debug\Z.g.resources
+D:\Dokumenty\Dev\VS\Projekty\Z\Z\obj\Debug\Z.Properties.Resources.resources
+D:\Dokumenty\Dev\VS\Projekty\Z\Z\obj\Debug\Z.csproj.GenerateResource.Cache
+D:\Dokumenty\Dev\VS\Projekty\Z\Z\obj\Debug\Z.exe
+D:\Dokumenty\Dev\VS\Projekty\Z\Z\obj\Debug\Z.pdb
