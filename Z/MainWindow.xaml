@@ -6,7 +6,10 @@
         xmlns:controls="clr-namespace:System.Windows.Controls;assembly=PresentationFramework"
         xmlns:local="clr-namespace:Z"
         mc:Ignorable="d"        
-        Title="MainWindow" SizeToContent="Height" WindowStyle="None" ResizeMode="CanResize" Width="400">
+        PreviewKeyDown="MainKeyDown" LostFocus="MainLostFocus"
+        Title="MainWindow" SizeToContent="Height" WindowStyle="None" ResizeMode="CanResize" Width="400"
+        Visibility="Hidden" ShowInTaskbar="False" Topmost="True"
+        FocusManager.FocusedElement="{Binding ElementName=MainEdit}">
     <Window.Resources>
         <ResourceDictionary>
             <controls:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
@@ -14,8 +17,9 @@
     </Window.Resources>
     <DockPanel>
         <Border DockPanel.Dock="Left" Visibility="{Binding KeywordVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <TextBlock VerticalAlignment="Center" Margin="4">Google</TextBlock>
+            <TextBlock VerticalAlignment="Center" Margin="4" Text="{Binding Keyword}" />
         </Border>
-        <TextBox Margin="3" Text="{Binding EnteredText, Mode=TwoWay}" />
+        <TextBox x:Name="MainEdit" Margin="3" Text="{Binding EnteredText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 PreviewKeyDown="MainEditKeyDown" />
     </DockPanel>
 </Window>

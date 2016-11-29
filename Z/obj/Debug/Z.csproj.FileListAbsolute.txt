@@ -12,3 +12,13 @@ D:\Dokumenty\Dev\VS\Projekty\Z\Z\obj\Debug\Z.Properties.Resources.resources
 D:\Dokumenty\Dev\VS\Projekty\Z\Z\obj\Debug\Z.csproj.GenerateResource.Cache
 D:\Dokumenty\Dev\VS\Projekty\Z\Z\obj\Debug\Z.exe
 D:\Dokumenty\Dev\VS\Projekty\Z\Z\obj\Debug\Z.pdb
+D:\Dokumenty\Dev\VS\Projekty\Z\Z\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+D:\Dokumenty\Dev\VS\Projekty\Z\Z\bin\Debug\Microsoft.Practices.Unity.Configuration.dll
+D:\Dokumenty\Dev\VS\Projekty\Z\Z\bin\Debug\Microsoft.Practices.Unity.dll
+D:\Dokumenty\Dev\VS\Projekty\Z\Z\bin\Debug\Microsoft.Practices.Unity.RegistrationByConvention.dll
+D:\Dokumenty\Dev\VS\Projekty\Z\Z\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
+D:\Dokumenty\Dev\VS\Projekty\Z\Z\bin\Debug\Microsoft.Practices.ServiceLocation.xml
+D:\Dokumenty\Dev\VS\Projekty\Z\Z\bin\Debug\Microsoft.Practices.Unity.xml
+D:\Dokumenty\Dev\VS\Projekty\Z\Z\bin\Debug\Microsoft.Practices.Unity.Configuration.xml
+D:\Dokumenty\Dev\VS\Projekty\Z\Z\bin\Debug\Microsoft.Practices.Unity.RegistrationByConvention.xml
+D:\Dokumenty\Dev\VS\Projekty\Z\Z\obj\Debug\Z.Resources.Resources.resources

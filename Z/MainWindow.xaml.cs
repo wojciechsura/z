@@ -14,18 +14,117 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Z.Common;
+using Z.Dependencies;
+using Z.Services.Interfaces;
 using Z.Viewmodels;
+using Z.Viewmodels.Interfaces;
+using Microsoft.Practices.Unity;
 
 namespace Z
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, IMainViewModelAccess
     {
         // Private fields -----------------------------------------------------
 
         private readonly MainWindowViewModel viewModel;
+
+        // Private methods ----------------------------------------------------
+
+        private void MainKeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case Key.Escape:
+                    {
+                        bool handled = viewModel.EscapePressed();
+                        e.Handled = handled;
+                        break;
+                    }
+                default:
+                    {
+                        e.Handled = false;
+                        break;
+                    }
+            }
+        }
+
+        private void MainEditKeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case Key.Space:
+                    {
+                        bool handled = viewModel.SpacePressed();
+                        e.Handled = handled;
+                        break;
+                    }
+                case Key.Back:
+                    {
+                        bool handled = viewModel.BackspacePressed();
+                        e.Handled = handled;
+                        break;
+                    }
+                case Key.Tab:
+                    {
+                        bool handled = viewModel.TabPressed();
+                        e.Handled = handled;
+                        break;
+                    }
+                case Key.Enter:
+                    {
+                        bool handled = viewModel.EnterPressed();
+                        e.Handled = handled;
+                        break;
+                    }
+                default:
+                    {
+                        e.Handled = false;
+                        break;
+                    }
+            }
+        }
+
+        private void MainLostFocus(object sender, RoutedEventArgs e)
+        {
+            viewModel.WindowLostFocus();
+        }
+
+        // IMainViewModelAccess implementation --------------------------------
+
+        void IMainViewModelAccess.Show()
+        {
+            Show();
+        }
+
+        void IMainViewModelAccess.Hide()
+        {
+            Hide();
+        }
+
+        void IMainViewModelAccess.ShowError(string error)
+        {
+            MessageBox.Show(error);
+        }
+
+        void IMainViewModelAccess.Shutdown()
+        {
+            Application.Current.Shutdown();
+        }
+
+        int IMainViewModelAccess.CaretPosition
+        {
+            get
+            {
+                return MainEdit.CaretIndex;
+            }
+            set
+            {
+                MainEdit.CaretIndex = value;
+            }
+        }
 
         // Public methods -----------------------------------------------------
 
@@ -33,7 +132,7 @@ namespace Z
         {
             InitializeComponent();
 
-            this.viewModel = new MainWindowViewModel();
+            this.viewModel = new MainWindowViewModel(this, Configuration.Container.Resolve<IHotkeyService>());
             this.DataContext = viewModel;
         }
     }
