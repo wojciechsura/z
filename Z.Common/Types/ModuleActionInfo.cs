@@ -11,12 +11,12 @@ namespace Z.Common.Types
         public KeywordActionInfo(string defaultKeyword, string internalActionName, string displayName)
         {
             DefaultKeyword = defaultKeyword;
-            InternalActionName = internalActionName;
+            ActionName = internalActionName;
             DisplayName = displayName;
         }
 
         public string DefaultKeyword { get; private set; }
-        public string InternalActionName { get; private set; }
+        public string ActionName { get; private set; }
         public string DisplayName { get; private set; }
     }
 }
