@@ -80,6 +80,10 @@
     </Compile>
     <Compile Include="Services\HotkeyService.cs" />
     <Compile Include="Services\Interfaces\IHotkeyService.cs" />
+    <Compile Include="Services\Interfaces\IKeywordService.cs" />
+    <Compile Include="Services\Interfaces\IModuleService.cs" />
+    <Compile Include="Services\KeywordService.cs" />
+    <Compile Include="Services\ModuleService.cs" />
     <Compile Include="Viewmodels\Interfaces\IMainViewModelAccess.cs" />
     <Compile Include="Viewmodels\MainWindowViewModel.cs" />
     <Page Include="MainWindow.xaml">
@@ -126,6 +130,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GoogleSearchModule\GoogleSearchModule.csproj">
+      <Project>{18355acb-d8eb-4d42-89d4-31a3bc388104}</Project>
+      <Name>GoogleSearchModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Z.Common\Z.Common.csproj">
+      <Project>{e057755f-3180-4aa6-a5dd-0a68a586c77c}</Project>
+      <Name>Z.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

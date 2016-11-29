@@ -18,6 +18,7 @@ namespace Z.Dependencies
             container = new UnityContainer();
 
             container.RegisterType<IHotkeyService, HotkeyService>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IModuleService, ModuleService>(new ContainerControlledLifetimeManager());
         }
 
         public static void Dispose()
