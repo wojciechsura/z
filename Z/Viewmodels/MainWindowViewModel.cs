@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Z.Common;
+using Z.Models;
 using Z.Services.Interfaces;
 using Z.Viewmodels.Interfaces;
 
@@ -13,23 +14,38 @@ namespace Z.Viewmodels
 {
     public class MainWindowViewModel : INotifyPropertyChanged
     {
+        private class KeywordData
+        {
+            public KeywordData(KeywordAction action, string storedText)
+            {
+                Action = action;
+                StoredText = storedText;
+            }
+
+            public KeywordAction Action { get; private set; }
+            public string StoredText { get; private set; }
+        }
+
         private readonly IHotkeyService hotkeyService;
         private readonly IMainViewModelAccess access;
+        private readonly IKeywordService keywordService;
 
         private int mainHotkeyId;
 
         private string enteredText;
-        private bool keywordVisible;
-        private string keyword;
-        private string keywordStoredText;
+        private KeywordData keywordData;
 
         // Private methods ----------------------------------------------------
 
-        private void ShowWindow()
+        private void ClearInput()
         {
             EnteredText = null;
-            KeywordVisible = false;
-            Keyword = null;
+            ClearKeywordData();
+        }
+
+        private void ShowWindow()
+        {
+            ClearInput();
 
             access.Show();
         }
@@ -41,11 +57,36 @@ namespace Z.Viewmodels
 
         private void Initialize()
         {
-            if (!hotkeyService.Register(Key.Z, KeyModifier.Win, HotkeyPressed, ref mainHotkeyId))
+            if (!hotkeyService.Register(Key.Space, KeyModifier.Alt, HotkeyPressed, ref mainHotkeyId))
             {
                 access.ShowError(Z.Resources.Resources.CannotRegisterHotkey);
                 access.Shutdown();
             }
+        }
+
+        private void ClearKeywordData()
+        {
+            keywordData = null;
+
+            NotifyKeywordDataChanged();
+        }
+
+        private void SetKeywordData(KeywordAction action, string possibleKeyword)
+        {
+            keywordData = new KeywordData(action, possibleKeyword + " ");
+
+            NotifyKeywordDataChanged();
+        }
+
+        private void NotifyKeywordDataChanged()
+        {
+            OnPropertyChanged(nameof(Keyword));
+            OnPropertyChanged(nameof(KeywordVisible));
+        }
+
+        private bool IsInputEmpty()
+        {
+            return keywordData == null && String.IsNullOrEmpty(EnteredText);
         }
 
         // Protected methods --------------------------------------------------
@@ -60,29 +101,28 @@ namespace Z.Viewmodels
 
         // Public methods -----------------------------------------------------
 
-        public MainWindowViewModel(IMainViewModelAccess access, IHotkeyService hotkeyService)
+        public MainWindowViewModel(IMainViewModelAccess access, IHotkeyService hotkeyService, IKeywordService keywordService)
         {
             this.hotkeyService = hotkeyService;
+            this.keywordService = keywordService;
             this.access = access;
 
-            keywordVisible = false;
             enteredText = null;
+            keywordData = null;
 
             Initialize();
         }
 
-        internal bool BackspacePressed()
+        public bool BackspacePressed()
         {
-            if (access.CaretPosition == 0 && keywordVisible)
+            if (access.CaretPosition == 0 && keywordData != null)
             {
-                int keywordTextLength = keywordStoredText.Length;
+                int keywordTextLength = keywordData.StoredText.Length;
 
-                Keyword = null;
-                KeywordVisible = false;
-                EnteredText = keywordStoredText + EnteredText;
+                EnteredText = keywordData.StoredText + EnteredText;
                 access.CaretPosition = keywordTextLength;
-                keywordStoredText = null;
 
+                ClearKeywordData();
                 return true;
             }
 
@@ -97,17 +137,14 @@ namespace Z.Viewmodels
             int indexOfSpace = EnteredText.IndexOf(' ');
 
             // Check if potential keyword is entered
-            if (access.CaretPosition > 0 && (indexOfSpace <= access.CaretPosition || indexOfSpace == -1))
+            if (access.CaretPosition > 0 && (indexOfSpace >= access.CaretPosition || indexOfSpace == -1))
             {
                 string possibleKeyword = EnteredText.Substring(0, access.CaretPosition);
 
-                // TODO Recognizing keywords
-
-                if (possibleKeyword.ToLower() == "g")
+                KeywordAction action = keywordService.GetKeywordAction(possibleKeyword);
+                if (action != null)
                 {
-                    Keyword = "Google";
-                    KeywordVisible = true;
-                    keywordStoredText = possibleKeyword + " ";
+                    SetKeywordData(action, possibleKeyword);
                     EnteredText = EnteredText.Substring(access.CaretPosition);
                     access.CaretPosition = 0;
                     return true;
@@ -124,6 +161,14 @@ namespace Z.Viewmodels
 
         public bool EnterPressed()
         {
+            if (keywordData != null)
+            {
+                // Executing keyword action
+                keywordData.Action.Module.ExecuteKeywordAction(keywordData.Action.ActionName, EnteredText);
+                HideWindow();
+                return true;
+            }
+
             return false;
         }
 
@@ -134,7 +179,15 @@ namespace Z.Viewmodels
 
         public bool EscapePressed()
         {
-            HideWindow();
+            if (!IsInputEmpty())
+            {
+                ClearInput();
+            }
+            else
+            {
+                HideWindow();
+            }
+            
             return true;
         }
 
@@ -164,26 +217,16 @@ namespace Z.Viewmodels
         {
             get
             {
-                return keywordVisible;
-            }
-            set
-            {
-                keywordVisible = value;
-                OnPropertyChanged(nameof(KeywordVisible));
-            }
+                return keywordData != null;
+            }            
         }
 
         public string Keyword
         {
             get
             {
-                return keyword;
-            }
-            private set
-            {
-                keyword = value;
-                OnPropertyChanged(nameof(Keyword));
-            }
+                return keywordData?.Action?.DisplayName ?? null;
+            }            
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

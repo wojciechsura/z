@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Z", "Z\Z.csproj", "{8C746CC7-A787-45B6-9E37-A331324EE71C}"
 EndProject
@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Z.Common", "Z.Common\Z.Comm
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{D094C8BF-E19E-4C12-ABE2-578AED985B14}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleSearchModule", "GoogleSearchModule\GoogleSearchModule.csproj", "{18355ACB-D8EB-4D42-89D4-31A3BC388104}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebSearchModule", "WebSearchModule\WebSearchModule.csproj", "{DBE3D82F-E4A1-42FC-9842-825783201066}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,15 +25,15 @@ Global
 		{E057755F-3180-4AA6-A5DD-0A68A586C77C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E057755F-3180-4AA6-A5DD-0A68A586C77C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E057755F-3180-4AA6-A5DD-0A68A586C77C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{18355ACB-D8EB-4D42-89D4-31A3BC388104}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{18355ACB-D8EB-4D42-89D4-31A3BC388104}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{18355ACB-D8EB-4D42-89D4-31A3BC388104}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{18355ACB-D8EB-4D42-89D4-31A3BC388104}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DBE3D82F-E4A1-42FC-9842-825783201066}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBE3D82F-E4A1-42FC-9842-825783201066}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBE3D82F-E4A1-42FC-9842-825783201066}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBE3D82F-E4A1-42FC-9842-825783201066}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{18355ACB-D8EB-4D42-89D4-31A3BC388104} = {D094C8BF-E19E-4C12-ABE2-578AED985B14}
+		{DBE3D82F-E4A1-42FC-9842-825783201066} = {D094C8BF-E19E-4C12-ABE2-578AED985B14}
 	EndGlobalSection
 EndGlobal

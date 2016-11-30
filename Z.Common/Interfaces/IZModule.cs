@@ -10,6 +10,8 @@ namespace Z.Common.Interfaces
     public interface IZModule
     {
         IEnumerable<KeywordActionInfo> GetKeywordActions();
+        void ExecuteKeywordAction(string action, string expression);
+
         string InternalName { get; }
     }
 }

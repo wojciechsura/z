@@ -92,6 +92,12 @@ namespace Z
             viewModel.WindowLostFocus();
         }
 
+        private void MainWindowMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                this.DragMove();
+        }
+
         // IMainViewModelAccess implementation --------------------------------
 
         void IMainViewModelAccess.Show()
@@ -132,7 +138,9 @@ namespace Z
         {
             InitializeComponent();
 
-            this.viewModel = new MainWindowViewModel(this, Configuration.Container.Resolve<IHotkeyService>());
+            this.viewModel = new MainWindowViewModel(this, 
+                Configuration.Container.Resolve<IHotkeyService>(),
+                Configuration.Container.Resolve<IKeywordService>());
             this.DataContext = viewModel;
         }
     }

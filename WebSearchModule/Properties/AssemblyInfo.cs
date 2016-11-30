@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Z.Common")]
+[assembly: AssemblyTitle("WebSearchModule")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Z.Common")]
+[assembly: AssemblyProduct("WebSearchModule")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("e057755f-3180-4aa6-a5dd-0a68a586c77c")]
+[assembly: Guid("dbe3d82f-e4a1-42fc-9842-825783201066")]
 
 // Version information for an assembly consists of the following four values:
 //

@@ -73,6 +73,7 @@
     </ApplicationDefinition>
     <Compile Include="Common\KeyModifier.cs" />
     <Compile Include="Dependencies\Configuration.cs" />
+    <Compile Include="Models\KeywordAction.cs" />
     <Compile Include="Resources\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -98,6 +99,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MainWindowResources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -132,15 +137,16 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GoogleSearchModule\GoogleSearchModule.csproj">
-      <Project>{18355acb-d8eb-4d42-89d4-31a3bc388104}</Project>
-      <Name>GoogleSearchModule</Name>
+    <ProjectReference Include="..\WebSearchModule\WebSearchModule.csproj">
+      <Project>{dbe3d82f-e4a1-42fc-9842-825783201066}</Project>
+      <Name>WebSearchModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\Z.Common\Z.Common.csproj">
       <Project>{e057755f-3180-4aa6-a5dd-0a68a586c77c}</Project>
       <Name>Z.Common</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

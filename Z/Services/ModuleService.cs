@@ -14,7 +14,7 @@ namespace Z.Services
 
         private void InitDefaultModules()
         {
-            modules.Add(new GoogleSearchModule.Module());
+            modules.Add(new WebSearchModule.Module());
         }
 
         public ModuleService()

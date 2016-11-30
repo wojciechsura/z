@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Z.Common.Interfaces;
+using Z.Common.Types;
+using Z.Models;
 using Z.Services.Interfaces;
 
 namespace Z.Services
@@ -12,25 +14,23 @@ namespace Z.Services
     {
         // Private types ------------------------------------------------------
 
-        private class KeywordInfo
+        private class KeywordActionData
         {
-            public string DefaultKeyword { get; set; }
+            public KeywordActionInfo Info { get; set; }
             public string Keyword { get; set; }
-            public string DisplayName { get; set; }
-            public string ActionName { get; set; }
             public IZModule Module { get; set; }
         }
         
         // Private fields -----------------------------------------------------
 
         private readonly IModuleService moduleService;
-        private List<KeywordInfo> keywords;
+        private List<KeywordActionData> keywords;
 
         // Private methods ----------------------------------------------------
 
-        private List<KeywordInfo> CollectOriginalKeywords()
+        private List<KeywordActionData> CollectOriginalKeywords()
         {
-            List<KeywordInfo> result = new List<KeywordInfo>();
+            List<KeywordActionData> result = new List<KeywordActionData>();
 
             for (int i = 0; i < moduleService.ModuleCount; i++)
             {
@@ -39,11 +39,9 @@ namespace Z.Services
 
                 foreach (var action in keywordActions)
                 {
-                    KeywordInfo info = new KeywordInfo
+                    KeywordActionData info = new KeywordActionData
                     {
-                        ActionName = action.ActionName,
-                        DefaultKeyword = action.DefaultKeyword,
-                        DisplayName = action.DisplayName,
+                        Info = action,
                         Keyword = action.DefaultKeyword,
                         Module = module
                     };
@@ -55,7 +53,7 @@ namespace Z.Services
             return result;
         }
 
-        private void ApplyKeywordOverrides(List<KeywordInfo> keywords)
+        private void ApplyKeywordOverrides(List<KeywordActionData> keywords)
         {
             // TODO
         }
@@ -73,6 +71,13 @@ namespace Z.Services
             this.moduleService = moduleService;
 
             ReloadKeywords();
+        }
+
+        public KeywordAction GetKeywordAction(string keyword)
+        {
+            return keywords.Where(k => k.Keyword.ToLower() == keyword.ToLower())
+                .Select(k => new KeywordAction(k.Keyword, k.Info.ActionName, k.Info.DisplayName, k.Module))
+                .FirstOrDefault();
         }
     }
 }

@@ -19,6 +19,7 @@ namespace Z.Dependencies
 
             container.RegisterType<IHotkeyService, HotkeyService>(new ContainerControlledLifetimeManager());
             container.RegisterType<IModuleService, ModuleService>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IKeywordService, KeywordService>(new ContainerControlledLifetimeManager());
         }
 
         public static void Dispose()
