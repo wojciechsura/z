@@ -3,6 +3,9 @@
                     xmlns:local="clr-namespace:Z">
     <Style x:Key="MainEditStyle" TargetType="TextBox">
         <Style.Setters>
+            <Setter Property="CaretBrush" Value="White" />
+            <Setter Property="Foreground" Value="#5db2d9" />
+            <Setter Property="FontSize" Value="14" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate>
@@ -10,6 +13,21 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+        </Style.Setters>
+    </Style>
+
+    <Style x:Key="KeywordBorder" TargetType="Border">
+        <Style.Setters>
+            <Setter Property="Padding" Value="5 1" />
+            <Setter Property="BorderBrush" Value="#5db2d9" />
+            <Setter Property="BorderThickness" Value="1" />
+        </Style.Setters>
+    </Style>
+
+    <Style x:Key="KeywordText" TargetType="TextBlock">
+        <Style.Setters>
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Foreground" Value="#5db2d9" />
         </Style.Setters>
     </Style>
 </ResourceDictionary>

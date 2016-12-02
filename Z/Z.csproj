@@ -71,6 +71,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Common\Converters\RectGeometryGenerator.cs" />
     <Compile Include="Common\KeyModifier.cs" />
     <Compile Include="Dependencies\Configuration.cs" />
     <Compile Include="Models\KeywordAction.cs" />

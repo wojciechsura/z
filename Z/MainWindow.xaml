@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:controls="clr-namespace:System.Windows.Controls;assembly=PresentationFramework"
+        xmlns:converters="clr-namespace:Z.Common.Converters"
         xmlns:local="clr-namespace:Z"
         mc:Ignorable="d"        
         PreviewKeyDown="MainKeyDown" LostFocus="MainLostFocus" MouseDown="MainWindowMouseDown"
@@ -17,9 +18,10 @@
                 <ResourceDictionary Source="MainWindowResources.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <controls:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+            <converters:RectGeometryGenerator x:Key="RectGeometryGenerator" />
         </ResourceDictionary>
     </Window.Resources>
-    <Border CornerRadius="10">
+    <Border CornerRadius="10" BorderBrush="#808080" BorderThickness="1">
         <Border.Background>
             <LinearGradientBrush>
                 <LinearGradientBrush.GradientStops>
@@ -31,14 +33,48 @@
             </LinearGradientBrush>
         </Border.Background>
 
-        <Border BorderBrush="#20ffffff" BorderThickness="1">
-            <DockPanel Margin="10">
-                <Border DockPanel.Dock="Left" Visibility="{Binding KeywordVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
-                    <TextBlock VerticalAlignment="Center" Margin="4" Text="{Binding Keyword}" />
+        <Border CornerRadius="9" BorderBrush="#80ffffff" BorderThickness="1" Padding="10">
+            <Border CornerRadius="{Binding ElementName=DisplayBorder, Path=CornerRadius}">
+                <Border.Effect>
+                    <DropShadowEffect Color="White" Direction="0" BlurRadius="5" ShadowDepth="0" />
+                </Border.Effect>
+
+                <Border x:Name="Display" CornerRadius="{Binding ElementName=DisplayBorder, Path=CornerRadius}">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0, 0" EndPoint="1, 0">
+                            <LinearGradientBrush.GradientStops>
+                                <GradientStop Color="#2c343f" Offset="0" />
+                                <GradientStop Color="#232a32" Offset="0.05" />
+                                <GradientStop Color="#232a32" Offset="0.95" />
+                                <GradientStop Color="#2c343f" Offset="1" />
+                            </LinearGradientBrush.GradientStops>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <Border.Clip>
+                        <MultiBinding Converter="{StaticResource RectGeometryGenerator}">
+                            <Binding ElementName="Display" Path="ActualWidth" />
+                            <Binding ElementName="Display" Path="ActualHeight" />
+                            <Binding ElementName="DisplayBorder" Path="CornerRadius" />
+                        </MultiBinding>
+                    </Border.Clip>
+                    <Grid>
+                        <!-- Inner shadow caster -->
+                        <Border x:Name="DisplayBorder" BorderBrush="#000000" BorderThickness="4" Margin="-5" CornerRadius="6">
+                            <Border.Effect>
+                                <DropShadowEffect Color="#000000" Opacity="1" BlurRadius="10" ShadowDepth="0" Direction="0"/>
+                            </Border.Effect>
+                        </Border>
+
+                        <DockPanel Margin="10">
+                            <Border Style="{StaticResource KeywordBorder}"  DockPanel.Dock="Left" Visibility="{Binding KeywordVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                <TextBlock Style="{StaticResource KeywordText}" VerticalAlignment="Center" Text="{Binding Keyword}"/>
+                            </Border>
+                            <TextBox VerticalAlignment="Center" Style="{StaticResource MainEditStyle}" x:Name="MainEdit" Margin="3" Text="{Binding EnteredText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    PreviewKeyDown="MainEditKeyDown" />
+                        </DockPanel>
+                    </Grid>
                 </Border>
-                <TextBox Style="{StaticResource MainEditStyle}" x:Name="MainEdit" Margin="3" Text="{Binding EnteredText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                         PreviewKeyDown="MainEditKeyDown" />
-            </DockPanel>
+            </Border>
         </Border>
     </Border>
 </Window>
