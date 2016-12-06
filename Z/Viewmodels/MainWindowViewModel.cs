@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Threading;
 using Z.Common;
 using Z.Models;
 using Z.Services.Interfaces;
@@ -14,6 +15,12 @@ namespace Z.Viewmodels
 {
     public class MainWindowViewModel : INotifyPropertyChanged
     {
+        // Private constants --------------------------------------------------
+
+        private readonly TimeSpan timerInterval = TimeSpan.FromMilliseconds(500);
+
+        // Private classes ----------------------------------------------------
+
         private class KeywordData
         {
             public KeywordData(KeywordAction action, string storedText)
@@ -26,6 +33,9 @@ namespace Z.Viewmodels
             public string StoredText { get; private set; }
         }
 
+
+        // Private fields -----------------------------------------------------
+
         private readonly IHotkeyService hotkeyService;
         private readonly IMainViewModelAccess access;
         private readonly IKeywordService keywordService;
@@ -35,11 +45,13 @@ namespace Z.Viewmodels
         private string enteredText;
         private KeywordData keywordData;
 
+        private readonly DispatcherTimer enteredTextTimer;
+
         // Private methods ----------------------------------------------------
 
         private void ClearInput()
         {
-            EnteredText = null;
+            SetEnteredText(null);
             ClearKeywordData();
         }
 
@@ -68,17 +80,17 @@ namespace Z.Viewmodels
         {
             keywordData = null;
 
-            NotifyKeywordDataChanged();
+            SetKeywordData();
         }
 
         private void SetKeywordData(KeywordAction action, string possibleKeyword)
         {
             keywordData = new KeywordData(action, possibleKeyword + " ");
 
-            NotifyKeywordDataChanged();
+            SetKeywordData();
         }
 
-        private void NotifyKeywordDataChanged()
+        private void SetKeywordData()
         {
             OnPropertyChanged(nameof(Keyword));
             OnPropertyChanged(nameof(KeywordVisible));
@@ -87,6 +99,37 @@ namespace Z.Viewmodels
         private bool IsInputEmpty()
         {
             return keywordData == null && String.IsNullOrEmpty(EnteredText);
+        }
+
+        private void SetEnteredText(string newText)
+        {
+            enteredText = newText;
+            OnPropertyChanged(nameof(EnteredText));
+        }
+
+        private void EnteredTextChanged()
+        {
+            StartEnteredTextTimer();
+        }
+
+        private void StartEnteredTextTimer()
+        {
+            if (enteredTextTimer.IsEnabled)
+                enteredTextTimer.Stop();
+
+            enteredTextTimer.Start();
+        }
+
+        private void StopEnteredTextTimer()
+        {
+            enteredTextTimer.Stop();
+        }
+
+        private void EnteredTextTimerTick(object sender, EventArgs e)
+        {
+            StopEnteredTextTimer();
+
+            System.Diagnostics.Debug.WriteLine("Tick!");
         }
 
         // Protected methods --------------------------------------------------
@@ -110,6 +153,10 @@ namespace Z.Viewmodels
             enteredText = null;
             keywordData = null;
 
+            this.enteredTextTimer = new DispatcherTimer();
+            enteredTextTimer.Interval = timerInterval;
+            enteredTextTimer.Tick += EnteredTextTimerTick;
+
             Initialize();
         }
 
@@ -119,7 +166,7 @@ namespace Z.Viewmodels
             {
                 int keywordTextLength = keywordData.StoredText.Length;
 
-                EnteredText = keywordData.StoredText + EnteredText;
+                SetEnteredText(keywordData.StoredText + EnteredText);
                 access.CaretPosition = keywordTextLength;
 
                 ClearKeywordData();
@@ -145,7 +192,7 @@ namespace Z.Viewmodels
                 if (action != null)
                 {
                     SetKeywordData(action, possibleKeyword);
-                    EnteredText = EnteredText.Substring(access.CaretPosition);
+                    SetEnteredText(EnteredText.Substring(access.CaretPosition));
                     access.CaretPosition = 0;
                     return true;
                 }
@@ -208,8 +255,10 @@ namespace Z.Viewmodels
             }
             set
             {
-                enteredText = value;
-                OnPropertyChanged(nameof(EnteredText));
+                if (enteredText != value) { 
+                    enteredText = value;
+                    EnteredTextChanged();
+                }
             }
         }
 

@@ -35,7 +35,8 @@ namespace WebSearchModule
             new SearchInfo("GoogleSearch", "g", "Google", "https://www.google.com/#q={0}"),
             new SearchInfo("WikipediaSearch", "wiki", "Wikipedia", "http://pl.wikipedia.org/w/index.php?title=Specjalna:Szukaj&search={0}"),
             new SearchInfo("MSDNSearch", "msdn", "MSDN", "http://social.msdn.microsoft.com/Search/en-EN?query={0}"),
-            new SearchInfo("YoutubeSearch", "y", "Youtube", "http://www.youtube.com/results?search_query={0}&page={{startPage?}}&utm_source=opensearch")
+            new SearchInfo("YoutubeSearch", "y", "Youtube", "http://www.youtube.com/results?search_query={0}&page={{startPage?}}&utm_source=opensearch"),
+            new SearchInfo("MapsSearch", "maps", "Google Maps", "https://www.google.pl/maps/search/{0}")
         };
 
         public string InternalName
