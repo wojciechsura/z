@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Z.Common.Types
+namespace Z.Api.Types
 {
     public sealed class KeywordInfo
     {

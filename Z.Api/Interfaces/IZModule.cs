@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Z.Common.Types;
+using Z.Api.Types;
 
-namespace Z.Common.Interfaces
+namespace Z.Api.Interfaces
 {
     public interface IZModule
     {

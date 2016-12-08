@@ -3,20 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Z.Api.Interfaces;
 
-namespace Z.Common.Types
+namespace Z.Models
 {
-    public sealed class KeywordInfo
+    public class KeywordData
     {
-        public KeywordInfo(string defaultKeyword, string actionName, string displayName)
+        public KeywordData(string keyword, string actionName, string displayName, IZModule module)
         {
-            DefaultKeyword = defaultKeyword;
+            Keyword = keyword;
             ActionName = actionName;
             DisplayName = displayName;
+            Module = module;
         }
 
-        public string DefaultKeyword { get; private set; }
+        public string Keyword { get; private set; }
         public string ActionName { get; private set; }
         public string DisplayName { get; private set; }
+        public IZModule Module { get; set; }
     }
 }

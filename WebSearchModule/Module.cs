@@ -5,8 +5,8 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using Z.Common.Interfaces;
-using Z.Common.Types;
+using Z.Api.Interfaces;
+using Z.Api.Types;
 
 namespace WebSearchModule
 {
@@ -47,10 +47,10 @@ namespace WebSearchModule
             }
         }
 
-        public IEnumerable<KeywordActionInfo> GetKeywordActions()
+        public IEnumerable<KeywordInfo> GetKeywordActions()
         {
             return searchInfos
-                .Select(si => new KeywordActionInfo(si.Keyword, si.Action, si.Display))
+                .Select(si => new KeywordInfo(si.Keyword, si.Action, si.Display))
                 .ToList();
         }
 
@@ -64,7 +64,12 @@ namespace WebSearchModule
                 Process.Start(String.Format(info.SearchString, WebUtility.UrlEncode(expression)));
             }
             else
-                    throw new InvalidOperationException("Invalid action!");
+                throw new InvalidOperationException("Invalid action!");
+        }
+
+        public void CollectSuggestions(string enteredText, string keywordAction, ISuggestionCollector collector)
+        {
+            // No suggestions available for this module
         }
     }
 }

@@ -15,9 +15,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Z.Common;
 using Z.Dependencies;
-using Z.Services.Interfaces;
-using Z.Viewmodels;
-using Z.Viewmodels.Interfaces;
+using Z.ViewModels;
+using Z.ViewModels.Interfaces;
 using Microsoft.Practices.Unity;
 
 namespace Z
@@ -25,11 +24,11 @@ namespace Z
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window, IMainViewModelAccess
+    public partial class MainWindow : Window, IMainWindowAccess
     {
         // Private fields -----------------------------------------------------
 
-        private readonly MainWindowViewModel viewModel;
+        private readonly IMainWindowViewModel viewModel;
 
         // Private methods ----------------------------------------------------
 
@@ -100,27 +99,27 @@ namespace Z
 
         // IMainViewModelAccess implementation --------------------------------
 
-        void IMainViewModelAccess.Show()
+        void IMainWindowAccess.Show()
         {
             Show();
         }
 
-        void IMainViewModelAccess.Hide()
+        void IMainWindowAccess.Hide()
         {
             Hide();
         }
 
-        void IMainViewModelAccess.ShowError(string error)
+        void IMainWindowAccess.ShowError(string error)
         {
             MessageBox.Show(error);
         }
 
-        void IMainViewModelAccess.Shutdown()
+        void IMainWindowAccess.Shutdown()
         {
             Application.Current.Shutdown();
         }
 
-        int IMainViewModelAccess.CaretPosition
+        int IMainWindowAccess.CaretPosition
         {
             get
             {
@@ -138,9 +137,9 @@ namespace Z
         {
             InitializeComponent();
 
-            this.viewModel = new MainWindowViewModel(this, 
-                Configuration.Container.Resolve<IHotkeyService>(),
-                Configuration.Container.Resolve<IKeywordService>());
+            var viewModelFactory = Container.Instance.Resolve<IViewModelFactory>();
+            viewModel = viewModelFactory.GenerateMainWindowViewModel(this);
+            
             this.DataContext = viewModel;
         }
     }

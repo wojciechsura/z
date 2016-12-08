@@ -7,18 +7,15 @@ using System.Threading.Tasks;
 using Z.ViewModels;
 using Z.ViewModels.Interfaces;
 
-namespace Z.Dependencies
+namespace Z.ViewModels.Dependencies
 {
     public static class Configuration
     {
-        public static void Configure()
-        {           
-            ViewModels.Dependencies.Configuration.Configure(Container.Instance);
-        }
-
-        public static void Dispose()
+        public static void Configure(IUnityContainer container)
         {
-            Container.Dispose();
+            BusinessLogic.Dependencies.Configuration.Configure(container);
+
+            container.RegisterType<IViewModelFactory, ViewModelFactory>();
         }
     }
 }
