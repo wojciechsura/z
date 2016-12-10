@@ -8,7 +8,7 @@
         xmlns:local="clr-namespace:Z"
         mc:Ignorable="d"        
         PreviewKeyDown="MainKeyDown" LostFocus="MainLostFocus" MouseDown="MainWindowMouseDown"
-        Title="MainWindow" SizeToContent="Height" WindowStyle="None" ResizeMode="NoResize" Width="400"
+        SizeToContent="Height" WindowStyle="None" ResizeMode="NoResize" Width="400"
         Visibility="Hidden" ShowInTaskbar="False" Topmost="True" AllowsTransparency="True"
         FocusManager.FocusedElement="{Binding ElementName=MainEdit}"
         Background="Transparent">

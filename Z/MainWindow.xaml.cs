@@ -26,9 +26,15 @@ namespace Z
     /// </summary>
     public partial class MainWindow : Window, IMainWindowAccess
     {
+        // Private constants --------------------------------------------------
+
+        private readonly int LIST_WINDOW_MARGIN = 16;
+
         // Private fields -----------------------------------------------------
 
         private readonly IMainWindowViewModel viewModel;
+        private readonly ListWindow listWindow;
+        private readonly WindowInteropHelper windowInteropHelper;
 
         // Private methods ----------------------------------------------------
 
@@ -97,16 +103,50 @@ namespace Z
                 this.DragMove();
         }
 
+        protected override void OnLocationChanged(EventArgs e)
+        {
+            PositionListWindow();
+
+            base.OnLocationChanged(e);
+        }
+
+        private void PositionListWindow()
+        {
+            // Reposition list window
+            var screen = System.Windows.Forms.Screen.FromHandle(windowInteropHelper.Handle);
+
+            int halfScreenHeight = screen.WorkingArea.Height / 2;
+            int listWindowMaxSize = (int)(halfScreenHeight - this.ActualHeight / 2) - LIST_WINDOW_MARGIN;
+            int halfScreenHeightPos = screen.WorkingArea.Top + halfScreenHeight;
+            var aboveHalf = this.Top + this.ActualHeight / 2 <= halfScreenHeightPos;
+
+            listWindow.Height = listWindowMaxSize;
+
+            if (aboveHalf)
+            {
+                listWindow.Left = this.Left;
+                listWindow.Top = this.Top + this.Height + LIST_WINDOW_MARGIN;
+            }
+            else
+            {
+                listWindow.Left = this.Left;
+                listWindow.Top = this.Top - listWindow.Height - LIST_WINDOW_MARGIN;
+            }
+        }
+
         // IMainViewModelAccess implementation --------------------------------
 
         void IMainWindowAccess.Show()
         {
             Show();
+            PositionListWindow();
+            listWindow.Show();
         }
 
         void IMainWindowAccess.Hide()
         {
             Hide();
+            listWindow.Hide();
         }
 
         int IMainWindowAccess.CaretPosition
@@ -126,11 +166,14 @@ namespace Z
         public MainWindow()
         {
             InitializeComponent();
+            windowInteropHelper = new WindowInteropHelper(this);
 
             viewModel = Container.Instance.Resolve<IMainWindowViewModel>();
             viewModel.MainWindowAccess = this;
 
             this.DataContext = viewModel;
+
+            listWindow = new ListWindow();
         }
     }
 }
