@@ -15,7 +15,7 @@ namespace Z.ViewModels.Dependencies
         {
             BusinessLogic.Dependencies.Configuration.Configure(container);
 
-            container.RegisterType<IViewModelFactory, ViewModelFactory>();
+            container.RegisterType<IMainWindowViewModel, MainWindowViewModel>();
         }
     }
 }

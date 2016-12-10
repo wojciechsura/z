@@ -40,7 +40,6 @@ namespace Z.BusinessLogic
         private readonly IKeywordService keywordService;
         private readonly IModuleService moduleService;
 
-        private int mainHotkeyId;
         private CurrentKeyword currentKeyword;
 
         private SuggestionData currentSuggestion;
@@ -48,13 +47,27 @@ namespace Z.BusinessLogic
 
         private readonly DispatcherTimer enteredTextTimer;
 
-        private IMainWindowViewModelAccess viewModel;
+        private IMainWindowViewModelAccess mainWindowViewModel;
 
         // Private methods ----------------------------------------------------
 
+        private T Safe<T>(Func<IMainWindowViewModelAccess, T> func, T defaultValue = default(T))
+        {
+            if (mainWindowViewModel != null)
+                return func(mainWindowViewModel);
+            else
+                return defaultValue;
+        }
+
+        private void Safe(Action<IMainWindowViewModelAccess> action)
+        {
+            if (mainWindowViewModel != null)
+                action(mainWindowViewModel);
+        }
+
         private void ClearInput()
         {
-            viewModel.EnteredText = null;
+            Safe(mainWindowViewModel => mainWindowViewModel.EnteredText = null);
             ClearKeywordData();
         }
 
@@ -67,8 +80,11 @@ namespace Z.BusinessLogic
 
         private void CollectSuggestions()
         {
-            suggestions = moduleService.GetSuggestionsFor(viewModel.EnteredText, currentKeyword?.Keyword);
-            currentSuggestion = null;
+            Safe(mainWindowViewModel =>
+            {
+                suggestions = moduleService.GetSuggestionsFor(mainWindowViewModel.EnteredText, currentKeyword?.Keyword);
+                currentSuggestion = null;
+            });
         }
 
         private void EnteredTextTimerTick(object sender, EventArgs e)
@@ -79,7 +95,7 @@ namespace Z.BusinessLogic
 
         private void HideWindow()
         {
-            viewModel.HideWindow();
+            Safe(mainWindowViewModel => mainWindowViewModel.HideWindow());
         }
 
         private void HotkeyPressed(object sender, EventArgs args)
@@ -88,8 +104,8 @@ namespace Z.BusinessLogic
         }
 
         private bool IsInputEmpty()
-        {
-            return currentKeyword == null && String.IsNullOrEmpty(viewModel.EnteredText);
+        {            
+            return Safe(mainWindowViewModel => currentKeyword == null && String.IsNullOrEmpty(mainWindowViewModel.EnteredText), true);
         }
 
         private void SetKeywordData(Models.KeywordData action, string keywordText)
@@ -101,7 +117,7 @@ namespace Z.BusinessLogic
         private void ShowWindow()
         {
             ClearInput();
-            viewModel.ShowWindow();
+            Safe(mainWindowViewModel => mainWindowViewModel.ShowWindow());
         }
 
         private void StartEnteredTextTimer()
@@ -120,13 +136,21 @@ namespace Z.BusinessLogic
 
         private void UpdateViewmodelKeyword()
         {
-            viewModel.Keyword = currentKeyword?.Keyword.DisplayName;
-            viewModel.KeywordVisible = currentKeyword != null;
+            Safe(mainWindowViewModel =>
+            {
+                mainWindowViewModel.Keyword = currentKeyword?.Keyword.DisplayName;
+                mainWindowViewModel.KeywordVisible = currentKeyword != null;
+            });
+        }
+
+        private void UpdateMainWindowViewmodel()
+        {
+            UpdateViewmodelKeyword();
         }
 
         // Public methods -----------------------------------------------------
 
-        public MainWindowLogic(IMainWindowViewModelAccess viewModel, IGlobalHotkeyService globalHotkeyService, IKeywordService keywordService, IModuleService moduleService)
+        public MainWindowLogic(IGlobalHotkeyService globalHotkeyService, IKeywordService keywordService, IModuleService moduleService)
         {
             this.globalHotkeyService = globalHotkeyService;
             this.keywordService = keywordService;
@@ -141,8 +165,6 @@ namespace Z.BusinessLogic
             enteredTextTimer.Tick += EnteredTextTimerTick;
 
             globalHotkeyService.HotkeyHit += HotkeyPressed;
-
-            this.viewModel = viewModel;
         }
 
         public void EnteredTextChanged()
@@ -152,12 +174,12 @@ namespace Z.BusinessLogic
 
         public bool BackspacePressed()
         {
-            if (viewModel.CaretPosition == 0 && currentKeyword != null)
+            if (mainWindowViewModel.CaretPosition == 0 && currentKeyword != null)
             {
                 int keywordTextLength = currentKeyword.StoredText.Length;
 
-                viewModel.EnteredText = currentKeyword.StoredText + viewModel.EnteredText;
-                viewModel.CaretPosition = keywordTextLength;
+                mainWindowViewModel.EnteredText = currentKeyword.StoredText + mainWindowViewModel.EnteredText;
+                mainWindowViewModel.CaretPosition = keywordTextLength;
 
                 ClearKeywordData();
                 return true;
@@ -168,22 +190,22 @@ namespace Z.BusinessLogic
 
         public bool SpacePressed()
         {
-            if (String.IsNullOrEmpty(viewModel.EnteredText))
+            if (String.IsNullOrEmpty(mainWindowViewModel.EnteredText))
                 return false;
 
-            int indexOfSpace = viewModel.EnteredText.IndexOf(' ');
+            int indexOfSpace = mainWindowViewModel.EnteredText.IndexOf(' ');
 
             // Check if potential keyword is entered
-            if (viewModel.CaretPosition > 0 && (indexOfSpace >= viewModel.CaretPosition || indexOfSpace == -1))
+            if (mainWindowViewModel.CaretPosition > 0 && (indexOfSpace >= mainWindowViewModel.CaretPosition || indexOfSpace == -1))
             {
-                string possibleKeyword = viewModel.EnteredText.Substring(0, viewModel.CaretPosition);
+                string possibleKeyword = mainWindowViewModel.EnteredText.Substring(0, mainWindowViewModel.CaretPosition);
 
                 Models.KeywordData action = keywordService.GetKeywordAction(possibleKeyword);
                 if (action != null)
                 {
                     SetKeywordData(action, possibleKeyword);
-                    viewModel.EnteredText = viewModel.EnteredText.Substring(viewModel.CaretPosition);
-                    viewModel.CaretPosition = 0;
+                    mainWindowViewModel.EnteredText = mainWindowViewModel.EnteredText.Substring(mainWindowViewModel.CaretPosition);
+                    mainWindowViewModel.CaretPosition = 0;
                     return true;
                 }
             }
@@ -201,7 +223,7 @@ namespace Z.BusinessLogic
             if (currentKeyword != null)
             {
                 // Executing keyword action
-                currentKeyword.Keyword.Module.ExecuteKeywordAction(currentKeyword.Keyword.ActionName, viewModel.EnteredText);
+                currentKeyword.Keyword.Module.ExecuteKeywordAction(currentKeyword.Keyword.ActionName, mainWindowViewModel.EnteredText);
                 HideWindow();
                 return true;
             }
@@ -228,6 +250,22 @@ namespace Z.BusinessLogic
 #if !DEBUG
             HideWindow();
 #endif
+        }
+
+        // Public properties --------------------------------------------------
+
+        public IMainWindowViewModelAccess MainWindowViewModel
+        {
+            set
+            {
+                if (value == null)
+                    throw new ArgumentNullException("value");
+                if (mainWindowViewModel != null)
+                    throw new InvalidOperationException("MainWindowViewModel can be set only once!");
+
+                mainWindowViewModel = value;
+                UpdateMainWindowViewmodel();
+            }
         }
     }
 }

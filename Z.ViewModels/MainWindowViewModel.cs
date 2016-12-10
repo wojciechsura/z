@@ -15,23 +15,39 @@ namespace Z.ViewModels
 {
     class MainWindowViewModel : INotifyPropertyChanged, IMainWindowViewModel, IMainWindowViewModelAccess
     {
-        private readonly IMainWindowAccess access;
+        private IMainWindowAccess access;
         private IMainWindowLogic logic;
 
         private string keyword;
         private string enteredText;
         private bool keywordVisible;
 
+        // Private methods ----------------------------------------------------
+
+        private T Safe<T>(Func<IMainWindowAccess, T> func)
+        {
+            if (access != null)
+                return func(access);
+            else
+                return default(T);
+        }
+
+        private void Safe(Action<IMainWindowAccess> action)
+        {
+            if (access != null)
+                action(access);
+        }
+
         // IMainWindowViewModel implementation --------------------------------
 
         void IMainWindowViewModelAccess.ShowWindow()
         {
-            access.Show();
+            Safe(access => access.Show());
         }
 
         void IMainWindowViewModelAccess.HideWindow()
         {
-            access.Hide();
+            Safe(access => access.Hide());
         }
 
         string IMainWindowViewModelAccess.EnteredText
@@ -78,11 +94,11 @@ namespace Z.ViewModels
         {
             get
             {
-                return access.CaretPosition;
+                return Safe(access => access.CaretPosition);
             }
             set
             {
-                access.CaretPosition = value;
+                Safe(access => access.CaretPosition = value);
             }
         }
 
@@ -103,12 +119,10 @@ namespace Z.ViewModels
 
         // Public methods -----------------------------------------------------
 
-        public MainWindowViewModel(IMainWindowAccess access)
+        public MainWindowViewModel(IMainWindowLogic logic)
         {
-            this.access = access;
-
-            var logicFactory = Z.Dependencies.Container.Instance.Resolve<ILogicFactory>();
-            this.logic = logicFactory.GenerateMainWindowLogic(this);
+            this.logic = logic;
+            logic.MainWindowViewModel = this;
         }
 
         public bool EscapePressed()
@@ -169,6 +183,19 @@ namespace Z.ViewModels
             {
                 enteredText = value;
                 OnEnteredTextChanged();
+            }
+        }
+
+        public IMainWindowAccess MainWindowAccess
+        {
+            set
+            {
+                if (value == null)
+                    throw new ArgumentNullException("value");
+                if (access != null)
+                    throw new InvalidOperationException("Only one main window access is allowed!");
+
+                access = value;
             }
         }
 

@@ -127,9 +127,9 @@ namespace Z
         {
             InitializeComponent();
 
-            var viewModelFactory = Container.Instance.Resolve<IViewModelFactory>();
-            viewModel = viewModelFactory.GenerateMainWindowViewModel(this);
-            
+            viewModel = Container.Instance.Resolve<IMainWindowViewModel>();
+            viewModel.MainWindowAccess = this;
+
             this.DataContext = viewModel;
         }
     }
