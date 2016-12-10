@@ -15,7 +15,5 @@ namespace Z.BusinessLogic.Interfaces
 
         void ShowWindow();
         void HideWindow();
-        void ShowError(string cannotRegisterHotkey);
-        void Shutdown();
     }
 }

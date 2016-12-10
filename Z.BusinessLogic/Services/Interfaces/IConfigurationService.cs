@@ -8,9 +8,11 @@ using Z.BusinessLogic.Common;
 
 namespace Z.BusinessLogic.Services.Interfaces
 {
-    public interface IHotkeyService
+    public interface IConfigurationService
     {
-        bool Register(Key key, KeyModifier modifier, Action action, ref int id);
-        void Unregister(Key key, KeyModifier modifier);
+        Key Hotkey { get; set; }
+        KeyModifier HotkeyModifier { get; set; }
+
+        event EventHandler ConfigurationChanged;
     }
 }

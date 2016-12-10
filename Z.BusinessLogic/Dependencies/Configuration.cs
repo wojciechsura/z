@@ -14,10 +14,10 @@ namespace Z.BusinessLogic.Dependencies
     {
         public static void Configure(IUnityContainer container)
         {
-            container.RegisterType<IHotkeyService, HotkeyService>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IGlobalHotkeyService, GlobalHotkeyService>(new ContainerControlledLifetimeManager());
             container.RegisterType<IModuleService, ModuleService>(new ContainerControlledLifetimeManager());
             container.RegisterType<IKeywordService, KeywordService>(new ContainerControlledLifetimeManager());
-            container.RegisterType<ILogicFactory, LogicFactory>();
+            container.RegisterType<IConfigurationService, ConfigurationService>(new ContainerControlledLifetimeManager());
         }
     }
 }

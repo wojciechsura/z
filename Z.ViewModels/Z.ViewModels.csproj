@@ -58,9 +58,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dependencies\Configuration.cs" />
+    <Compile Include="Interfaces\IViewModelFactory.cs" />
     <Compile Include="Interfaces\IMainWindowAccess.cs" />
     <Compile Include="Interfaces\IMainWindowViewModel.cs" />
-    <Compile Include="Interfaces\IViewModelFactory.cs" />
     <Compile Include="MainWindowViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModelFactory.cs" />

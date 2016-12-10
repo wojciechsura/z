@@ -36,7 +36,7 @@ namespace Z.BusinessLogic
 
         // Private fields -----------------------------------------------------
 
-        private readonly IHotkeyService hotkeyService;
+        private readonly IGlobalHotkeyService globalHotkeyService;
         private readonly IKeywordService keywordService;
         private readonly IModuleService moduleService;
 
@@ -82,13 +82,9 @@ namespace Z.BusinessLogic
             viewModel.HideWindow();
         }
 
-        private void Initialize()
+        private void HotkeyPressed(object sender, EventArgs args)
         {
-            if (!hotkeyService.Register(Key.Space, KeyModifier.Alt, HotkeyPressed, ref mainHotkeyId))
-            {
-                viewModel.ShowError(Z.BusinessLogic.Resources.Text.CannotRegisterHotkey);
-                viewModel.Shutdown();
-            }
+            ShowWindow();
         }
 
         private bool IsInputEmpty()
@@ -130,9 +126,9 @@ namespace Z.BusinessLogic
 
         // Public methods -----------------------------------------------------
 
-        public MainWindowLogic(IMainWindowViewModelAccess viewModel, IHotkeyService hotkeyService, IKeywordService keywordService, IModuleService moduleService)
+        public MainWindowLogic(IMainWindowViewModelAccess viewModel, IGlobalHotkeyService globalHotkeyService, IKeywordService keywordService, IModuleService moduleService)
         {
-            this.hotkeyService = hotkeyService;
+            this.globalHotkeyService = globalHotkeyService;
             this.keywordService = keywordService;
             this.moduleService = moduleService;
             
@@ -144,9 +140,9 @@ namespace Z.BusinessLogic
             enteredTextTimer.Interval = timerInterval;
             enteredTextTimer.Tick += EnteredTextTimerTick;
 
-            this.viewModel = viewModel;
+            globalHotkeyService.HotkeyHit += HotkeyPressed;
 
-            Initialize();
+            this.viewModel = viewModel;
         }
 
         public void EnteredTextChanged()
@@ -211,11 +207,6 @@ namespace Z.BusinessLogic
             }
 
             return false;
-        }
-
-        public void HotkeyPressed()
-        {
-            ShowWindow();
         }
 
         public bool EscapePressed()

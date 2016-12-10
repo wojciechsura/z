@@ -10,8 +10,6 @@ namespace Z.ViewModels.Interfaces
     {
         void Show();
         void Hide();
-        void ShowError(string error);
-        void Shutdown();
 
         int CaretPosition { get; set; }
     }

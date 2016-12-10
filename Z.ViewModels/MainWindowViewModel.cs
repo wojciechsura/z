@@ -34,16 +34,6 @@ namespace Z.ViewModels
             access.Hide();
         }
 
-        void IMainWindowViewModelAccess.ShowError(string message)
-        {
-            access.ShowError(message);
-        }
-
-        void IMainWindowViewModelAccess.Shutdown()
-        {
-            access.Shutdown();
-        }
-
         string IMainWindowViewModelAccess.EnteredText
         {
             get

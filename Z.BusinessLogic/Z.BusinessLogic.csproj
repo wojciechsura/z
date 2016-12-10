@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="Common\KeyModifier.cs" />
     <Compile Include="Dependencies\Configuration.cs" />
+    <Compile Include="Infrastructure\HotkeyService.cs" />
     <Compile Include="Interfaces\ILogicFactory.cs" />
     <Compile Include="Interfaces\IMainWindowLogic.cs" />
     <Compile Include="Interfaces\IMainWindowViewModelAccess.cs" />
@@ -70,8 +71,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Text.resx</DependentUpon>
     </Compile>
-    <Compile Include="Services\HotkeyService.cs" />
-    <Compile Include="Services\Interfaces\IHotkeyService.cs" />
+    <Compile Include="Services\ConfigurationService.cs" />
+    <Compile Include="Services\GlobalHotkeyService.cs" />
+    <Compile Include="Services\Interfaces\IConfigurationService.cs" />
+    <Compile Include="Services\Interfaces\IGlobalHotkeyService.cs" />
     <Compile Include="Services\Interfaces\IKeywordService.cs" />
     <Compile Include="Services\Interfaces\IModuleService.cs" />
     <Compile Include="Services\KeywordService.cs" />

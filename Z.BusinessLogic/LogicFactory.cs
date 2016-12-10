@@ -10,22 +10,22 @@ namespace Z.BusinessLogic
 {
     public class LogicFactory : ILogicFactory
     {
-        private readonly IHotkeyService hotkeyService;
+        private readonly IGlobalHotkeyService globalHotkeyService;
         private readonly IKeywordService keywordService;
         private readonly IModuleService moduleService;
 
-        public LogicFactory(IHotkeyService hotkeyService,
+        public LogicFactory(IGlobalHotkeyService globalHotkeyService,
             IKeywordService keywordService,
             IModuleService moduleService)
         {
-            this.hotkeyService = hotkeyService;
+            this.globalHotkeyService = globalHotkeyService;
             this.keywordService = keywordService;
             this.moduleService = moduleService;
         }
 
         public MainWindowLogic GenerateMainWindowLogic(IMainWindowViewModelAccess viewModel)
         {
-            return new MainWindowLogic(viewModel, hotkeyService, keywordService, moduleService);
+            return new MainWindowLogic(viewModel, globalHotkeyService, keywordService, moduleService);
         }
     }
 }

@@ -109,16 +109,6 @@ namespace Z
             Hide();
         }
 
-        void IMainWindowAccess.ShowError(string error)
-        {
-            MessageBox.Show(error);
-        }
-
-        void IMainWindowAccess.Shutdown()
-        {
-            Application.Current.Shutdown();
-        }
-
         int IMainWindowAccess.CaretPosition
         {
             get

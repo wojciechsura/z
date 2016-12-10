@@ -9,9 +9,9 @@ using System.Windows.Interop;
 using Z.BusinessLogic.Common;
 using Z.BusinessLogic.Services.Interfaces;
 
-namespace Z.BusinessLogic.Services
+namespace Z.BusinessLogic.Infrastructure
 {
-    class HotkeyService : IDisposable, IHotkeyService
+    class HotkeyService : IDisposable
     {
         // Private types ------------------------------------------------------
 
