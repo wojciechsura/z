@@ -75,6 +75,10 @@
     </ApplicationDefinition>
     <Compile Include="Common\Converters\RectGeometryGenerator.cs" />
     <Compile Include="Dependencies\Configuration.cs" />
+    <Page Include="CommonResources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ListWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

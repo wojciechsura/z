@@ -5,9 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Z"
         mc:Ignorable="d"
-        WindowStyle="None" ResizeMode="NoResize" 
-        Title="ListWindow" Height="300" Width="300">
-    <Grid>
-        <ListBox Margin="5" />
-    </Grid>
+        WindowStyle="None" ResizeMode="NoResize" Visibility="Hidden" ShowInTaskbar="False" 
+        Topmost="True" AllowsTransparency="True" Background="Transparent"
+        Title="ListWindow" Width="400">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="CommonResources.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Border CornerRadius="6" BorderBrush="#808080" BorderThickness="1" Background="{StaticResource GrayGradientBackground}">
+        <Border CornerRadius="5" BorderBrush="#80ffffff" BorderThickness="1" Padding="3">
+            <ListBox Margin="5" />
+        </Border>
+    </Border>
 </Window>

@@ -138,15 +138,17 @@ namespace Z
 
         void IMainWindowAccess.Show()
         {
+            listWindow.Show();
             Show();
             PositionListWindow();
-            listWindow.Show();
+
+            this.Focus();
         }
 
         void IMainWindowAccess.Hide()
         {
-            Hide();
             listWindow.Hide();
+            Hide();
         }
 
         int IMainWindowAccess.CaretPosition

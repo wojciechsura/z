@@ -19,7 +19,9 @@ namespace Z.BusinessLogic.Dependencies
             container.RegisterType<IKeywordService, KeywordService>(new ContainerControlledLifetimeManager());
             container.RegisterType<IConfigurationService, ConfigurationService>(new ContainerControlledLifetimeManager());
 
-            container.RegisterType<IMainWindowLogic, MainWindowLogic>(new ContainerControlledLifetimeManager());
+            container.RegisterType<MainLogic>();
+            container.RegisterInstance<IMainWindowLogic>(container.Resolve<MainLogic>());
+            container.RegisterInstance<IListWindowLogic>(container.Resolve<MainLogic>());
         }
     }
 }

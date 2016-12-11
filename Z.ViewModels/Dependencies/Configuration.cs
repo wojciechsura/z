@@ -16,6 +16,7 @@ namespace Z.ViewModels.Dependencies
             BusinessLogic.Dependencies.Configuration.Configure(container);
 
             container.RegisterType<IMainWindowViewModel, MainWindowViewModel>();
+            container.RegisterType<IListWindowViewModel, ListWindowViewModel>();
         }
     }
 }

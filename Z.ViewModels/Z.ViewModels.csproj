@@ -58,8 +58,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dependencies\Configuration.cs" />
+    <Compile Include="Interfaces\IListWindowAccess.cs" />
+    <Compile Include="Interfaces\IListWindowViewModel.cs" />
     <Compile Include="Interfaces\IMainWindowAccess.cs" />
     <Compile Include="Interfaces\IMainWindowViewModel.cs" />
+    <Compile Include="ListWindowViewModel.cs" />
     <Compile Include="MainWindowViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

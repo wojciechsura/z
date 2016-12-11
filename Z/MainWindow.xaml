@@ -8,31 +8,21 @@
         xmlns:local="clr-namespace:Z"
         mc:Ignorable="d"        
         PreviewKeyDown="MainKeyDown" LostFocus="MainLostFocus" MouseDown="MainWindowMouseDown"
-        SizeToContent="Height" WindowStyle="None" ResizeMode="NoResize" Width="400"
-        Visibility="Hidden" ShowInTaskbar="False" Topmost="True" AllowsTransparency="True"
-        FocusManager.FocusedElement="{Binding ElementName=MainEdit}"
-        Background="Transparent">
+        Width="400" SizeToContent="Height" WindowStyle="None" ResizeMode="NoResize" 
+        Visibility="Hidden" ShowInTaskbar="False" Topmost="True" AllowsTransparency="True" Background="Transparent"
+        FocusManager.FocusedElement="{Binding ElementName=MainEdit}">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="MainWindowResources.xaml" />
+                <ResourceDictionary Source="CommonResources.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <controls:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
             <converters:RectGeometryGenerator x:Key="RectGeometryGenerator" />
         </ResourceDictionary>
     </Window.Resources>
-    <Border CornerRadius="10" BorderBrush="#808080" BorderThickness="1">
-        <Border.Background>
-            <LinearGradientBrush>
-                <LinearGradientBrush.GradientStops>
-                    <GradientStop Offset="0" Color="#c0c0c0" />
-                    <GradientStop Offset="0.25" Color="#e0e0e0" />
-                    <GradientStop Offset="0.75" Color="#e0e0e0" />
-                    <GradientStop Offset="1" Color="#c0c0c0" />
-                </LinearGradientBrush.GradientStops>
-            </LinearGradientBrush>
-        </Border.Background>
-
+    <Border CornerRadius="10" BorderBrush="#808080" BorderThickness="1" Background="{StaticResource GrayGradientBackground}">
+        
         <Border CornerRadius="9" BorderBrush="#80ffffff" BorderThickness="1" Padding="10">
             <Border CornerRadius="{Binding ElementName=DisplayBorder, Path=CornerRadius}">
                 <Border.Effect>
