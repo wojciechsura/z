@@ -140,6 +140,10 @@
       <Project>{4d075ffa-1213-4dad-8f14-50f6edf2f5bf}</Project>
       <Name>Z.Dependencies</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Z.Models\Z.Models.csproj">
+      <Project>{b6914e5d-5681-4693-b589-76e6de1ad836}</Project>
+      <Name>Z.Models</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Z.ViewModels\Z.ViewModels.csproj">
       <Project>{ce7797ca-26bc-47c3-a1fe-b6e47f044084}</Project>
       <Name>Z.ViewModels</Name>

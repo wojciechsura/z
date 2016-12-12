@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Z.ViewModels.Interfaces
 {
-    interface IListWindowAccess
+    public interface IListWindowAccess
     {
+
     }
 }

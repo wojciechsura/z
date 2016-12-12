@@ -14,6 +14,7 @@ namespace PgsModule
         // Private constants --------------------------------------------------
 
         private const string MODULE_NAME = "Pgs";
+        private const string MODULE_DISPLAY_NAME = "PGS";
 
         private const string PGS_ACTION = "PgsShortcut";
         private const string PGS_KEYWORD = "pgs";
@@ -37,23 +38,33 @@ namespace PgsModule
 
         // Private fields -----------------------------------------------------
 
-        private readonly IReadOnlyCollection<OperationInfo> operations = new List<OperationInfo>
+        private readonly List<OperationInfo> operations = new List<OperationInfo>
         {
             new OperationInfo("my", "http://my.pgs-soft.com", "My PGS"),
             new OperationInfo("confluence", "http://confluence.pgs-soft.com", "Confluence"),
             new OperationInfo("jira", "http://jira.pgs-soft.com", "Jira"),
-            new OperationInfo("food", "http://food.pgs-soft.com", "Food")
+            new OperationInfo("food", "http://food.pgs-soft.com", "Food"),
+            new OperationInfo("locator", "http://locator.pgs-soft.com", "Locator"),
+            new OperationInfo("faq", "https://confluence.pgs-soft.com/display/PGS/FAQ+2.0", "FAQ")
         };
 
         // Public methods -----------------------------------------------------
 
+        public Module()
+        {
+            operations.Sort((x, y) => x.Word.CompareTo(y.Word));
+        }
+
         public void CollectSuggestions(string enteredText, string keywordAction, ISuggestionCollector collector)
         {
-            operations
-                .Where(op => op.Word.ToUpper().StartsWith(enteredText.ToUpper()))
-                .Select(op => new Suggestion(op.Description, op))
-                .ToList()
-                .ForEach(s => collector.AddSuggestion(s));
+            if (keywordAction == PGS_ACTION)
+            {
+                operations
+                    .Where(op => op.Word.ToUpper().Contains(enteredText.ToUpper()))
+                    .Select(op => new SuggestionInfo(op.Word, op.Description, op))
+                    .ToList()
+                    .ForEach(s => collector.AddSuggestion(s));
+            }
         }
 
         public void ExecuteKeywordAction(string action, string expression)
@@ -79,6 +90,14 @@ namespace PgsModule
             get
             {
                 return MODULE_NAME;
+            }
+        }
+
+        public string DisplayName
+        {
+            get
+            {
+                return MODULE_DISPLAY_NAME;
             }
         }
     }

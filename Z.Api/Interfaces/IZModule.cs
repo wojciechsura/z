@@ -14,5 +14,6 @@ namespace Z.Api.Interfaces
         void CollectSuggestions(string enteredText, string keywordAction, ISuggestionCollector collector);
 
         string InternalName { get; }
+        string DisplayName { get; }
     }
 }

@@ -11,17 +11,27 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Z.Dependencies;
+using Z.ViewModels.Interfaces;
+using Microsoft.Practices.Unity;
 
 namespace Z
 {
     /// <summary>
     /// Interaction logic for ListWindow.xaml
     /// </summary>
-    public partial class ListWindow : Window
+    public partial class ListWindow : Window, IListWindowAccess
     {
+        private readonly IListWindowViewModel viewModel;
+
         public ListWindow()
         {
             InitializeComponent();
+
+            viewModel = Container.Instance.Resolve<IListWindowViewModel>();
+            viewModel.ListWindowAccess = this;
+
+            this.DataContext = viewModel;
         }
     }
 }

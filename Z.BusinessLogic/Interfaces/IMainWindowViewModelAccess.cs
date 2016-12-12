@@ -15,5 +15,7 @@ namespace Z.BusinessLogic.Interfaces
 
         void ShowWindow();
         void HideWindow();
+        void ShowList();
+        void HideList();
     }
 }

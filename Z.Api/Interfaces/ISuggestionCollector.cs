@@ -9,6 +9,6 @@ namespace Z.Api.Interfaces
 {
     public interface ISuggestionCollector
     {
-        void AddSuggestion(Suggestion suggestion);
+        void AddSuggestion(SuggestionInfo suggestion);
     }
 }
