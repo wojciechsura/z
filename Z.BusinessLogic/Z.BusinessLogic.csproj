@@ -84,6 +84,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\PgsModule\PgsModule.csproj">
+      <Project>{a0d6ce07-3599-410d-9c48-969a951e9481}</Project>
+      <Name>PgsModule</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WebSearchModule\WebSearchModule.csproj">
       <Project>{dbe3d82f-e4a1-42fc-9842-825783201066}</Project>
       <Name>WebSearchModule</Name>

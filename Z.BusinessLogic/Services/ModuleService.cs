@@ -45,6 +45,7 @@ namespace Z.BusinessLogic.Services
         private void InitDefaultModules()
         {
             modules.Add(new WebSearchModule.Module());
+            modules.Add(new PgsModule.Module());
         }
 
         public ModuleService()

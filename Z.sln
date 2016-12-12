@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Z", "Z\Z.csproj", "{8C746CC7-A787-45B6-9E37-A331324EE71C}"
 EndProject
@@ -18,6 +18,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Z.Models", "Z.Models\Z.Models.csproj", "{B6914E5D-5681-4693-B589-76E6DE1AD836}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Z.Dependencies", "Z.Dependencies\Z.Dependencies.csproj", "{4D075FFA-1213-4DAD-8F14-50F6EDF2F5BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PgsModule", "PgsModule\PgsModule.csproj", "{A0D6CE07-3599-410D-9C48-969A951E9481}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,11 +55,16 @@ Global
 		{4D075FFA-1213-4DAD-8F14-50F6EDF2F5BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D075FFA-1213-4DAD-8F14-50F6EDF2F5BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4D075FFA-1213-4DAD-8F14-50F6EDF2F5BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0D6CE07-3599-410D-9C48-969A951E9481}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0D6CE07-3599-410D-9C48-969A951E9481}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0D6CE07-3599-410D-9C48-969A951E9481}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0D6CE07-3599-410D-9C48-969A951E9481}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{DBE3D82F-E4A1-42FC-9842-825783201066} = {D094C8BF-E19E-4C12-ABE2-578AED985B14}
+		{A0D6CE07-3599-410D-9C48-969A951E9481} = {D094C8BF-E19E-4C12-ABE2-578AED985B14}
 	EndGlobalSection
 EndGlobal
