@@ -10,13 +10,13 @@ namespace Z.Models
 {
     public class SuggestionData
     {
-        public SuggestionData(Suggestion suggestion, IZModule module)
+        public SuggestionData(SuggestionInfo suggestion, IZModule module)
         {
             this.Suggestion = suggestion;
             this.Module = module;
         }
 
-        public Suggestion Suggestion { get; private set; }
+        public SuggestionInfo Suggestion { get; private set; }
         public IZModule Module { get; private set; }
     }
 }

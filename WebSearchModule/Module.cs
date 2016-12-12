@@ -29,6 +29,7 @@ namespace WebSearchModule
         }
 
         private const string MODULE_NAME = "WebSearch";
+        private const string MODULE_DISPLAY_NAME = "Web search";
 
         private List<SearchInfo> searchInfos = new List<SearchInfo>
         {
@@ -44,6 +45,14 @@ namespace WebSearchModule
             get
             {
                 return MODULE_NAME;
+            }
+        }
+
+        public string DisplayName
+        {
+            get
+            {
+                return MODULE_DISPLAY_NAME;
             }
         }
 

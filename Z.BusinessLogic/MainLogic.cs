@@ -11,6 +11,7 @@ using Microsoft.Practices.Unity;
 using Z.BusinessLogic.Interfaces;
 using Z.BusinessLogic.Services.Interfaces;
 using Z.BusinessLogic.Common;
+using Z.Models.DTO;
 
 namespace Z.BusinessLogic
 {
@@ -66,9 +67,30 @@ namespace Z.BusinessLogic
                 action(mainWindowViewModel);
         }
 
+        private T Safe<T>(Func<IListWindowViewModelAccess, T> func, T defaultValue = default(T))
+        {
+            if (mainWindowViewModel != null)
+                return func(listWindowViewModel);
+            else
+                return defaultValue;
+        }
+
+        private void Safe(Action<IListWindowViewModelAccess> action)
+        {
+            if (mainWindowViewModel != null)
+                action(listWindowViewModel);
+        }
+
+        private void Safe(Action<IMainWindowViewModelAccess, IListWindowViewModelAccess> action)
+        {
+            if (mainWindowViewModel != null && listWindowViewModel != null)
+                action(mainWindowViewModel, listWindowViewModel);
+        }
+
         private void ClearInput()
         {
             Safe(mainWindowViewModel => mainWindowViewModel.EnteredText = null);
+            ClearSuggestions();
             ClearKeywordData();
         }
 
@@ -79,12 +101,38 @@ namespace Z.BusinessLogic
             UpdateViewmodelKeyword();
         }
 
+        private void ClearSuggestions()
+        {
+            suggestions = null;
+            Safe((mainWindowViewModel, listWindowViewModel) => {
+                listWindowViewModel.Suggestions = null;
+                mainWindowViewModel.HideList();
+            });            
+        }
+
         private void CollectSuggestions()
         {
-            Safe(mainWindowViewModel =>
+            Safe((mainWindowViewModel, listWindowViewModel) =>
             {
-                suggestions = moduleService.GetSuggestionsFor(mainWindowViewModel.EnteredText, currentKeyword?.Keyword);
-                currentSuggestion = null;
+                if (!String.IsNullOrEmpty(mainWindowViewModel.EnteredText) || currentKeyword != null)
+                {
+                    suggestions = moduleService.GetSuggestionsFor(mainWindowViewModel.EnteredText, currentKeyword?.Keyword);
+
+                    List<SuggestionDTO> suggestionsDTO = new List<SuggestionDTO>();
+                    for (int i = 0; i < suggestions.Count; i++)
+                        suggestionsDTO.Add(new SuggestionDTO(suggestions[i].Suggestion.Display, suggestions[i].Suggestion.Comment, suggestions[i].Module.DisplayName, i));
+
+                    listWindowViewModel.Suggestions = suggestionsDTO;
+                    mainWindowViewModel.ShowList();
+                }
+                else
+                {
+                    suggestions = null;
+                    listWindowViewModel.Suggestions = null;
+                    mainWindowViewModel.HideList();
+                }
+
+                currentSuggestion = null;                
             });
         }
 

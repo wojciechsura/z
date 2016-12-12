@@ -12,5 +12,8 @@ namespace Z.ViewModels.Interfaces
         void Hide();
 
         int CaretPosition { get; set; }
+
+        void ShowList();
+        void HideList();
     }
 }

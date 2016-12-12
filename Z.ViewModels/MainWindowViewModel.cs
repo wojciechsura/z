@@ -50,6 +50,16 @@ namespace Z.ViewModels
             Safe(access => access.Hide());
         }
 
+        void IMainWindowViewModelAccess.ShowList()
+        {
+            Safe(access => access.ShowList());
+        }
+
+        void IMainWindowViewModelAccess.HideList()
+        {
+            Safe(access => access.HideList());
+        }
+
         string IMainWindowViewModelAccess.EnteredText
         {
             get

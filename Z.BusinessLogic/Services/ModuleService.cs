@@ -24,7 +24,7 @@ namespace Z.BusinessLogic.Services
                 this.currentModule = currentModule;
             }
 
-            public void AddSuggestion(Suggestion suggestion)
+            public void AddSuggestion(SuggestionInfo suggestion)
             {
                 if (disposed)
                     throw new InvalidOperationException("Do not store this class - use only when passed through a parameter!");

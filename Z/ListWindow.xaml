@@ -4,10 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Z"
+        xmlns:models="clr-namespace:Z.Models.DTO;assembly=Z.Models"
         mc:Ignorable="d"
         WindowStyle="None" ResizeMode="NoResize" Visibility="Hidden" ShowInTaskbar="False" 
         Topmost="True" AllowsTransparency="True" Background="Transparent"
-        Title="ListWindow" Width="400">
+        Title="ListWindow" Width="400" SizeToContent="Height" ShowActivated="False">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -17,7 +18,26 @@
     </Window.Resources>
     <Border CornerRadius="6" BorderBrush="#808080" BorderThickness="1" Background="{StaticResource GrayGradientBackground}">
         <Border CornerRadius="5" BorderBrush="#80ffffff" BorderThickness="1" Padding="3">
-            <ListBox Margin="5" />
+            <ListBox Margin="5" ItemsSource="{Binding Suggestions}" HorizontalContentAlignment="Stretch">
+                <ListBox.ItemTemplate>
+                    <DataTemplate DataType="models:SuggestionDTO">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Display}" />
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Comment}" />
+                            <TextBlock Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Text="{Binding Module}" VerticalAlignment="Center"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </Border>
     </Border>
 </Window>

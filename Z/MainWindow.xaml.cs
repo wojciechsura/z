@@ -29,6 +29,7 @@ namespace Z
         // Private constants --------------------------------------------------
 
         private readonly int LIST_WINDOW_MARGIN = 16;
+        private readonly int LIST_WINDOW_MIN_HEIGHT = 20;
 
         // Private fields -----------------------------------------------------
 
@@ -116,11 +117,13 @@ namespace Z
             var screen = System.Windows.Forms.Screen.FromHandle(windowInteropHelper.Handle);
 
             int halfScreenHeight = screen.WorkingArea.Height / 2;
-            int listWindowMaxSize = (int)(halfScreenHeight - this.ActualHeight / 2) - LIST_WINDOW_MARGIN;
+            int listWindowMaxHeight = Math.Max(LIST_WINDOW_MIN_HEIGHT, (int)(halfScreenHeight - this.ActualHeight / 2) - LIST_WINDOW_MARGIN);
+            int listWindowMinHeight = LIST_WINDOW_MIN_HEIGHT;
             int halfScreenHeightPos = screen.WorkingArea.Top + halfScreenHeight;
             var aboveHalf = this.Top + this.ActualHeight / 2 <= halfScreenHeightPos;
 
-            listWindow.Height = listWindowMaxSize;
+            listWindow.MinHeight = listWindowMinHeight;
+            listWindow.MaxHeight = listWindowMaxHeight;
 
             if (aboveHalf)
             {
@@ -132,13 +135,14 @@ namespace Z
                 listWindow.Left = this.Left;
                 listWindow.Top = this.Top - listWindow.Height - LIST_WINDOW_MARGIN;
             }
+
+
         }
 
         // IMainViewModelAccess implementation --------------------------------
 
         void IMainWindowAccess.Show()
         {
-            listWindow.Show();
             Show();
             PositionListWindow();
 
@@ -147,8 +151,18 @@ namespace Z
 
         void IMainWindowAccess.Hide()
         {
-            listWindow.Hide();
+            ((IMainWindowAccess)this).HideList();
             Hide();
+        }
+
+        void IMainWindowAccess.ShowList()
+        {
+            listWindow.Show();
+        }
+
+        void IMainWindowAccess.HideList()
+        {
+            listWindow.Hide();
         }
 
         int IMainWindowAccess.CaretPosition
