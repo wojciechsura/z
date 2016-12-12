@@ -118,19 +118,20 @@ namespace Z.BusinessLogic
                 {
                     suggestions = moduleService.GetSuggestionsFor(mainWindowViewModel.EnteredText, currentKeyword?.Keyword);
 
-                    List<SuggestionDTO> suggestionsDTO = new List<SuggestionDTO>();
-                    for (int i = 0; i < suggestions.Count; i++)
-                        suggestionsDTO.Add(new SuggestionDTO(suggestions[i].Suggestion.Display, suggestions[i].Suggestion.Comment, suggestions[i].Module.DisplayName, i));
+                    if (suggestions.Count > 0)
+                    {
+                        List<SuggestionDTO> suggestionsDTO = new List<SuggestionDTO>();
+                        for (int i = 0; i < suggestions.Count; i++)
+                            suggestionsDTO.Add(new SuggestionDTO(suggestions[i].Suggestion.Display, suggestions[i].Suggestion.Comment, suggestions[i].Module.DisplayName, i));
 
-                    listWindowViewModel.Suggestions = suggestionsDTO;
-                    mainWindowViewModel.ShowList();
+                        listWindowViewModel.Suggestions = suggestionsDTO;
+                        mainWindowViewModel.ShowList();
+                    }
+                    else
+                        ClearSuggestions();
                 }
                 else
-                {
-                    suggestions = null;
-                    listWindowViewModel.Suggestions = null;
-                    mainWindowViewModel.HideList();
-                }
+                    ClearSuggestions();
 
                 currentSuggestion = null;                
             });
@@ -274,6 +275,9 @@ namespace Z.BusinessLogic
 
         public bool EnterPressed()
         {
+            // Stopping timer
+            enteredTextTimer.Stop();
+
             if (currentKeyword != null)
             {
                 // Executing keyword action

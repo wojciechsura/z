@@ -45,7 +45,13 @@ namespace PgsModule
             new OperationInfo("jira", "http://jira.pgs-soft.com", "Jira"),
             new OperationInfo("food", "http://food.pgs-soft.com", "Food"),
             new OperationInfo("locator", "http://locator.pgs-soft.com", "Locator"),
-            new OperationInfo("faq", "https://confluence.pgs-soft.com/display/PGS/FAQ+2.0", "FAQ")
+            new OperationInfo("faq", "https://confluence.pgs-soft.com/display/PGS/FAQ+2.0", "FAQ"),
+            new OperationInfo("mail", "https://owa.pgs-soft.com", "Outlook Web Access"),
+            new OperationInfo("owa", "https://owa.pgs-soft.com", "Outlook Web Access"),
+            new OperationInfo("wake", "https://wakeonlan.pgs-soft.com", "Wake on LAN"),
+            new OperationInfo("structure", "https://my.pgs-soft.com/Person/OrganizationChart", "Struktura organizacyjna"),
+            new OperationInfo("crucible", "https://crucible.pgs-soft.com", "Crucible"),
+            new OperationInfo("bitbucket", "https://bitbucket.pgs-soft.com", "Bitbucket")
         };
 
         // Public methods -----------------------------------------------------
@@ -69,7 +75,7 @@ namespace PgsModule
 
         public void ExecuteKeywordAction(string action, string expression)
         {
-            OperationInfo info = operations.FirstOrDefault(op => op.Word.ToUpper().StartsWith(expression.ToUpper()));
+            OperationInfo info = operations.FirstOrDefault(op => op.Word.ToUpper() == expression.ToUpper());
 
             if (info != null)
                 Process.Start(info.Command);

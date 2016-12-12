@@ -16,28 +16,51 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
+    
+    <!-- Outer dark frame and window background -->
     <Border CornerRadius="6" BorderBrush="#808080" BorderThickness="1" Background="{StaticResource GrayGradientBackground}">
+        <!-- Inner bright frame -->
         <Border CornerRadius="5" BorderBrush="#80ffffff" BorderThickness="1" Padding="3">
-            <ListBox Margin="5" ItemsSource="{Binding Suggestions}" HorizontalContentAlignment="Stretch">
-                <ListBox.ItemTemplate>
-                    <DataTemplate DataType="models:SuggestionDTO">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="1*" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
+            <!-- Display with outer glow -->
+            <Border Background="{StaticResource DisplayGradientBackground}" Margin="5">
+                <Border.Effect>
+                    <DropShadowEffect Color="White" Direction="0" BlurRadius="5" ShadowDepth="0" />
+                </Border.Effect>
 
-                            <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Display}" />
-                            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Comment}" />
-                            <TextBlock Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Text="{Binding Module}" VerticalAlignment="Center"/>
-                        </Grid>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+                <!-- Display container -->
+                <Grid ClipToBounds="True">
+                    
+                    <!-- Inner shadow caster -->
+                    <Border x:Name="DisplayBorder" BorderBrush="#000000" BorderThickness="4" Margin="-5">
+                        <Border.Effect>
+                            <DropShadowEffect Color="#000000" Opacity="1" BlurRadius="10" ShadowDepth="0" Direction="0"/>
+                        </Border.Effect>
+                    </Border>
+
+                    <!-- Display contents above shadow -->
+                    <ListBox ItemsSource="{Binding Suggestions}" HorizontalContentAlignment="Stretch"
+                         Foreground="#5db2d9" Background="Transparent" BorderBrush="{x:Null}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate DataType="models:SuggestionDTO">
+                                <Grid Margin="2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Display}" FontSize="14"/>
+                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Comment}" Opacity="0.50"/>
+                                    <TextBlock Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Text="{Binding Module}" VerticalAlignment="Center" Opacity="0.50"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </Border>
         </Border>
     </Border>
 </Window>
