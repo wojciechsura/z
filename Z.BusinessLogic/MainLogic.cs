@@ -265,6 +265,9 @@ namespace Z.BusinessLogic
                 }
             }
 
+            // Module may want to provide suggestions on empty text
+            enteredTextTimer.Start();
+
             return false;
         }
 
