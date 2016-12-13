@@ -9,5 +9,7 @@ namespace Z.BusinessLogic.Interfaces
     public interface IListWindowLogic
     {
         IListWindowViewModelAccess ListWindowViewModel { set; }
+
+        void SelectedSuggestionChanged();
     }
 }

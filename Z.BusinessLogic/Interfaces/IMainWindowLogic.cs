@@ -14,6 +14,8 @@ namespace Z.BusinessLogic.Interfaces
         bool BackspacePressed();
         bool TabPressed();
         bool EnterPressed();
+        bool UpPressed();
+        bool DownPressed();
         void WindowLostFocus();
 
         IMainWindowViewModelAccess MainWindowViewModel { set; }

@@ -42,8 +42,6 @@ namespace Z.BusinessLogic
         private readonly IModuleService moduleService;
 
         private CurrentKeyword currentKeyword;
-
-        private SuggestionData currentSuggestion;
         private List<SuggestionData> suggestions;
 
         private readonly DispatcherTimer enteredTextTimer;
@@ -132,8 +130,6 @@ namespace Z.BusinessLogic
                 }
                 else
                     ClearSuggestions();
-
-                currentSuggestion = null;                
             });
         }
 
@@ -203,6 +199,21 @@ namespace Z.BusinessLogic
             UpdateViewmodelKeyword();
         }
 
+        // IListWindowLogic implementation ------------------------------------
+
+        void IListWindowLogic.SelectedSuggestionChanged()
+        {
+            Safe((mainWindowViewModel, listWindowViewModel) => {
+                SuggestionDTO suggestion = listWindowViewModel.SelectedSuggestion;
+                if (suggestion != null)
+                {
+                    var text = suggestions[suggestion.Index].Suggestion.Text;
+                    mainWindowViewModel.EnteredText = text;
+                    mainWindowViewModel.CaretPosition = text.Length;
+                }
+            });
+        }
+
         // Public methods -----------------------------------------------------
 
         public MainLogic(IGlobalHotkeyService globalHotkeyService, IKeywordService keywordService, IModuleService moduleService)
@@ -261,12 +272,13 @@ namespace Z.BusinessLogic
                     SetKeywordData(action, possibleKeyword);
                     mainWindowViewModel.EnteredText = mainWindowViewModel.EnteredText.Substring(mainWindowViewModel.CaretPosition);
                     mainWindowViewModel.CaretPosition = 0;
+
+                    // Module may want to provide suggestions on empty text
+                    enteredTextTimer.Start();
+
                     return true;
                 }
             }
-
-            // Module may want to provide suggestions on empty text
-            enteredTextTimer.Start();
 
             return false;
         }
@@ -303,6 +315,18 @@ namespace Z.BusinessLogic
                 HideWindow();
             }
 
+            return true;
+        }
+
+        public bool UpPressed()
+        {
+            Safe(listWindowViewModel => listWindowViewModel.SelectPreviousSuggestion());
+            return true;
+        }
+
+        public bool DownPressed()
+        {
+            Safe(listWindowViewModel => listWindowViewModel.SelectNextSuggestion());
             return true;
         }
 

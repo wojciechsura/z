@@ -38,8 +38,9 @@
                     </Border>
 
                     <!-- Display contents above shadow -->
-                    <ListBox ItemsSource="{Binding Suggestions}" HorizontalContentAlignment="Stretch"
-                         Foreground="#5db2d9" Background="Transparent" BorderBrush="{x:Null}">
+                    <ListBox x:Name="mainListBox" ItemsSource="{Binding Suggestions}" HorizontalContentAlignment="Stretch"
+                         Foreground="#5db2d9" Background="Transparent" BorderBrush="{x:Null}"
+                             SelectedIndex="{Binding SelectedItemIndex, Mode=TwoWay}">
                         <ListBox.ItemTemplate>
                             <DataTemplate DataType="models:SuggestionDTO">
                                 <Grid Margin="2">

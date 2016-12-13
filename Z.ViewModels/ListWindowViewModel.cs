@@ -18,23 +18,76 @@ namespace Z.ViewModels
         private IListWindowAccess access;
         private IListWindowLogic logic;
 
-        private IEnumerable<SuggestionDTO> suggestions;
+        private List<SuggestionDTO> suggestions;
+        private int selectedItemIndex;
 
         // Private methods ----------------------------------------------------
 
-        private void SetSuggestions(IEnumerable<SuggestionDTO> value)
+        private void SetSuggestions(List<SuggestionDTO> value)
         {
             suggestions = value;
             OnPropertyChanged(nameof(Suggestions));
+            SetSelectedItemIndex(-1);
+        }
+
+        private void SetSelectedItemIndex(int index)
+        {
+            if (suggestions != null && (index < -1 || index >= suggestions.Count))
+                throw new ArgumentOutOfRangeException(nameof(index));
+
+            selectedItemIndex = index;
+            OnPropertyChanged(nameof(SelectedItemIndex));
+
+            access.EnsureSelectedIsVisible();
+        }
+
+        private void OnSelectedItemIndexChanged()
+        {
+            logic.SelectedSuggestionChanged();
         }
 
         // IListWindowViewModelAccess implementation --------------------------
 
-        IEnumerable<SuggestionDTO> IListWindowViewModelAccess.Suggestions
+        List<SuggestionDTO> IListWindowViewModelAccess.Suggestions
         {
             set
             {
                 SetSuggestions(value);
+            }
+        }
+
+        void IListWindowViewModelAccess.SelectPreviousSuggestion()
+        {
+            if (suggestions != null && suggestions.Count() > 0)
+            {
+                if (selectedItemIndex > 0)
+                    SetSelectedItemIndex(selectedItemIndex - 1);
+                else
+                    SetSelectedItemIndex(suggestions.Count() - 1);
+                OnSelectedItemIndexChanged();
+            }
+        }
+
+        void IListWindowViewModelAccess.SelectNextSuggestion()
+        {
+            if (suggestions != null && suggestions.Count() > 0)
+            {
+                if (selectedItemIndex >= 0 && selectedItemIndex < suggestions.Count() - 1)
+                    SetSelectedItemIndex(selectedItemIndex + 1);
+                else
+                    SetSelectedItemIndex(0);
+                OnSelectedItemIndexChanged();
+            }
+        }
+
+        SuggestionDTO IListWindowViewModelAccess.SelectedSuggestion
+        {
+            get
+            {
+                if (selectedItemIndex < 0)
+                    return null;
+                else
+                    return suggestions[selectedItemIndex];
             }
         }
 
@@ -77,6 +130,19 @@ namespace Z.ViewModels
             get
             {
                 return suggestions;
+            }
+        }
+
+        public int SelectedItemIndex
+        {
+            get
+            {
+                return selectedItemIndex;
+            }
+            set
+            {
+                selectedItemIndex = value;
+                OnSelectedItemIndexChanged();
             }
         }
 

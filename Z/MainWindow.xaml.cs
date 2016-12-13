@@ -85,6 +85,18 @@ namespace Z
                         e.Handled = handled;
                         break;
                     }
+                case Key.Up:
+                    {
+                        bool handled = viewModel.UpPressed();
+                        e.Handled = handled;
+                        break;
+                    }
+                case Key.Down:
+                    {
+                        bool handled = viewModel.DownPressed();
+                        e.Handled = handled;
+                        break;
+                    }
                 default:
                     {
                         e.Handled = false;

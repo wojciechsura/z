@@ -20,5 +20,8 @@ namespace Z.ViewModels.Interfaces
         void WindowLostFocus();
 
         IMainWindowAccess MainWindowAccess { set; }
+
+        bool UpPressed();
+        bool DownPressed();
     }
 }
