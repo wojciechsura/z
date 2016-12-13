@@ -22,5 +22,6 @@
     </LinearGradientBrush>
 
     <converters:RectGeometryGenerator x:Key="RectGeometryGenerator" />
+    <converters:CollapsedIfEmptyConverter x:Key="CollapsedIfEmptyConverter" />
     <controls:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
 </ResourceDictionary>

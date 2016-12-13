@@ -121,7 +121,11 @@ namespace Z.BusinessLogic
                     {
                         List<SuggestionDTO> suggestionsDTO = new List<SuggestionDTO>();
                         for (int i = 0; i < suggestions.Count; i++)
-                            suggestionsDTO.Add(new SuggestionDTO(suggestions[i].Suggestion.Display, suggestions[i].Suggestion.Comment, suggestions[i].Module.DisplayName, i));
+                            suggestionsDTO.Add(new SuggestionDTO(suggestions[i].Suggestion.Display, 
+                                suggestions[i].Suggestion.Comment, 
+                                suggestions[i].Module.DisplayName, 
+                                suggestions[i].Suggestion.Image,
+                                i));
 
                         listWindowViewModel.Suggestions = suggestionsDTO;
                         mainWindowViewModel.ShowList();
