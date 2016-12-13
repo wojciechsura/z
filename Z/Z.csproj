@@ -73,6 +73,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Common\Converters\CollapsedIfEmptyConverter.cs" />
     <Compile Include="Common\Converters\RectGeometryGenerator.cs" />
     <Compile Include="Dependencies\Configuration.cs" />
     <Page Include="CommonResources.xaml">

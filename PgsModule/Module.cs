@@ -4,6 +4,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using Z.Api.Interfaces;
 using Z.Api.Types;
 
@@ -54,11 +56,15 @@ namespace PgsModule
             new OperationInfo("bitbucket", "https://bitbucket.pgs-soft.com", "Bitbucket")
         };
 
+        private BitmapImage icon;
+
         // Public methods -----------------------------------------------------
 
         public Module()
         {
             operations.Sort((x, y) => x.Word.CompareTo(y.Word));
+
+            icon = new BitmapImage(new Uri("pack://application:,,,/PgsModule;component/Resources/pgs.png"));
         }
 
         public void CollectSuggestions(string enteredText, string keywordAction, ISuggestionCollector collector)
@@ -67,7 +73,7 @@ namespace PgsModule
             {
                 operations
                     .Where(op => op.Word.ToUpper().Contains(enteredText.ToUpper()))
-                    .Select(op => new SuggestionInfo(op.Word, op.Word, op.Description))
+                    .Select(op => new SuggestionInfo(op.Word, op.Word, op.Description, icon))
                     .ToList()
                     .ForEach(s => collector.AddSuggestion(s));
             }

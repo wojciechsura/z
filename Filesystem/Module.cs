@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
 using Z.Api.Interfaces;
 using Z.Api.Types;
 
@@ -20,6 +21,9 @@ namespace Filesystem
         private const string FILE_KEYWORD_DISPLAY = "File";
 
         private const int LONG_FILENAME = 60;
+
+        private BitmapImage folderImage;
+        private BitmapImage fileImage;
 
         public string DisplayName
         {
@@ -68,14 +72,14 @@ namespace Filesystem
                     foreach (var file in Directory.EnumerateDirectories(dir, search))
                     {
                         string display = file.Length < LONG_FILENAME ? file : $"...{file.Substring(file.Length - LONG_FILENAME)}";
-                        collector.AddSuggestion(new SuggestionInfo(file, display, "Folder"));
+                        collector.AddSuggestion(new SuggestionInfo(file, display, null, folderImage));
                     }
 
                     // Files
                     foreach (var file in Directory.EnumerateFiles(dir, search))
                     {
                         string display = file.Length < LONG_FILENAME ? file : $"...{file.Substring(file.Length - LONG_FILENAME)}";
-                        collector.AddSuggestion(new SuggestionInfo(file, file, "File"));
+                        collector.AddSuggestion(new SuggestionInfo(file, file, null, fileImage));
                     }
                 }
                 catch
@@ -93,6 +97,12 @@ namespace Filesystem
         public IEnumerable<KeywordInfo> GetKeywordActions()
         {
             yield return new KeywordInfo(FILE_KEYWORD, FILE_ACTION, FILE_KEYWORD_DISPLAY);
+        }
+
+        public Module()
+        {
+            fileImage = new BitmapImage(new Uri("pack://application:,,,/Filesystem;component/Resources/file.png"));
+            folderImage = new BitmapImage(new Uri("pack://application:,,,/Filesystem;component/Resources/folder.png"));
         }
     }
 }
