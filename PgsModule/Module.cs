@@ -67,7 +67,7 @@ namespace PgsModule
             {
                 operations
                     .Where(op => op.Word.ToUpper().Contains(enteredText.ToUpper()))
-                    .Select(op => new SuggestionInfo(op.Word, op.Word, op.Description, op))
+                    .Select(op => new SuggestionInfo(op.Word, op.Word, op.Description))
                     .ToList()
                     .ForEach(s => collector.AddSuggestion(s));
             }

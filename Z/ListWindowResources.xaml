@@ -33,20 +33,15 @@
             <Setter Property="ItemTemplate">
                 <Setter.Value>
                     <DataTemplate DataType="models:SuggestionDTO">
-                        <Grid Margin="2">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="1*" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
 
-                            <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Display}" FontSize="14"/>
-                            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Comment}" Opacity="0.5" />
-                            <TextBlock Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Text="{Binding Module}" VerticalAlignment="Center" Opacity="0.5"/>
-                        </Grid>
+                        <DockPanel>
+                            <TextBlock Margin="2" DockPanel.Dock="Right" Text="{Binding Module}" VerticalAlignment="Center" Opacity="0.5"/>
+
+                            <DockPanel>
+                                <TextBlock DockPanel.Dock="Bottom" Margin="1" Text="{Binding Comment}" Opacity="0.5" />
+                                <TextBlock Margin="1" Text="{Binding Display}" FontSize="14"/>
+                            </DockPanel>
+                        </DockPanel>
                     </DataTemplate>
                 </Setter.Value>
             </Setter>
