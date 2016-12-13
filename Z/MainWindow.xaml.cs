@@ -18,6 +18,7 @@ using Z.Dependencies;
 using Z.ViewModels;
 using Z.ViewModels.Interfaces;
 using Microsoft.Practices.Unity;
+using System.Windows.Threading;
 
 namespace Z
 {
@@ -170,6 +171,9 @@ namespace Z
         void IMainWindowAccess.ShowList()
         {
             listWindow.Show();
+
+            // Schedule repositioning of list window
+            listWindow.Dispatcher.Invoke(() => PositionListWindow(), DispatcherPriority.Render);
         }
 
         void IMainWindowAccess.HideList()
