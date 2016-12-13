@@ -8,6 +8,6 @@ namespace Z.ViewModels.Interfaces
 {
     public interface IListWindowAccess
     {
-
+        void EnsureSelectedIsVisible();
     }
 }

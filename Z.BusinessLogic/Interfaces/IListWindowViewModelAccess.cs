@@ -10,6 +10,10 @@ namespace Z.BusinessLogic.Interfaces
 {
     public interface IListWindowViewModelAccess
     {
-        IEnumerable<SuggestionDTO> Suggestions { set; }
+        void SelectPreviousSuggestion();
+        void SelectNextSuggestion();
+
+        SuggestionDTO SelectedSuggestion { get; }
+        List<SuggestionDTO> Suggestions { set; }
     }
 }

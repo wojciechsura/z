@@ -33,5 +33,10 @@ namespace Z
 
             this.DataContext = viewModel;
         }
+
+        public void EnsureSelectedIsVisible()
+        {
+            mainListBox.ScrollIntoView(mainListBox.SelectedItem);
+        }
     }
 }

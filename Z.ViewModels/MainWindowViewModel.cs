@@ -160,6 +160,16 @@ namespace Z.ViewModels
             return logic.EnterPressed();
         }
 
+        public bool UpPressed()
+        {
+            return logic.UpPressed();
+        }
+
+        public bool DownPressed()
+        {
+            return logic.DownPressed();
+        }
+
         public void WindowLostFocus()
         {
             logic.WindowLostFocus();
