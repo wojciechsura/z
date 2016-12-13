@@ -12,6 +12,7 @@ using Z.BusinessLogic.Interfaces;
 using Z.BusinessLogic.Services.Interfaces;
 using Z.BusinessLogic.Common;
 using Z.Models.DTO;
+using System.Diagnostics;
 
 namespace Z.BusinessLogic
 {
@@ -33,7 +34,7 @@ namespace Z.BusinessLogic
         
         // Private constants --------------------------------------------------
 
-        private readonly TimeSpan timerInterval = TimeSpan.FromMilliseconds(500);
+        private readonly TimeSpan timerInterval = TimeSpan.FromMilliseconds(300);
 
         // Private fields -----------------------------------------------------
 
@@ -214,31 +215,28 @@ namespace Z.BusinessLogic
             });
         }
 
-        // Public methods -----------------------------------------------------
-
-        public MainLogic(IGlobalHotkeyService globalHotkeyService, IKeywordService keywordService, IModuleService moduleService)
+        IListWindowViewModelAccess IListWindowLogic.ListWindowViewModel
         {
-            this.globalHotkeyService = globalHotkeyService;
-            this.keywordService = keywordService;
-            this.moduleService = moduleService;
-            
-            this.suggestions = null;
-        
-            currentKeyword = null;
+            set
+            {
+                if (value == null)
+                    throw new ArgumentNullException("value");
+                if (listWindowViewModel != null)
+                    throw new InvalidOperationException("ListWindowViewModel can be set only once!");
 
-            this.enteredTextTimer = new DispatcherTimer();
-            enteredTextTimer.Interval = timerInterval;
-            enteredTextTimer.Tick += EnteredTextTimerTick;
-
-            globalHotkeyService.HotkeyHit += HotkeyPressed;
+                listWindowViewModel = value;
+                UpdateListWindowViewmodel();
+            }
         }
 
-        public void EnteredTextChanged()
+        // IMainWindowLogic implementation ------------------------------------
+
+        void IMainWindowLogic.EnteredTextChanged()
         {
             StartEnteredTextTimer();
         }
 
-        public bool BackspacePressed()
+        bool IMainWindowLogic.BackspacePressed()
         {
             if (mainWindowViewModel.CaretPosition == 0 && currentKeyword != null)
             {
@@ -254,7 +252,7 @@ namespace Z.BusinessLogic
             return false;
         }
 
-        public bool SpacePressed()
+        bool IMainWindowLogic.SpacePressed()
         {
             if (String.IsNullOrEmpty(mainWindowViewModel.EnteredText))
                 return false;
@@ -283,12 +281,12 @@ namespace Z.BusinessLogic
             return false;
         }
 
-        public bool TabPressed()
+        bool IMainWindowLogic.TabPressed()
         {
             return false;
         }
 
-        public bool EnterPressed()
+        bool IMainWindowLogic.EnterPressed()
         {
             // Stopping timer
             enteredTextTimer.Stop();
@@ -297,14 +295,18 @@ namespace Z.BusinessLogic
             {
                 // Executing keyword action
                 currentKeyword.Keyword.Module.ExecuteKeywordAction(currentKeyword.Keyword.ActionName, mainWindowViewModel.EnteredText);
-                HideWindow();
-                return true;
+            }
+            else
+            {
+                // Executing entered word
+                Process.Start(mainWindowViewModel.EnteredText);
             }
 
-            return false;
+            HideWindow();
+            return true;
         }
 
-        public bool EscapePressed()
+        bool IMainWindowLogic.EscapePressed()
         {
             if (!IsInputEmpty())
             {
@@ -318,28 +320,26 @@ namespace Z.BusinessLogic
             return true;
         }
 
-        public bool UpPressed()
+        bool IMainWindowLogic.UpPressed()
         {
             Safe(listWindowViewModel => listWindowViewModel.SelectPreviousSuggestion());
             return true;
         }
 
-        public bool DownPressed()
+        bool IMainWindowLogic.DownPressed()
         {
             Safe(listWindowViewModel => listWindowViewModel.SelectNextSuggestion());
             return true;
         }
 
-        public void WindowLostFocus()
+        void IMainWindowLogic.WindowLostFocus()
         {
 #if !DEBUG
             HideWindow();
 #endif
         }
 
-        // Public properties --------------------------------------------------
-
-        public IMainWindowViewModelAccess MainWindowViewModel
+        IMainWindowViewModelAccess IMainWindowLogic.MainWindowViewModel
         {
             set
             {
@@ -353,18 +353,23 @@ namespace Z.BusinessLogic
             }
         }
 
-        public IListWindowViewModelAccess ListWindowViewModel
-        {
-            set
-            {
-                if (value == null)
-                    throw new ArgumentNullException("value");
-                if (listWindowViewModel != null)
-                    throw new InvalidOperationException("ListWindowViewModel can be set only once!");
+        // Public methods -----------------------------------------------------
 
-                listWindowViewModel = value;
-                UpdateListWindowViewmodel();
-            }
+        public MainLogic(IGlobalHotkeyService globalHotkeyService, IKeywordService keywordService, IModuleService moduleService)
+        {
+            this.globalHotkeyService = globalHotkeyService;
+            this.keywordService = keywordService;
+            this.moduleService = moduleService;
+            
+            this.suggestions = null;
+        
+            currentKeyword = null;
+
+            this.enteredTextTimer = new DispatcherTimer();
+            enteredTextTimer.Interval = timerInterval;
+            enteredTextTimer.Tick += EnteredTextTimerTick;
+
+            globalHotkeyService.HotkeyHit += HotkeyPressed;
         }
     }
 }

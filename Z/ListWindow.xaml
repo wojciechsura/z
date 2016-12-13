@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         WindowStyle="None" ResizeMode="NoResize" Visibility="Hidden" ShowInTaskbar="False" 
         Topmost="True" AllowsTransparency="True" Background="Transparent"
-        Title="ListWindow" Width="400" SizeToContent="Height" ShowActivated="False">
+        Title="ListWindow" MinWidth="400" SizeToContent="WidthAndHeight" ShowActivated="False">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
