@@ -19,5 +19,7 @@ namespace Z.BusinessLogic.Interfaces
         void WindowLostFocus();
 
         IMainWindowViewModelAccess MainWindowViewModel { set; }
+
+        bool WindowClosing();
     }
 }
