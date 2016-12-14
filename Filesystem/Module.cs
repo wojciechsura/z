@@ -94,6 +94,11 @@ namespace Filesystem
             Process.Start(expression);
         }
 
+        public void ExecuteSuggestion(SuggestionInfo suggestion)
+        {
+            Process.Start(suggestion.Text);
+        }
+
         public IEnumerable<KeywordInfo> GetKeywordActions()
         {
             yield return new KeywordInfo(FILE_KEYWORD, FILE_ACTION, FILE_KEYWORD_DISPLAY);

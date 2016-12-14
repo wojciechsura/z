@@ -76,6 +76,11 @@ namespace WebSearchModule
                 throw new InvalidOperationException("Invalid action!");
         }
 
+        public void ExecuteSuggestion(SuggestionInfo suggestion)
+        {
+            // No suggestions available for this module
+        }
+
         public void CollectSuggestions(string enteredText, string keywordAction, ISuggestionCollector collector)
         {
             // No suggestions available for this module

@@ -87,6 +87,14 @@ namespace PgsModule
                 Process.Start(info.Command);
         }
 
+        public void ExecuteSuggestion(SuggestionInfo suggestion)
+        {
+            OperationInfo info = operations.FirstOrDefault(op => op.Word.ToUpper() == suggestion.Text.ToUpper());
+
+            if (info != null)
+                Process.Start(info.Command);
+        }
+
         public IEnumerable<KeywordInfo> GetKeywordActions()
         {
             return new List<KeywordInfo>
