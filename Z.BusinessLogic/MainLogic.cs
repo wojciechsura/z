@@ -296,23 +296,28 @@ namespace Z.BusinessLogic
             // Stopping timer
             enteredTextTimer.Stop();
 
-            if (currentKeyword != null)
+            Safe((mainWindowViewModel, listWindowViewModel) =>
             {
-                // Executing keyword action
-                currentKeyword.Keyword.Module.ExecuteKeywordAction(currentKeyword.Keyword.ActionName, mainWindowViewModel.EnteredText);
-            }
-            else if (listWindowViewModel.SelectedSuggestion != null)
-            {
-                SuggestionData suggestion = suggestions[listWindowViewModel.SelectedSuggestion.Index];
-                suggestion.Module.ExecuteSuggestion(suggestion.Suggestion);
-            }
-            else
-            {
-                // Executing entered word
-                Process.Start(mainWindowViewModel.EnteredText);
-            }
 
-            HideWindow();
+                if (currentKeyword != null)
+                {
+                    // Executing keyword action
+                    currentKeyword.Keyword.Module.ExecuteKeywordAction(currentKeyword.Keyword.ActionName, mainWindowViewModel.EnteredText);
+                }
+                else if (listWindowViewModel.SelectedSuggestion != null)
+                {
+                    SuggestionData suggestion = suggestions[listWindowViewModel.SelectedSuggestion.Index];
+                    suggestion.Module.ExecuteSuggestion(suggestion.Suggestion);
+                }
+                else
+                {
+                    // Executing entered word
+                    Process.Start(mainWindowViewModel.EnteredText);
+                }
+
+                HideWindow();
+            });
+
             return true;
         }
 
@@ -351,8 +356,19 @@ namespace Z.BusinessLogic
 
         bool IMainWindowLogic.WindowClosing()
         {
+            // Store window position
+            Safe((mainWindowViewModel, listWindowViewModel) =>
+            {
+                configurationSerivice.Configuration.MainWindow.Position = mainWindowViewModel.Position;
+            });
+
             configurationSerivice.Save();
             return true;
+        }
+
+        void IMainWindowLogic.WindowInitialized()
+        {
+            Safe(mainWindowViewModel => mainWindowViewModel.Position = configurationSerivice.Configuration.MainWindow.Position);
         }
 
         IMainWindowViewModelAccess IMainWindowLogic.MainWindowViewModel

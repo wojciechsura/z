@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Configuration\Configuration.cs" />
     <Compile Include="Configuration\Hotkey.cs" />
+    <Compile Include="Configuration\MainWindow.cs" />
     <Compile Include="DTO\SuggestionDTO.cs" />
     <Compile Include="KeywordData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
