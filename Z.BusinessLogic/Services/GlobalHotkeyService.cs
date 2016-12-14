@@ -34,7 +34,7 @@ namespace Z.BusinessLogic.Services
             this.configurationService = configurationService;
 
             int id = 0;
-            if (hotkeyService.Register(configurationService.Hotkey, configurationService.HotkeyModifier, HandleHotkeyHit, ref id))
+            if (hotkeyService.Register(configurationService.Configuration.Hotkey.Key, configurationService.Configuration.Hotkey.KeyModifier, HandleHotkeyHit, ref id))
             {
                 hotkeyRegistered = true;
                 hotkeyId = id;
@@ -43,6 +43,14 @@ namespace Z.BusinessLogic.Services
             {
                 hotkeyRegistered = false;
                 hotkeyId = null;
+            }
+        }
+
+        public bool HotkeyRegistered
+        {
+            get
+            {
+                return hotkeyRegistered;
             }
         }
 

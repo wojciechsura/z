@@ -6,69 +6,26 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Z.BusinessLogic.Common;
 using Z.BusinessLogic.Services.Interfaces;
+using Z.Models.Configuration;
 
 namespace Z.BusinessLogic.Services
 {
     class ConfigurationService : IConfigurationService
     {
-        private Key hotkey;
-        private KeyModifier hotkeyModifier;
-        private bool suspendNotification;
-
-        private void OnConfigurationChanged()
-        {
-            if (ConfigurationChanged != null)
-                ConfigurationChanged(this, EventArgs.Empty);
-        }
-
-        private void NotifyChanged()
-        {
-            if (!suspendNotification)
-                OnConfigurationChanged();
-        } 
+        private Configuration configuration;
 
         public ConfigurationService()
         {
             // Defaults
-            hotkey = Key.Space;
-            hotkeyModifier = KeyModifier.Alt;
+            configuration = new Configuration();
         }
 
-        public void SuspendNotifications()
-        {
-            suspendNotification = true;
-        }
-
-        public void ResumeNotifications()
-        {
-            suspendNotification = false;
-            OnConfigurationChanged();
-        }
-
-        public Key Hotkey { get
-            {
-                return hotkey;
-            }
-            set
-            {
-                hotkey = value;
-                NotifyChanged();
-            }
-        }
-
-        public KeyModifier HotkeyModifier
+        public Configuration Configuration
         {
             get
             {
-                return hotkeyModifier;
-            }
-            set
-            {
-                hotkeyModifier = value;
-                NotifyChanged();
+                return configuration;
             }
         }
-
-        public event EventHandler ConfigurationChanged;
     }
 }

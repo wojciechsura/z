@@ -58,7 +58,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common\KeyModifier.cs" />
     <Compile Include="Dependencies\Configuration.cs" />
     <Compile Include="Infrastructure\HotkeyService.cs" />
     <Compile Include="Interfaces\IListWindowLogic.cs" />
@@ -100,6 +99,10 @@
     <ProjectReference Include="..\Z.Api\Z.Api.csproj">
       <Project>{6dbad4bc-bd44-4234-9256-bd5e4e79b4f5}</Project>
       <Name>Z.Api</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Z.Common\Z.Common.csproj">
+      <Project>{8953141f-27cd-43c6-b4f1-c3e25abd498c}</Project>
+      <Name>Z.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Z.Models\Z.Models.csproj">
       <Project>{b6914e5d-5681-4693-b589-76e6de1ad836}</Project>

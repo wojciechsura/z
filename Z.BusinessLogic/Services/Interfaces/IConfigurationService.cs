@@ -5,14 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Z.BusinessLogic.Common;
+using Z.Models.Configuration;
 
 namespace Z.BusinessLogic.Services.Interfaces
 {
     public interface IConfigurationService
     {
-        Key Hotkey { get; set; }
-        KeyModifier HotkeyModifier { get; set; }
-
-        event EventHandler ConfigurationChanged;
+        Configuration Configuration { get; }
     }
 }

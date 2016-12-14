@@ -300,6 +300,11 @@ namespace Z.BusinessLogic
                 // Executing keyword action
                 currentKeyword.Keyword.Module.ExecuteKeywordAction(currentKeyword.Keyword.ActionName, mainWindowViewModel.EnteredText);
             }
+            else if (listWindowViewModel.SelectedSuggestion != null)
+            {
+                SuggestionData suggestion = suggestions[listWindowViewModel.SelectedSuggestion.Index];
+                suggestion.Module.ExecuteSuggestion(suggestion.Suggestion);
+            }
             else
             {
                 // Executing entered word
