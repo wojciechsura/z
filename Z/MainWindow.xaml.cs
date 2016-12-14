@@ -19,6 +19,7 @@ using Z.ViewModels;
 using Z.ViewModels.Interfaces;
 using Microsoft.Practices.Unity;
 using System.Windows.Threading;
+using System.ComponentModel;
 
 namespace Z
 {
@@ -117,13 +118,6 @@ namespace Z
                 this.DragMove();
         }
 
-        protected override void OnLocationChanged(EventArgs e)
-        {
-            PositionListWindow();
-
-            base.OnLocationChanged(e);
-        }
-
         private void PositionListWindow()
         {
             // Reposition list window
@@ -193,6 +187,23 @@ namespace Z
             }
         }
 
+        // Protected methods --------------------------------------------------
+
+        protected override void OnLocationChanged(EventArgs e)
+        {
+            PositionListWindow();
+
+            base.OnLocationChanged(e);
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
+
+            if (!viewModel.Closing())
+                e.Cancel = true;
+        }
+
         // Public methods -----------------------------------------------------
 
         public MainWindow()
@@ -200,7 +211,7 @@ namespace Z
             InitializeComponent();
             windowInteropHelper = new WindowInteropHelper(this);
 
-            viewModel = Container.Instance.Resolve<IMainWindowViewModel>();
+            viewModel = Dependencies.Container.Instance.Resolve<IMainWindowViewModel>();
             viewModel.MainWindowAccess = this;
 
             this.DataContext = viewModel;

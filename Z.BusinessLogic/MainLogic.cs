@@ -41,6 +41,7 @@ namespace Z.BusinessLogic
         private readonly IGlobalHotkeyService globalHotkeyService;
         private readonly IKeywordService keywordService;
         private readonly IModuleService moduleService;
+        private readonly IConfigurationService configurationSerivice;
 
         private CurrentKeyword currentKeyword;
         private List<SuggestionData> suggestions;
@@ -348,6 +349,12 @@ namespace Z.BusinessLogic
 #endif
         }
 
+        bool IMainWindowLogic.WindowClosing()
+        {
+            configurationSerivice.Save();
+            return true;
+        }
+
         IMainWindowViewModelAccess IMainWindowLogic.MainWindowViewModel
         {
             set
@@ -364,12 +371,13 @@ namespace Z.BusinessLogic
 
         // Public methods -----------------------------------------------------
 
-        public MainLogic(IGlobalHotkeyService globalHotkeyService, IKeywordService keywordService, IModuleService moduleService)
+        public MainLogic(IGlobalHotkeyService globalHotkeyService, IKeywordService keywordService, IModuleService moduleService, IConfigurationService configurationService)
         {
             this.globalHotkeyService = globalHotkeyService;
             this.keywordService = keywordService;
             this.moduleService = moduleService;
-            
+            this.configurationSerivice = configurationService;
+
             this.suggestions = null;
         
             currentKeyword = null;

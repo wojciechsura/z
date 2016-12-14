@@ -12,5 +12,7 @@ namespace Z.BusinessLogic.Services.Interfaces
     public interface IConfigurationService
     {
         Configuration Configuration { get; }
+        bool Load();
+        bool Save();
     }
 }

@@ -18,10 +18,10 @@ namespace Z.ViewModels.Interfaces
         bool TabPressed();
         bool EnterPressed();
         void WindowLostFocus();
-
-        IMainWindowAccess MainWindowAccess { set; }
-
         bool UpPressed();
         bool DownPressed();
+        bool Closing();
+
+        IMainWindowAccess MainWindowAccess { set; }
     }
 }

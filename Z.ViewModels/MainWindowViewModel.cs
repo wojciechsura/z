@@ -175,6 +175,11 @@ namespace Z.ViewModels
             logic.WindowLostFocus();
         }
 
+        public bool Closing()
+        {
+            return logic.WindowClosing();
+        }
+
         // Public properties --------------------------------------------------
 
         public string Keyword
