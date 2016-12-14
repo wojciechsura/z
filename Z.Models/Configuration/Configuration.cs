@@ -12,5 +12,7 @@ namespace Z.Models.Configuration
     {
         [XmlElement("Hotkey")]
         public Hotkey Hotkey { get; set; } = new Hotkey();
+        [XmlElement("MainWindow")]
+        public MainWindow MainWindow { get; set; } = new MainWindow();
     }
 }

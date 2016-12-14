@@ -10,6 +10,7 @@ using Z.BusinessLogic.Interfaces;
 using Z.ViewModels.Interfaces;
 using Microsoft.Practices.Unity;
 using System.ComponentModel;
+using System.Windows;
 
 namespace Z.ViewModels
 {
@@ -112,6 +113,18 @@ namespace Z.ViewModels
             }
         }
 
+        Point IMainWindowViewModelAccess.Position
+        {
+            get
+            {
+                return Safe(access => access.Position);
+            }
+            set
+            {
+                Safe(access => access.Position = value);
+            }
+        }
+
         // Protected methods --------------------------------------------------
 
         protected void OnPropertyChanged(string name)
@@ -178,6 +191,11 @@ namespace Z.ViewModels
         public bool Closing()
         {
             return logic.WindowClosing();
+        }
+
+        public void Initialized()
+        {
+            logic.WindowInitialized();
         }
 
         // Public properties --------------------------------------------------

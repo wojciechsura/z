@@ -26,10 +26,10 @@ namespace Z
 
         public ListWindow()
         {
-            InitializeComponent();
-
             viewModel = Container.Instance.Resolve<IListWindowViewModel>();
             viewModel.ListWindowAccess = this;
+
+            InitializeComponent();
 
             this.DataContext = viewModel;
         }

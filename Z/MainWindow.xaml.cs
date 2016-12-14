@@ -187,6 +187,19 @@ namespace Z
             }
         }
 
+        Point IMainWindowAccess.Position
+        {
+            get
+            {
+                return new Point(Left, Top);
+            }
+            set
+            {
+                Left = value.X;
+                Top = value.Y;
+            }            
+        }
+
         // Protected methods --------------------------------------------------
 
         protected override void OnLocationChanged(EventArgs e)
@@ -204,15 +217,29 @@ namespace Z
                 e.Cancel = true;
         }
 
+        protected override void OnClosed(EventArgs e)
+        {
+            listWindow.Close();
+            base.OnClosed(e);
+        }
+
+        protected override void OnInitialized(EventArgs e)
+        {
+            base.OnInitialized(e);
+
+            viewModel.Initialized();
+        }
+
         // Public methods -----------------------------------------------------
 
         public MainWindow()
         {
-            InitializeComponent();
-            windowInteropHelper = new WindowInteropHelper(this);
-
             viewModel = Dependencies.Container.Instance.Resolve<IMainWindowViewModel>();
             viewModel.MainWindowAccess = this;
+
+            InitializeComponent();
+
+            windowInteropHelper = new WindowInteropHelper(this);
 
             this.DataContext = viewModel;
 

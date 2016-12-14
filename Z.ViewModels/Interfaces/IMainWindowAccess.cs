@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Z.ViewModels.Interfaces
 {
@@ -15,5 +16,6 @@ namespace Z.ViewModels.Interfaces
 
         void ShowList();
         void HideList();
+        Point Position { get; set; }
     }
 }

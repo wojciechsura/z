@@ -21,5 +21,6 @@ namespace Z.BusinessLogic.Interfaces
         IMainWindowViewModelAccess MainWindowViewModel { set; }
 
         bool WindowClosing();
+        void WindowInitialized();
     }
 }

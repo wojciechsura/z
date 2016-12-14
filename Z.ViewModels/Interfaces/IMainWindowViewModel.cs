@@ -23,5 +23,7 @@ namespace Z.ViewModels.Interfaces
         bool Closing();
 
         IMainWindowAccess MainWindowAccess { set; }
+
+        void Initialized();
     }
 }
