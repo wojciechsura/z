@@ -69,14 +69,11 @@ namespace PgsModule
 
         public void CollectSuggestions(string enteredText, string keywordAction, ISuggestionCollector collector)
         {
-            if (keywordAction == PGS_ACTION)
-            {
-                operations
-                    .Where(op => op.Word.ToUpper().Contains(enteredText.ToUpper()))
-                    .Select(op => new SuggestionInfo(op.Word, op.Word, op.Description, icon))
-                    .ToList()
-                    .ForEach(s => collector.AddSuggestion(s));
-            }
+            operations
+                .Where(op => op.Word.ToUpper().Contains(enteredText.ToUpper()))
+                .Select(op => new SuggestionInfo(op.Word, op.Word, op.Description, icon))
+                .ToList()
+                .ForEach(s => collector.AddSuggestion(s));
         }
 
         public void ExecuteKeywordAction(string action, string expression)

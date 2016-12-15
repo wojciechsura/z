@@ -84,6 +84,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ControlPanelModule\ControlPanelModule.csproj">
+      <Project>{0bcfbcee-1bdc-4296-9b56-d815d4c3de97}</Project>
+      <Name>ControlPanelModule</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Filesystem\Filesystem.csproj">
       <Project>{0b9b02a4-b10a-45b5-8c5b-8511a08681ad}</Project>
       <Name>Filesystem</Name>

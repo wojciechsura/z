@@ -47,6 +47,7 @@ namespace Z.BusinessLogic.Services
             modules.Add(new WebSearchModule.Module());
             modules.Add(new PgsModule.Module());
             modules.Add(new Filesystem.Module());
+            modules.Add(new ControlPanelModule.Module());
         }
 
         public ModuleService()
