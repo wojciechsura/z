@@ -48,6 +48,7 @@ namespace Z.BusinessLogic.Services
             modules.Add(new PgsModule.Module());
             modules.Add(new Filesystem.Module());
             modules.Add(new ControlPanelModule.Module());
+            modules.Add(new StartMenuModule.Module());
         }
 
         public ModuleService()

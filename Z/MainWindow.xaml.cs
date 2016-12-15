@@ -31,7 +31,7 @@ namespace Z
         // Private constants --------------------------------------------------
 
         private readonly int LIST_WINDOW_MARGIN = 16;
-        private readonly int LIST_WINDOW_MIN_HEIGHT = 20;
+        private readonly int LIST_WINDOW_HEIGHT = 400;
 
         // Private fields -----------------------------------------------------
 
@@ -124,13 +124,11 @@ namespace Z
             var screen = System.Windows.Forms.Screen.FromHandle(windowInteropHelper.Handle);
 
             int halfScreenHeight = screen.WorkingArea.Height / 2;
-            int listWindowMaxHeight = Math.Max(LIST_WINDOW_MIN_HEIGHT, (int)(halfScreenHeight - this.ActualHeight / 2) - LIST_WINDOW_MARGIN);
-            int listWindowMinHeight = LIST_WINDOW_MIN_HEIGHT;
+            int listWindowHeight = Math.Min(LIST_WINDOW_HEIGHT, (int)(halfScreenHeight - this.ActualHeight / 2) - LIST_WINDOW_MARGIN);
             int halfScreenHeightPos = screen.WorkingArea.Top + halfScreenHeight;
             var aboveHalf = this.Top + this.ActualHeight / 2 <= halfScreenHeightPos;
 
-            listWindow.MinHeight = listWindowMinHeight;
-            listWindow.MaxHeight = listWindowMaxHeight;
+            listWindow.Height = listWindowHeight;
 
             if (aboveHalf)
             {
