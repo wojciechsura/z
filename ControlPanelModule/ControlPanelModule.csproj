@@ -45,6 +45,7 @@
     <Compile Include="Infrastructure\CommandControlPanelEntry.cs" />
     <Compile Include="Infrastructure\ControlPanelItemProvider.cs" />
     <Compile Include="Infrastructure\ShellFolderControlPanelEntry.cs" />
+    <Compile Include="Infrastructure\WinapiInterop.cs" />
     <Compile Include="Module.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

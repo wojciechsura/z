@@ -8,7 +8,7 @@ namespace ControlPanelModule.Infrastructure
 {
     class CommandControlPanelEntry : BaseControlPanelEntry
     {
-        public CommandControlPanelEntry(string ns, string name, string displayName, string command) : base(ns, name, displayName)
+        public CommandControlPanelEntry(string ns, string name, string displayName, string infoTip, string command) : base(ns, name, displayName, infoTip)
         {
             this.Command = command;
         }
