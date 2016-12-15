@@ -312,7 +312,14 @@ namespace Z.BusinessLogic
                 else
                 {
                     // Executing entered word
-                    Process.Start(mainWindowViewModel.EnteredText);
+                    try
+                    {
+                        Process.Start(mainWindowViewModel.EnteredText);
+                    }
+                    catch (Exception e)
+                    {
+                        // TODO handle commands, which are invalid
+                    }
                 }
 
                 HideWindow();

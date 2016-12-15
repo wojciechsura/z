@@ -24,7 +24,15 @@ namespace ControlPanelModule.Infrastructure
 
                 // TODO get localized string from file
                 var localizedStringLocation = entry.GetValue("LocalizedString", null) as string;
-                var localizedString = name;
+
+                string localizedString;
+                if (localizedStringLocation != null)
+                    localizedString = WinapiInterop.GetStringResource(localizedStringLocation) ?? name;
+                else
+                    localizedString = name;
+
+                string infoTipLocalization = entry.GetValue("InfoTip", null) as string;
+                string infoTip = infoTipLocalization != null ? WinapiInterop.GetStringResource(infoTipLocalization) : null;
 
                 // TODO get icon
                 var defaultIconKey = entry.OpenSubKey("DefaultIcon");
@@ -37,7 +45,7 @@ namespace ControlPanelModule.Infrastructure
 
                     if (name != null && localizedString != null && command != null)
                     {
-                        yield return new CommandControlPanelEntry(ns, name, localizedString, command);
+                        yield return new CommandControlPanelEntry(ns, name, localizedString, infoTip, command);
                         continue;
                     }
                 }
@@ -47,7 +55,7 @@ namespace ControlPanelModule.Infrastructure
                 {
                     if (name != null && localizedString != null)
                     {
-                        yield return new ShellFolderControlPanelEntry(ns, name, localizedString);
+                        yield return new ShellFolderControlPanelEntry(ns, name, localizedString, infoTip);
                         continue;
                     }
                 }

@@ -82,7 +82,7 @@ namespace ControlPanelModule
             controlPanelEntries
                 .Where(cpe => cpe.DisplayName.ToUpper().Contains(enteredText.ToUpper()))
                 .OrderBy(cpe => cpe.DisplayName)
-                .Select(cpe => new SuggestionInfo(cpe.DisplayName, cpe.DisplayName, null, icon, cpe))
+                .Select(cpe => new SuggestionInfo(cpe.DisplayName, cpe.DisplayName, cpe.InfoTip, icon, cpe))
                 .ToList()
                 .ForEach(s => collector.AddSuggestion(s));
         }

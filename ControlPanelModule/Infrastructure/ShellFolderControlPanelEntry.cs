@@ -8,7 +8,7 @@ namespace ControlPanelModule.Infrastructure
 {
     class ShellFolderControlPanelEntry : BaseControlPanelEntry
     {
-        public ShellFolderControlPanelEntry(string ns, string name, string displayName) : base(ns, name, displayName)
+        public ShellFolderControlPanelEntry(string ns, string name, string displayName, string infoTip) : base(ns, name, displayName, infoTip)
         {
         }
     }
