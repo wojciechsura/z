@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Z", "Z\Z.csproj", "{8C746CC7-A787-45B6-9E37-A331324EE71C}"
 EndProject
@@ -26,6 +26,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Z.Common", "Z.Common\Z.Common.csproj", "{8953141F-27CD-43C6-B4F1-C3E25ABD498C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlPanelModule", "ControlPanelModule\ControlPanelModule.csproj", "{0BCFBCEE-1BDC-4296-9B56-D815D4C3DE97}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StartMenuModule", "StartMenuModule\StartMenuModule.csproj", "{7E96F23D-799C-4793-81B1-23CC98AD67CF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -77,6 +79,10 @@ Global
 		{0BCFBCEE-1BDC-4296-9B56-D815D4C3DE97}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0BCFBCEE-1BDC-4296-9B56-D815D4C3DE97}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0BCFBCEE-1BDC-4296-9B56-D815D4C3DE97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E96F23D-799C-4793-81B1-23CC98AD67CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E96F23D-799C-4793-81B1-23CC98AD67CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E96F23D-799C-4793-81B1-23CC98AD67CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E96F23D-799C-4793-81B1-23CC98AD67CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -86,5 +92,6 @@ Global
 		{A0D6CE07-3599-410D-9C48-969A951E9481} = {D094C8BF-E19E-4C12-ABE2-578AED985B14}
 		{0B9B02A4-B10A-45B5-8C5B-8511A08681AD} = {D094C8BF-E19E-4C12-ABE2-578AED985B14}
 		{0BCFBCEE-1BDC-4296-9B56-D815D4C3DE97} = {D094C8BF-E19E-4C12-ABE2-578AED985B14}
+		{7E96F23D-799C-4793-81B1-23CC98AD67CF} = {D094C8BF-E19E-4C12-ABE2-578AED985B14}
 	EndGlobalSection
 EndGlobal

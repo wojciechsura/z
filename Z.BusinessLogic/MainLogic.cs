@@ -34,7 +34,7 @@ namespace Z.BusinessLogic
         
         // Private constants --------------------------------------------------
 
-        private readonly TimeSpan timerInterval = TimeSpan.FromMilliseconds(300);
+        private readonly TimeSpan timerInterval = TimeSpan.FromMilliseconds(200);
 
         // Private fields -----------------------------------------------------
 
