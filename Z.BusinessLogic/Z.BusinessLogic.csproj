@@ -96,6 +96,10 @@
       <Project>{a0d6ce07-3599-410d-9c48-969a951e9481}</Project>
       <Name>PgsModule</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PowerModule\PowerModule.csproj">
+      <Project>{78162a98-98f9-4354-8b67-06e74a72422f}</Project>
+      <Name>PowerModule</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProCalcModule\ProCalcModule.csproj">
       <Project>{3a5eb93e-3d16-4307-b368-b01ec8641cdd}</Project>
       <Name>ProCalcModule</Name>
