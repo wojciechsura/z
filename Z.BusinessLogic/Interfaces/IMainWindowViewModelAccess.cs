@@ -20,5 +20,6 @@ namespace Z.BusinessLogic.Interfaces
         void HideList();
         Point Position { get; set; }
         bool ShowHint { get; set; }
+        void OpenConfiguration();
     }
 }

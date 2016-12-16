@@ -448,11 +448,14 @@ namespace Z.BusinessLogic
             return true;
         }
 
+        void IMainWindowLogic.OpenConfigurationPressed()
+        {
+            Safe((IMainWindowViewModelAccess mainWindowViewModel) => mainWindowViewModel.OpenConfiguration());
+        }
+
         void IMainWindowLogic.WindowLostFocus()
         {
-#if !DEBUG
-            HideWindow();
-#endif
+            // HideWindow();
         }
 
         bool IMainWindowLogic.WindowClosing()

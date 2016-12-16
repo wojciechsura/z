@@ -178,6 +178,12 @@ namespace Z
             listWindow.Hide();
         }
 
+        void IMainWindowAccess.OpenConfiguration()
+        {
+            ConfigurationWindow configuration = new ConfigurationWindow();
+            configuration.ShowDialog();
+        }
+
         int IMainWindowAccess.CaretPosition
         {
             get

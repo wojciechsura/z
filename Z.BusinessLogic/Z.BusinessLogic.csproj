@@ -58,8 +58,11 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConfigurationLogic.cs" />
     <Compile Include="Dependencies\Configuration.cs" />
     <Compile Include="Infrastructure\HotkeyService.cs" />
+    <Compile Include="Interfaces\IConfigurationWindowLogic.cs" />
+    <Compile Include="Interfaces\IConfigurationWindowViewModelAccess.cs" />
     <Compile Include="Interfaces\IListWindowLogic.cs" />
     <Compile Include="Interfaces\IListWindowViewModelAccess.cs" />
     <Compile Include="Interfaces\IMainWindowLogic.cs" />

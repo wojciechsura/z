@@ -78,8 +78,29 @@
     </ApplicationDefinition>
     <Compile Include="Common\Converters\CollapsedIfEmptyConverter.cs" />
     <Compile Include="Common\Converters\RectGeometryGenerator.cs" />
+    <Compile Include="ConfigurationWindow.xaml.cs">
+      <DependentUpon>ConfigurationWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\GeneralSettings.xaml.cs">
+      <DependentUpon>GeneralSettings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\KeywordSettings.xaml.cs">
+      <DependentUpon>KeywordSettings.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dependencies\Configuration.cs" />
     <Page Include="CommonResources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ConfigurationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\GeneralSettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\KeywordSettings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

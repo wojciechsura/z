@@ -17,6 +17,7 @@ namespace Z.ViewModels.Dependencies
 
             container.RegisterType<IMainWindowViewModel, MainWindowViewModel>();
             container.RegisterType<IListWindowViewModel, ListWindowViewModel>();
+            container.RegisterType<IConfigurationWindowViewModel, ConfigurationWindowViewModel>();
         }
     }
 }
