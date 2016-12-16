@@ -22,5 +22,6 @@ namespace Z.BusinessLogic.Interfaces
 
         bool WindowClosing();
         void WindowInitialized();
+        void OpenConfigurationPressed();
     }
 }

@@ -11,6 +11,7 @@ using Z.ViewModels.Interfaces;
 using Microsoft.Practices.Unity;
 using System.ComponentModel;
 using System.Windows;
+using Z.ViewModels.Types;
 
 namespace Z.ViewModels
 {
@@ -23,6 +24,8 @@ namespace Z.ViewModels
         private string enteredText;
         private bool keywordVisible;
         private bool showHint;
+
+        private readonly SimpleCommand configurationCommand;
 
         // Private methods ----------------------------------------------------
 
@@ -38,6 +41,11 @@ namespace Z.ViewModels
         {
             if (access != null)
                 action(access);
+        }
+
+        private void OpenConfiguration()
+        {
+            logic.OpenConfigurationPressed();
         }
 
         // IMainWindowViewModel implementation --------------------------------
@@ -60,6 +68,11 @@ namespace Z.ViewModels
         void IMainWindowViewModelAccess.HideList()
         {
             Safe(access => access.HideList());
+        }
+
+        void IMainWindowViewModelAccess.OpenConfiguration()
+        {
+            Safe(access => access.OpenConfiguration());
         }
 
         string IMainWindowViewModelAccess.EnteredText
@@ -158,6 +171,8 @@ namespace Z.ViewModels
 
         public MainWindowViewModel(IMainWindowLogic logic)
         {
+            configurationCommand = new SimpleCommand((obj) => OpenConfiguration());
+
             this.logic = logic;
             logic.MainWindowViewModel = this;
         }
@@ -250,6 +265,8 @@ namespace Z.ViewModels
                 return showHint;
             }
         }
+
+        public ICommand ConfigurationCommand => configurationCommand;        
 
         public IMainWindowAccess MainWindowAccess
         {

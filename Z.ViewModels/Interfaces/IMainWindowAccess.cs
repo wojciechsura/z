@@ -11,11 +11,12 @@ namespace Z.ViewModels.Interfaces
     {
         void Show();
         void Hide();
-
-        int CaretPosition { get; set; }
-
+        void OpenConfiguration();
         void ShowList();
         void HideList();
+
+        int CaretPosition { get; set; }
         Point Position { get; set; }
+
     }
 }
