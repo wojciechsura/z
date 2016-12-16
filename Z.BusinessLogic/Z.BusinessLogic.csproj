@@ -88,6 +88,10 @@
       <Project>{0bcfbcee-1bdc-4296-9b56-d815d4c3de97}</Project>
       <Name>ControlPanelModule</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DesktopModule\DesktopModule.csproj">
+      <Project>{7e5da9a0-bd29-4d32-aa91-a9a2fcb8ca77}</Project>
+      <Name>DesktopModule</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Filesystem\Filesystem.csproj">
       <Project>{0b9b02a4-b10a-45b5-8c5b-8511a08681ad}</Project>
       <Name>Filesystem</Name>
@@ -103,6 +107,10 @@
     <ProjectReference Include="..\ProCalcModule\ProCalcModule.csproj">
       <Project>{3a5eb93e-3d16-4307-b368-b01ec8641cdd}</Project>
       <Name>ProCalcModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ShortcutModule\ShortcutModule.csproj">
+      <Project>{ae3b556a-9882-438b-ad6c-da7403b503e4}</Project>
+      <Name>ShortcutModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\StartMenuModule\StartMenuModule.csproj">
       <Project>{7e96f23d-799c-4793-81b1-23cc98ad67cf}</Project>

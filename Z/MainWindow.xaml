@@ -46,6 +46,8 @@
                             <Border Style="{StaticResource KeywordBorder}"  DockPanel.Dock="Left" Visibility="{Binding KeywordVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
                                 <TextBlock Style="{StaticResource KeywordText}" VerticalAlignment="Center" Text="{Binding Keyword}"/>
                             </Border>
+                            <Button DockPanel.Dock="Right" Margin="2" VerticalAlignment="Center"
+                                    Style="{StaticResource GearButtonStyle}" />
                             <Grid>
                                 <TextBlock Foreground="#5db2d9" Opacity="0.5" HorizontalAlignment="Left" Margin="10, 0, 0, 0" VerticalAlignment="Center"
                                            Visibility="{Binding ShowHint, Converter={StaticResource BooleanToVisibilityConverter}}">Enter ? to get list of keywords</TextBlock>
