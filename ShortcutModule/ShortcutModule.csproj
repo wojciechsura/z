@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7E96F23D-799C-4793-81B1-23CC98AD67CF}</ProjectGuid>
+    <ProjectGuid>{AE3B556A-9882-438B-AD6C-DA7403B503E4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>StartMenuModule</RootNamespace>
-    <AssemblyName>StartMenuModule</AssemblyName>
+    <RootNamespace>ShortcutModule</RootNamespace>
+    <AssemblyName>ShortcutModule</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -41,18 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Module.cs" />
+    <Compile Include="BaseShortcutModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ShortcutModule\ShortcutModule.csproj">
-      <Project>{ae3b556a-9882-438b-ad6c-da7403b503e4}</Project>
-      <Name>ShortcutModule</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Z.Api\Z.Api.csproj">
-      <Project>{6dbad4bc-bd44-4234-9256-bd5e4e79b4f5}</Project>
-      <Name>Z.Api</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="IWshRuntimeLibrary">
@@ -66,7 +56,10 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\winlogo.png" />
+    <ProjectReference Include="..\Z.Api\Z.Api.csproj">
+      <Project>{6dbad4bc-bd44-4234-9256-bd5e4e79b4f5}</Project>
+      <Name>Z.Api</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

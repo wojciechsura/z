@@ -20,6 +20,7 @@ using Z.ViewModels.Interfaces;
 using Microsoft.Practices.Unity;
 using System.Windows.Threading;
 using System.ComponentModel;
+using System.Runtime.InteropServices;
 
 namespace Z
 {
@@ -40,6 +41,10 @@ namespace Z
         private readonly WindowInteropHelper windowInteropHelper;
 
         // Private methods ----------------------------------------------------
+
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool SetForegroundWindow(IntPtr hWnd);
 
         private void MainKeyDown(object sender, KeyEventArgs e)
         {
@@ -151,7 +156,7 @@ namespace Z
             Show();
             PositionListWindow();
 
-            this.Focus();
+            SetForegroundWindow(this.windowInteropHelper.Handle);
         }
 
         void IMainWindowAccess.Hide()

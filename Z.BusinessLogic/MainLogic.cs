@@ -50,6 +50,7 @@ namespace Z.BusinessLogic
                 if (enteredText == "?")
                 {
                     logic.keywordService.GetKeywords()
+                        .OrderBy(k => k.Keyword)
                         .Select(k => new SuggestionInfo(k.Keyword, k.Keyword, k.Comment, null, k))
                         .ToList()
                         .ForEach(s => collector.AddSuggestion(s));

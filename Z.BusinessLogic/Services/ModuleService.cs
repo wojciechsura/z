@@ -51,6 +51,7 @@ namespace Z.BusinessLogic.Services
             modules.Add(new StartMenuModule.Module());
             modules.Add(new ProCalcModule.Module());
             modules.Add(new PowerModule.Module());
+            modules.Add(new DesktopModule.Module());
         }
 
         public ModuleService()
