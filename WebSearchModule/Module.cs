@@ -14,17 +14,19 @@ namespace WebSearchModule
     {
         private class SearchInfo       
         {
-            public SearchInfo(string action, string keyword, string display, string searchString)
+            public SearchInfo(string action, string keyword, string display, string comment, string searchString)
             {
                 Action = action;
                 Keyword = keyword;
                 Display = display;
+                Comment = comment;
                 SearchString = searchString;
             }
 
             public string Action { get; private set; }
             public string Keyword { get; private set; }
             public string Display { get; private set; }
+            public string Comment { get; private set; }
             public string SearchString { get; private set; }
         }
 
@@ -33,12 +35,13 @@ namespace WebSearchModule
 
         private List<SearchInfo> searchInfos = new List<SearchInfo>
         {
-            new SearchInfo("GoogleSearch", "g", "Google", "https://www.google.com/#q={0}"),
-            new SearchInfo("WikipediaSearch", "wiki", "Wikipedia", "http://pl.wikipedia.org/w/index.php?title=Specjalna:Szukaj&search={0}"),
-            new SearchInfo("MSDNSearch", "msdn", "MSDN", "http://social.msdn.microsoft.com/Search/en-EN?query={0}"),
-            new SearchInfo("YoutubeSearch", "y", "Youtube", "http://www.youtube.com/results?search_query={0}&page={{startPage?}}&utm_source=opensearch"),
-            new SearchInfo("MapsSearch", "maps", "Google Maps", "https://www.google.pl/maps/search/{0}"),
-            new SearchInfo("DevDocs", "dd", "DevDocs.io", "http://devdocs.io/#q={0}")
+            new SearchInfo("GoogleSearch", "g", "Google", "Search with Google", "https://www.google.com/#q={0}"),
+            new SearchInfo("WikipediaSearch", "wiki", "Wikipedia", "Search on Wikipedia", "http://pl.wikipedia.org/w/index.php?title=Specjalna:Szukaj&search={0}"),
+            new SearchInfo("MSDNSearch", "msdn", "MSDN", "Search on MSDN", "http://social.msdn.microsoft.com/Search/en-EN?query={0}"),
+            new SearchInfo("YoutubeSearch", "y", "Youtube", "Search on Youtube", "http://www.youtube.com/results?search_query={0}&page={{startPage?}}&utm_source=opensearch"),
+            new SearchInfo("MapsSearch", "maps", "Google Maps", "Search on Google Maps", "https://www.google.pl/maps/search/{0}"),
+            new SearchInfo("DevDocs", "dd", "DevDocs.io", "Search on DevDocs.io", "http://devdocs.io/#q={0}"),
+            new SearchInfo("StackOverflow", "so", "StackOverflow", "Search on StackOverflow", "http://stackoverflow.com/search?q={0}")
         };
 
         public string InternalName
@@ -60,11 +63,11 @@ namespace WebSearchModule
         public IEnumerable<KeywordInfo> GetKeywordActions()
         {
             return searchInfos
-                .Select(si => new KeywordInfo(si.Keyword, si.Action, si.Display))
+                .Select(si => new KeywordInfo(si.Keyword, si.Action, si.Display, si.Comment))
                 .ToList();
         }
 
-        public void ExecuteKeywordAction(string action, string expression)
+        public void ExecuteKeywordAction(string action, string expression, ExecuteOptions options)
         {
             var info = searchInfos
                 .FirstOrDefault(i => i.Action == action);
@@ -77,7 +80,7 @@ namespace WebSearchModule
                 throw new InvalidOperationException("Invalid action!");
         }
 
-        public void ExecuteSuggestion(SuggestionInfo suggestion)
+        public void ExecuteSuggestion(SuggestionInfo suggestion, ExecuteOptions options)
         {
             // No suggestions available for this module
         }

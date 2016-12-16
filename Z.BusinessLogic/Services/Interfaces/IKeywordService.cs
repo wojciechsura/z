@@ -10,5 +10,6 @@ namespace Z.BusinessLogic.Services.Interfaces
     public interface IKeywordService
     {
         KeywordData GetKeywordAction(string keyword);
+        IEnumerable<KeywordData> GetKeywords();
     }
 }

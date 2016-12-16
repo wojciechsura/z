@@ -15,7 +15,10 @@ namespace ControlPanelModule
     {
         private const string MODULE_NAME = "ControlPanel";
         private const string MODULE_DISPLAY_NAME = "Control panel";
-
+        private const string CPANEL_KEYWORD = "cpanel";
+        private const string CPANEL_KEYWORD_ACTION = "ControlPanelEntry";
+        private const string CPANEL_KEYWORD_DISPLAY = "Control panel";
+        private const string CPANEL_KEYWORD_COMMENT = "Access to Control Panel entries";
         private List<BaseControlPanelEntry> controlPanelEntries;
         private BitmapImage icon;
 
@@ -87,14 +90,14 @@ namespace ControlPanelModule
                 .ForEach(s => collector.AddSuggestion(s));
         }
 
-        public void ExecuteKeywordAction(string action, string expression)
+        public void ExecuteKeywordAction(string action, string expression, ExecuteOptions options)
         {
             BaseControlPanelEntry entry = controlPanelEntries.FirstOrDefault(cpe => cpe.DisplayName.ToUpper() == expression.ToUpper());
             if (entry != null)
                 RunEntry(entry);
         }
 
-        public void ExecuteSuggestion(SuggestionInfo suggestion)
+        public void ExecuteSuggestion(SuggestionInfo suggestion, ExecuteOptions options)
         {
             BaseControlPanelEntry entry = suggestion.Data as BaseControlPanelEntry;
             if (entry != null)
@@ -103,7 +106,7 @@ namespace ControlPanelModule
 
         public IEnumerable<KeywordInfo> GetKeywordActions()
         {
-            yield return new KeywordInfo("cpanel", "ControlPanelEntry", "Control panel");
+            yield return new KeywordInfo(CPANEL_KEYWORD, CPANEL_KEYWORD_ACTION, CPANEL_KEYWORD_DISPLAY, CPANEL_KEYWORD_COMMENT);
         }
 
         public string DisplayName

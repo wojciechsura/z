@@ -39,6 +39,7 @@ namespace StartMenuModule
         private const string ACTION_KEYWORD = "start";
         private const string ACTION_NAME = "Start";
         private const string ACTION_DISPLAY = "Start menu";
+        private const string ACTION_COMMENT = "Browse through Start Menu entries";
 
         // Private fields -----------------------------------------------------
 
@@ -117,7 +118,7 @@ namespace StartMenuModule
                 .ForEach(s => collector.AddSuggestion(s));
         }
 
-        public void ExecuteKeywordAction(string action, string expression)
+        public void ExecuteKeywordAction(string action, string expression, ExecuteOptions options)
         {
             var shortcut = startMenuShortcuts
                 .Where(s => s.Display.ToUpper() == expression.ToUpper())
@@ -136,7 +137,7 @@ namespace StartMenuModule
             }
         }
 
-        public void ExecuteSuggestion(SuggestionInfo suggestion)
+        public void ExecuteSuggestion(SuggestionInfo suggestion, ExecuteOptions options)
         {
             ShortcutInfo shortcut = suggestion.Data as ShortcutInfo;
             try
@@ -151,7 +152,7 @@ namespace StartMenuModule
 
         public IEnumerable<KeywordInfo> GetKeywordActions()
         {
-            yield return new KeywordInfo(ACTION_KEYWORD, ACTION_NAME, ACTION_DISPLAY);
+            yield return new KeywordInfo(ACTION_KEYWORD, ACTION_NAME, ACTION_DISPLAY, ACTION_COMMENT);
         }
 
         // Public properties --------------------------------------------------

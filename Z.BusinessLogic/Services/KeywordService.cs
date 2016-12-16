@@ -76,8 +76,15 @@ namespace Z.BusinessLogic.Services
         public KeywordData GetKeywordAction(string keyword)
         {
             return keywords.Where(k => k.Keyword.ToLower() == keyword.ToLower())
-                .Select(k => new KeywordData(k.Keyword, k.Info.ActionName, k.Info.DisplayName, k.Module))
+                .Select(k => new KeywordData(k.Keyword, k.Info.ActionName, k.Info.DisplayName, k.Info.Comment, k.Module))
                 .FirstOrDefault();
+        }
+
+        public IEnumerable<KeywordData> GetKeywords()
+        {
+            return keywords
+                .Select(k => new KeywordData(k.Keyword, k.Info.ActionName, k.Info.DisplayName, k.Info.Comment, k.Module))
+                .ToList();
         }
     }
 }

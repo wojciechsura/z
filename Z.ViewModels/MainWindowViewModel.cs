@@ -22,6 +22,7 @@ namespace Z.ViewModels
         private string keyword;
         private string enteredText;
         private bool keywordVisible;
+        private bool showHint;
 
         // Private methods ----------------------------------------------------
 
@@ -113,6 +114,19 @@ namespace Z.ViewModels
             }
         }
 
+        bool IMainWindowViewModelAccess.ShowHint
+        {
+            get
+            {
+                return showHint;
+            }
+            set
+            {
+                showHint = value;
+                OnPropertyChanged(nameof(ShowHint));
+            }
+        }
+
         Point IMainWindowViewModelAccess.Position
         {
             get
@@ -123,7 +137,7 @@ namespace Z.ViewModels
             {
                 Safe(access => access.Position = value);
             }
-        }
+        }        
 
         // Protected methods --------------------------------------------------
 
@@ -226,6 +240,14 @@ namespace Z.ViewModels
             {
                 enteredText = value;
                 OnEnteredTextChanged();
+            }
+        }
+
+        public bool ShowHint
+        {
+            get
+            {
+                return showHint;
             }
         }
 

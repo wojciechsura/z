@@ -49,6 +49,9 @@ namespace PowerModule.Infrastructure
         [DllImport("user32.dll", ExactSpelling = true, SetLastError = true)]
         internal static extern bool ExitWindowsEx(int uFlags, int dwReson);
 
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern bool LockWorkStation();
+
         private static bool DoExitWin(int flg)
         {
             bool result;
@@ -96,6 +99,11 @@ namespace PowerModule.Infrastructure
         public static void Hibernate()
         {
             Application.SetSuspendState(PowerState.Hibernate, true, false);
+        }
+
+        public static void Lock()
+        {
+            LockWorkStation();
         }
     }
 }

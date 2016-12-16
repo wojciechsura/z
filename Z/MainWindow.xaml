@@ -46,8 +46,12 @@
                             <Border Style="{StaticResource KeywordBorder}"  DockPanel.Dock="Left" Visibility="{Binding KeywordVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
                                 <TextBlock Style="{StaticResource KeywordText}" VerticalAlignment="Center" Text="{Binding Keyword}"/>
                             </Border>
-                            <TextBox VerticalAlignment="Center" Style="{StaticResource MainEditStyle}" x:Name="MainEdit" Margin="3" Text="{Binding EnteredText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            <Grid>
+                                <TextBlock Foreground="#5db2d9" Opacity="0.5" HorizontalAlignment="Left" Margin="10, 0, 0, 0" VerticalAlignment="Center"
+                                           Visibility="{Binding ShowHint, Converter={StaticResource BooleanToVisibilityConverter}}">Enter ? to get list of keywords</TextBlock>
+                                <TextBox VerticalAlignment="Center" Style="{StaticResource MainEditStyle}" x:Name="MainEdit" Margin="3" Text="{Binding EnteredText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     PreviewKeyDown="MainEditKeyDown" />
+                            </Grid>
                         </DockPanel>
                     </Grid>
                 </Border>
