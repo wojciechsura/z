@@ -9,11 +9,11 @@ namespace Z.Api.Interfaces
 {
     public interface IZModule
     {
-        void ExecuteKeywordAction(string action, string expression);
         void CollectSuggestions(string enteredText, string keywordAction, ISuggestionCollector collector);    
         string InternalName { get; }
         string DisplayName { get; }
-        void ExecuteSuggestion(SuggestionInfo suggestion);
+        void ExecuteKeywordAction(string action, string expression, ExecuteOptions options);
+        void ExecuteSuggestion(SuggestionInfo suggestion, ExecuteOptions options);
 
         IEnumerable<KeywordInfo> GetKeywordActions();
     }

@@ -19,9 +19,9 @@ namespace Filesystem
         private const string FILE_KEYWORD = "file";
         private const string FILE_ACTION = "File";
         private const string FILE_KEYWORD_DISPLAY = "File";
+        private const string FILE_KEYWORD_COMMENT = "Browse through the filesystem";
 
         private const int LONG_FILENAME = 60;
-
         private BitmapImage folderImage;
         private BitmapImage fileImage;
 
@@ -89,19 +89,19 @@ namespace Filesystem
             }
         }
 
-        public void ExecuteKeywordAction(string action, string expression)
+        public void ExecuteKeywordAction(string action, string expression, ExecuteOptions options)
         {
             Process.Start(expression);
         }
 
-        public void ExecuteSuggestion(SuggestionInfo suggestion)
+        public void ExecuteSuggestion(SuggestionInfo suggestion, ExecuteOptions options)
         {
             Process.Start(suggestion.Text);
         }
 
         public IEnumerable<KeywordInfo> GetKeywordActions()
         {
-            yield return new KeywordInfo(FILE_KEYWORD, FILE_ACTION, FILE_KEYWORD_DISPLAY);
+            yield return new KeywordInfo(FILE_KEYWORD, FILE_ACTION, FILE_KEYWORD_DISPLAY, FILE_KEYWORD_COMMENT);
         }
 
         public Module()

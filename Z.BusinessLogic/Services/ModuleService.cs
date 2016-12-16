@@ -97,6 +97,14 @@ namespace Z.BusinessLogic.Services
             return suggestions;
         }
 
+        public void AddModule(IZModule module)
+        {
+            if (module == null)
+                throw new ArgumentNullException(nameof(module));
+
+            modules.Add(module);
+        }
+
         public int ModuleCount
         {
             get

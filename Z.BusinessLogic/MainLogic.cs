@@ -13,6 +13,8 @@ using Z.BusinessLogic.Services.Interfaces;
 using Z.BusinessLogic.Common;
 using Z.Models.DTO;
 using System.Diagnostics;
+using Z.Api.Interfaces;
+using Z.Api.Types;
 
 namespace Z.BusinessLogic
 {
@@ -31,7 +33,78 @@ namespace Z.BusinessLogic
             public KeywordData Keyword { get; private set; }
             public string StoredText { get; private set; }
         }
-        
+
+        private class HelpModule : IZModule
+        {
+            private const string MODULE_DISPLAY_NAME = "Help";
+            private const string MODULE_NAME = "Help";
+            private readonly MainLogic logic;
+
+            public HelpModule(MainLogic logic)
+            {
+                this.logic = logic;
+            }
+
+            public void CollectSuggestions(string enteredText, string keywordAction, ISuggestionCollector collector)
+            {
+                if (enteredText == "?")
+                {
+                    logic.keywordService.GetKeywords()
+                        .Select(k => new SuggestionInfo(k.Keyword, k.Keyword, k.Comment, null, k))
+                        .ToList()
+                        .ForEach(s => collector.AddSuggestion(s));
+                }
+            }
+
+            public void ExecuteKeywordAction(string action, string expression, ExecuteOptions options)
+            {
+                KeywordData keyword = logic.keywordService.GetKeywords()
+                    .Where(k => k.Keyword.ToUpper() == expression.ToUpper())
+                    .FirstOrDefault();
+
+                if (keyword != null)
+                {
+                    logic.SetKeywordData(keyword, keyword.Keyword, "");
+                    logic.CollectSuggestions();
+                }
+
+                options.PreventClose = true;
+            }
+
+            public void ExecuteSuggestion(SuggestionInfo suggestion, ExecuteOptions options)
+            {
+                KeywordData keyword = suggestion.Data as KeywordData;
+                if (keyword != null)
+                {
+                    logic.SetKeywordData(keyword, keyword.Keyword, "");
+                    logic.CollectSuggestions();
+                }
+
+                options.PreventClose = true;
+            }
+
+            public IEnumerable<KeywordInfo> GetKeywordActions()
+            {
+                return null;
+            }
+
+            public string DisplayName
+            {
+                get
+                {
+                    return MODULE_DISPLAY_NAME;
+                }
+            }
+
+            public string InternalName
+            {
+                get
+                {
+                    return MODULE_NAME;
+                }
+            }
+        }
+
         // Private constants --------------------------------------------------
 
         private readonly TimeSpan timerInterval = TimeSpan.FromMilliseconds(200);
@@ -50,6 +123,8 @@ namespace Z.BusinessLogic
 
         private IMainWindowViewModelAccess mainWindowViewModel;
         private IListWindowViewModelAccess listWindowViewModel;
+
+        private readonly HelpModule helpModule;
 
         // Private methods ----------------------------------------------------
 
@@ -159,6 +234,15 @@ namespace Z.BusinessLogic
         {            
             return Safe(mainWindowViewModel => currentKeyword == null && String.IsNullOrEmpty(mainWindowViewModel.EnteredText), true);
         }
+         
+        private void SetKeywordData(Models.KeywordData action, string keywordText, string enteredText)
+        {
+            Safe(mainWindowViewModel =>
+            {
+                mainWindowViewModel.EnteredText = enteredText;
+                SetKeywordData(action, keywordText);
+            });           
+        }
 
         private void SetKeywordData(Models.KeywordData action, string keywordText)
         {
@@ -169,7 +253,10 @@ namespace Z.BusinessLogic
         private void ShowWindow()
         {
             ClearInput();
-            Safe(mainWindowViewModel => mainWindowViewModel.ShowWindow());
+            Safe(mainWindowViewModel => {
+                mainWindowViewModel.ShowWindow();
+                mainWindowViewModel.ShowHint = true;
+            });
         }
 
         private void StartEnteredTextTimer()
@@ -239,6 +326,9 @@ namespace Z.BusinessLogic
         void IMainWindowLogic.EnteredTextChanged()
         {
             StartEnteredTextTimer();
+            Safe((IMainWindowViewModelAccess mainActivityViewModel) => {
+                mainWindowViewModel.ShowHint = false;
+            });
         }
 
         bool IMainWindowLogic.BackspacePressed()
@@ -299,15 +389,17 @@ namespace Z.BusinessLogic
             Safe((mainWindowViewModel, listWindowViewModel) =>
             {
 
+                ExecuteOptions options = new ExecuteOptions();
+
                 if (currentKeyword != null)
                 {
                     // Executing keyword action
-                    currentKeyword.Keyword.Module.ExecuteKeywordAction(currentKeyword.Keyword.ActionName, mainWindowViewModel.EnteredText);
+                    currentKeyword.Keyword.Module.ExecuteKeywordAction(currentKeyword.Keyword.ActionName, mainWindowViewModel.EnteredText, options);
                 }
                 else if (listWindowViewModel.SelectedSuggestion != null)
                 {
                     SuggestionData suggestion = suggestions[listWindowViewModel.SelectedSuggestion.Index];
-                    suggestion.Module.ExecuteSuggestion(suggestion.Suggestion);
+                    suggestion.Module.ExecuteSuggestion(suggestion.Suggestion, options);
                 }
                 else
                 {
@@ -322,7 +414,8 @@ namespace Z.BusinessLogic
                     }
                 }
 
-                HideWindow();
+                if (!options.PreventClose)
+                    HideWindow();
             });
 
             return true;
@@ -410,6 +503,9 @@ namespace Z.BusinessLogic
             enteredTextTimer.Tick += EnteredTextTimerTick;
 
             globalHotkeyService.HotkeyHit += HotkeyPressed;
+
+            this.helpModule = new HelpModule(this);
+            moduleService.AddModule(helpModule);
         }
     }
 }

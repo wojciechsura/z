@@ -31,11 +31,12 @@ namespace PowerModule
             public Action Action { get; private set; }
         }
 
+        private const string MODULE_DISPLAY_NAME = "Power";
+        private const string MODULE_NAME = "Power";
         private const string ACTION_KEYWORD = "power";
         private const string ACTION_NAME = "Power";
         private const string ACTION_DISPLAY_NAME = "Power";
-        private const string MODULE_DISPLAY_NAME = "Power";
-        private const string MODULE_NAME = "Power";
+        private const string ACTION_COMMENT = "Computer power commands";
 
         // Private fields -----------------------------------------------------
 
@@ -45,7 +46,8 @@ namespace PowerModule
             new PowerInfo("reboot", "Reboot", "Closes Windows and reboots the computer.", () => WinapiInterop.Reboot()),
             new PowerInfo("sleep", "Sleep", "Puts computer in the suspended state.", () => WinapiInterop.Sleep()),
             new PowerInfo("logoff", "Log off", "Logs off current user", () => WinapiInterop.Logoff()),
-            new PowerInfo("hibernate", "Hibernate", "Hibernates current Windows session and shuts down the computer.", () => WinapiInterop.Hibernate())
+            new PowerInfo("hibernate", "Hibernate", "Hibernates current Windows session and shuts down the computer.", () => WinapiInterop.Hibernate()),
+            new PowerInfo("lock", "Lock", "Locks the current session", () => WinapiInterop.Lock())
         };
 
         private readonly ImageSource icon;
@@ -61,13 +63,13 @@ namespace PowerModule
         {
             powerInfos
                 .Where(pi => pi.Command.ToUpper().Contains(enteredText.ToUpper()))
-                .Select(pi => new SuggestionInfo(pi.Command, pi.Display, pi.Comment, null, pi))
+                .Select(pi => new SuggestionInfo(pi.Command, pi.Display, pi.Comment, icon, pi))
                 .OrderBy(pi => pi.Display)
                 .ToList()
                 .ForEach(s => collector.AddSuggestion(s));
         }
 
-        public void ExecuteKeywordAction(string action, string expression)
+        public void ExecuteKeywordAction(string action, string expression, ExecuteOptions options)
         {
             var powerInfo = powerInfos.Where(pi => pi.Command.ToUpper() == expression.ToUpper())
                 .FirstOrDefault();
@@ -76,7 +78,7 @@ namespace PowerModule
                 powerInfo.Action();
         }
 
-        public void ExecuteSuggestion(SuggestionInfo suggestion)
+        public void ExecuteSuggestion(SuggestionInfo suggestion, ExecuteOptions options)
         {
             PowerInfo info = suggestion.Data as PowerInfo;
             if (info != null)
@@ -85,7 +87,7 @@ namespace PowerModule
 
         public IEnumerable<KeywordInfo> GetKeywordActions()
         {
-            yield return new KeywordInfo(ACTION_KEYWORD, ACTION_NAME, ACTION_DISPLAY_NAME);
+            yield return new KeywordInfo(ACTION_KEYWORD, ACTION_NAME, ACTION_DISPLAY_NAME, ACTION_COMMENT);
         }
 
         // Public properties --------------------------------------------------

@@ -14,5 +14,6 @@ namespace Z.BusinessLogic.Services.Interfaces
         IZModule GetModule(string internalName);
         int ModuleCount { get; }
         List<SuggestionData> GetSuggestionsFor(string text, KeywordData keyword);
+        void AddModule(IZModule helpModule);
     }
 }

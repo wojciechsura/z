@@ -21,6 +21,7 @@ namespace ProCalcModule
         private const string ACTION_KEYWORD = "calc";
         private const string ACTION_NAME = "Calc";
         private const string ACTION_DISPLAY = "Evaluate";
+        private const string ACTION_COMMENT = "Evaluate mathematical expressions";
 
         // Private fields -----------------------------------------------------
 
@@ -50,7 +51,7 @@ namespace ProCalcModule
             }
         }
         
-        public void ExecuteKeywordAction(string action, string expression)
+        public void ExecuteKeywordAction(string action, string expression, ExecuteOptions options)
         {
             try
             {
@@ -65,7 +66,7 @@ namespace ProCalcModule
             }
         }
 
-        public void ExecuteSuggestion(SuggestionInfo suggestion)
+        public void ExecuteSuggestion(SuggestionInfo suggestion, ExecuteOptions options)
         {
             BaseNumeric result = suggestion.Data as BaseNumeric;
             Clipboard.SetText(result.AsString());
@@ -73,7 +74,7 @@ namespace ProCalcModule
 
         public IEnumerable<KeywordInfo> GetKeywordActions()
         {
-            yield return new KeywordInfo(ACTION_KEYWORD, ACTION_NAME, ACTION_DISPLAY);
+            yield return new KeywordInfo(ACTION_KEYWORD, ACTION_NAME, ACTION_DISPLAY, ACTION_COMMENT);
         }
 
         // Public properties --------------------------------------------------

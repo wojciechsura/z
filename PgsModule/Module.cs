@@ -21,6 +21,7 @@ namespace PgsModule
         private const string PGS_ACTION = "PgsShortcut";
         private const string PGS_KEYWORD = "pgs";
         private const string PGS_KEYWORD_DISPLAY = "PGS";
+        private const string PGS_KEYWORD_COMMENT = "Shortcuts to internal PGS Software services";
 
         // Private types ------------------------------------------------------
 
@@ -76,7 +77,7 @@ namespace PgsModule
                 .ForEach(s => collector.AddSuggestion(s));
         }
 
-        public void ExecuteKeywordAction(string action, string expression)
+        public void ExecuteKeywordAction(string action, string expression, ExecuteOptions options)
         {
             OperationInfo info = operations.FirstOrDefault(op => op.Word.ToUpper() == expression.ToUpper());
 
@@ -84,7 +85,7 @@ namespace PgsModule
                 Process.Start(info.Command);
         }
 
-        public void ExecuteSuggestion(SuggestionInfo suggestion)
+        public void ExecuteSuggestion(SuggestionInfo suggestion, ExecuteOptions options)
         {
             OperationInfo info = operations.FirstOrDefault(op => op.Word.ToUpper() == suggestion.Text.ToUpper());
 
@@ -96,7 +97,7 @@ namespace PgsModule
         {
             return new List<KeywordInfo>
             {
-                new KeywordInfo(PGS_KEYWORD, PGS_ACTION, PGS_KEYWORD_DISPLAY)
+                new KeywordInfo(PGS_KEYWORD, PGS_ACTION, PGS_KEYWORD_DISPLAY, PGS_KEYWORD_COMMENT)
             };
         }
 
