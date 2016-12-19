@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using Microsoft.Practices.Unity;
 using Z.BusinessLogic.Interfaces;
 using Z.BusinessLogic.Types;
+using Z.BusinessLogic;
 
 namespace Z
 {
@@ -23,13 +24,13 @@ namespace Z
     /// </summary>
     public partial class ConfigurationWindow : Window, IConfigurationWindowAccess
     {
-        private IConfigurationWindowViewModel viewModel;
+        private ConfigurationViewModel viewModel;
 
         public ConfigurationWindow()
         {
             InitializeComponent();
 
-            viewModel = Dependencies.Container.Instance.Resolve<IConfigurationWindowViewModel>();
+            viewModel = Dependencies.Container.Instance.Resolve<ConfigurationViewModel>();
             viewModel.ConfigurationWindowAccess = this;
         }
 

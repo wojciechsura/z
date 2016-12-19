@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using Z.Dependencies;
 using Microsoft.Practices.Unity;
 using Z.BusinessLogic.Interfaces.ViewModels;
+using Z.BusinessLogic;
 
 namespace Z
 {
@@ -22,11 +23,11 @@ namespace Z
     /// </summary>
     public partial class ListWindow : Window, IListWindowAccess
     {
-        private readonly IListWindowViewModel viewModel;
+        private readonly MainViewModel viewModel;
 
         public ListWindow()
         {
-            viewModel = Container.Instance.Resolve<IListWindowViewModel>();
+            viewModel = Container.Instance.Resolve<MainViewModel>();
             viewModel.ListWindowAccess = this;
 
             InitializeComponent();
