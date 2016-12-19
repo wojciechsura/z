@@ -20,12 +20,8 @@ namespace Z.BusinessLogic.Dependencies
             container.RegisterType<IKeywordService, KeywordService>(new ContainerControlledLifetimeManager());
             container.RegisterType<IConfigurationService, ConfigurationService>(new ContainerControlledLifetimeManager());
 
-            container.RegisterType<MainLogic>(new ContainerControlledLifetimeManager());
-            container.RegisterInstance<IMainWindowViewModel>(container.Resolve<MainLogic>().MainWindowViewModel);
-            container.RegisterInstance<IListWindowViewModel>(container.Resolve<MainLogic>().ListWindowViewModel);
-
-            container.RegisterType<ConfigurationLogic>(new ContainerControlledLifetimeManager());
-            container.RegisterType<IConfigurationWindowViewModel>(new InjectionFactory(c => c.Resolve<ConfigurationLogic>().ConfigurationWindowViewModel));
+            container.RegisterType<MainViewModel>(new ContainerControlledLifetimeManager());            
+            container.RegisterType<ConfigurationViewModel>();
         }
     }
 }

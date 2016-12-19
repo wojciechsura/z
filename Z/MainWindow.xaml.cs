@@ -20,6 +20,7 @@ using System.Windows.Threading;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
 using Z.BusinessLogic.Interfaces.ViewModels;
+using Z.BusinessLogic;
 
 namespace Z
 {
@@ -35,7 +36,7 @@ namespace Z
 
         // Private fields -----------------------------------------------------
 
-        private readonly IMainWindowViewModel viewModel;
+        private readonly MainViewModel viewModel;
         private readonly ListWindow listWindow;
         private readonly WindowInteropHelper windowInteropHelper;
 
@@ -242,7 +243,7 @@ namespace Z
 
         public MainWindow()
         {
-            viewModel = Dependencies.Container.Instance.Resolve<IMainWindowViewModel>();
+            viewModel = Dependencies.Container.Instance.Resolve<MainViewModel>();
             viewModel.MainWindowAccess = this;
 
             InitializeComponent();
