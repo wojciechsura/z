@@ -4,38 +4,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Z.BusinessLogic.Interfaces;
+using Z.BusinessLogic.Services.Interfaces;
 
 namespace Z.BusinessLogic
 {
-    class ConfigurationLogic : IConfigurationWindowLogic
+    partial class ConfigurationLogic
     {
-        private IConfigurationWindowViewModelAccess viewModel;
-
-        private void Safe(Action<IConfigurationWindowViewModelAccess> action)
-        {
-            if (viewModel != null)
-                action(viewModel);
-        }
-
-        private T Safe<T>(Func<IConfigurationWindowViewModelAccess, T> func, T defaultValue = default(T))
-        {
-            if (viewModel != null)
-                return func(viewModel);
-            else
-                return defaultValue;
-        }
+        private readonly IConfigurationService configurationService;
+        private readonly ConfigurationWindowViewModelImplementation viewModel;
  
-        public IConfigurationWindowViewModelAccess ConfigurationWindowViewModel
+        public ConfigurationLogic(IConfigurationService configurationService)
         {
-            set
-            {
-                if (viewModel != null)
-                    throw new InvalidOperationException("ViewModel can be set only once!");
-                if (value == null)
-                    throw new ArgumentNullException("value");
-
-                viewModel = value;
-            }
+            this.configurationService = configurationService;
         }
+
+        public ConfigurationLogic()
+        {
+            viewModel = new ConfigurationWindowViewModelImplementation(this);
+        }
+
+        public IConfigurationWindowViewModel ConfigurationWindowViewModel => viewModel;
     }
 }

@@ -12,9 +12,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using Z.ViewModels.Interfaces;
-using Z.ViewModels.Types;
 using Microsoft.Practices.Unity;
+using Z.BusinessLogic.Interfaces;
+using Z.BusinessLogic.Types;
 
 namespace Z
 {

@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Z.ViewModels;
-using Z.ViewModels.Interfaces;
 
 namespace Z.Dependencies
 {
@@ -13,7 +11,7 @@ namespace Z.Dependencies
     {
         public static void Configure()
         {           
-            ViewModels.Dependencies.Configuration.Configure(Container.Instance);
+            BusinessLogic.Dependencies.Configuration.Configure(Container.Instance);
         }
 
         public static void Dispose()
