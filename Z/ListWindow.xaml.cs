@@ -12,8 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Z.Dependencies;
-using Z.ViewModels.Interfaces;
 using Microsoft.Practices.Unity;
+using Z.BusinessLogic.Interfaces.ViewModels;
 
 namespace Z
 {

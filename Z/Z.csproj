@@ -165,6 +165,10 @@
       <Project>{6dbad4bc-bd44-4234-9256-bd5e4e79b4f5}</Project>
       <Name>Z.Api</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Z.BusinessLogic\Z.BusinessLogic.csproj">
+      <Project>{f3cb7dbc-68ba-409f-ae9b-16929c165cb0}</Project>
+      <Name>Z.BusinessLogic</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Z.Dependencies\Z.Dependencies.csproj">
       <Project>{4d075ffa-1213-4dad-8f14-50f6edf2f5bf}</Project>
       <Name>Z.Dependencies</Name>
@@ -172,10 +176,6 @@
     <ProjectReference Include="..\Z.Models\Z.Models.csproj">
       <Project>{b6914e5d-5681-4693-b589-76e6de1ad836}</Project>
       <Name>Z.Models</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Z.ViewModels\Z.ViewModels.csproj">
-      <Project>{ce7797ca-26bc-47c3-a1fe-b6e47f044084}</Project>
-      <Name>Z.ViewModels</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

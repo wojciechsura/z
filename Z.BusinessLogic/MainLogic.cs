@@ -15,10 +15,11 @@ using Z.Models.DTO;
 using System.Diagnostics;
 using Z.Api.Interfaces;
 using Z.Api.Types;
+using Z.BusinessLogic.Interfaces.ViewModels;
 
 namespace Z.BusinessLogic
 {
-    public class MainLogic : IMainWindowLogic, IListWindowLogic
+    partial class MainLogic
     {
         // Private types ------------------------------------------------------
 
@@ -122,50 +123,32 @@ namespace Z.BusinessLogic
 
         private readonly DispatcherTimer enteredTextTimer;
 
-        private IMainWindowViewModelAccess mainWindowViewModel;
-        private IListWindowViewModelAccess listWindowViewModel;
+        private readonly MainWindowViewModelImplementation mainWindowViewModel;
+        private readonly ListWindowViewModelImplementation listWindowViewModel;
 
         private readonly HelpModule helpModule;
 
         // Private methods ----------------------------------------------------
 
-        private T Safe<T>(Func<IMainWindowViewModelAccess, T> func, T defaultValue = default(T))
+        private bool BackspacePressed()
         {
-            if (mainWindowViewModel != null)
-                return func(mainWindowViewModel);
-            else
-                return defaultValue;
-        }
+            if (mainWindowViewModel.CaretPosition == 0 && currentKeyword != null)
+            {
+                int keywordTextLength = currentKeyword.StoredText.Length;
 
-        private void Safe(Action<IMainWindowViewModelAccess> action)
-        {
-            if (mainWindowViewModel != null)
-                action(mainWindowViewModel);
-        }
+                mainWindowViewModel.InternalEnteredText = currentKeyword.StoredText + mainWindowViewModel.InternalEnteredText;
+                mainWindowViewModel.CaretPosition = keywordTextLength;
 
-        private T Safe<T>(Func<IListWindowViewModelAccess, T> func, T defaultValue = default(T))
-        {
-            if (mainWindowViewModel != null)
-                return func(listWindowViewModel);
-            else
-                return defaultValue;
-        }
+                ClearKeywordData();
+                return true;
+            }
 
-        private void Safe(Action<IListWindowViewModelAccess> action)
-        {
-            if (mainWindowViewModel != null)
-                action(listWindowViewModel);
-        }
-
-        private void Safe(Action<IMainWindowViewModelAccess, IListWindowViewModelAccess> action)
-        {
-            if (mainWindowViewModel != null && listWindowViewModel != null)
-                action(mainWindowViewModel, listWindowViewModel);
+            return false;
         }
 
         private void ClearInput()
         {
-            Safe(mainWindowViewModel => mainWindowViewModel.EnteredText = null);
+            mainWindowViewModel.InternalEnteredText = null;
             ClearSuggestions();
             ClearKeywordData();
         }
@@ -180,39 +163,83 @@ namespace Z.BusinessLogic
         private void ClearSuggestions()
         {
             suggestions = null;
-            Safe((mainWindowViewModel, listWindowViewModel) => {
-                listWindowViewModel.Suggestions = null;
-                mainWindowViewModel.HideList();
-            });            
+            
+            listWindowViewModel.InternalSuggestions = null;
+            mainWindowViewModel.HideList();
         }
 
         private void CollectSuggestions()
         {
-            Safe((mainWindowViewModel, listWindowViewModel) =>
+        if (!String.IsNullOrEmpty(mainWindowViewModel.InternalEnteredText) || currentKeyword != null)
             {
-                if (!String.IsNullOrEmpty(mainWindowViewModel.EnteredText) || currentKeyword != null)
+                suggestions = moduleService.GetSuggestionsFor(mainWindowViewModel.InternalEnteredText, currentKeyword?.Keyword);
+
+                if (suggestions.Count > 0)
                 {
-                    suggestions = moduleService.GetSuggestionsFor(mainWindowViewModel.EnteredText, currentKeyword?.Keyword);
+                    List<SuggestionDTO> suggestionsDTO = new List<SuggestionDTO>();
+                    for (int i = 0; i < suggestions.Count; i++)
+                        suggestionsDTO.Add(new SuggestionDTO(suggestions[i].Suggestion.Display, 
+                            suggestions[i].Suggestion.Comment, 
+                            suggestions[i].Module.DisplayName, 
+                            suggestions[i].Suggestion.Image,
+                            i));
 
-                    if (suggestions.Count > 0)
-                    {
-                        List<SuggestionDTO> suggestionsDTO = new List<SuggestionDTO>();
-                        for (int i = 0; i < suggestions.Count; i++)
-                            suggestionsDTO.Add(new SuggestionDTO(suggestions[i].Suggestion.Display, 
-                                suggestions[i].Suggestion.Comment, 
-                                suggestions[i].Module.DisplayName, 
-                                suggestions[i].Suggestion.Image,
-                                i));
-
-                        listWindowViewModel.Suggestions = suggestionsDTO;
-                        mainWindowViewModel.ShowList();
-                    }
-                    else
-                        ClearSuggestions();
+                    listWindowViewModel.InternalSuggestions = suggestionsDTO;
+                    mainWindowViewModel.ShowList();
                 }
                 else
                     ClearSuggestions();
-            });
+            }
+            else
+                ClearSuggestions();
+        }
+
+        private bool DownPressed()
+        {
+            listWindowViewModel.SelectNextSuggestion();
+            return true;
+        }
+
+        private bool EnterPressed()
+        {
+            // Stopping timer
+            enteredTextTimer.Stop();
+
+            ExecuteOptions options = new ExecuteOptions();
+
+            if (currentKeyword != null)
+            {
+                // Executing keyword action
+                currentKeyword.Keyword.Module.ExecuteKeywordAction(currentKeyword.Keyword.ActionName, mainWindowViewModel.InternalEnteredText, options);
+            }
+            else if (listWindowViewModel.SelectedSuggestion != null)
+            {
+                SuggestionData suggestion = suggestions[listWindowViewModel.SelectedSuggestion.Index];
+                suggestion.Module.ExecuteSuggestion(suggestion.Suggestion, options);
+            }
+            else
+            {
+                // Executing entered word
+                try
+                {
+                    Process.Start(mainWindowViewModel.InternalEnteredText);
+                }
+                catch (Exception e)
+                {
+                    // TODO handle commands, which are invalid
+                }
+            }
+
+            if (!options.PreventClose)
+                HideWindow();
+
+            return true;
+        }
+
+        private void EnteredTextChanged()
+        {
+            StartEnteredTextTimer();
+            mainWindowViewModel.InternalShowHint = false;
         }
 
         private void EnteredTextTimerTick(object sender, EventArgs e)
@@ -221,9 +248,23 @@ namespace Z.BusinessLogic
             CollectSuggestions();
         }
 
+        private bool EscapePressed()
+        {
+            if (!IsInputEmpty())
+            {
+                ClearInput();
+            }
+            else
+            {
+                HideWindow();
+            }
+
+            return true;
+        }
+
         private void HideWindow()
         {
-            Safe(mainWindowViewModel => mainWindowViewModel.HideWindow());
+            mainWindowViewModel.HideWindow();
         }
 
         private void HotkeyPressed(object sender, EventArgs args)
@@ -233,16 +274,29 @@ namespace Z.BusinessLogic
 
         private bool IsInputEmpty()
         {            
-            return Safe(mainWindowViewModel => currentKeyword == null && String.IsNullOrEmpty(mainWindowViewModel.EnteredText), true);
+            return currentKeyword == null && String.IsNullOrEmpty(mainWindowViewModel.InternalEnteredText);
         }
-         
+
+        private void OpenConfigurationPressed()
+        {
+            mainWindowViewModel.OpenConfiguration();
+        }
+
+        private void SelectedSuggestionChanged()
+        {
+            SuggestionDTO suggestion = listWindowViewModel.SelectedSuggestion;
+            if (suggestion != null)
+            {
+                var text = suggestions[suggestion.Index].Suggestion.Text;
+                mainWindowViewModel.InternalEnteredText = text;
+                mainWindowViewModel.CaretPosition = text.Length;
+            }
+        }
+
         private void SetKeywordData(Models.KeywordData action, string keywordText, string enteredText)
         {
-            Safe(mainWindowViewModel =>
-            {
-                mainWindowViewModel.EnteredText = enteredText;
-                SetKeywordData(action, keywordText);
-            });           
+            mainWindowViewModel.InternalEnteredText = enteredText;
+            SetKeywordData(action, keywordText);
         }
 
         private void SetKeywordData(Models.KeywordData action, string keywordText)
@@ -254,10 +308,38 @@ namespace Z.BusinessLogic
         private void ShowWindow()
         {
             ClearInput();
-            Safe(mainWindowViewModel => {
-                mainWindowViewModel.ShowWindow();
-                mainWindowViewModel.ShowHint = true;
-            });
+
+            mainWindowViewModel.ShowWindow();
+            mainWindowViewModel.InternalShowHint = true;
+        }
+
+        private bool SpacePressed()
+        {
+            if (String.IsNullOrEmpty(mainWindowViewModel.InternalEnteredText))
+                return false;
+
+            int indexOfSpace = mainWindowViewModel.InternalEnteredText.IndexOf(' ');
+
+            // Check if potential keyword is entered
+            if (mainWindowViewModel.CaretPosition > 0 && (indexOfSpace >= mainWindowViewModel.CaretPosition || indexOfSpace == -1))
+            {
+                string possibleKeyword = mainWindowViewModel.InternalEnteredText.Substring(0, mainWindowViewModel.CaretPosition);
+
+                Models.KeywordData action = keywordService.GetKeywordAction(possibleKeyword);
+                if (action != null)
+                {
+                    SetKeywordData(action, possibleKeyword);
+                    mainWindowViewModel.InternalEnteredText = mainWindowViewModel.InternalEnteredText.Substring(mainWindowViewModel.CaretPosition);
+                    mainWindowViewModel.CaretPosition = 0;
+
+                    // Module may want to provide suggestions on empty text
+                    enteredTextTimer.Start();
+
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         private void StartEnteredTextTimer()
@@ -274,13 +356,15 @@ namespace Z.BusinessLogic
             enteredTextTimer.Stop();
         }
 
+        private bool TabPressed()
+        {
+            return false;
+        }
+
         private void UpdateViewmodelKeyword()
         {
-            Safe(mainWindowViewModel =>
-            {
-                mainWindowViewModel.Keyword = currentKeyword?.Keyword.DisplayName;
-                mainWindowViewModel.KeywordVisible = currentKeyword != null;
-            });
+            mainWindowViewModel.InternalKeyword = currentKeyword?.Keyword.DisplayName;
+            mainWindowViewModel.InternalKeywordVisible = currentKeyword != null;
         }
 
         private void UpdateListWindowViewmodel()
@@ -293,200 +377,29 @@ namespace Z.BusinessLogic
             UpdateViewmodelKeyword();
         }
 
-        // IListWindowLogic implementation ------------------------------------
-
-        void IListWindowLogic.SelectedSuggestionChanged()
+        private bool UpPressed()
         {
-            Safe((mainWindowViewModel, listWindowViewModel) => {
-                SuggestionDTO suggestion = listWindowViewModel.SelectedSuggestion;
-                if (suggestion != null)
-                {
-                    var text = suggestions[suggestion.Index].Suggestion.Text;
-                    mainWindowViewModel.EnteredText = text;
-                    mainWindowViewModel.CaretPosition = text.Length;
-                }
-            });
-        }
-
-        IListWindowViewModelAccess IListWindowLogic.ListWindowViewModel
-        {
-            set
-            {
-                if (value == null)
-                    throw new ArgumentNullException("value");
-                if (listWindowViewModel != null)
-                    throw new InvalidOperationException("ListWindowViewModel can be set only once!");
-
-                listWindowViewModel = value;
-                UpdateListWindowViewmodel();
-            }
-        }
-
-        // IMainWindowLogic implementation ------------------------------------
-
-        void IMainWindowLogic.EnteredTextChanged()
-        {
-            StartEnteredTextTimer();
-            Safe((IMainWindowViewModelAccess mainActivityViewModel) => {
-                mainWindowViewModel.ShowHint = false;
-            });
-        }
-
-        bool IMainWindowLogic.BackspacePressed()
-        {
-            if (mainWindowViewModel.CaretPosition == 0 && currentKeyword != null)
-            {
-                int keywordTextLength = currentKeyword.StoredText.Length;
-
-                mainWindowViewModel.EnteredText = currentKeyword.StoredText + mainWindowViewModel.EnteredText;
-                mainWindowViewModel.CaretPosition = keywordTextLength;
-
-                ClearKeywordData();
-                return true;
-            }
-
-            return false;
-        }
-
-        bool IMainWindowLogic.SpacePressed()
-        {
-            if (String.IsNullOrEmpty(mainWindowViewModel.EnteredText))
-                return false;
-
-            int indexOfSpace = mainWindowViewModel.EnteredText.IndexOf(' ');
-
-            // Check if potential keyword is entered
-            if (mainWindowViewModel.CaretPosition > 0 && (indexOfSpace >= mainWindowViewModel.CaretPosition || indexOfSpace == -1))
-            {
-                string possibleKeyword = mainWindowViewModel.EnteredText.Substring(0, mainWindowViewModel.CaretPosition);
-
-                Models.KeywordData action = keywordService.GetKeywordAction(possibleKeyword);
-                if (action != null)
-                {
-                    SetKeywordData(action, possibleKeyword);
-                    mainWindowViewModel.EnteredText = mainWindowViewModel.EnteredText.Substring(mainWindowViewModel.CaretPosition);
-                    mainWindowViewModel.CaretPosition = 0;
-
-                    // Module may want to provide suggestions on empty text
-                    enteredTextTimer.Start();
-
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        bool IMainWindowLogic.TabPressed()
-        {
-            return false;
-        }
-
-        bool IMainWindowLogic.EnterPressed()
-        {
-            // Stopping timer
-            enteredTextTimer.Stop();
-
-            Safe((mainWindowViewModel, listWindowViewModel) =>
-            {
-
-                ExecuteOptions options = new ExecuteOptions();
-
-                if (currentKeyword != null)
-                {
-                    // Executing keyword action
-                    currentKeyword.Keyword.Module.ExecuteKeywordAction(currentKeyword.Keyword.ActionName, mainWindowViewModel.EnteredText, options);
-                }
-                else if (listWindowViewModel.SelectedSuggestion != null)
-                {
-                    SuggestionData suggestion = suggestions[listWindowViewModel.SelectedSuggestion.Index];
-                    suggestion.Module.ExecuteSuggestion(suggestion.Suggestion, options);
-                }
-                else
-                {
-                    // Executing entered word
-                    try
-                    {
-                        Process.Start(mainWindowViewModel.EnteredText);
-                    }
-                    catch (Exception e)
-                    {
-                        // TODO handle commands, which are invalid
-                    }
-                }
-
-                if (!options.PreventClose)
-                    HideWindow();
-            });
-
+            listWindowViewModel.SelectPreviousSuggestion();
             return true;
         }
 
-        bool IMainWindowLogic.EscapePressed()
-        {
-            if (!IsInputEmpty())
-            {
-                ClearInput();
-            }
-            else
-            {
-                HideWindow();
-            }
-
-            return true;
-        }
-
-        bool IMainWindowLogic.UpPressed()
-        {
-            Safe(listWindowViewModel => listWindowViewModel.SelectPreviousSuggestion());
-            return true;
-        }
-
-        bool IMainWindowLogic.DownPressed()
-        {
-            Safe(listWindowViewModel => listWindowViewModel.SelectNextSuggestion());
-            return true;
-        }
-
-        void IMainWindowLogic.OpenConfigurationPressed()
-        {
-            Safe((IMainWindowViewModelAccess mainWindowViewModel) => mainWindowViewModel.OpenConfiguration());
-        }
-
-        void IMainWindowLogic.WindowLostFocus()
-        {
-            // HideWindow();
-        }
-
-        bool IMainWindowLogic.WindowClosing()
+        private bool WindowClosing()
         {
             // Store window position
-            Safe((mainWindowViewModel, listWindowViewModel) =>
-            {
-                configurationSerivice.Configuration.MainWindow.Position = mainWindowViewModel.Position;
-            });
+            configurationSerivice.Configuration.MainWindow.Position = mainWindowViewModel.Position;
 
             configurationSerivice.Save();
             return true;
         }
 
-        void IMainWindowLogic.WindowInitialized()
+        private void WindowInitialized()
         {
-            Safe(mainWindowViewModel => mainWindowViewModel.Position = configurationSerivice.Configuration.MainWindow.Position);
+            mainWindowViewModel.Position = configurationSerivice.Configuration.MainWindow.Position;
         }
 
-        IMainWindowViewModelAccess IMainWindowLogic.MainWindowViewModel
+        private void WindowLostFocus()
         {
-            set
-            {
-                if (value == null)
-                    throw new ArgumentNullException("value");
-                if (mainWindowViewModel != null)
-                    throw new InvalidOperationException("MainWindowViewModel can be set only once!");
-
-                mainWindowViewModel = value;
-                UpdateMainWindowViewmodel();
-            }
+            // HideWindow();
         }
 
         // Public methods -----------------------------------------------------
@@ -510,6 +423,13 @@ namespace Z.BusinessLogic
 
             this.helpModule = new HelpModule(this);
             moduleService.AddModule(helpModule);
+
+            mainWindowViewModel = new MainWindowViewModelImplementation(this);
+            listWindowViewModel = new ListWindowViewModelImplementation(this);
         }
+
+        public IMainWindowViewModel MainWindowViewModel => mainWindowViewModel;
+
+        public IListWindowViewModel ListWindowViewModel => listWindowViewModel;
     }
 }

@@ -15,12 +15,11 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Z.Common;
 using Z.Dependencies;
-using Z.ViewModels;
-using Z.ViewModels.Interfaces;
 using Microsoft.Practices.Unity;
 using System.Windows.Threading;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
+using Z.BusinessLogic.Interfaces.ViewModels;
 
 namespace Z
 {

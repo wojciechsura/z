@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace Z.BusinessLogic.Interfaces
 {
-    public interface IListWindowLogic
+    public interface IConfigurationWindowViewModel
     {
-        IListWindowViewModelAccess ListWindowViewModel { set; }
-
-        void SelectedSuggestionChanged();
+        IConfigurationWindowAccess ConfigurationWindowAccess { set; }
     }
 }
