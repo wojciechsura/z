@@ -155,10 +155,8 @@ namespace Z.BusinessLogic.Infrastructure
             return result;
         }
 
-        public void Unregister(Key key, KeyModifier modifier)
+        public void Unregister(int id)
         {
-            int id = GenerateId(key, modifier);
-
             if (hotkeys.ContainsKey(id))
             {
                 InternalUnregister(id);

@@ -58,13 +58,16 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConfigurationViewModel.cs" />
+    <Compile Include="ViewModels\ConfigurationViewModel.cs" />
     <Compile Include="Dependencies\Configuration.cs" />
     <Compile Include="Infrastructure\HotkeyService.cs" />
-    <Compile Include="Interfaces\ViewModels\IConfigurationWindowAccess.cs" />
-    <Compile Include="Interfaces\ViewModels\IListWindowAccess.cs" />
-    <Compile Include="Interfaces\ViewModels\IMainWindowAccess.cs" />
-    <Compile Include="MainViewModel.cs" />
+    <Compile Include="ViewModels\Configuration\BaseConfigurationViewModel.cs" />
+    <Compile Include="ViewModels\Configuration\GeneralViewModel.cs" />
+    <Compile Include="ViewModels\Configuration\KeywordsViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IConfigurationWindowAccess.cs" />
+    <Compile Include="ViewModels\Interfaces\IListWindowAccess.cs" />
+    <Compile Include="ViewModels\Interfaces\IMainWindowAccess.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Text.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -79,7 +82,6 @@
     <Compile Include="Services\Interfaces\IModuleService.cs" />
     <Compile Include="Services\KeywordService.cs" />
     <Compile Include="Services\ModuleService.cs" />
-    <Compile Include="Types\ConfigurationScreen.cs" />
     <Compile Include="Types\SimpleCommand.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -129,6 +131,10 @@
     <ProjectReference Include="..\Z.Common\Z.Common.csproj">
       <Project>{8953141f-27cd-43c6-b4f1-c3e25abd498c}</Project>
       <Name>Z.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Z.Dependencies\Z.Dependencies.csproj">
+      <Project>{4d075ffa-1213-4dad-8f14-50f6edf2f5bf}</Project>
+      <Name>Z.Dependencies</Name>
     </ProjectReference>
     <ProjectReference Include="..\Z.Models\Z.Models.csproj">
       <Project>{b6914e5d-5681-4693-b589-76e6de1ad836}</Project>

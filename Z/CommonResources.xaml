@@ -23,5 +23,6 @@
     
     <converters:RectGeometryGenerator x:Key="RectGeometryGenerator" />
     <converters:CollapsedIfEmptyConverter x:Key="CollapsedIfEmptyConverter" />
+    <converters:EnumDescriptionConverter x:Key="EnumDescriptionConverter" />
     <controls:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
 </ResourceDictionary>

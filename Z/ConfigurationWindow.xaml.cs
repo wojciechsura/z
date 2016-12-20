@@ -13,9 +13,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Microsoft.Practices.Unity;
-using Z.BusinessLogic.Interfaces;
 using Z.BusinessLogic.Types;
 using Z.BusinessLogic;
+using Z.BusinessLogic.ViewModels.Interfaces;
+using Z.BusinessLogic.ViewModels;
 
 namespace Z
 {
@@ -32,23 +33,13 @@ namespace Z
 
             viewModel = Dependencies.Container.Instance.Resolve<ConfigurationViewModel>();
             viewModel.ConfigurationWindowAccess = this;
+
+            DataContext = viewModel;
         }
 
-        public void OpenScreen(ConfigurationScreen screen)
+        public void CloseWindow()
         {
-            switch (screen)
-            {
-                case ConfigurationScreen.General:
-                    {
-                        break;
-                    }
-                case ConfigurationScreen.Keywords:
-                    {
-                        break;
-                    }
-                default:
-                    throw new InvalidEnumArgumentException("Unsupported screen!");
-            }
+            Close();
         }
     }
 }

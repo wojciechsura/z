@@ -5,10 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Z.BusinessLogic.Types;
 
-namespace Z.BusinessLogic.Interfaces
+namespace Z.BusinessLogic.ViewModels.Interfaces
 {
     public interface IConfigurationWindowAccess
     {
-        void OpenScreen(ConfigurationScreen screen);
+        void CloseWindow();
     }
 }

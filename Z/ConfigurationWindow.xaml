@@ -4,11 +4,69 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Z"
+        xmlns:conf="clr-namespace:Z.BusinessLogic.ViewModels.Configuration;assembly=Z.BusinessLogic"        
         mc:Ignorable="d"
         Title="Z Configuration" Height="600" Width="800" ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ConfigurationWindowStyles.xaml" />
+                <ResourceDictionary Source="CommonResources.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
     <DockPanel>
-        <ListBox DockPanel.Dock="Left" Width="200" />
-        <ContentPresenter x:Name="ConfigurationContent" />
+        <Grid DockPanel.Dock="Bottom">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Margin="6" Width="150" Height="24" Command="{Binding OkCommand}">OK</Button>
+                <Button Margin="6" Width="150" Height="24" Command="{Binding CancelCommand}" IsCancel="True">Cancel</Button>
+            </StackPanel>
+        </Grid>
+        <ListBox x:Name="Pages" DockPanel.Dock="Left" Width="200" ItemsSource="{Binding Pages}">
+            <ListBox.ItemTemplate>
+                <DataTemplate DataType="{x:Type conf:BaseConfigurationViewModel}">
+                    <TextBlock Margin="2" Text="{Binding DisplayName}" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <ContentPresenter Content="{Binding ElementName=Pages, Path=SelectedItem}">
+            <ContentPresenter.Resources>
+                <DataTemplate DataType="{x:Type conf:GeneralViewModel}">
+                    
+                    <!-- General settings -->
+                    
+                    <StackPanel Orientation="Vertical" Margin="6">
+                        <TextBlock Margin="3" Style="{StaticResource Header}" Text="Shortcut"/>
+                        <Separator />
+                        <TextBlock Margin="3" Text="Choose global shortcut to bring the Z window to the front" />
+                        <StackPanel Orientation="Horizontal" Style="{StaticResource ItemBlock}">
+                            <TextBlock Style="{StaticResource SingleItemDesc}">Modifiers</TextBlock>
+                            <CheckBox IsChecked="{Binding ShiftModifier, Mode=TwoWay}" Width="80">Shift</CheckBox>
+                            <CheckBox IsChecked="{Binding ControlModifier, Mode=TwoWay}" Width="80">Control</CheckBox>
+                            <CheckBox IsChecked="{Binding AltModifier, Mode=TwoWay}" Width="80">Alt</CheckBox>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Style="{StaticResource ItemBlock}">
+                            <TextBlock Style="{StaticResource SingleItemDesc}">Key</TextBlock>
+                            <ComboBox Margin="3" ItemsSource="{Binding Keys}" SelectedItem="{Binding Key, Mode=TwoWay}" Width="120">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Description}" />
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </StackPanel>
+                    </StackPanel>
+                        
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type conf:KeywordsViewModel}">
+                    
+                    <!-- Keyword settings -->
+                    
+                    <TextBlock Text="Keywords" />
+                    
+                </DataTemplate>
+            </ContentPresenter.Resources>
+        </ContentPresenter>
     </DockPanel>
 </Window>

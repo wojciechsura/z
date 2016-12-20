@@ -19,8 +19,9 @@ using Microsoft.Practices.Unity;
 using System.Windows.Threading;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
-using Z.BusinessLogic.Interfaces.ViewModels;
 using Z.BusinessLogic;
+using Z.BusinessLogic.ViewModels;
+using Z.BusinessLogic.ViewModels.Interfaces;
 
 namespace Z
 {

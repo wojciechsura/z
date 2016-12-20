@@ -14,5 +14,7 @@ namespace Z.BusinessLogic.Services.Interfaces
         Configuration Configuration { get; }
         bool Load();
         bool Save();
+        void NotifyConfigurationChanged();
+        event EventHandler ConfigurationChanged;
     }
 }
