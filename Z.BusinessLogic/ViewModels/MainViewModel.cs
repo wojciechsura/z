@@ -9,7 +9,6 @@ using Z.Models;
 
 using Microsoft.Practices.Unity;
 using Z.BusinessLogic.Services.Interfaces;
-using Z.BusinessLogic.Common;
 using Z.Models.DTO;
 using System.Diagnostics;
 using Z.Api.Interfaces;
@@ -17,6 +16,7 @@ using Z.Api.Types;
 using System.ComponentModel;
 using Z.BusinessLogic.Types;
 using Z.BusinessLogic.ViewModels.Interfaces;
+using Z.Common.Types;
 
 namespace Z.BusinessLogic.ViewModels
 {
@@ -47,7 +47,7 @@ namespace Z.BusinessLogic.ViewModels
                 this.logic = logic;
             }
 
-            public void CollectSuggestions(string enteredText, string keywordAction, ISuggestionCollector collector)
+            public void CollectSuggestions(string enteredText, string keywordAction, bool perfectMatchesOnly, ISuggestionCollector collector)
             {
                 if (enteredText == "?")
                 {
@@ -108,16 +108,12 @@ namespace Z.BusinessLogic.ViewModels
             }
         }
 
-        // Private constants --------------------------------------------------
-
-        private readonly TimeSpan timerInterval = TimeSpan.FromMilliseconds(200);
-
         // Private fields -----------------------------------------------------
 
         private readonly IGlobalHotkeyService globalHotkeyService;
         private readonly IKeywordService keywordService;
         private readonly IModuleService moduleService;
-        private readonly IConfigurationService configurationSerivice;
+        private readonly IConfigurationService configurationService;
 
         private readonly DispatcherTimer enteredTextTimer;
 
@@ -206,6 +202,11 @@ namespace Z.BusinessLogic.ViewModels
         private SuggestionDTO GetSelectedSuggestion()
         {
             return selectedItemIndex >= 0 ? suggestions[selectedItemIndex] : null;
+        }
+
+        private void HandleConfigurationChanged(object sender, EventArgs e)
+        {
+            enteredTextTimer.Interval = TimeSpan.FromMilliseconds(configurationService.Configuration.Behavior.SuggestionDelay);
         }
 
         private void HideWindow()
@@ -372,14 +373,16 @@ namespace Z.BusinessLogic.ViewModels
             this.globalHotkeyService = globalHotkeyService;
             this.keywordService = keywordService;
             this.moduleService = moduleService;
-            this.configurationSerivice = configurationService;
+            this.configurationService = configurationService;
+
+            this.configurationService.ConfigurationChanged += HandleConfigurationChanged;
 
             this.suggestionData = null;
         
             currentKeyword = null;
 
             this.enteredTextTimer = new DispatcherTimer();
-            enteredTextTimer.Interval = timerInterval;
+            enteredTextTimer.Interval = TimeSpan.FromMilliseconds(this.configurationService.Configuration.Behavior.SuggestionDelay);
             enteredTextTimer.Tick += EnteredTextTimerTick;
 
             globalHotkeyService.HotkeyHit += HotkeyPressed;
@@ -419,9 +422,9 @@ namespace Z.BusinessLogic.ViewModels
         public bool Closing()
         {
             // Store window position
-            configurationSerivice.Configuration.MainWindow.Position = mainWindowAccess.Position;
+            configurationService.Configuration.MainWindow.Position = mainWindowAccess.Position;
 
-            configurationSerivice.Save();
+            configurationService.Save();
             return true;
         }
 
@@ -450,15 +453,70 @@ namespace Z.BusinessLogic.ViewModels
             }
             else
             {
-                // Executing entered word
-                try
+                switch (configurationService.Configuration.Behavior.EnterBehavior)
                 {
-                    Process.Start(enteredText);
+                    case EnterBehavior.ShellExecute:
+                        {
+                            // Executing entered word
+                            try
+                            {
+                                Process.Start(enteredText);
+                            }
+                            catch (Exception e)
+                            {
+                                // TODO handle commands, which are invalid
+                            }
+
+                            break;
+                        }
+                    case EnterBehavior.ChooseFirst:
+                        {
+                            if (suggestions.Count > 0)
+                            {
+                                SuggestionData suggestion = suggestionData[0];
+                                suggestion.Module.ExecuteSuggestion(suggestion.Suggestion, options);
+                            }
+                            else
+                            {
+                                options.PreventClose = true;
+                            }
+
+                            break;
+                        }
+                    case EnterBehavior.ChoosePerfectlyMatching:
+                        {
+                            // Collecting perfectly matched results
+
+                            List<SuggestionData> matchedSuggestions = moduleService.GetSuggestionsFor(enteredText, currentKeyword?.Keyword, true);
+
+                            if (matchedSuggestions.Count == 0)
+                            {
+                                System.Media.SystemSounds.Beep.Play();
+                                options.PreventClose = true;
+                            }
+                            if (matchedSuggestions.Count == 1)
+                            {
+                                SuggestionData suggestion = matchedSuggestions[0];
+                                suggestion.Module.ExecuteSuggestion(suggestion.Suggestion, options);
+                            }
+                            else
+                            {
+                                SuggestionChoiceViewModel suggestionChoiceViewModel = new SuggestionChoiceViewModel(suggestionData);
+                                bool? result = mainWindowAccess.SelectSuggestion(suggestionChoiceViewModel);
+
+                                if (result == true)
+                                {
+                                    SuggestionData suggestion = matchedSuggestions[suggestionChoiceViewModel.SelectedItemIndex];
+                                    suggestion.Module.ExecuteSuggestion(suggestion.Suggestion, options);
+                                }
+                            }
+
+                            break;
+                        }
+                    default:
+                        throw new InvalidEnumArgumentException("Unsupported enter key behavior!");
                 }
-                catch (Exception e)
-                {
-                    // TODO handle commands, which are invalid
-                }
+
             }
 
             if (!options.PreventClose)
@@ -483,7 +541,7 @@ namespace Z.BusinessLogic.ViewModels
 
         public void Initialized()
         {
-            mainWindowAccess.Position = configurationSerivice.Configuration.MainWindow.Position;
+            mainWindowAccess.Position = configurationService.Configuration.MainWindow.Position;
         }
 
         public bool SpacePressed()

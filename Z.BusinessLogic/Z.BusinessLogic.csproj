@@ -62,11 +62,13 @@
     <Compile Include="Dependencies\Configuration.cs" />
     <Compile Include="Infrastructure\HotkeyService.cs" />
     <Compile Include="ViewModels\Configuration\BaseConfigurationViewModel.cs" />
+    <Compile Include="ViewModels\Configuration\BehaviorViewModel.cs" />
     <Compile Include="ViewModels\Configuration\GeneralViewModel.cs" />
     <Compile Include="ViewModels\Configuration\KeywordsViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IConfigurationWindowAccess.cs" />
     <Compile Include="ViewModels\Interfaces\IListWindowAccess.cs" />
     <Compile Include="ViewModels\Interfaces\IMainWindowAccess.cs" />
+    <Compile Include="ViewModels\Interfaces\ISuggestionChoiceWindowAccess.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Text.Designer.cs">
@@ -83,6 +85,7 @@
     <Compile Include="Services\KeywordService.cs" />
     <Compile Include="Services\ModuleService.cs" />
     <Compile Include="Types\SimpleCommand.cs" />
+    <Compile Include="ViewModels\SuggestionChoiceViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

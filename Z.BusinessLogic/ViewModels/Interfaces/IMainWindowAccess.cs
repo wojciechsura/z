@@ -14,9 +14,9 @@ namespace Z.BusinessLogic.ViewModels.Interfaces
         void OpenConfiguration();
         void ShowList();
         void HideList();
+        bool? SelectSuggestion(SuggestionChoiceViewModel suggestionChoiceViewModel);
 
         int CaretPosition { get; set; }
         Point Position { get; set; }
-
     }
 }

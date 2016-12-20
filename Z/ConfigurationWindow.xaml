@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Z"
         xmlns:conf="clr-namespace:Z.BusinessLogic.ViewModels.Configuration;assembly=Z.BusinessLogic"        
+        xmlns:t="clr-namespace:Z.Common.Types;assembly=Z.Common"
         mc:Ignorable="d"
         Title="Z Configuration" Height="600" Width="800" ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">
@@ -36,7 +37,7 @@
                     
                     <!-- General settings -->
                     
-                    <StackPanel Orientation="Vertical" Margin="6">
+                    <StackPanel Orientation="Vertical" Style="{StaticResource ConfigurationPage}">
                         <TextBlock Margin="3" Style="{StaticResource Header}" Text="Shortcut"/>
                         <Separator />
                         <TextBlock Margin="3" Text="Choose global shortcut to bring the Z window to the front" />
@@ -65,6 +66,61 @@
                     
                     <TextBlock Text="Keywords" />
                     
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type conf:BehaviorViewModel}">
+                    
+                    <!-- Behavior settings -->
+                    
+                    <StackPanel Orientation="Vertical" Style="{StaticResource ConfigurationPage}">
+                        <TextBlock Margin="3" Style="{StaticResource Header}">Executing actions</TextBlock>
+                        <Separator />
+                        <TextBlock Margin="3">
+                            <TextBlock.Inlines>
+                                <Run>Choose, what happens, when you press Enter key </Run>
+                                <Run FontWeight="Bold">when no suggestion is selected and no keyword is used</Run>
+                                <Run>:</Run>
+                            </TextBlock.Inlines>
+                        </TextBlock>
+                        <DockPanel Style="{StaticResource ItemBlock}">
+                            <TextBlock DockPanel.Dock="Left" Style="{StaticResource ItemDesc}">Enter key behavior</TextBlock>
+                            <StackPanel Orientation="Vertical">
+                                <RadioButton IsChecked="{Binding EnterBehavior, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static t:EnterBehavior.ShellExecute}}">Shell execute</RadioButton>
+                                <TextBlock Margin="20,8,0,8" TextWrapping="Wrap">
+                                    Causes the Z window to behave as Start | Run. When you press Enter, Z will try to execute entered text as command.
+                                </TextBlock>
+                                <RadioButton IsChecked="{Binding EnterBehavior, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static t:EnterBehavior.ChooseFirst}}">Choose first</RadioButton>
+                                <TextBlock Margin="20,8,0,8" TextWrapping="Wrap">
+                                    Z will choose first result in suggestions window and perform its action. If there are no suggestions, nothing will happen.
+                                </TextBlock>
+                                <RadioButton IsChecked="{Binding EnterBehavior, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static t:EnterBehavior.ChoosePerfectlyMatching}}">Choose perfectly match</RadioButton>
+                                <TextBlock Margin="20,8,0,8" TextWrapping="Wrap">
+                                    Z will try to find perfect match for entered text among modules. If there's only one, it will be executed. If there are more, you will be asked, which one do you want to execute.
+                                </TextBlock>
+                            </StackPanel>
+                        </DockPanel>
+
+                        <TextBlock Margin="3" Style="{StaticResource Header}">Suggestions</TextBlock>
+                        <Separator />
+
+                        <DockPanel Style="{StaticResource ItemBlock}">
+                            <TextBlock DockPanel.Dock="Left" Style="{StaticResource ItemDesc}">Suggestion delay</TextBlock>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Margin="3">How soon should suggestion window appear, when you stop typing.</TextBlock>
+                                <DockPanel>
+                                    <TextBlock DockPanel.Dock="Right" Margin="8" VerticalAlignment="Center">
+                                        <TextBlock.Inlines>
+                                            <Run Text="{Binding ElementName=SuggestionDelaySlider, Path=Value}" />
+                                            <Run Text="ms" />
+                                        </TextBlock.Inlines>
+                                    </TextBlock>
+                                    <Slider x:Name="SuggestionDelaySlider" Minimum="100" Maximum="1000" SmallChange="50" LargeChange="100" TickFrequency="50" IsSnapToTickEnabled="True" 
+                                            Value="{Binding SuggestionDelay, Mode=TwoWay}" />
+                                </DockPanel>
+                            </StackPanel>
+                        </DockPanel>
+
+                    </StackPanel>
+                        
                 </DataTemplate>
             </ContentPresenter.Resources>
         </ContentPresenter>

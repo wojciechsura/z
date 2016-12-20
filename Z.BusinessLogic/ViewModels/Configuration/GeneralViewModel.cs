@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Z.BusinessLogic.Common;
 using Z.BusinessLogic.Services.Interfaces;
 using Z.BusinessLogic.Types;
+using Z.Common.Types;
 
 namespace Z.BusinessLogic.ViewModels.Configuration
 {

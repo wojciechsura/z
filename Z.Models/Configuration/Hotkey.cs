@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Xml.Serialization;
-using Z.BusinessLogic.Common;
+using Z.Common.Types;
 
 namespace Z.Models.Configuration
 {    

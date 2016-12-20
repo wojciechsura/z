@@ -14,5 +14,7 @@ namespace Z.Models.Configuration
         public Hotkey Hotkey { get; set; } = new Hotkey();
         [XmlElement("MainWindow")]
         public MainWindow MainWindow { get; set; } = new MainWindow();
+        [XmlElement("Behavior")]
+        public Behavior Behavior { get; set; } = new Behavior();
     }
 }

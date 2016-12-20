@@ -41,9 +41,20 @@ namespace Filesystem
             }
         }
 
-        public void CollectSuggestions(string enteredText, string keywordAction, ISuggestionCollector collector)
+        public void CollectSuggestions(string enteredText, string keywordAction, bool perfectMatchesOnly, ISuggestionCollector collector)
         {
             string dir, search;
+
+            if (perfectMatchesOnly && Directory.Exists(enteredText))
+            {
+                collector.AddSuggestion(new SuggestionInfo(enteredText, enteredText, null, folderImage));
+                return;
+            }
+            else if (perfectMatchesOnly && File.Exists(enteredText))
+            {
+                collector.AddSuggestion(new SuggestionInfo(enteredText, enteredText, null, fileImage));
+                return;
+            }
 
             if (enteredText.EndsWith("\\"))
             {

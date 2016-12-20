@@ -9,7 +9,7 @@ namespace Z.Api.Interfaces
 {
     public interface IZModule
     {
-        void CollectSuggestions(string enteredText, string keywordAction, ISuggestionCollector collector);    
+        void CollectSuggestions(string enteredText, string keywordAction, bool perfectMatchesOnly, ISuggestionCollector collector);    
         string InternalName { get; }
         string DisplayName { get; }
         void ExecuteKeywordAction(string action, string expression, ExecuteOptions options);

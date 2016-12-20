@@ -54,7 +54,8 @@ namespace PgsModule
             new OperationInfo("wake", "https://wakeonlan.pgs-soft.com", "Wake on LAN"),
             new OperationInfo("structure", "https://my.pgs-soft.com/Person/OrganizationChart", "Struktura organizacyjna"),
             new OperationInfo("crucible", "https://crucible.pgs-soft.com", "Crucible"),
-            new OperationInfo("bitbucket", "https://bitbucket.pgs-soft.com", "Bitbucket")
+            new OperationInfo("bitbucket", "https://bitbucket.pgs-soft.com", "Bitbucket"),
+            new OperationInfo("lock", "http://www.google.com", "For test purposes")
         };
 
         private BitmapImage icon;
@@ -68,10 +69,16 @@ namespace PgsModule
             icon = new BitmapImage(new Uri("pack://application:,,,/PgsModule;component/Resources/pgs.png"));
         }
 
-        public void CollectSuggestions(string enteredText, string keywordAction, ISuggestionCollector collector)
+        public void CollectSuggestions(string enteredText, string keywordAction, bool perfectMatchesOnly, ISuggestionCollector collector)
         {
+            Func<OperationInfo, bool> filter;
+            if (perfectMatchesOnly)
+                filter = op => op.Word.ToUpper() == enteredText.ToUpper();
+            else
+                filter = op => op.Word.ToUpper().Contains(enteredText.ToUpper());
+
             operations
-                .Where(op => op.Word.ToUpper().Contains(enteredText.ToUpper()))
+                .Where(filter)
                 .Select(op => new SuggestionInfo(op.Word, op.Word, op.Description, icon))
                 .ToList()
                 .ForEach(s => collector.AddSuggestion(s));

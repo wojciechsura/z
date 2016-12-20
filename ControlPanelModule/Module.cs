@@ -80,10 +80,16 @@ namespace ControlPanelModule
             icon = new BitmapImage(new Uri("pack://application:,,,/ControlPanelModule;component/Resources/cpanel.png"));
         }
 
-        public void CollectSuggestions(string enteredText, string keywordAction, ISuggestionCollector collector)
+        public void CollectSuggestions(string enteredText, string keywordAction, bool perfectMatchesOnly, ISuggestionCollector collector)
         {
+            Func<BaseControlPanelEntry, bool> filter;
+            if (perfectMatchesOnly)
+                filter = cpe => cpe.DisplayName.ToUpper() == enteredText.ToUpper();
+            else
+                filter = cpe => cpe.DisplayName.ToUpper().Contains(enteredText.ToUpper());
+
             controlPanelEntries
-                .Where(cpe => cpe.DisplayName.ToUpper().Contains(enteredText.ToUpper()))
+                .Where(filter)
                 .OrderBy(cpe => cpe.DisplayName)
                 .Select(cpe => new SuggestionInfo(cpe.DisplayName, cpe.DisplayName, cpe.InfoTip, icon, cpe))
                 .ToList()

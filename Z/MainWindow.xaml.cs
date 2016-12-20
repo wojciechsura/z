@@ -210,6 +210,12 @@ namespace Z
             }            
         }
 
+        bool? IMainWindowAccess.SelectSuggestion(SuggestionChoiceViewModel suggestionChoiceViewModel)
+        {
+            SuggestionChoiceWindow win = new SuggestionChoiceWindow(suggestionChoiceViewModel);
+            return win.ShowDialog();
+        }
+
         // Protected methods --------------------------------------------------
 
         protected override void OnLocationChanged(EventArgs e)

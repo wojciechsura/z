@@ -5,53 +5,5 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="CommonResources.xaml" />
     </ResourceDictionary.MergedDictionaries>
-    
-    <Style x:Key="SuggestionListboxItemStyle" TargetType="ListBoxItem">
-        <Style.Setters>
-            <Setter Property="Foreground" Value="#5db2d9" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ListBoxItem">
-                        <Border Name="SelectionBorder" Background="Transparent" CornerRadius="1">
-                            <ContentPresenter />
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsSelected" Value="True">
-                                <Trigger.Setters>
-                                    <Setter Property="Foreground" Value="#ffffff" />
-                                    <Setter TargetName="SelectionBorder" Property="Background" Value="#29abdb" />
-                                </Trigger.Setters>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style.Setters>
-    </Style>
-
-    <Style x:Key="SuggestionListboxStyle" TargetType="ListBox">
-        <Style.Setters>
-            <Setter Property="Background" Value="Transparent" />
-            <Setter Property="BorderBrush" Value="{x:Null}" />
-            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-            <Setter Property="ItemTemplate">
-                <Setter.Value>
-                    <DataTemplate DataType="models:SuggestionDTO">
-
-                        <DockPanel>
-                            <Image DockPanel.Dock="Left" Source="{Binding Image}" Width="16" Height="16" VerticalAlignment="Center" Margin="2" 
-                                   SnapsToDevicePixels="True" />
-                            <TextBlock Margin="2" DockPanel.Dock="Right" Text="{Binding Module}" VerticalAlignment="Center" Opacity="0.5"/>
-                            <DockPanel>
-                                <TextBlock DockPanel.Dock="Bottom" Margin="1" Visibility="{Binding Comment, Converter={StaticResource CollapsedIfEmptyConverter}}" 
-                                           Text="{Binding Comment}" Opacity="0.5" />
-                                <TextBlock Margin="1" Text="{Binding Display}" FontSize="14"/>
-                            </DockPanel>
-                        </DockPanel>
-                    </DataTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style.Setters>
-    </Style>
 
 </ResourceDictionary>

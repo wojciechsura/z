@@ -71,7 +71,7 @@ namespace Z.BusinessLogic.Services
                 .SingleOrDefault(m => m.InternalName == internalName);
         }
 
-        public List<SuggestionData> GetSuggestionsFor(string text, KeywordData keyword)
+        public List<SuggestionData> GetSuggestionsFor(string text, KeywordData keyword, bool perfectMatchesOnly = false)
         {
             var suggestions = new List<SuggestionData>();
 
@@ -79,7 +79,7 @@ namespace Z.BusinessLogic.Services
             {
                 using (var collector = new SuggestionCollector(suggestions, keyword.Module))
                 {
-                    keyword.Module.CollectSuggestions(text, keyword.ActionName, collector);
+                    keyword.Module.CollectSuggestions(text, keyword.ActionName, perfectMatchesOnly, collector);
                 }
             }
             else
@@ -90,7 +90,7 @@ namespace Z.BusinessLogic.Services
 
                     using (var collector = new SuggestionCollector(suggestions, module))
                     {
-                        module.CollectSuggestions(text, null, collector);
+                        module.CollectSuggestions(text, null, perfectMatchesOnly, collector);
                     }
                 }
             }

@@ -11,6 +11,6 @@ namespace Z.Models.Configuration
     public class MainWindow
     {
         [XmlElement("Position")]
-        public Point Position { get; set; }
+        public Point Position { get; set; }        
     }
 }
