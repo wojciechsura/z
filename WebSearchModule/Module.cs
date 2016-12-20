@@ -85,7 +85,7 @@ namespace WebSearchModule
             // No suggestions available for this module
         }
 
-        public void CollectSuggestions(string enteredText, string keywordAction, ISuggestionCollector collector)
+        public void CollectSuggestions(string enteredText, string keywordAction, bool perfectMatchesOnly, ISuggestionCollector collector)
         {
             // No suggestions available for this module
         }

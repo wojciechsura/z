@@ -100,10 +100,16 @@ namespace ShortcutModule
             shortcuts = LoadShortcuts();
         }
 
-        public void CollectSuggestions(string enteredText, string keywordAction, ISuggestionCollector collector)
+        public void CollectSuggestions(string enteredText, string keywordAction, bool perfectMatchesOnly, ISuggestionCollector collector)
         {
+            Func<ShortcutInfo, bool> filter;
+            if (perfectMatchesOnly)
+                filter = si => si.Display.ToUpper() == enteredText.ToUpper();
+            else
+                filter = si => si.Display.ToUpper().Contains(enteredText.ToUpper());        
+
             shortcuts
-                .Where(s => s.Display.ToUpper().Contains(enteredText.ToUpper()))
+                .Where(filter)
                 .OrderBy(s => s.Display)
                 .Select(s => new SuggestionInfo(s.Display, s.Display, s.Comment, Icon, s))
                 .ToList()

@@ -59,10 +59,16 @@ namespace PowerModule
             icon = new BitmapImage(new Uri("pack://application:,,,/PowerModule;component/Resources/power.png"));
         }
 
-        public void CollectSuggestions(string enteredText, string keywordAction, ISuggestionCollector collector)
+        public void CollectSuggestions(string enteredText, string keywordAction, bool perfectMatchesOnly, ISuggestionCollector collector)
         {
+            Func<PowerInfo, bool> filter;
+            if (perfectMatchesOnly)
+                filter = pi => pi.Command.ToUpper() == enteredText.ToUpper();
+            else
+                filter = pi => pi.Command.ToUpper().Contains(enteredText.ToUpper());
+
             powerInfos
-                .Where(pi => pi.Command.ToUpper().Contains(enteredText.ToUpper()))
+                .Where(filter)
                 .Select(pi => new SuggestionInfo(pi.Command, pi.Display, pi.Comment, icon, pi))
                 .OrderBy(pi => pi.Display)
                 .ToList()

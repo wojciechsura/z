@@ -22,6 +22,7 @@ namespace Z.BusinessLogic.Dependencies
             container.RegisterType<MainViewModel>(new ContainerControlledLifetimeManager());            
             container.RegisterType<ConfigurationViewModel>();
             container.RegisterType<ViewModels.Configuration.GeneralViewModel>();
+            container.RegisterType<ViewModels.Configuration.BehaviorViewModel>();
             container.RegisterType<ViewModels.Configuration.KeywordsViewModel>();
         }
     }

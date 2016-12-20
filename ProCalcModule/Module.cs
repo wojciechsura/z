@@ -36,7 +36,7 @@ namespace ProCalcModule
             icon = new BitmapImage(new Uri("pack://application:,,,/ProCalcModule;component/Resources/calc.png"));
         }
 
-        public void CollectSuggestions(string enteredText, string keywordAction, ISuggestionCollector collector)
+        public void CollectSuggestions(string enteredText, string keywordAction, bool perfectMatchesOnly, ISuggestionCollector collector)
         {
             try
             {

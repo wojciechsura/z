@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Z.BusinessLogic.Common
+namespace Z.Common.Types
 {
     // Commented values are valid (in terms of WinAPI), but not used in application.
 

@@ -44,6 +44,7 @@ namespace Z.BusinessLogic.ViewModels
             pages = new List<BaseConfigurationViewModel>
             {
                 Container.Instance.Resolve<GeneralViewModel>(),
+                Container.Instance.Resolve<BehaviorViewModel>(),
                 Container.Instance.Resolve<KeywordsViewModel>()
             };
 
