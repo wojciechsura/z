@@ -77,15 +77,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Common\Converters\CollapsedIfEmptyConverter.cs" />
+    <Compile Include="Common\Converters\EnumDescriptionConverter.cs" />
     <Compile Include="Common\Converters\RectGeometryGenerator.cs" />
     <Compile Include="ConfigurationWindow.xaml.cs">
       <DependentUpon>ConfigurationWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\GeneralSettings.xaml.cs">
-      <DependentUpon>GeneralSettings.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\KeywordSettings.xaml.cs">
-      <DependentUpon>KeywordSettings.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dependencies\Configuration.cs" />
     <Page Include="CommonResources.xaml">
@@ -96,11 +91,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\GeneralSettings.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\KeywordSettings.xaml">
+    <Page Include="ConfigurationWindowStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -168,6 +159,10 @@
     <ProjectReference Include="..\Z.BusinessLogic\Z.BusinessLogic.csproj">
       <Project>{f3cb7dbc-68ba-409f-ae9b-16929c165cb0}</Project>
       <Name>Z.BusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Z.Common\Z.Common.csproj">
+      <Project>{8953141f-27cd-43c6-b4f1-c3e25abd498c}</Project>
+      <Name>Z.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Z.Dependencies\Z.Dependencies.csproj">
       <Project>{4d075ffa-1213-4dad-8f14-50f6edf2f5bf}</Project>

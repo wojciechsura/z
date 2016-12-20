@@ -4,8 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Z.BusinessLogic.Interfaces;
-using Z.BusinessLogic.Interfaces.ViewModels;
+using Z.BusinessLogic.ViewModels;
 using Z.BusinessLogic.Services;
 using Z.BusinessLogic.Services.Interfaces;
 
@@ -22,6 +21,8 @@ namespace Z.BusinessLogic.Dependencies
 
             container.RegisterType<MainViewModel>(new ContainerControlledLifetimeManager());            
             container.RegisterType<ConfigurationViewModel>();
+            container.RegisterType<ViewModels.Configuration.GeneralViewModel>();
+            container.RegisterType<ViewModels.Configuration.KeywordsViewModel>();
         }
     }
 }

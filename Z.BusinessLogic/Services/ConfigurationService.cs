@@ -14,9 +14,15 @@ namespace Z.BusinessLogic.Services
 {
     class ConfigurationService : IConfigurationService
     {
+        // Private constants --------------------------------------------------
+
         private const string CONFIG_FILENAME = "config.xml";
 
+        // Private fields -----------------------------------------------------
+
         private Configuration configuration;
+
+        // Private methods ----------------------------------------------------
 
         private string GetConfigDirectory()
         {
@@ -38,6 +44,8 @@ namespace Z.BusinessLogic.Services
             if (ConfigurationChanged != null)
                 ConfigurationChanged(this, EventArgs.Empty);
         }
+
+        // Public methods -----------------------------------------------------
 
         public ConfigurationService()
         {
@@ -86,7 +94,6 @@ namespace Z.BusinessLogic.Services
                         // Possible validation
 
                         configuration = newConfiguration;
-                        OnConfigurationChanged();
                     }
                 }
 
@@ -97,6 +104,13 @@ namespace Z.BusinessLogic.Services
                 return false;
             }
         }
+
+        public void NotifyConfigurationChanged()
+        {
+            OnConfigurationChanged();
+        }
+
+        // Public properties --------------------------------------------------
 
         public Configuration Configuration
         {

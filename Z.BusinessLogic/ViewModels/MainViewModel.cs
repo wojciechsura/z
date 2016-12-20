@@ -8,18 +8,17 @@ using System.Windows.Threading;
 using Z.Models;
 
 using Microsoft.Practices.Unity;
-using Z.BusinessLogic.Interfaces;
 using Z.BusinessLogic.Services.Interfaces;
 using Z.BusinessLogic.Common;
 using Z.Models.DTO;
 using System.Diagnostics;
 using Z.Api.Interfaces;
 using Z.Api.Types;
-using Z.BusinessLogic.Interfaces.ViewModels;
 using System.ComponentModel;
 using Z.BusinessLogic.Types;
+using Z.BusinessLogic.ViewModels.Interfaces;
 
-namespace Z.BusinessLogic
+namespace Z.BusinessLogic.ViewModels
 {
     public class MainViewModel : INotifyPropertyChanged
     {
@@ -218,7 +217,7 @@ namespace Z.BusinessLogic
         {
             ShowWindow();
         }
-
+        
         private bool IsInputEmpty()
         {            
             return currentKeyword == null && String.IsNullOrEmpty(enteredText);
