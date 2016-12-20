@@ -54,8 +54,7 @@ namespace PgsModule
             new OperationInfo("wake", "https://wakeonlan.pgs-soft.com", "Wake on LAN"),
             new OperationInfo("structure", "https://my.pgs-soft.com/Person/OrganizationChart", "Struktura organizacyjna"),
             new OperationInfo("crucible", "https://crucible.pgs-soft.com", "Crucible"),
-            new OperationInfo("bitbucket", "https://bitbucket.pgs-soft.com", "Bitbucket"),
-            new OperationInfo("lock", "http://www.google.com", "For test purposes")
+            new OperationInfo("bitbucket", "https://bitbucket.pgs-soft.com", "Bitbucket")
         };
 
         private BitmapImage icon;
