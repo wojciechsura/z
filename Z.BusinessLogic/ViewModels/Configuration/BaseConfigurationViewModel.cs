@@ -10,5 +10,6 @@ namespace Z.BusinessLogic.ViewModels.Configuration
     {
         public abstract string DisplayName { get; }
         public abstract void Save();
+        public abstract IEnumerable<string> Validate();
     }
 }

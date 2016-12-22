@@ -160,6 +160,11 @@ namespace Z.BusinessLogic.ViewModels.Configuration
             configuration.Hotkey.KeyModifier = keyModifier;
         }
 
+        public override IEnumerable<string> Validate()
+        {
+            return null;
+        }
+
         // Public properties --------------------------------------------------
 
         public override string DisplayName

@@ -42,9 +42,9 @@ namespace Z
             Close();
         }
 
-        private void DataGrid_OnCellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        public void ShowWarning(string message, string caption)
         {
-            (sender as DataGrid)?.CommitEdit();
+            MessageBox.Show(message, caption, MessageBoxButton.OK, MessageBoxImage.Warning);
         }
     }
 }

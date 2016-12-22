@@ -439,8 +439,11 @@ namespace Z.BusinessLogic.ViewModels
         {
             // Store window position
             configurationService.Configuration.MainWindow.Position = mainWindowAccess.Position;
-
             configurationService.Save();
+
+            // Notify ModuleService to deinitialize modules
+            moduleService.NotifyClosing();
+
             return true;
         }
 
@@ -478,7 +481,7 @@ namespace Z.BusinessLogic.ViewModels
                             {
                                 Process.Start(enteredText);
                             }
-                            catch (Exception e)
+                            catch
                             {
                                 // TODO handle commands, which are invalid
                             }

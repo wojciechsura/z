@@ -39,6 +39,11 @@ namespace Z.BusinessLogic.ViewModels.Configuration
             configuration.Behavior.SuggestionDelay = suggestionDelay;
         }
 
+        public override IEnumerable<string> Validate()
+        {
+            return null;
+        }
+
         public override string DisplayName
         {
             get

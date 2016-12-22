@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Z.Api.Interfaces;
 using Z.Api.Types;
@@ -42,22 +44,50 @@ namespace Z.BusinessLogic.Services
             }
         }
 
+        private class ModuleContext : IModuleContext
+        {
+            private readonly IPathService pathService;
+            private readonly string moduleName;
+
+            public ModuleContext(IPathService pathService, string moduleName)
+            {
+                this.pathService = pathService;
+                this.moduleName = moduleName;
+            }
+
+            public FileStream OpenConfigurationFile(string filename, FileMode fileMode, FileAccess fileAccess)
+            {
+                if (filename.Contains('\\'))
+                    throw new ArgumentException("Invalid filename!", nameof(filename));
+
+                string path = Path.Combine(pathService.GetModuleConfigDirectory(moduleName), filename);
+
+                return new FileStream(path, fileMode, fileAccess);
+            }
+        }
+
         // Private fields -----------------------------------------------------
 
         private readonly List<IZModule> modules;
+        private readonly IPathService pathService;
 
         // Private methods ----------------------------------------------------
 
         private void InitDefaultModules()
         {
-            modules.Add(new WebSearchModule.Module());
-            modules.Add(new PgsModule.Module());
-            modules.Add(new Filesystem.Module());
-            modules.Add(new ControlPanelModule.Module());
-            modules.Add(new StartMenuModule.Module());
-            modules.Add(new ProCalcModule.Module());
-            modules.Add(new PowerModule.Module());
-            modules.Add(new DesktopModule.Module());
+            AddModule(new WebSearchModule.Module());
+            AddModule(new PgsModule.Module());
+            AddModule(new Filesystem.Module());
+            AddModule(new ControlPanelModule.Module());
+            AddModule(new StartMenuModule.Module());
+            AddModule(new ProCalcModule.Module());
+            AddModule(new PowerModule.Module());
+            AddModule(new DesktopModule.Module());
+        }
+
+        private bool IsValidName(string moduleName)
+        {
+            return Regex.Match(moduleName.ToUpper(), "^[A-Z0-9_][A-Z0-9_\\.]*$").Success;
         }
 
         // Protected methods --------------------------------------------------
@@ -75,8 +105,10 @@ namespace Z.BusinessLogic.Services
                 .SingleOrDefault(m => m.Name == internalName);
         }
 
-        public ModuleService()
+        public ModuleService(IPathService pathService)
         {
+            this.pathService = pathService;
+
             modules = new List<IZModule>();
             InitDefaultModules();
         }
@@ -117,10 +149,24 @@ namespace Z.BusinessLogic.Services
         {
             if (module == null)
                 throw new ArgumentNullException(nameof(module));
+            if (!IsValidName(module.Name))
+                throw new ArgumentException($"Invalid module name: {module.Name}", nameof(module));
+            if (modules.Any(m => m.Name.ToUpper() == module.Name.ToUpper()))
+                throw new ArgumentException($"Module with name {module.Name} is already registerd!");
 
             modules.Add(module);
 
+            module.Initialize(new ModuleContext(pathService, module.Name));
+
             OnModulesChanged();
+        }
+
+        public void NotifyClosing()
+        {
+            foreach (var module in modules)
+            {
+                module.Deinitialize();
+            }
         }
 
         // Public properties --------------------------------------------------

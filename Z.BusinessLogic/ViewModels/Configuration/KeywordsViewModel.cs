@@ -68,6 +68,17 @@ namespace Z.BusinessLogic.ViewModels.Configuration
             }
         }
 
+        public override IEnumerable<string> Validate()
+        {
+            var duplicateOverrides = keywordOverrides
+                .Select(k => k.Keyword.ToUpper())
+                .GroupBy(k => k)
+                .Where(g => g.Count() > 1);
+
+            if (duplicateOverrides.Any())
+                yield return $"The following keyword{(duplicateOverrides.Count() > 1 ? "s are" : " is")} duplicated: {String.Join(", ", duplicateOverrides.Select(d => d.Key))}";
+        }
+
         public IEnumerable<KeywordOverrideViewModel> Keywords => keywordOverrides;
 
         public override string DisplayName => PAGE_DISPLAY_NAME;
