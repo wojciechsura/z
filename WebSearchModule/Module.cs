@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Z.Api.Interfaces;
 using Z.Api.Types;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace WebSearchModule
 {
@@ -34,6 +35,8 @@ namespace WebSearchModule
         private const string MODULE_NAME = "WebSearch";
         private const string MODULE_DISPLAY_NAME = "Web search";
 
+        private readonly ImageSource icon;
+
         private List<SearchInfo> searchInfos = new List<SearchInfo>
         {
             new SearchInfo("GoogleSearch", "g", "Google", "Search with Google", "https://www.google.com/#q={0}"),
@@ -59,6 +62,11 @@ namespace WebSearchModule
             {
                 return MODULE_DISPLAY_NAME;
             }
+        }
+
+        public Module()
+        {
+            icon = new BitmapImage(new Uri("pack://application:,,,/WebSearchModule;component/Resources/search.png"));
         }
 
         public IEnumerable<KeywordInfo> GetKeywordActions()
@@ -91,9 +99,6 @@ namespace WebSearchModule
             // No suggestions available for this module
         }
 
-        public ImageSource Icon
-        {
-            get { return null; }
-        }
+        public ImageSource Icon => icon;        
     }
 }
