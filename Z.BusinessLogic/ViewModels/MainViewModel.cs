@@ -14,6 +14,7 @@ using System.Diagnostics;
 using Z.Api.Interfaces;
 using Z.Api.Types;
 using System.ComponentModel;
+using System.Windows.Media;
 using Z.BusinessLogic.Types;
 using Z.BusinessLogic.ViewModels.Interfaces;
 using Z.Common.Types;
@@ -105,6 +106,11 @@ namespace Z.BusinessLogic.ViewModels
                 {
                     return MODULE_NAME;
                 }
+            }
+
+            public ImageSource Icon
+            {
+                get { return null; }
             }
         }
 

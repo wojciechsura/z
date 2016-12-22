@@ -16,5 +16,7 @@ namespace Z.Models.Configuration
         public MainWindow MainWindow { get; set; } = new MainWindow();
         [XmlElement("Behavior")]
         public Behavior Behavior { get; set; } = new Behavior();
+        [XmlElement("Keywords")]
+        public Keywords Keywords { get; set; } = new Keywords();
     }
 }

@@ -78,7 +78,6 @@ namespace ShortcutModule
         protected abstract string ActionName { get; }
         protected abstract string ActionDisplay { get; }
         protected abstract string ActionComment { get; }
-        protected abstract ImageSource Icon { get; }
 
         // Protected methods --------------------------------------------------
 
@@ -157,5 +156,7 @@ namespace ShortcutModule
 
         public abstract string InternalName { get; }
         public abstract string DisplayName { get; }
+
+        public abstract ImageSource Icon { get; }
     }
 }

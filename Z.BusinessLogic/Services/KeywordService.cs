@@ -12,18 +12,17 @@ namespace Z.BusinessLogic.Services
 {
     class KeywordService : IKeywordService
     {
-        // Private types ------------------------------------------------------
-
         private class InternalKeywordData
         {
-            public KeywordInfo Info { get; set; }
-            public string Keyword { get; set; }
+            public KeywordInfo Info { get; internal set; }
             public IZModule Module { get; set; }
+            public string Keyword { get; set; }
         }
-        
+
         // Private fields -----------------------------------------------------
 
         private readonly IModuleService moduleService;
+        private readonly IConfigurationService configurationService;
         private List<InternalKeywordData> keywords;
 
         // Private methods ----------------------------------------------------
@@ -37,17 +36,15 @@ namespace Z.BusinessLogic.Services
                 var module = moduleService.GetModule(i);
                 var keywordActions = module.GetKeywordActions();
 
-                foreach (var action in keywordActions)
-                {
-                    InternalKeywordData info = new InternalKeywordData
-                    {
-                        Info = action,
-                        Keyword = action.DefaultKeyword,
-                        Module = module
-                    };
+                if (keywordActions == null) continue;
 
-                    result.Add(info);
-                }
+                result.AddRange(keywordActions
+                    .Select(action => new InternalKeywordData
+                        {
+                            Info = action,
+                            Keyword = action.DefaultKeyword,
+                            Module = module
+                        }));
             }
 
             return result;
@@ -55,7 +52,24 @@ namespace Z.BusinessLogic.Services
 
         private void ApplyKeywordOverrides(List<InternalKeywordData> keywords)
         {
-            // TODO
+            foreach (var keywordOverride in configurationService.Configuration.Keywords.KeywordOverrides)
+            {
+                var data = keywords
+                    .FirstOrDefault(k => k.Module.InternalName == keywordOverride.ModuleName && k.Info.ActionName == keywordOverride.ActionName);
+
+                if (data != null)
+                    data.Keyword = keywordOverride.Keyword;
+            }
+        }
+
+        private void HandleConfigurationChanged(object sender, EventArgs e)
+        {
+            ReloadKeywords();
+        }
+
+        private void HandleModulesChanged(object sender, EventArgs e)
+        {
+            ReloadKeywords();
         }
 
         private void ReloadKeywords()
@@ -66,9 +80,13 @@ namespace Z.BusinessLogic.Services
 
         // Public methods -----------------------------------------------------
 
-        public KeywordService(IModuleService moduleService)
+        public KeywordService(IModuleService moduleService, IConfigurationService configurationService)
         {
             this.moduleService = moduleService;
+            this.configurationService = configurationService;
+
+            moduleService.ModulesChanged += HandleModulesChanged;
+            configurationService.ConfigurationChanged += HandleConfigurationChanged;
 
             ReloadKeywords();
         }

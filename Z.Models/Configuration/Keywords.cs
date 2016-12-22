@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Xml.Serialization;
 
 namespace Z.Models.Configuration
 {
-    public class MainWindow
+    public class Keywords
     {
-        [XmlElement("Position")]
-        public Point Position { get; set; } 
+        [XmlArray("KeywordOverrides")]
+        public List<KeywordOverride> KeywordOverrides { get; set; } = new List<KeywordOverride>();
     }
 }

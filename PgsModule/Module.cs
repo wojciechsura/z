@@ -54,7 +54,9 @@ namespace PgsModule
             new OperationInfo("wake", "https://wakeonlan.pgs-soft.com", "Wake on LAN"),
             new OperationInfo("structure", "https://my.pgs-soft.com/Person/OrganizationChart", "Struktura organizacyjna"),
             new OperationInfo("crucible", "https://crucible.pgs-soft.com", "Crucible"),
-            new OperationInfo("bitbucket", "https://bitbucket.pgs-soft.com", "Bitbucket")
+            new OperationInfo("bitbucket", "https://bitbucket.pgs-soft.com", "Bitbucket"),
+            new OperationInfo("feedme", "https://feedme.pgs-soft.com", "Feedme - Rzeszów"),
+            new OperationInfo("findme", "https://findme.pgs-soft.com", "Find me - Rzeszów")
         };
 
         private BitmapImage icon;
@@ -124,5 +126,7 @@ namespace PgsModule
                 return MODULE_DISPLAY_NAME;
             }
         }
+
+        public ImageSource Icon => icon;
     }
 }

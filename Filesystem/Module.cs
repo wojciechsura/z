@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using Z.Api.Interfaces;
 using Z.Api.Types;
+using System.Windows.Media;
 
 namespace Filesystem
 {
@@ -120,5 +121,7 @@ namespace Filesystem
             fileImage = new BitmapImage(new Uri("pack://application:,,,/Filesystem;component/Resources/file.png"));
             folderImage = new BitmapImage(new Uri("pack://application:,,,/Filesystem;component/Resources/folder.png"));
         }
+
+        public ImageSource Icon => folderImage;
     }
 }

@@ -44,7 +44,6 @@ namespace StartMenuModule
         protected override string ActionName => ACTION_NAME;
         protected override string ActionDisplay => ACTION_DISPLAY;
         protected override string ActionComment => ACTION_COMMENT;
-        protected override ImageSource Icon => icon;
 
         // Public methods -----------------------------------------------------
 
@@ -56,20 +55,10 @@ namespace StartMenuModule
 
         // Public properties --------------------------------------------------
 
-        public override string DisplayName
-        {
-            get
-            {
-                return MODULE_DISPLAY_NAME;
-            }
-        }
+        public override string DisplayName => MODULE_DISPLAY_NAME;
 
-        public override string InternalName
-        {
-            get
-            {
-                return MODULE_NAME;
-            }
-        }
+        public override string InternalName => MODULE_NAME;
+
+        public override ImageSource Icon => icon;
     }
 }

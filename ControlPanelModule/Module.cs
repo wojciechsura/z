@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Z.Api.Interfaces;
 using Z.Api.Types;
@@ -130,5 +131,7 @@ namespace ControlPanelModule
                 return MODULE_NAME;
             }
         }
+
+        public ImageSource Icon => icon;
     }
 }
