@@ -162,6 +162,41 @@
                     </StackPanel>
                         
                 </DataTemplate>
+                <DataTemplate DataType="{x:Type conf:ModulesViewModel}">
+
+                    <!-- Modules -->
+                    
+                    <DockPanel Style="{StaticResource ConfigurationPage}">
+                        <TextBlock DockPanel.Dock="Top" Margin="3" Style="{StaticResource Header}">Modules</TextBlock>
+                        <Separator DockPanel.Dock="Top" />
+
+                        <ListView ItemsSource="{Binding Modules}">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn>
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Image Source="{Binding Icon}" Width="16" Height="16" Margin="3" />
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn Width="150" DisplayMemberBinding="{Binding Module, Mode=OneTime}">
+                                        <GridViewColumnHeader>Module</GridViewColumnHeader>
+                                    </GridViewColumn>
+                                    <GridViewColumn>
+                                        <GridViewColumnHeader>Configure</GridViewColumnHeader>
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Button Command="{Binding ShowConfigCommand}" Padding="2" Margin="3">Configure...</Button>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </DockPanel>
+
+                </DataTemplate>
             </ContentPresenter.Resources>
         </ContentPresenter>
     </DockPanel>

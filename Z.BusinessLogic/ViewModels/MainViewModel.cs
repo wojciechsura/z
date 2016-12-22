@@ -122,6 +122,11 @@ namespace Z.BusinessLogic.ViewModels
             {
                 
             }
+
+            public IConfigurationProvider GetConfigurationProvider()
+            {
+                return null;
+            }
         }
 
         // Private fields -----------------------------------------------------

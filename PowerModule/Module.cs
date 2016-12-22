@@ -97,6 +97,21 @@ namespace PowerModule
             yield return new KeywordInfo(ACTION_KEYWORD, ACTION_NAME, ACTION_DISPLAY_NAME, ACTION_COMMENT);
         }
 
+        public void Initialize(IModuleContext context)
+        {
+            this.context = context;
+        }
+
+        public void Deinitialize()
+        {
+
+        }
+
+        public IConfigurationProvider GetConfigurationProvider()
+        {
+            return new ConfigProvider();
+        }
+
         // Public properties --------------------------------------------------
 
         public string DisplayName
@@ -116,14 +131,5 @@ namespace PowerModule
         }
 
         public ImageSource Icon => icon;
-        public void Initialize(IModuleContext context)
-        {
-            this.context = context;
-        }
-
-        public void Deinitialize()
-        {
-            
-        }
     }
 }
