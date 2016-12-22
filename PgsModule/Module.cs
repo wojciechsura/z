@@ -60,6 +60,7 @@ namespace PgsModule
         };
 
         private BitmapImage icon;
+        private IModuleContext context;
 
         // Public methods -----------------------------------------------------
 
@@ -70,7 +71,7 @@ namespace PgsModule
             icon = new BitmapImage(new Uri("pack://application:,,,/PgsModule;component/Resources/pgs.png"));
         }
 
-        public void CollectSuggestions(string enteredText, string keywordAction, bool perfectMatchesOnly, ISuggestionCollector collector)
+        public void CollectSuggestions(string enteredText, string action, bool perfectMatchesOnly, ISuggestionCollector collector)
         {
             Func<OperationInfo, bool> filter;
             if (perfectMatchesOnly)
@@ -111,7 +112,7 @@ namespace PgsModule
 
         // Public properties --------------------------------------------------
 
-        public string InternalName
+        public string Name
         {
             get
             {
@@ -128,5 +129,14 @@ namespace PgsModule
         }
 
         public ImageSource Icon => icon;
+        public void Initialize(IModuleContext context)
+        {
+            this.context = context;
+        }
+
+        public void Deinitialize()
+        {
+            
+        }
     }
 }

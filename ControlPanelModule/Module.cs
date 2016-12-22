@@ -22,6 +22,7 @@ namespace ControlPanelModule
         private const string CPANEL_KEYWORD_COMMENT = "Access to Control Panel entries";
         private List<BaseControlPanelEntry> controlPanelEntries;
         private BitmapImage icon;
+        private IModuleContext context;
 
         private class CommandInfo
         {
@@ -81,7 +82,7 @@ namespace ControlPanelModule
             icon = new BitmapImage(new Uri("pack://application:,,,/ControlPanelModule;component/Resources/cpanel.png"));
         }
 
-        public void CollectSuggestions(string enteredText, string keywordAction, bool perfectMatchesOnly, ISuggestionCollector collector)
+        public void CollectSuggestions(string enteredText, string action, bool perfectMatchesOnly, ISuggestionCollector collector)
         {
             Func<BaseControlPanelEntry, bool> filter;
             if (perfectMatchesOnly)
@@ -124,7 +125,7 @@ namespace ControlPanelModule
             }
         }
 
-        public string InternalName
+        public string Name
         {
             get
             {
@@ -133,5 +134,14 @@ namespace ControlPanelModule
         }
 
         public ImageSource Icon => icon;
+        public void Initialize(IModuleContext context)
+        {
+            this.context = context;
+        }
+
+        public void Deinitialize()
+        {
+            
+        }
     }
 }

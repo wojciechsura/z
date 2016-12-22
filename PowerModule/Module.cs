@@ -51,6 +51,7 @@ namespace PowerModule
         };
 
         private readonly ImageSource icon;
+        private IModuleContext context;
 
         // Public methods -----------------------------------------------------
 
@@ -59,7 +60,7 @@ namespace PowerModule
             icon = new BitmapImage(new Uri("pack://application:,,,/PowerModule;component/Resources/power.png"));
         }
 
-        public void CollectSuggestions(string enteredText, string keywordAction, bool perfectMatchesOnly, ISuggestionCollector collector)
+        public void CollectSuggestions(string enteredText, string action, bool perfectMatchesOnly, ISuggestionCollector collector)
         {
             Func<PowerInfo, bool> filter;
             if (perfectMatchesOnly)
@@ -106,7 +107,7 @@ namespace PowerModule
             }
         }
 
-        public string InternalName
+        public string Name
         {
             get
             {
@@ -115,5 +116,14 @@ namespace PowerModule
         }
 
         public ImageSource Icon => icon;
+        public void Initialize(IModuleContext context)
+        {
+            this.context = context;
+        }
+
+        public void Deinitialize()
+        {
+            
+        }
     }
 }

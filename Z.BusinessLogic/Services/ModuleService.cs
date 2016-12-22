@@ -72,7 +72,7 @@ namespace Z.BusinessLogic.Services
         public IZModule GetModule(string internalName)
         {
             return modules
-                .SingleOrDefault(m => m.InternalName == internalName);
+                .SingleOrDefault(m => m.Name == internalName);
         }
 
         public ModuleService()

@@ -25,6 +25,7 @@ namespace Filesystem
         private const int LONG_FILENAME = 60;
         private BitmapImage folderImage;
         private BitmapImage fileImage;
+        private IModuleContext context;
 
         public string DisplayName
         {
@@ -34,7 +35,7 @@ namespace Filesystem
             }
         }
 
-        public string InternalName
+        public string Name
         {
             get
             {
@@ -42,7 +43,7 @@ namespace Filesystem
             }
         }
 
-        public void CollectSuggestions(string enteredText, string keywordAction, bool perfectMatchesOnly, ISuggestionCollector collector)
+        public void CollectSuggestions(string enteredText, string action, bool perfectMatchesOnly, ISuggestionCollector collector)
         {
             string dir, search;
 
@@ -123,5 +124,14 @@ namespace Filesystem
         }
 
         public ImageSource Icon => folderImage;
+        public void Initialize(IModuleContext context)
+        {
+            this.context = context;
+        }
+
+        public void Deinitialize()
+        {
+            
+        }
     }
 }
