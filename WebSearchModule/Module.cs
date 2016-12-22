@@ -50,22 +50,6 @@ namespace WebSearchModule
 
         private IModuleContext context;
 
-        public string Name
-        {
-            get
-            {
-                return MODULE_NAME;
-            }
-        }
-
-        public string DisplayName
-        {
-            get
-            {
-                return MODULE_DISPLAY_NAME;
-            }
-        }
-
         public Module()
         {
             icon = new BitmapImage(new Uri("pack://application:,,,/WebSearchModule;component/Resources/search.png"));
@@ -101,7 +85,6 @@ namespace WebSearchModule
             // No suggestions available for this module
         }
 
-        public ImageSource Icon => icon;
         public void Initialize(IModuleContext context)
         {
             this.context = context;
@@ -109,7 +92,30 @@ namespace WebSearchModule
 
         public void Deinitialize()
         {
-            
+
         }
+
+        public IConfigurationProvider GetConfigurationProvider()
+        {
+            return null;
+        }
+
+        public string Name
+        {
+            get
+            {
+                return MODULE_NAME;
+            }
+        }
+
+        public string DisplayName
+        {
+            get
+            {
+                return MODULE_DISPLAY_NAME;
+            }
+        }
+
+        public ImageSource Icon => icon;
     }
 }

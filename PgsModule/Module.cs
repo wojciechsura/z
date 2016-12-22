@@ -110,6 +110,21 @@ namespace PgsModule
             };
         }
 
+        public void Initialize(IModuleContext context)
+        {
+            this.context = context;
+        }
+
+        public void Deinitialize()
+        {
+
+        }
+
+        public IConfigurationProvider GetConfigurationProvider()
+        {
+            return null;
+        }
+
         // Public properties --------------------------------------------------
 
         public string Name
@@ -129,14 +144,5 @@ namespace PgsModule
         }
 
         public ImageSource Icon => icon;
-        public void Initialize(IModuleContext context)
-        {
-            this.context = context;
-        }
-
-        public void Deinitialize()
-        {
-            
-        }
     }
 }

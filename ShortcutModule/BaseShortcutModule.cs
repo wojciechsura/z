@@ -156,6 +156,11 @@ namespace ShortcutModule
             yield return new KeywordInfo(ActionKeyword, ActionName, ActionDisplay, ActionComment);
         }
 
+        public virtual IConfigurationProvider GetConfigurationProvider()
+        {
+            return null;
+        }
+
         // Public properties --------------------------------------------------
 
         public abstract string Name { get; }
@@ -170,6 +175,6 @@ namespace ShortcutModule
         public void Deinitialize()
         {
             
-        }
+        }        
     }
 }

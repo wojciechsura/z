@@ -123,7 +123,11 @@ namespace Filesystem
             folderImage = new BitmapImage(new Uri("pack://application:,,,/Filesystem;component/Resources/folder.png"));
         }
 
-        public ImageSource Icon => folderImage;
+        public IConfigurationProvider GetConfigurationProvider()
+        {
+            return null;
+        }
+
         public void Initialize(IModuleContext context)
         {
             this.context = context;
@@ -131,7 +135,9 @@ namespace Filesystem
 
         public void Deinitialize()
         {
-            
+
         }
+
+        public ImageSource Icon => folderImage;
     }
 }

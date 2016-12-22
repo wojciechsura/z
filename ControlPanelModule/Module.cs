@@ -112,9 +112,24 @@ namespace ControlPanelModule
                 RunEntry(entry);
         }
 
+        public IConfigurationProvider GetConfigurationProvider()
+        {
+            return null;
+        }
+
         public IEnumerable<KeywordInfo> GetKeywordActions()
         {
             yield return new KeywordInfo(CPANEL_KEYWORD, CPANEL_KEYWORD_ACTION, CPANEL_KEYWORD_DISPLAY, CPANEL_KEYWORD_COMMENT);
+        }
+
+        public void Initialize(IModuleContext context)
+        {
+            this.context = context;
+        }
+
+        public void Deinitialize()
+        {
+            
         }
 
         public string DisplayName
@@ -134,14 +149,5 @@ namespace ControlPanelModule
         }
 
         public ImageSource Icon => icon;
-        public void Initialize(IModuleContext context)
-        {
-            this.context = context;
-        }
-
-        public void Deinitialize()
-        {
-            
-        }
     }
 }

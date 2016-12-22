@@ -56,7 +56,8 @@ namespace Z.BusinessLogic.ViewModels
             {
                 Container.Instance.Resolve<GeneralViewModel>(),
                 Container.Instance.Resolve<BehaviorViewModel>(),
-                Container.Instance.Resolve<KeywordsViewModel>()
+                Container.Instance.Resolve<KeywordsViewModel>(),
+                Container.Instance.Resolve<ModulesViewModel>()
             };
 
             OkCommand = new SimpleCommand((obj) => HandleOk());

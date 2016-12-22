@@ -78,13 +78,6 @@ namespace ProCalcModule
             yield return new KeywordInfo(ACTION_KEYWORD, ACTION_NAME, ACTION_DISPLAY, ACTION_COMMENT);
         }
 
-        // Public properties --------------------------------------------------
-
-        public string DisplayName => MODULE_DISPLAY_NAME;
-
-        public string Name => MODULE_NAME;
-
-        public ImageSource Icon => icon;
         public void Initialize(IModuleContext context)
         {
             this.context = context;
@@ -92,7 +85,20 @@ namespace ProCalcModule
 
         public void Deinitialize()
         {
-            
+
         }
+
+        public IConfigurationProvider GetConfigurationProvider()
+        {
+            return null;
+        }
+
+        // Public properties --------------------------------------------------
+
+        public string DisplayName => MODULE_DISPLAY_NAME;
+
+        public string Name => MODULE_NAME;
+
+        public ImageSource Icon => icon;
     }
 }
