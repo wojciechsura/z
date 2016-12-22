@@ -18,6 +18,7 @@ namespace Z.BusinessLogic.Dependencies
             container.RegisterType<IModuleService, ModuleService>(new ContainerControlledLifetimeManager());
             container.RegisterType<IKeywordService, KeywordService>(new ContainerControlledLifetimeManager());
             container.RegisterType<IConfigurationService, ConfigurationService>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IPathService, PathService>(new ContainerControlledLifetimeManager());
 
             container.RegisterType<MainViewModel>(new ContainerControlledLifetimeManager());            
             container.RegisterType<ConfigurationViewModel>();

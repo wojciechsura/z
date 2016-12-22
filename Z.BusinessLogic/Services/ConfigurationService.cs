@@ -20,22 +20,13 @@ namespace Z.BusinessLogic.Services
         // Private fields -----------------------------------------------------
 
         private Configuration configuration;
+        private IPathService pathService;
 
         // Private methods ----------------------------------------------------
 
-        private string GetConfigDirectory()
-        {
-            string localRoaming = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            if (!localRoaming.EndsWith("\\"))
-                localRoaming += '\\';
-
-            string result = $"{localRoaming}Spooksoft\\Z\\";
-            return result;
-        }
-
         private string GetConfigPath()
         {
-            return GetConfigDirectory() + CONFIG_FILENAME;
+            return Path.Combine(pathService.GetConfigDirectory(), CONFIG_FILENAME);
         }
 
         private void OnConfigurationChanged()
@@ -46,8 +37,10 @@ namespace Z.BusinessLogic.Services
 
         // Public methods -----------------------------------------------------
 
-        public ConfigurationService()
+        public ConfigurationService(IPathService pathService)
         {
+            this.pathService = pathService;
+
             // Defaults
             configuration = new Configuration();
 

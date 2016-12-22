@@ -12,9 +12,11 @@ namespace Z.BusinessLogic.Services.Interfaces
     {
         IZModule GetModule(int index);
         IZModule GetModule(string internalName);
-        int ModuleCount { get; }
         List<SuggestionData> GetSuggestionsFor(string text, KeywordData keyword, bool perfectMatchesOnly = false);
         void AddModule(IZModule helpModule);
+        void NotifyClosing();
+
+        int ModuleCount { get; }
         event EventHandler ModulesChanged;
     }
 }

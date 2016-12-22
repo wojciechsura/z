@@ -10,5 +10,6 @@ namespace Z.BusinessLogic.ViewModels.Interfaces
     public interface IConfigurationWindowAccess
     {
         void CloseWindow();
+        void ShowWarning(string message, string caption);
     }
 }

@@ -27,6 +27,17 @@ namespace Z.BusinessLogic.ViewModels
 
         private void HandleOk()
         {
+            // Validate
+            for (int i = 0; i < pages.Count; i++)
+            {
+                List<string> messages = pages[i].Validate()?.ToList();
+                if (messages != null && messages.Count() > 0)
+                {
+                    configWindowAccess.ShowWarning(messages.First(), "Configuration");
+                    return;
+                }
+            }
+
             foreach (BaseConfigurationViewModel viewModel in pages)
             {
                 viewModel.Save();
