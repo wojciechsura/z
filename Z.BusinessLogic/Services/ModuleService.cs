@@ -12,6 +12,8 @@ namespace Z.BusinessLogic.Services
 {
     class ModuleService : IModuleService
     {
+        // Private types ------------------------------------------------------
+
         private class SuggestionCollector : ISuggestionCollector, IDisposable
         {
             private readonly List<SuggestionData> suggestions;
@@ -40,7 +42,11 @@ namespace Z.BusinessLogic.Services
             }
         }
 
-        private List<IZModule> modules;
+        // Private fields -----------------------------------------------------
+
+        private readonly List<IZModule> modules;
+
+        // Private methods ----------------------------------------------------
 
         private void InitDefaultModules()
         {
@@ -54,6 +60,21 @@ namespace Z.BusinessLogic.Services
             modules.Add(new DesktopModule.Module());
         }
 
+        // Protected methods --------------------------------------------------
+
+        protected virtual void OnModulesChanged()
+        {
+            ModulesChanged?.Invoke(this, EventArgs.Empty);
+        }
+
+        // Public methods -----------------------------------------------------
+
+        public IZModule GetModule(string internalName)
+        {
+            return modules
+                .SingleOrDefault(m => m.InternalName == internalName);
+        }
+
         public ModuleService()
         {
             modules = new List<IZModule>();
@@ -63,12 +84,6 @@ namespace Z.BusinessLogic.Services
         public IZModule GetModule(int index)
         {
             return modules[index];
-        }
-
-        public IZModule GetModule(string internalName)
-        {
-            return modules
-                .SingleOrDefault(m => m.InternalName == internalName);
         }
 
         public List<SuggestionData> GetSuggestionsFor(string text, KeywordData keyword, bool perfectMatchesOnly = false)
@@ -104,14 +119,14 @@ namespace Z.BusinessLogic.Services
                 throw new ArgumentNullException(nameof(module));
 
             modules.Add(module);
+
+            OnModulesChanged();
         }
 
-        public int ModuleCount
-        {
-            get
-            {
-                return modules.Count;
-            }
-        }
+        // Public properties --------------------------------------------------
+
+        public int ModuleCount => modules.Count;
+
+        public event EventHandler ModulesChanged;
     }
 }

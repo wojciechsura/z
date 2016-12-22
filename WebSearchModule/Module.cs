@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Z.Api.Interfaces;
 using Z.Api.Types;
+using System.Windows.Media;
 
 namespace WebSearchModule
 {
@@ -88,6 +89,11 @@ namespace WebSearchModule
         public void CollectSuggestions(string enteredText, string keywordAction, bool perfectMatchesOnly, ISuggestionCollector collector)
         {
             // No suggestions available for this module
+        }
+
+        public ImageSource Icon
+        {
+            get { return null; }
         }
     }
 }

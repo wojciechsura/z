@@ -41,5 +41,10 @@ namespace Z
         {
             Close();
         }
+
+        private void DataGrid_OnCellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+            (sender as DataGrid)?.CommitEdit();
+        }
     }
 }

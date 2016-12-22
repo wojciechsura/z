@@ -79,20 +79,10 @@ namespace ProCalcModule
 
         // Public properties --------------------------------------------------
 
-        public string DisplayName
-        {
-            get
-            {
-                return MODULE_DISPLAY_NAME;
-            }
-        }
+        public string DisplayName => MODULE_DISPLAY_NAME;
 
-        public string InternalName
-        {
-            get
-            {
-                return MODULE_NAME;
-            }
-        }
+        public string InternalName => MODULE_NAME;
+
+        public ImageSource Icon => icon;
     }
 }

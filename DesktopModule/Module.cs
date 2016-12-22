@@ -28,7 +28,6 @@ namespace DesktopModule
         protected override string ActionDisplay => DESKTOP_ACTION_DISPLAY;
         protected override string ActionKeyword => DESKTOP_ACTION_KEYWORD;
         protected override string ActionName => DESKTOP_ACTION_NAME;
-        protected override ImageSource Icon => icon;
 
         // Protected methods --------------------------------------------------
 
@@ -53,5 +52,6 @@ namespace DesktopModule
 
         public override string DisplayName => MODULE_DISPLAY_NAME;
         public override string InternalName => MODULE_NAME;
+        public override ImageSource Icon => icon;
     }
 }

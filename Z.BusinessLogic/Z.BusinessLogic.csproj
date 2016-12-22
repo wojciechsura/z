@@ -65,6 +65,7 @@
     <Compile Include="ViewModels\Configuration\BehaviorViewModel.cs" />
     <Compile Include="ViewModels\Configuration\GeneralViewModel.cs" />
     <Compile Include="ViewModels\Configuration\KeywordsViewModel.cs" />
+    <Compile Include="ViewModels\Configuration\Keywords\KeywordOverrideViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IConfigurationWindowAccess.cs" />
     <Compile Include="ViewModels\Interfaces\IListWindowAccess.cs" />
     <Compile Include="ViewModels\Interfaces\IMainWindowAccess.cs" />

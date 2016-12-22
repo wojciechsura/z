@@ -113,5 +113,7 @@ namespace PowerModule
                 return MODULE_NAME;
             }
         }
+
+        public ImageSource Icon => icon;
     }
 }

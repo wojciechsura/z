@@ -4,7 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Z"
-        xmlns:conf="clr-namespace:Z.BusinessLogic.ViewModels.Configuration;assembly=Z.BusinessLogic"        
+        xmlns:conf="clr-namespace:Z.BusinessLogic.ViewModels.Configuration;assembly=Z.BusinessLogic"
+        xmlns:key="clr-namespace:Z.BusinessLogic.ViewModels.Configuration.Keywords;assembly=Z.BusinessLogic"
         xmlns:t="clr-namespace:Z.Common.Types;assembly=Z.Common"
         mc:Ignorable="d"
         Title="Z Configuration" Height="600" Width="800" ResizeMode="NoResize"
@@ -24,7 +25,7 @@
                 <Button Margin="6" Width="150" Height="24" Command="{Binding CancelCommand}" IsCancel="True">Cancel</Button>
             </StackPanel>
         </Grid>
-        <ListBox x:Name="Pages" DockPanel.Dock="Left" Width="200" ItemsSource="{Binding Pages}">
+        <ListBox x:Name="Pages" DockPanel.Dock="Left" Width="200" Margin="6" ItemsSource="{Binding Pages}">
             <ListBox.ItemTemplate>
                 <DataTemplate DataType="{x:Type conf:BaseConfigurationViewModel}">
                     <TextBlock Margin="2" Text="{Binding DisplayName}" />
@@ -38,8 +39,8 @@
                     <!-- General settings -->
                     
                     <StackPanel Orientation="Vertical" Style="{StaticResource ConfigurationPage}">
-                        <TextBlock Margin="3" Style="{StaticResource Header}" Text="Shortcut"/>
-                        <Separator />
+                        <TextBlock Margin="3" Style="{StaticResource Header}">Shortcut</TextBlock>
+	                    <Separator />
                         <TextBlock Margin="3" Text="Choose global shortcut to bring the Z window to the front" />
                         <StackPanel Orientation="Horizontal" Style="{StaticResource ItemBlock}">
                             <TextBlock Style="{StaticResource SingleItemDesc}">Modifiers</TextBlock>
@@ -63,9 +64,46 @@
                 <DataTemplate DataType="{x:Type conf:KeywordsViewModel}">
                     
                     <!-- Keyword settings -->
-                    
-                    <TextBlock Text="Keywords" />
-                    
+
+                    <DockPanel Style="{StaticResource ConfigurationPage}">
+                        <TextBlock DockPanel.Dock="Top" Margin="3" Style="{StaticResource Header}">Keywords</TextBlock>
+                        <Separator DockPanel.Dock="Top" />
+
+                        <ListView ItemsSource="{Binding Keywords}">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn>
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Image Source="{Binding Icon}" Width="16" Height="16" />
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn DisplayMemberBinding="{Binding ModuleDisplayName, Mode=OneTime}">
+                                        <GridViewColumnHeader>Module</GridViewColumnHeader>
+                                    </GridViewColumn>
+                                    <GridViewColumn DisplayMemberBinding="{Binding ActionDisplayName, Mode=OneTime}">
+                                        <GridViewColumnHeader>Action</GridViewColumnHeader>
+                                    </GridViewColumn>
+                                    <GridViewColumn>
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <CheckBox IsChecked="{Binding Override, Mode=TwoWay}"></CheckBox>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn>
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBox Text="{Binding Keyword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="150"></TextBox>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                        
+                    </DockPanel>
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type conf:BehaviorViewModel}">
                     
@@ -74,7 +112,7 @@
                     <StackPanel Orientation="Vertical" Style="{StaticResource ConfigurationPage}">
                         <TextBlock Margin="3" Style="{StaticResource Header}">Executing actions</TextBlock>
                         <Separator />
-                        <TextBlock Margin="3">
+                        <TextBlock Margin="3" HorizontalAlignment="Stretch" TextWrapping="Wrap">
                             <TextBlock.Inlines>
                                 <Run>Choose, what happens, when you press Enter key </Run>
                                 <Run FontWeight="Bold">when no suggestion is selected and no keyword is used</Run>

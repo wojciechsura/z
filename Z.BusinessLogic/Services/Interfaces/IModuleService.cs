@@ -15,5 +15,6 @@ namespace Z.BusinessLogic.Services.Interfaces
         int ModuleCount { get; }
         List<SuggestionData> GetSuggestionsFor(string text, KeywordData keyword, bool perfectMatchesOnly = false);
         void AddModule(IZModule helpModule);
+        event EventHandler ModulesChanged;
     }
 }
