@@ -27,6 +27,7 @@ namespace ProCalcModule
 
         private readonly Engine proCalc;
         private readonly ImageSource icon;
+        private IModuleContext context;
 
         // Public methods -----------------------------------------------------
 
@@ -36,7 +37,7 @@ namespace ProCalcModule
             icon = new BitmapImage(new Uri("pack://application:,,,/ProCalcModule;component/Resources/calc.png"));
         }
 
-        public void CollectSuggestions(string enteredText, string keywordAction, bool perfectMatchesOnly, ISuggestionCollector collector)
+        public void CollectSuggestions(string enteredText, string action, bool perfectMatchesOnly, ISuggestionCollector collector)
         {
             try
             {
@@ -81,8 +82,17 @@ namespace ProCalcModule
 
         public string DisplayName => MODULE_DISPLAY_NAME;
 
-        public string InternalName => MODULE_NAME;
+        public string Name => MODULE_NAME;
 
         public ImageSource Icon => icon;
+        public void Initialize(IModuleContext context)
+        {
+            this.context = context;
+        }
+
+        public void Deinitialize()
+        {
+            
+        }
     }
 }

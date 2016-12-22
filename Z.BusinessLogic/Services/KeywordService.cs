@@ -55,7 +55,7 @@ namespace Z.BusinessLogic.Services
             foreach (var keywordOverride in configurationService.Configuration.Keywords.KeywordOverrides)
             {
                 var data = keywords
-                    .FirstOrDefault(k => k.Module.InternalName == keywordOverride.ModuleName && k.Info.ActionName == keywordOverride.ActionName);
+                    .FirstOrDefault(k => k.Module.Name == keywordOverride.ModuleName && k.Info.Name == keywordOverride.ActionName);
 
                 if (data != null)
                     data.Keyword = keywordOverride.Keyword;
@@ -94,14 +94,14 @@ namespace Z.BusinessLogic.Services
         public KeywordData GetKeywordAction(string keyword)
         {
             return keywords.Where(k => k.Keyword.ToLower() == keyword.ToLower())
-                .Select(k => new KeywordData(k.Keyword, k.Info.ActionName, k.Info.DisplayName, k.Info.Comment, k.Module))
+                .Select(k => new KeywordData(k.Keyword, k.Info.Name, k.Info.DisplayName, k.Info.Comment, k.Module))
                 .FirstOrDefault();
         }
 
         public IEnumerable<KeywordData> GetKeywords()
         {
             return keywords
-                .Select(k => new KeywordData(k.Keyword, k.Info.ActionName, k.Info.DisplayName, k.Info.Comment, k.Module))
+                .Select(k => new KeywordData(k.Keyword, k.Info.Name, k.Info.DisplayName, k.Info.Comment, k.Module))
                 .ToList();
         }
     }

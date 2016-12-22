@@ -51,7 +51,7 @@ namespace DesktopModule
         // Public properties --------------------------------------------------
 
         public override string DisplayName => MODULE_DISPLAY_NAME;
-        public override string InternalName => MODULE_NAME;
+        public override string Name => MODULE_NAME;
         public override ImageSource Icon => icon;
     }
 }

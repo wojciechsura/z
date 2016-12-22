@@ -37,12 +37,12 @@ namespace Z.BusinessLogic.ViewModels.Configuration
                     foreach (var keywordInfo in keywords)
                     {
                         var @override = configurationService.Configuration.Keywords.KeywordOverrides
-                            .FirstOrDefault(o => o.ModuleName == module.InternalName && o.ActionName == keywordInfo.ActionName);
+                            .FirstOrDefault(o => o.ModuleName == module.Name && o.ActionName == keywordInfo.Name);
 
                         keywordOverrides.Add(new KeywordOverrideViewModel(keywordInfo.DefaultKeyword,
                             @override != null ? @override.Keyword : keywordInfo.DefaultKeyword,
-                            module.InternalName,
-                            keywordInfo.ActionName,
+                            module.Name,
+                            keywordInfo.Name,
                             module.DisplayName,
                             keywordInfo.DisplayName,
                             module.Icon));

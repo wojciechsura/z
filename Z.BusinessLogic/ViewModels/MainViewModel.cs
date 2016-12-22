@@ -48,7 +48,7 @@ namespace Z.BusinessLogic.ViewModels
                 this.logic = logic;
             }
 
-            public void CollectSuggestions(string enteredText, string keywordAction, bool perfectMatchesOnly, ISuggestionCollector collector)
+            public void CollectSuggestions(string enteredText, string action, bool perfectMatchesOnly, ISuggestionCollector collector)
             {
                 if (enteredText == "?")
                 {
@@ -100,7 +100,7 @@ namespace Z.BusinessLogic.ViewModels
                 }
             }
 
-            public string InternalName
+            public string Name
             {
                 get
                 {
@@ -111,6 +111,16 @@ namespace Z.BusinessLogic.ViewModels
             public ImageSource Icon
             {
                 get { return null; }
+            }
+
+            public void Initialize(IModuleContext context)
+            {
+                
+            }
+
+            public void Deinitialize()
+            {
+                
             }
         }
 

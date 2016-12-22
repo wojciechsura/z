@@ -48,7 +48,9 @@ namespace WebSearchModule
             new SearchInfo("StackOverflow", "so", "StackOverflow", "Search on StackOverflow", "http://stackoverflow.com/search?q={0}")
         };
 
-        public string InternalName
+        private IModuleContext context;
+
+        public string Name
         {
             get
             {
@@ -94,11 +96,20 @@ namespace WebSearchModule
             // No suggestions available for this module
         }
 
-        public void CollectSuggestions(string enteredText, string keywordAction, bool perfectMatchesOnly, ISuggestionCollector collector)
+        public void CollectSuggestions(string enteredText, string action, bool perfectMatchesOnly, ISuggestionCollector collector)
         {
             // No suggestions available for this module
         }
 
-        public ImageSource Icon => icon;        
+        public ImageSource Icon => icon;
+        public void Initialize(IModuleContext context)
+        {
+            this.context = context;
+        }
+
+        public void Deinitialize()
+        {
+            
+        }
     }
 }

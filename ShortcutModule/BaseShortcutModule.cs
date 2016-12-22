@@ -72,6 +72,10 @@ namespace ShortcutModule
             }
         }
 
+        // Protected fields ---------------------------------------------------
+
+        protected IModuleContext context;
+
         // Protected properties -----------------------------------------------
 
         protected abstract string ActionKeyword { get; }
@@ -99,7 +103,7 @@ namespace ShortcutModule
             shortcuts = LoadShortcuts();
         }
 
-        public void CollectSuggestions(string enteredText, string keywordAction, bool perfectMatchesOnly, ISuggestionCollector collector)
+        public void CollectSuggestions(string enteredText, string action, bool perfectMatchesOnly, ISuggestionCollector collector)
         {
             Func<ShortcutInfo, bool> filter;
             if (perfectMatchesOnly)
@@ -154,9 +158,18 @@ namespace ShortcutModule
 
         // Public properties --------------------------------------------------
 
-        public abstract string InternalName { get; }
+        public abstract string Name { get; }
         public abstract string DisplayName { get; }
 
         public abstract ImageSource Icon { get; }
+        public virtual void Initialize(IModuleContext context)
+        {
+            this.context = context;
+        }
+
+        public void Deinitialize()
+        {
+            
+        }
     }
 }
