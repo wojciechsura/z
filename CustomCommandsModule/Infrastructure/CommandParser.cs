@@ -6,14 +6,26 @@ using System.Threading.Tasks;
 
 namespace CustomCommandsModule.Infrastructure
 {
+    /*
+    regularText=[^\{\}]+
+    openingBrace=\{\{
+    closingBrace=\}\}
+    parameter=\{[0-9]+\}
+    urlParameter=\{[uU][0-9]+\}
+    all=\{\*\}
+    urlAll=\{[uU]\*\}
+    */
+
     public enum CommandTokenType
     {
-        ClosingBrace = 0,
-        OpeningBrace = 1,
-        Parameter = 2,
-        RegularText = 3,
-        UrlParameter = 4,
-        Unknown = 5
+        All = 0,
+        ClosingBrace = 1,
+        OpeningBrace = 2,
+        Parameter = 3,
+        RegularText = 4,
+        UrlAll = 5,
+        UrlParameter = 6,
+        Unknown = 7
     };
 
     public class CommandToken : BaseToken<CommandTokenType>
@@ -22,9 +34,9 @@ namespace CustomCommandsModule.Infrastructure
 
     public class CommandParser : BaseParser<CommandTokenType, CommandToken>
     {
-        private readonly int[] IsAcceptState = new int[] { -1, 3, -1, -1, -1, -1, 1, 0, 2, -1, 4 };
+        private readonly int[] IsAcceptState = new int[] { -1, 4, -1, -1, -1, -1, -1, 2, 1, 0, 3, -1, -1, 5, 6 };
 
-        private readonly int[] TargetState = new int[] { -1, 0, -1, -1, -1, -1, 0, 0, 0, -1, 0 };
+        private readonly int[] TargetState = new int[] { -1, 0, -1, -1, -1, -1, -1, 0, 0, 0, 0, -1, -1, 0, 0 };
 
         protected override int[] GetIsAcceptState() => IsAcceptState;
 
@@ -76,57 +88,79 @@ namespace CustomCommandsModule.Infrastructure
             }
             else if (state == 2)
             {
-                if (ch >= 48 && ch < 58)
+                if (ch == 42)
                 {
                     return 4;
                 }
-                else if (ch == 85)
+                else if (ch >= 48 && ch < 58)
                 {
                     return 5;
+                }
+                else if (ch == 85)
+                {
+                    return 6;
                 }
                 else if (ch == 117)
                 {
-                    return 5;
+                    return 6;
                 }
                 else if (ch == 123)
                 {
-                    return 6;
+                    return 7;
                 }
             }
             else if (state == 3)
             {
                 if (ch == 125)
                 {
-                    return 7;
+                    return 8;
                 }
             }
             else if (state == 4)
             {
-                if (ch >= 48 && ch < 58)
+                if (ch == 125)
                 {
-                    return 4;
-                }
-                else if (ch == 125)
-                {
-                    return 8;
+                    return 9;
                 }
             }
             else if (state == 5)
             {
                 if (ch >= 48 && ch < 58)
                 {
-                    return 9;
-                }
-            }
-            else if (state == 9)
-            {
-                if (ch >= 48 && ch < 58)
-                {
-                    return 9;
+                    return 5;
                 }
                 else if (ch == 125)
                 {
                     return 10;
+                }
+            }
+            else if (state == 6)
+            {
+                if (ch == 42)
+                {
+                    return 11;
+                }
+                else if (ch >= 48 && ch < 58)
+                {
+                    return 12;
+                }
+            }
+            else if (state == 11)
+            {
+                if (ch == 125)
+                {
+                    return 13;
+                }
+            }
+            else if (state == 12)
+            {
+                if (ch >= 48 && ch < 58)
+                {
+                    return 12;
+                }
+                else if (ch == 125)
+                {
+                    return 14;
                 }
             }
 

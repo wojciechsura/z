@@ -56,7 +56,7 @@ namespace CustomCommandsModule
                 if (token.TokenType == ParameterTokenType.QuotedParameter)
                 {
                     StringBuilder builder = new StringBuilder();
-                    string baseParam = token.TokenStr.Substring(1, token.TokenStr.Length - 1);
+                    string baseParam = token.TokenStr.Substring(1, token.TokenStr.Length - 2);
 
                     int j = 0;
                     while (j < baseParam.Length)
@@ -90,7 +90,7 @@ namespace CustomCommandsModule
             return result;
         }
          
-        private string ApplyParameters(string text, List<string> parameters)
+        private string ApplyParameters(string text, List<string> parameters, string parameterString)
         {
             CommandParser parser = new CommandParser();
             int i = 0;
@@ -128,6 +128,16 @@ namespace CustomCommandsModule
                             int parameterId = int.Parse(token.TokenStr.Substring(2, token.TokenStr.Length - 3));
                             if (parameterId < parameters.Count)
                                 builder.Append(WebUtility.UrlEncode(parameters[parameterId]));
+                            break;
+                        }
+                    case CommandTokenType.All:
+                        {
+                            builder.Append(parameterString);
+                            break;
+                        }
+                    case CommandTokenType.UrlAll:
+                        {
+                            builder.Append(WebUtility.UrlEncode(parameterString));
                             break;
                         }
                     case CommandTokenType.Unknown:
@@ -198,7 +208,7 @@ namespace CustomCommandsModule
             CommandParams enteredCommand = ExtractCommand(expression);
 
             CustomCommand command = configuration.Commands
-                .Where(c => c.Command.ToUpper() == enteredCommand.Command.ToUpper())
+                .Where(c => c.Key.ToUpper() == enteredCommand.Command.ToUpper())
                 .FirstOrDefault();
 
             if (command != null)
@@ -206,7 +216,7 @@ namespace CustomCommandsModule
                 try
                 {
                     List<string> parameters = BuildParameters(enteredCommand.Params);
-                    string cmd = ApplyParameters(command.Command, parameters);
+                    string cmd = ApplyParameters(command.Command, parameters, enteredCommand.Params);
 
                     switch (command.CommandKind)
                     {
@@ -246,7 +256,7 @@ namespace CustomCommandsModule
 
             configuration.Commands
                 .Where(func)
-                .Select(c => new SuggestionInfo(c.Command + enteredCommand.Params != null ? $" {enteredCommand.Params}" : string.Empty, c.Command, c.Comment, icon, c))
+                .Select(c => new SuggestionInfo(c.Key + (enteredCommand.Params != null ? $" {enteredCommand.Params}" : string.Empty), c.Key, c.Comment, icon, c))
                 .ToList()
                 .ForEach(c => collector.AddSuggestion(c));
         }

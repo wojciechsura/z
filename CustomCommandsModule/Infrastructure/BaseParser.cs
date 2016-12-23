@@ -35,7 +35,7 @@ namespace CustomCommandsModule.Infrastructure
 
             CurrentState = startState;
             CurrentAccept = GetIsAcceptState()[startState];
-            StringStart = 0;
+            StringStart = start;
             Finish = false;
 
             Result = null;
