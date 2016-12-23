@@ -37,6 +37,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShortcutModule", "ShortcutM
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesktopModule", "DesktopModule\DesktopModule.csproj", "{7E5DA9A0-BD29-4D32-AA91-A9A2FCB8CA77}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCommandsModule", "CustomCommandsModule\CustomCommandsModule.csproj", "{20BE2535-0058-4B29-802E-BCC53E7EBC59}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -103,6 +105,10 @@ Global
 		{7E5DA9A0-BD29-4D32-AA91-A9A2FCB8CA77}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E5DA9A0-BD29-4D32-AA91-A9A2FCB8CA77}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E5DA9A0-BD29-4D32-AA91-A9A2FCB8CA77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20BE2535-0058-4B29-802E-BCC53E7EBC59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20BE2535-0058-4B29-802E-BCC53E7EBC59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20BE2535-0058-4B29-802E-BCC53E7EBC59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20BE2535-0058-4B29-802E-BCC53E7EBC59}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -118,5 +124,6 @@ Global
 		{FFFFFACE-D279-4670-8FF6-CFAB27D7F5CA} = {D094C8BF-E19E-4C12-ABE2-578AED985B14}
 		{AE3B556A-9882-438B-AD6C-DA7403B503E4} = {FFFFFACE-D279-4670-8FF6-CFAB27D7F5CA}
 		{7E5DA9A0-BD29-4D32-AA91-A9A2FCB8CA77} = {D094C8BF-E19E-4C12-ABE2-578AED985B14}
+		{20BE2535-0058-4B29-802E-BCC53E7EBC59} = {D094C8BF-E19E-4C12-ABE2-578AED985B14}
 	EndGlobalSection
 EndGlobal

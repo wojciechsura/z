@@ -9,6 +9,7 @@ using Z.Api.Interfaces;
 using Z.Api.Types;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Z.Api;
 
 namespace WebSearchModule
 {
@@ -48,8 +49,6 @@ namespace WebSearchModule
             new SearchInfo("StackOverflow", "so", "StackOverflow", "Search on StackOverflow", "http://stackoverflow.com/search?q={0}")
         };
 
-        private IModuleContext context;
-
         public Module()
         {
             icon = new BitmapImage(new Uri("pack://application:,,,/WebSearchModule;component/Resources/search.png"));
@@ -83,21 +82,6 @@ namespace WebSearchModule
         public void CollectSuggestions(string enteredText, string action, bool perfectMatchesOnly, ISuggestionCollector collector)
         {
             // No suggestions available for this module
-        }
-
-        public void Initialize(IModuleContext context)
-        {
-            this.context = context;
-        }
-
-        public void Deinitialize()
-        {
-
-        }
-
-        public IConfigurationProvider GetConfigurationProvider()
-        {
-            return null;
         }
 
         public string Name

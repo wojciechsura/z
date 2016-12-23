@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Z.Api;
 using Z.Api.Interfaces;
 using Z.Api.Types;
 using Z.BusinessLogic.Services.Interfaces;
@@ -64,6 +66,16 @@ namespace Z.BusinessLogic.Services
 
                 return new FileStream(path, fileMode, fileAccess);
             }
+
+            public bool ConfigurationFileExists(string filename)
+            {
+                if (filename.Contains('\\'))
+                    throw new ArgumentException("Invalid filename!", nameof(filename));
+
+                string path = Path.Combine(pathService.GetModuleConfigDirectory(moduleName), filename);
+
+                return File.Exists(path);
+            }
         }
 
         // Private fields -----------------------------------------------------
@@ -83,6 +95,7 @@ namespace Z.BusinessLogic.Services
             AddModule(new ProCalcModule.Module());
             AddModule(new PowerModule.Module());
             AddModule(new DesktopModule.Module());
+            AddModule(new CustomCommandsModule.Module());
         }
 
         private bool IsValidName(string moduleName)
@@ -95,6 +108,18 @@ namespace Z.BusinessLogic.Services
         protected virtual void OnModulesChanged()
         {
             ModulesChanged?.Invoke(this, EventArgs.Empty);
+        }
+
+        // IEnumerable<IZModule> implementation -------------------------------
+
+        public IEnumerator<IZModule> GetEnumerator()
+        {
+            return modules.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return modules.GetEnumerator();
         }
 
         // Public methods -----------------------------------------------------
@@ -156,17 +181,16 @@ namespace Z.BusinessLogic.Services
 
             modules.Add(module);
 
-            module.Initialize(new ModuleContext(pathService, module.Name));
+            if (module is IZInitializable)
+                (module as IZInitializable).Initialize(new ModuleContext(pathService, module.Name));
 
             OnModulesChanged();
         }
 
         public void NotifyClosing()
         {
-            foreach (var module in modules)
-            {
+            foreach (var module in modules.OfType<IZInitializable>())
                 module.Deinitialize();
-            }
         }
 
         // Public properties --------------------------------------------------

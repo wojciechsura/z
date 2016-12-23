@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Z.Api;
 using Z.Api.Interfaces;
 using Z.Api.Types;
 
@@ -51,7 +52,6 @@ namespace PowerModule
         };
 
         private readonly ImageSource icon;
-        private IModuleContext context;
 
         // Public methods -----------------------------------------------------
 
@@ -95,21 +95,6 @@ namespace PowerModule
         public IEnumerable<KeywordInfo> GetKeywordActions()
         {
             yield return new KeywordInfo(ACTION_KEYWORD, ACTION_NAME, ACTION_DISPLAY_NAME, ACTION_COMMENT);
-        }
-
-        public void Initialize(IModuleContext context)
-        {
-            this.context = context;
-        }
-
-        public void Deinitialize()
-        {
-
-        }
-
-        public IConfigurationProvider GetConfigurationProvider()
-        {
-            return new ConfigProvider();
         }
 
         // Public properties --------------------------------------------------

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using Z.Api;
 using Z.Api.Interfaces;
 using Z.Api.Types;
 
@@ -71,10 +72,6 @@ namespace ShortcutModule
                 }
             }
         }
-
-        // Protected fields ---------------------------------------------------
-
-        protected IModuleContext context;
 
         // Protected properties -----------------------------------------------
 
@@ -156,25 +153,11 @@ namespace ShortcutModule
             yield return new KeywordInfo(ActionKeyword, ActionName, ActionDisplay, ActionComment);
         }
 
-        public virtual IConfigurationProvider GetConfigurationProvider()
-        {
-            return null;
-        }
-
         // Public properties --------------------------------------------------
 
         public abstract string Name { get; }
         public abstract string DisplayName { get; }
 
         public abstract ImageSource Icon { get; }
-        public virtual void Initialize(IModuleContext context)
-        {
-            this.context = context;
-        }
-
-        public void Deinitialize()
-        {
-            
-        }        
     }
 }

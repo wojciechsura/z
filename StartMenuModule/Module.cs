@@ -27,7 +27,6 @@ namespace StartMenuModule
 
         private readonly ImageSource icon;
 
-
         protected override List<ShortcutInfo> LoadShortcuts()
         {
             string startMenu = Environment.GetFolderPath(Environment.SpecialFolder.StartMenu);

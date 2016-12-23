@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Z.Api;
 using Z.Api.Interfaces;
 using Z.Models;
 
 namespace Z.BusinessLogic.Services.Interfaces
 {
-    public interface IModuleService
+    public interface IModuleService : IEnumerable<IZModule>
     {
         IZModule GetModule(int index);
         IZModule GetModule(string internalName);

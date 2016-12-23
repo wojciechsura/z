@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Z.Api;
 using Z.Api.Interfaces;
 using Z.Api.Types;
 
@@ -22,7 +23,6 @@ namespace ControlPanelModule
         private const string CPANEL_KEYWORD_COMMENT = "Access to Control Panel entries";
         private List<BaseControlPanelEntry> controlPanelEntries;
         private BitmapImage icon;
-        private IModuleContext context;
 
         private class CommandInfo
         {
@@ -112,24 +112,9 @@ namespace ControlPanelModule
                 RunEntry(entry);
         }
 
-        public IConfigurationProvider GetConfigurationProvider()
-        {
-            return null;
-        }
-
         public IEnumerable<KeywordInfo> GetKeywordActions()
         {
             yield return new KeywordInfo(CPANEL_KEYWORD, CPANEL_KEYWORD_ACTION, CPANEL_KEYWORD_DISPLAY, CPANEL_KEYWORD_COMMENT);
-        }
-
-        public void Initialize(IModuleContext context)
-        {
-            this.context = context;
-        }
-
-        public void Deinitialize()
-        {
-            
         }
 
         public string DisplayName

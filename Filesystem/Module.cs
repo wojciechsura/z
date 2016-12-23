@@ -9,6 +9,7 @@ using System.Windows.Media.Imaging;
 using Z.Api.Interfaces;
 using Z.Api.Types;
 using System.Windows.Media;
+using Z.Api;
 
 namespace Filesystem
 {
@@ -25,7 +26,6 @@ namespace Filesystem
         private const int LONG_FILENAME = 60;
         private BitmapImage folderImage;
         private BitmapImage fileImage;
-        private IModuleContext context;
 
         public string DisplayName
         {
@@ -121,21 +121,6 @@ namespace Filesystem
         {
             fileImage = new BitmapImage(new Uri("pack://application:,,,/Filesystem;component/Resources/file.png"));
             folderImage = new BitmapImage(new Uri("pack://application:,,,/Filesystem;component/Resources/folder.png"));
-        }
-
-        public IConfigurationProvider GetConfigurationProvider()
-        {
-            return null;
-        }
-
-        public void Initialize(IModuleContext context)
-        {
-            this.context = context;
-        }
-
-        public void Deinitialize()
-        {
-
         }
 
         public ImageSource Icon => folderImage;

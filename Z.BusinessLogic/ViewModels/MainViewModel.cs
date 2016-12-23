@@ -18,6 +18,7 @@ using System.Windows.Media;
 using Z.BusinessLogic.Types;
 using Z.BusinessLogic.ViewModels.Interfaces;
 using Z.Common.Types;
+using Z.Api;
 
 namespace Z.BusinessLogic.ViewModels
 {
