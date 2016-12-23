@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Z.Api;
 using Z.Api.Interfaces;
 using Z.Api.Types;
 
@@ -60,7 +61,6 @@ namespace PgsModule
         };
 
         private BitmapImage icon;
-        private IModuleContext context;
 
         // Public methods -----------------------------------------------------
 
@@ -108,21 +108,6 @@ namespace PgsModule
             {
                 new KeywordInfo(PGS_KEYWORD, PGS_ACTION, PGS_KEYWORD_DISPLAY, PGS_KEYWORD_COMMENT)
             };
-        }
-
-        public void Initialize(IModuleContext context)
-        {
-            this.context = context;
-        }
-
-        public void Deinitialize()
-        {
-
-        }
-
-        public IConfigurationProvider GetConfigurationProvider()
-        {
-            return null;
         }
 
         // Public properties --------------------------------------------------

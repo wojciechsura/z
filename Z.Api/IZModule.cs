@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Xml;
 using Z.Api.Types;
+using Z.Api.Interfaces;
 
-namespace Z.Api.Interfaces
+namespace Z.Api
 {
     public interface IZModule
     {
@@ -39,22 +40,6 @@ namespace Z.Api.Interfaces
         /// Returns all keywords defined by this module.
         /// </summary>
         IEnumerable<KeywordInfo> GetKeywordActions();
-
-        /// <summary>
-        /// Called once, after registering module in application. May be used to load configuration.
-        /// </summary>
-        /// <param name="context">Gives access, to some application resources. May be stored.</param>
-        void Initialize(IModuleContext context);
-
-        /// <summary>
-        /// Called once, just before application closing. May be used to free resources, store some data etc.
-        /// </summary>
-        void Deinitialize();
-
-        /// <summary>
-        /// Returns object, which is used to display and manage module's configuration.
-        /// </summary>
-        IConfigurationProvider GetConfigurationProvider();
 
         /// <summary>
         /// Module's internal name. Can consist of letters, digits, underscore and dot (except first character).

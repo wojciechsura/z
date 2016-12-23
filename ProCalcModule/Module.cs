@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Z.Api;
 using Z.Api.Interfaces;
 using Z.Api.Types;
 
@@ -27,7 +28,6 @@ namespace ProCalcModule
 
         private readonly Engine proCalc;
         private readonly ImageSource icon;
-        private IModuleContext context;
 
         // Public methods -----------------------------------------------------
 
@@ -76,21 +76,6 @@ namespace ProCalcModule
         public IEnumerable<KeywordInfo> GetKeywordActions()
         {
             yield return new KeywordInfo(ACTION_KEYWORD, ACTION_NAME, ACTION_DISPLAY, ACTION_COMMENT);
-        }
-
-        public void Initialize(IModuleContext context)
-        {
-            this.context = context;
-        }
-
-        public void Deinitialize()
-        {
-
-        }
-
-        public IConfigurationProvider GetConfigurationProvider()
-        {
-            return null;
         }
 
         // Public properties --------------------------------------------------
