@@ -6,6 +6,12 @@ using System.Threading.Tasks;
 
 namespace CustomCommandsModule.Infrastructure
 {
+    /*
+    quotedParameter="([^"]|"")*"
+    regularParameter=[^ "]+
+    whitespace= +
+    */
+
     public enum ParameterTokenType
     {
         QuotedParameter = 0,
@@ -21,9 +27,9 @@ namespace CustomCommandsModule.Infrastructure
 
     public class ParameterParser : BaseParser<ParameterTokenType, ParameterToken>
     {
-        private readonly int[] IsAcceptState = new int[6] { -1, 1, 2, -1, -1, 0 };
+        private readonly int[] IsAcceptState = new int[] { -1, 1, 2, -1, 0 };
 
-        private readonly int[] TargetState = new int[6] { -1, 0, 0, -1, -1, 0 };
+        private readonly int[] TargetState = new int[] { -1, 0, 0, -1, 0 };
 
         protected override int[] GetIsAcceptState() => IsAcceptState;
 
@@ -60,49 +66,42 @@ namespace CustomCommandsModule.Infrastructure
             }
             else if (state == 1)
             {
-                if (ch >= 0)
+                if (ch >= 0 && ch < 32)
+                {
+                    return 1;
+                }
+                else if (ch == 33)
+                {
+                    return 1;
+                }
+                else if (ch >= 35)
                 {
                     return 1;
                 }
             }
             else if (state == 2)
             {
-                if (ch >= 0 && ch < 32)
-                {
-                    return 1;
-                }
-                else if (ch == 32)
+                if (ch == 32)
                 {
                     return 2;
-                }
-                else if (ch >= 33)
-                {
-                    return 1;
                 }
             }
             else if (state == 3)
             {
                 if (ch >= 0 && ch < 34)
                 {
-                    return 4;
+                    return 3;
                 }
                 else if (ch == 34)
                 {
-                    return 5;
-                }
-                else if (ch >= 35)
-                {
                     return 4;
                 }
-            }
-            else if (state == 4)
-            {
-                if (ch == 34)
+                else if (ch >= 35)
                 {
                     return 3;
                 }
             }
-            else if (state == 5)
+            else if (state == 4)
             {
                 if (ch == 34)
                 {
