@@ -124,6 +124,10 @@
       <Project>{3a5eb93e-3d16-4307-b368-b01ec8641cdd}</Project>
       <Name>ProCalcModule</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProjectsModule\ProjectsModule.csproj">
+      <Project>{6f1395b3-cef1-49af-89d9-7e3d820b96bc}</Project>
+      <Name>ProjectsModule</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ShortcutModule\ShortcutModule.csproj">
       <Project>{ae3b556a-9882-438b-ad6c-da7403b503e4}</Project>
       <Name>ShortcutModule</Name>

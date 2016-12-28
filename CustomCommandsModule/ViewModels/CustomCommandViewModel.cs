@@ -24,11 +24,18 @@ namespace CustomCommandsModule.ViewModels
             callbacks.Delete(this);
         }
 
+        private void Init()
+        {
+            DeleteCommand = new SimpleCommand((obj) => HandleDelete());
+        }
+
         public CustomCommandViewModel(ICustomCommandCallbacks callbacks)
         {
             this.callbacks = callbacks;
 
             CommandKind = CommandKinds.Command;
+
+            Init();
         }
 
         public CustomCommandViewModel(ICustomCommandCallbacks callbacks, CustomCommand sourceCommand)
@@ -40,7 +47,7 @@ namespace CustomCommandsModule.ViewModels
             Command = sourceCommand.Command;
             CommandKind = sourceCommand.CommandKind;
 
-            DeleteCommand = new SimpleCommand((obj) => HandleDelete());
+            Init();
         }
 
         public ICommand DeleteCommand { get; private set; }
