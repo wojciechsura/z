@@ -148,6 +148,10 @@ namespace Z.BusinessLogic.Services
         {
             var suggestions = new List<SuggestionData>();
 
+            IZModule exclusiveModule = modules
+                .Where(m => m is IZExclusiveSuggestions && (m as IZExclusiveSuggestions).IsExclusiveText(text))
+                .FirstOrDefault();
+
             if (keyword != null)
             {
                 using (var collector = new SuggestionCollector(suggestions, keyword.Module))
@@ -157,9 +161,16 @@ namespace Z.BusinessLogic.Services
             }
             else
             {
-                for (int i = 0; i < modules.Count; i++)
+                List<IZModule> source;
+
+                if (exclusiveModule != null)
+                    source = new List<IZModule> { exclusiveModule };
+                else
+                    source = modules;
+
+                for (int i = 0; i < source.Count; i++)
                 {
-                    IZModule module = modules[i];
+                    IZModule module = source[i];
 
                     using (var collector = new SuggestionCollector(suggestions, module))
                     {

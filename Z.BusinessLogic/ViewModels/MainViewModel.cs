@@ -38,10 +38,11 @@ namespace Z.BusinessLogic.ViewModels
             public string StoredText { get; private set; }
         }
 
-        private class HelpModule : IZModule
+        private class HelpModule : IZModule, IZExclusiveSuggestions
         {
             private const string MODULE_DISPLAY_NAME = "Help";
             private const string MODULE_NAME = "Help";
+            private const string HELP_KEYWORD = "?";
             private readonly MainViewModel logic;
 
             public HelpModule(MainViewModel logic)
@@ -49,9 +50,14 @@ namespace Z.BusinessLogic.ViewModels
                 this.logic = logic;
             }
 
+            public bool IsExclusiveText(string text)
+            {
+                return text == HELP_KEYWORD;
+            }
+
             public void CollectSuggestions(string enteredText, string action, bool perfectMatchesOnly, ISuggestionCollector collector)
             {
-                if (enteredText == "?")
+                if (enteredText == HELP_KEYWORD)
                 {
                     logic.keywordService.GetKeywords()
                         .OrderBy(k => k.Keyword)
@@ -113,21 +119,6 @@ namespace Z.BusinessLogic.ViewModels
             {
                 get { return null; }
             }
-
-            public void Initialize(IModuleContext context)
-            {
-                
-            }
-
-            public void Deinitialize()
-            {
-                
-            }
-
-            public IConfigurationProvider GetConfigurationProvider()
-            {
-                return null;
-            }
         }
 
         // Private fields -----------------------------------------------------
@@ -179,13 +170,13 @@ namespace Z.BusinessLogic.ViewModels
         {
             suggestionData = null;
 
-            PublishSuggestions(null);            
+            PublishSuggestions(null);
             mainWindowAccess.HideList();
         }
 
         private void CollectSuggestions()
         {
-        if (!String.IsNullOrEmpty(enteredText) || currentKeyword != null)
+            if (!String.IsNullOrEmpty(enteredText) || currentKeyword != null)
             {
                 suggestionData = moduleService.GetSuggestionsFor(enteredText, currentKeyword?.Keyword);
 
@@ -193,9 +184,9 @@ namespace Z.BusinessLogic.ViewModels
                 {
                     List<SuggestionDTO> suggestionsDTO = new List<SuggestionDTO>();
                     for (int i = 0; i < suggestionData.Count; i++)
-                        suggestionsDTO.Add(new SuggestionDTO(suggestionData[i].Suggestion.Display, 
-                            suggestionData[i].Suggestion.Comment, 
-                            suggestionData[i].Module.DisplayName, 
+                        suggestionsDTO.Add(new SuggestionDTO(suggestionData[i].Suggestion.Display,
+                            suggestionData[i].Suggestion.Comment,
+                            suggestionData[i].Module.DisplayName,
                             suggestionData[i].Suggestion.Image,
                             i));
 
@@ -212,7 +203,7 @@ namespace Z.BusinessLogic.ViewModels
         private void EnteredTextChanged()
         {
             StartEnteredTextTimer();
-            PublishShowHint(false);            
+            PublishShowHint(false);
         }
 
         private void EnteredTextTimerTick(object sender, EventArgs e)
@@ -240,9 +231,9 @@ namespace Z.BusinessLogic.ViewModels
         {
             ShowWindow();
         }
-        
+
         private bool IsInputEmpty()
-        {            
+        {
             return currentKeyword == null && String.IsNullOrEmpty(enteredText);
         }
 
@@ -256,13 +247,13 @@ namespace Z.BusinessLogic.ViewModels
             enteredText = text;
             OnPropertyChanged(nameof(EnteredText));
         }
-        
+
         private void PublishKeyword(string text)
         {
             keyword = text;
             OnPropertyChanged(nameof(Keyword));
         }
-        
+
         private void PublishKeywordVisible(bool value)
         {
             keywordVisible = value;
@@ -387,9 +378,9 @@ namespace Z.BusinessLogic.ViewModels
 
         // Public methods -----------------------------------------------------
 
-        public MainViewModel(IGlobalHotkeyService globalHotkeyService, 
-            IKeywordService keywordService, 
-            IModuleService moduleService, 
+        public MainViewModel(IGlobalHotkeyService globalHotkeyService,
+            IKeywordService keywordService,
+            IModuleService moduleService,
             IConfigurationService configurationService)
         {
             this.globalHotkeyService = globalHotkeyService;
@@ -400,7 +391,7 @@ namespace Z.BusinessLogic.ViewModels
             this.configurationService.ConfigurationChanged += HandleConfigurationChanged;
 
             this.suggestionData = null;
-        
+
             currentKeyword = null;
 
             this.enteredTextTimer = new DispatcherTimer();
