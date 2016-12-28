@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Services\Interfaces\IPathService.cs" />
+    <Compile Include="Services\Interfaces\IZExclusiveSuggestions.cs" />
     <Compile Include="Services\PathService.cs" />
     <Compile Include="ViewModels\ConfigurationViewModel.cs" />
     <Compile Include="Dependencies\Configuration.cs" />
