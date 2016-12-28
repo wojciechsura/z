@@ -466,15 +466,15 @@ namespace Z.BusinessLogic.ViewModels
 
             ExecuteOptions options = new ExecuteOptions();
 
-            if (currentKeyword != null)
-            {
-                // Executing keyword action
-                currentKeyword.Keyword.Module.ExecuteKeywordAction(currentKeyword.Keyword.ActionName, enteredText, options);
-            }
-            else if (GetSelectedSuggestion() != null)
+            if (GetSelectedSuggestion() != null)
             {
                 SuggestionData suggestion = suggestionData[GetSelectedSuggestion().Index];
                 suggestion.Module.ExecuteSuggestion(suggestion.Suggestion, options);
+            }
+            else if (currentKeyword != null)
+            {
+                // Executing keyword action
+                currentKeyword.Keyword.Module.ExecuteKeywordAction(currentKeyword.Keyword.ActionName, enteredText, options);
             }
             else
             {

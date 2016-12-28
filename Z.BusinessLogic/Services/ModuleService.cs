@@ -96,6 +96,7 @@ namespace Z.BusinessLogic.Services
             AddModule(new PowerModule.Module());
             AddModule(new DesktopModule.Module());
             AddModule(new CustomCommandsModule.Module());
+            AddModule(new ProjectsModule.Module());
         }
 
         private bool IsValidName(string moduleName)
