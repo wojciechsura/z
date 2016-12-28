@@ -1,5 +1,7 @@
 ﻿using CustomCommandsModule.Infrastructure;
 using CustomCommandsModule.Models;
+using CustomCommandsModule.ViewModels;
+using CustomCommandsModule.Windows;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -17,12 +19,39 @@ using Z.Api.Types;
 
 namespace CustomCommandsModule
 {
-    public class Module : IZModule, IZInitializable
+    public class Module : IZModule, IZInitializable, IZConfigurable
     {
-        private class CommandParams
+        private class ConfigurationProvider : IConfigurationProvider
         {
-            public string Command { get; set; }
-            public string Params { get; set; }
+            private readonly Configuration configuration;
+            private ConfigurationWindowViewModel viewModel;
+
+            public ConfigurationProvider(Configuration configuration)
+            {
+                this.configuration = configuration;
+                viewModel = new ConfigurationWindowViewModel(configuration);
+            }
+
+            public void Dispose()
+            {
+                
+            }
+
+            public void Save()
+            {
+                viewModel.Save();
+            }
+
+            public void Show()
+            {
+                var window = new ConfigurationWindow(viewModel);
+                window.ShowDialog();
+            }
+
+            public IEnumerable<string> Validate()
+            {
+                return viewModel.Validate();
+            }
         }
 
         private const string MODULE_DISPLAY_NAME = "Custom";
@@ -31,122 +60,6 @@ namespace CustomCommandsModule
         private readonly ImageSource icon;
         private Configuration configuration;
         private IModuleContext context;
-
-        private CommandParams ExtractCommand(string expression)
-        {
-            expression = expression.TrimStart();
-
-            int pos = expression.IndexOf(' ');
-            if (pos == -1)
-                return new CommandParams { Command = expression, Params = null };
-            else
-                return new CommandParams { Command = expression.Substring(0, pos), Params = pos + 1 > expression.Length ? string.Empty : expression.Substring(pos + 1) };
-        }
-
-        private List<string> BuildParameters(string parameters)
-        {
-            List<string> result = new List<string>();
-            ParameterParser parser = new ParameterParser();
-
-            int i = 0;
-            while (i < parameters.Length)
-            {
-                ParameterToken token = parser.Process(parameters, ref i);
-
-                if (token.TokenType == ParameterTokenType.QuotedParameter)
-                {
-                    StringBuilder builder = new StringBuilder();
-                    string baseParam = token.TokenStr.Substring(1, token.TokenStr.Length - 2);
-
-                    int j = 0;
-                    while (j < baseParam.Length)
-                    {
-                        if (baseParam[j] == '"')
-                        {
-                            j++;
-                            if (j >= baseParam.Length || baseParam[j] != '"')
-                                throw new InvalidOperationException("Parser algorithm broken!");
-
-                            builder.Append('"');
-                            j++;
-                        }
-                        else
-                        {
-                            builder.Append(baseParam[j]);
-                            j++;
-                        }
-                    }
-
-                    result.Add(builder.ToString());
-                }
-                else if (token.TokenType == ParameterTokenType.RegularParameter)
-                {
-                    result.Add(token.TokenStr);
-                }
-                else if (token.TokenType == ParameterTokenType.Unknown)
-                    throw new InvalidOperationException("Broken parameters!");
-            }
-
-            return result;
-        }
-         
-        private string ApplyParameters(string text, List<string> parameters, string parameterString)
-        {
-            CommandParser parser = new CommandParser();
-            int i = 0;
-            StringBuilder builder = new StringBuilder();
-
-            while (i < text.Length)
-            {
-                CommandToken token = parser.Process(text, ref i);
-                switch (token.TokenType)
-                {
-                    case CommandTokenType.RegularText:
-                        {
-                            builder.Append(token.TokenStr);
-                            break;
-                        }
-                    case CommandTokenType.OpeningBrace:
-                        {
-                            builder.Append('{');
-                            break;
-                        }
-                    case CommandTokenType.ClosingBrace:
-                        {
-                            builder.Append('}');
-                            break;
-                        }
-                    case CommandTokenType.Parameter:
-                        {
-                            int parameterId = int.Parse(token.TokenStr.Substring(1, token.TokenStr.Length - 2));
-                            if (parameterId < parameters.Count)
-                                builder.Append(parameters[parameterId]);
-                            break;
-                        }
-                    case CommandTokenType.UrlParameter:
-                        {
-                            int parameterId = int.Parse(token.TokenStr.Substring(2, token.TokenStr.Length - 3));
-                            if (parameterId < parameters.Count)
-                                builder.Append(WebUtility.UrlEncode(parameters[parameterId]));
-                            break;
-                        }
-                    case CommandTokenType.All:
-                        {
-                            builder.Append(parameterString);
-                            break;
-                        }
-                    case CommandTokenType.UrlAll:
-                        {
-                            builder.Append(WebUtility.UrlEncode(parameterString));
-                            break;
-                        }
-                    case CommandTokenType.Unknown:
-                        throw new InvalidOperationException("Invalid command!");
-                }
-            }
-
-            return builder.ToString();
-        }
 
         private void LoadConfiguration()
         {
@@ -205,7 +118,7 @@ namespace CustomCommandsModule
         {
             expression = expression.Trim();
 
-            CommandParams enteredCommand = ExtractCommand(expression);
+            CommandParams enteredCommand = CommandBuilder.SplitCommand(expression);
 
             CustomCommand command = configuration.Commands
                 .Where(c => c.Key.ToUpper() == enteredCommand.Command.ToUpper())
@@ -215,8 +128,8 @@ namespace CustomCommandsModule
             {
                 try
                 {
-                    List<string> parameters = BuildParameters(enteredCommand.Params);
-                    string cmd = ApplyParameters(command.Command, parameters, enteredCommand.Params);
+                    List<string> parameters = CommandBuilder.BuildParameters(enteredCommand.Params);
+                    string cmd = CommandBuilder.ApplyParameters(command.Command, parameters, enteredCommand.Params);
 
                     switch (command.CommandKind)
                     {
@@ -247,7 +160,7 @@ namespace CustomCommandsModule
         {
             Func<CustomCommand, bool> func;
 
-            CommandParams enteredCommand = ExtractCommand(enteredText);
+            CommandParams enteredCommand = CommandBuilder.SplitCommand(enteredText);
 
             if (perfectMatchesOnly)
                 func = (CustomCommand command) => command.Key.ToUpper() == enteredCommand.Command.ToUpper();
@@ -286,6 +199,11 @@ namespace CustomCommandsModule
         public void Deinitialize()
         {
             SaveConfiguration();
+        }
+
+        public IConfigurationProvider GetConfigurationProvider()
+        {
+            return new ConfigurationProvider(configuration);
         }
 
         public Module()

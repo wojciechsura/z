@@ -101,7 +101,7 @@
       <Name>ControlPanelModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\CustomCommandsModule\CustomCommandsModule.csproj">
-      <Project>{20be2535-0058-4b29-802e-bcc53e7ebc59}</Project>
+      <Project>{84837ec3-0fe6-4155-80eb-486a483c7849}</Project>
       <Name>CustomCommandsModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\DesktopModule\DesktopModule.csproj">
@@ -137,7 +137,7 @@
       <Name>WebSearchModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\Z.Api\Z.Api.csproj">
-      <Project>{6dbad4bc-bd44-4234-9256-bd5e4e79b4f5}</Project>
+      <Project>{a33e1f1a-34dd-4360-aa1b-6cb613e74c15}</Project>
       <Name>Z.Api</Name>
     </ProjectReference>
     <ProjectReference Include="..\Z.Common\Z.Common.csproj">

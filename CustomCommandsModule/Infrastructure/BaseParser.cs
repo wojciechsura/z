@@ -56,7 +56,7 @@ namespace CustomCommandsModule.Infrastructure
                     NextAccept = -1;
                 }
 
-                if (NextState == -1 || (CurrentAccept != -1 && NextAccept == -1))
+                if (NextState == -1 /*|| (CurrentAccept != -1 && NextAccept == -1)*/)
                 {
                     Finish = true;
 
