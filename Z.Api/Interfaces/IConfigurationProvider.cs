@@ -10,6 +10,12 @@ namespace Z.Api.Interfaces
     public interface IConfigurationProvider : IDisposable
     {
         /// <summary>
+        /// Validates module configuration.
+        /// </summary>
+        /// <returns>List of validation errors as strings or null if there are none.</returns>
+        IEnumerable<string> Validate();
+
+        /// <summary>
         /// Displays module's configuration
         /// </summary>
         void Show();

@@ -55,7 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Z.Api\Z.Api.csproj">
-      <Project>{6dbad4bc-bd44-4234-9256-bd5e4e79b4f5}</Project>
+      <Project>{a33e1f1a-34dd-4360-aa1b-6cb613e74c15}</Project>
       <Name>Z.Api</Name>
     </ProjectReference>
     <ProjectReference Include="..\Z.Common\Z.Common.csproj">
