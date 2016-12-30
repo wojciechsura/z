@@ -23,6 +23,9 @@ namespace CustomCommandsModule.Infrastructure
 
         internal static List<string> BuildParameters(string parameters)
         {
+            if (parameters == null)
+                parameters = string.Empty;
+
             List<string> result = new List<string>();
             ParameterParser parser = new ParameterParser();
 
