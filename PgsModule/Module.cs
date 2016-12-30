@@ -59,6 +59,7 @@ namespace PgsModule
             new OperationInfo("feedme", "https://feedme.pgs-soft.com", "Feedme - Rzeszów"),
             new OperationInfo("findme", "https://findme.pgs-soft.com", "Find me - Rzeszów"),
             new OperationInfo("entertime", "https://my.pgs-soft.com/karta-pracy-logowanie-czasu", "Wprowadzanie godzin"),
+            new OperationInfo("logtime", "https://my.pgs-soft.com/karta-pracy-logowanie-czasu", "Logowanie zadań"),
             new OperationInfo("holidaylist", "https://my.pgs-soft.com/moje-wnioski", "Lista wniosków urlopowych"),
             new OperationInfo("holiday", "https://my.pgs-soft.com/urlopy-dodaj-wniosek", "Nowy wniosek urlopowy"),
             new OperationInfo("tasks", "https://my.pgs-soft.com/karta-pracy-pokaz-moje-zalogowane-czasy", "Zalogowane zadania"),

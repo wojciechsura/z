@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -16,6 +17,10 @@ namespace Z.BusinessLogic.Services
 {
     class ModuleService : IModuleService
     {
+        // Private constants --------------------------------------------------
+
+        public const string PLUGIN_PATH = "Plugins";
+
         // Private types ------------------------------------------------------
 
         private class SuggestionCollector : ISuggestionCollector, IDisposable
@@ -99,6 +104,36 @@ namespace Z.BusinessLogic.Services
             AddModule(new ProjectsModule.Module());
         }
 
+        private void LoadPluginModules()
+        {
+            string codeBase = Assembly.GetExecutingAssembly().CodeBase;
+            UriBuilder uri = new UriBuilder(codeBase);
+            string path = Uri.UnescapeDataString(uri.Path);
+            string pluginPath = Path.Combine(Path.GetDirectoryName(path), PLUGIN_PATH);
+
+            if (!Directory.Exists(pluginPath))
+                return;
+
+            foreach (var module in Directory.EnumerateFiles(pluginPath, "*.dll"))
+            {
+                Assembly assembly = Assembly.LoadFile(module);
+                foreach (var type in assembly.GetExportedTypes())
+                {
+                    if (typeof(IZModule).IsAssignableFrom(type))
+                    {
+                        var ctor = type.GetConstructor(Type.EmptyTypes);
+
+                        // No parameterless ctor?
+                        if (ctor == null)
+                            continue;
+
+                        IZModule pluginModule = (IZModule)Activator.CreateInstance(type);
+                        AddModule(pluginModule);
+                    }
+                }
+            }
+        }
+
         private bool IsValidName(string moduleName)
         {
             return Regex.Match(moduleName.ToUpper(), "^[A-Z0-9_][A-Z0-9_\\.]*$").Success;
@@ -137,6 +172,7 @@ namespace Z.BusinessLogic.Services
 
             modules = new List<IZModule>();
             InitDefaultModules();
+            LoadPluginModules();
         }
 
         public IZModule GetModule(int index)
