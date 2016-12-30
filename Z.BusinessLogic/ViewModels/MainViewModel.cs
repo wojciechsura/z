@@ -212,6 +212,95 @@ namespace Z.BusinessLogic.ViewModels
             CollectSuggestions();
         }
 
+        private void ExecuteCurrentAction()
+        {
+            // Stopping timer
+            enteredTextTimer.Stop();
+
+            ExecuteOptions options = new ExecuteOptions();
+
+            if (GetSelectedSuggestion() != null)
+            {
+                SuggestionData suggestion = suggestionData[GetSelectedSuggestion().Index];
+                suggestion.Module.ExecuteSuggestion(suggestion.Suggestion, options);
+            }
+            else if (currentKeyword != null)
+            {
+                // Executing keyword action
+                currentKeyword.Keyword.Module.ExecuteKeywordAction(currentKeyword.Keyword.ActionName, enteredText, options);
+            }
+            else
+            {
+                switch (configurationService.Configuration.Behavior.EnterBehavior)
+                {
+                    case EnterBehavior.ShellExecute:
+                        {
+                            // Executing entered word
+                            try
+                            {
+                                Process.Start(enteredText);
+                            }
+                            catch
+                            {
+                                // TODO handle commands, which are invalid
+                            }
+
+                            break;
+                        }
+                    case EnterBehavior.ChooseFirst:
+                        {
+                            if (suggestions.Count > 0)
+                            {
+                                SuggestionData suggestion = suggestionData[0];
+                                suggestion.Module.ExecuteSuggestion(suggestion.Suggestion, options);
+                            }
+                            else
+                            {
+                                options.PreventClose = true;
+                            }
+
+                            break;
+                        }
+                    case EnterBehavior.ChoosePerfectlyMatching:
+                        {
+                            // Collecting perfectly matched results
+
+                            List<SuggestionData> matchedSuggestions = moduleService.GetSuggestionsFor(enteredText, currentKeyword?.Keyword, true);
+
+                            if (matchedSuggestions.Count == 0)
+                            {
+                                System.Media.SystemSounds.Beep.Play();
+                                options.PreventClose = true;
+                            }
+                            if (matchedSuggestions.Count == 1)
+                            {
+                                SuggestionData suggestion = matchedSuggestions[0];
+                                suggestion.Module.ExecuteSuggestion(suggestion.Suggestion, options);
+                            }
+                            else
+                            {
+                                SuggestionChoiceViewModel suggestionChoiceViewModel = new SuggestionChoiceViewModel(suggestionData);
+                                bool? result = mainWindowAccess.SelectSuggestion(suggestionChoiceViewModel);
+
+                                if (result == true)
+                                {
+                                    SuggestionData suggestion = matchedSuggestions[suggestionChoiceViewModel.SelectedItemIndex];
+                                    suggestion.Module.ExecuteSuggestion(suggestion.Suggestion, options);
+                                }
+                            }
+
+                            break;
+                        }
+                    default:
+                        throw new InvalidEnumArgumentException("Unsupported enter key behavior!");
+                }
+
+            }
+
+            if (!options.PreventClose)
+                HideWindow();
+        }
+
         private SuggestionDTO GetSelectedSuggestion()
         {
             return selectedItemIndex >= 0 ? suggestions[selectedItemIndex] : null;
@@ -452,92 +541,7 @@ namespace Z.BusinessLogic.ViewModels
 
         public bool EnterPressed()
         {
-            // Stopping timer
-            enteredTextTimer.Stop();
-
-            ExecuteOptions options = new ExecuteOptions();
-
-            if (GetSelectedSuggestion() != null)
-            {
-                SuggestionData suggestion = suggestionData[GetSelectedSuggestion().Index];
-                suggestion.Module.ExecuteSuggestion(suggestion.Suggestion, options);
-            }
-            else if (currentKeyword != null)
-            {
-                // Executing keyword action
-                currentKeyword.Keyword.Module.ExecuteKeywordAction(currentKeyword.Keyword.ActionName, enteredText, options);
-            }
-            else
-            {
-                switch (configurationService.Configuration.Behavior.EnterBehavior)
-                {
-                    case EnterBehavior.ShellExecute:
-                        {
-                            // Executing entered word
-                            try
-                            {
-                                Process.Start(enteredText);
-                            }
-                            catch
-                            {
-                                // TODO handle commands, which are invalid
-                            }
-
-                            break;
-                        }
-                    case EnterBehavior.ChooseFirst:
-                        {
-                            if (suggestions.Count > 0)
-                            {
-                                SuggestionData suggestion = suggestionData[0];
-                                suggestion.Module.ExecuteSuggestion(suggestion.Suggestion, options);
-                            }
-                            else
-                            {
-                                options.PreventClose = true;
-                            }
-
-                            break;
-                        }
-                    case EnterBehavior.ChoosePerfectlyMatching:
-                        {
-                            // Collecting perfectly matched results
-
-                            List<SuggestionData> matchedSuggestions = moduleService.GetSuggestionsFor(enteredText, currentKeyword?.Keyword, true);
-
-                            if (matchedSuggestions.Count == 0)
-                            {
-                                System.Media.SystemSounds.Beep.Play();
-                                options.PreventClose = true;
-                            }
-                            if (matchedSuggestions.Count == 1)
-                            {
-                                SuggestionData suggestion = matchedSuggestions[0];
-                                suggestion.Module.ExecuteSuggestion(suggestion.Suggestion, options);
-                            }
-                            else
-                            {
-                                SuggestionChoiceViewModel suggestionChoiceViewModel = new SuggestionChoiceViewModel(suggestionData);
-                                bool? result = mainWindowAccess.SelectSuggestion(suggestionChoiceViewModel);
-
-                                if (result == true)
-                                {
-                                    SuggestionData suggestion = matchedSuggestions[suggestionChoiceViewModel.SelectedItemIndex];
-                                    suggestion.Module.ExecuteSuggestion(suggestion.Suggestion, options);
-                                }
-                            }
-
-                            break;
-                        }
-                    default:
-                        throw new InvalidEnumArgumentException("Unsupported enter key behavior!");
-                }
-
-            }
-
-            if (!options.PreventClose)
-                HideWindow();
-
+            ExecuteCurrentAction();
             return true;
         }
 
@@ -604,6 +608,16 @@ namespace Z.BusinessLogic.ViewModels
         public void WindowLostFocus()
         {
             // HideWindow();
+        }
+
+        public void ListWindowEnterPressed()
+        {
+            ExecuteCurrentAction();
+        }
+
+        public void ListDoubleClick()
+        {
+            ExecuteCurrentAction();
         }
 
         // Public properties --------------------------------------------------

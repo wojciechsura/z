@@ -57,7 +57,12 @@ namespace PgsModule
             new OperationInfo("crucible", "https://crucible.pgs-soft.com", "Crucible"),
             new OperationInfo("bitbucket", "https://bitbucket.pgs-soft.com", "Bitbucket"),
             new OperationInfo("feedme", "https://feedme.pgs-soft.com", "Feedme - Rzeszów"),
-            new OperationInfo("findme", "https://findme.pgs-soft.com", "Find me - Rzeszów")
+            new OperationInfo("findme", "https://findme.pgs-soft.com", "Find me - Rzeszów"),
+            new OperationInfo("entertime", "https://my.pgs-soft.com/karta-pracy-logowanie-czasu", "Wprowadzanie godzin"),
+            new OperationInfo("holidaylist", "https://my.pgs-soft.com/moje-wnioski", "Lista wniosków urlopowych"),
+            new OperationInfo("holiday", "https://my.pgs-soft.com/urlopy-dodaj-wniosek", "Nowy wniosek urlopowy"),
+            new OperationInfo("tasks", "https://my.pgs-soft.com/karta-pracy-pokaz-moje-zalogowane-czasy", "Zalogowane zadania"),
+            new OperationInfo("absencecalendar", "https://my.pgs-soft.com/Report/Report/AbsenceCalendar", "Kalendarz nieobecności"),
         };
 
         private BitmapImage icon;
@@ -77,7 +82,7 @@ namespace PgsModule
             if (perfectMatchesOnly)
                 filter = op => op.Word.ToUpper() == enteredText.ToUpper();
             else
-                filter = op => op.Word.ToUpper().Contains(enteredText.ToUpper());
+                filter = op => (op.Word.ToUpper().Contains(enteredText.ToUpper()) || op.Description.ToUpper().Contains(enteredText.ToUpper()));
 
             operations
                 .Where(filter)

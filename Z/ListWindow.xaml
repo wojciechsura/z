@@ -8,7 +8,8 @@
         mc:Ignorable="d"
         WindowStyle="None" ResizeMode="NoResize" Visibility="Hidden" ShowInTaskbar="False" 
         Topmost="True" AllowsTransparency="True" Background="Transparent"
-        Title="ListWindow" MinWidth="400" SizeToContent="Width" ShowActivated="False">
+        Title="ListWindow" MinWidth="400" SizeToContent="Width" ShowActivated="False"
+        PreviewKeyDown="HandleWindowPreviewKeyDown">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -40,7 +41,8 @@
 
                     <!-- Display contents above shadow -->
                     <ListBox x:Name="mainListBox" Style="{StaticResource SuggestionListboxStyle}" ItemContainerStyle="{StaticResource SuggestionListboxItemStyle}"
-                        ItemsSource="{Binding Suggestions}"  SelectedIndex="{Binding SelectedItemIndex, Mode=TwoWay}" />
+                        ItemsSource="{Binding Suggestions}"  SelectedIndex="{Binding SelectedItemIndex, Mode=TwoWay}" 
+                             MouseDoubleClick="HandleListDoubleClick"/>
                 </Grid>
             </Border>
         </Border>

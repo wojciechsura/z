@@ -40,5 +40,19 @@ namespace Z
         {
             mainListBox.ScrollIntoView(mainListBox.SelectedItem);
         }
+
+        private void HandleListDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            viewModel.ListDoubleClick();
+        }
+
+        private void HandleWindowPreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                viewModel.ListWindowEnterPressed();
+                e.Handled = true;
+            }
+        }
     }
 }
