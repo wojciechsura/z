@@ -16,9 +16,21 @@ namespace Z.Api.Types
             Comment = comment;
         }
 
+        /// <summary>
+        /// Default keyword for this action (can be overridden by user in settings)
+        /// </summary>
         public string DefaultKeyword { get; private set; }
+        /// <summary>
+        /// Internal name for this action (should be unique among actions in module)
+        /// </summary>
         public string Name { get; private set; }
+        /// <summary>
+        /// Name of the action as displayed to user in main window
+        /// </summary>
         public string DisplayName { get; private set; }
+        /// <summary>
+        /// Human-readable comment for action, describing what it does.
+        /// </summary>
         public string Comment { get; private set; }
     }
 }

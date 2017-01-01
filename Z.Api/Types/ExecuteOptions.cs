@@ -8,6 +8,10 @@ namespace Z.Api.Types
 {
     public class ExecuteOptions
     {
+        /// <summary>
+        /// Prevents closing main window after returning.
+        /// </summary>
+        /// <remarks>Useful, when executing command failed.</remarks>
         public bool PreventClose { get; set; } = false;
     }
 }
