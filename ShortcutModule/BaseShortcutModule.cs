@@ -19,11 +19,12 @@ namespace ShortcutModule
 
         protected class ShortcutInfo
         {
-            public ShortcutInfo(string display, string comment, string command, string parameters)
+            public ShortcutInfo(string display, string comment, string command, string parameters, string path)
             {
                 this.Display = display;
                 this.Comment = Comment;
                 this.Command = command;
+                this.Path = path;
                 this.Parameters = parameters;
             }
 
@@ -31,6 +32,7 @@ namespace ShortcutModule
             public string Comment { get; private set; }
             public string Command { get; private set; }
             public string Parameters { get; private set; }
+            public string Path { get; private set; }
         }
 
         private List<ShortcutInfo> shortcuts;
@@ -48,7 +50,7 @@ namespace ShortcutModule
                     WshShell shell = new WshShell();
                     IWshShortcut link = (IWshShortcut)shell.CreateShortcut(file);
 
-                    result.Add(new ShortcutInfo(name, link.Description, link.TargetPath, link.Arguments));
+                    result.Add(new ShortcutInfo(name, link.Description, link.TargetPath, link.Arguments, file));
                 }
                 catch
                 {
@@ -126,7 +128,7 @@ namespace ShortcutModule
             {
                 try
                 {
-                    Process.Start(shortcut.Command, shortcut.Parameters);
+                    Process.Start(shortcut.Path);
                 }
                 catch
                 {
@@ -140,7 +142,7 @@ namespace ShortcutModule
             ShortcutInfo shortcut = suggestion.Data as ShortcutInfo;
             try
             {
-                Process.Start(shortcut.Command, shortcut.Parameters);
+                Process.Start(shortcut.Path);
             }
             catch
             {
