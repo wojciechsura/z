@@ -272,7 +272,7 @@ namespace Z.BusinessLogic.ViewModels
                                 System.Media.SystemSounds.Beep.Play();
                                 options.PreventClose = true;
                             }
-                            if (matchedSuggestions.Count == 1)
+                            else if (matchedSuggestions.Count == 1)
                             {
                                 SuggestionData suggestion = matchedSuggestions[0];
                                 suggestion.Module.ExecuteSuggestion(suggestion.Suggestion, options);
