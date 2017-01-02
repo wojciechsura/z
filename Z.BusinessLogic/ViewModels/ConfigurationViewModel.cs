@@ -28,10 +28,10 @@ namespace Z.BusinessLogic.ViewModels
         private void HandleOk()
         {
             // Validate
-            for (int i = 0; i < pages.Count; i++)
+            foreach (BaseConfigurationViewModel page in pages)
             {
-                List<string> messages = pages[i].Validate()?.ToList();
-                if (messages != null && messages.Count() > 0)
+                List<string> messages = page.Validate()?.ToList();
+                if (messages != null && messages.Any())
                 {
                     configWindowAccess.ShowWarning(messages.First(), "Configuration");
                     return;

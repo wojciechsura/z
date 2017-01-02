@@ -35,7 +35,7 @@ namespace ShortcutModule
             public string Path { get; private set; }
         }
 
-        private List<ShortcutInfo> shortcuts;
+        private readonly List<ShortcutInfo> shortcuts;
 
         // Private methods ----------------------------------------------------
 
@@ -97,7 +97,7 @@ namespace ShortcutModule
 
         // Public methods -----------------------------------------------------
 
-        public BaseShortcutModule()
+        protected BaseShortcutModule()
         {
             shortcuts = LoadShortcuts();
         }
@@ -115,14 +115,13 @@ namespace ShortcutModule
                 .OrderBy(s => s.Display)
                 .Select(s => new SuggestionInfo(s.Display, s.Display, s.Comment, Icon, s))
                 .ToList()
-                .ForEach(s => collector.AddSuggestion(s));
+                .ForEach(collector.AddSuggestion);
         }
 
         public void ExecuteKeywordAction(string action, string expression, ExecuteOptions options)
         {
             var shortcut = shortcuts
-                .Where(s => s.Display.ToUpper() == expression.ToUpper())
-                .FirstOrDefault();
+                .FirstOrDefault(s => s.Display.ToUpper() == expression.ToUpper());
 
             if (shortcut != null)
             {
@@ -132,7 +131,7 @@ namespace ShortcutModule
                 }
                 catch
                 {
-
+                    options.PreventClose = true;
                 }
             }
         }
@@ -146,7 +145,7 @@ namespace ShortcutModule
             }
             catch
             {
-
+                options.PreventClose = true;
             }
         }
 

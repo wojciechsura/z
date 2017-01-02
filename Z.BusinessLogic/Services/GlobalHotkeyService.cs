@@ -20,8 +20,7 @@ namespace Z.BusinessLogic.Services
 
         private void OnHotkeyHit()
         {
-            if (HotkeyHit != null)
-                HotkeyHit(this, EventArgs.Empty);
+            HotkeyHit?.Invoke(this, EventArgs.Empty);
         }
 
         private void HandleHotkeyHit()
@@ -74,13 +73,7 @@ namespace Z.BusinessLogic.Services
             }
         }
 
-        public bool HotkeyRegistered
-        {
-            get
-            {
-                return hotkeyRegistered;
-            }
-        }
+        public bool HotkeyRegistered => hotkeyRegistered;
 
         public event EventHandler HotkeyHit;
     }
