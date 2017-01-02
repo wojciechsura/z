@@ -34,8 +34,8 @@ namespace Z.BusinessLogic.ViewModels
                 StoredText = storedText;
             }
 
-            public KeywordData Keyword { get; private set; }
-            public string StoredText { get; private set; }
+            public KeywordData Keyword { get; }
+            public string StoredText { get; }
         }
 
         private class HelpModule : IZModule, IZExclusiveSuggestions
@@ -63,15 +63,15 @@ namespace Z.BusinessLogic.ViewModels
                         .OrderBy(k => k.Keyword)
                         .Select(k => new SuggestionInfo(k.Keyword, k.Keyword, k.Comment, k.Module.Icon, k))
                         .ToList()
-                        .ForEach(s => collector.AddSuggestion(s));
+                        .ForEach(collector.AddSuggestion);
                 }
             }
 
             public void ExecuteKeywordAction(string action, string expression, ExecuteOptions options)
             {
-                KeywordData keyword = logic.keywordService.GetKeywords()
-                    .Where(k => k.Keyword.ToUpper() == expression.ToUpper())
-                    .FirstOrDefault();
+                KeywordData keyword = logic.keywordService
+                    .GetKeywords()
+                    .FirstOrDefault(k => k.Keyword.ToUpper() == expression.ToUpper());
 
                 if (keyword != null)
                 {
@@ -99,26 +99,11 @@ namespace Z.BusinessLogic.ViewModels
                 return null;
             }
 
-            public string DisplayName
-            {
-                get
-                {
-                    return MODULE_DISPLAY_NAME;
-                }
-            }
+            public string DisplayName => MODULE_DISPLAY_NAME;
 
-            public string Name
-            {
-                get
-                {
-                    return MODULE_NAME;
-                }
-            }
+            public string Name => MODULE_NAME;
 
-            public ImageSource Icon
-            {
-                get { return null; }
-            }
+            public ImageSource Icon => null;
         }
 
         // Private fields -----------------------------------------------------
@@ -388,20 +373,20 @@ namespace Z.BusinessLogic.ViewModels
 
         private void SelectPreviousSuggestion()
         {
-            if (suggestions != null && suggestions.Count() > 0)
+            if (suggestions != null && suggestions.Any())
             {
                 if (selectedItemIndex > 0)
                     PublishSelectedItemIndex(selectedItemIndex - 1);
                 else
-                    PublishSelectedItemIndex(suggestions.Count() - 1);
+                    PublishSelectedItemIndex(suggestions.Count - 1);
             }
         }
 
         private void SelectNextSuggestion()
         {
-            if (suggestions != null && suggestions.Count() > 0)
+            if (suggestions != null && suggestions.Any())
             {
-                if (selectedItemIndex >= 0 && selectedItemIndex < suggestions.Count() - 1)
+                if (selectedItemIndex >= 0 && selectedItemIndex < suggestions.Count - 1)
                     PublishSelectedItemIndex(selectedItemIndex + 1);
                 else
                     PublishSelectedItemIndex(0);
@@ -446,16 +431,6 @@ namespace Z.BusinessLogic.ViewModels
         {
             PublishKeyword(currentKeyword?.Keyword.DisplayName);
             PublishKeywordVisible(currentKeyword != null);
-        }
-
-        private void UpdateListWindowViewmodel()
-        {
-            // TODO
-        }
-
-        private void UpdateMainWindowViewmodel()
-        {
-            UpdateViewmodelKeyword();
         }
 
         // Protected methods --------------------------------------------------
@@ -650,29 +625,11 @@ namespace Z.BusinessLogic.ViewModels
             }
         }
 
-        public bool ShowHint
-        {
-            get
-            {
-                return showHint;
-            }
-        }
+        public bool ShowHint => showHint;
 
-        public string Keyword
-        {
-            get
-            {
-                return keyword;
-            }
-        }
+        public string Keyword => keyword;
 
-        public bool KeywordVisible
-        {
-            get
-            {
-                return keywordVisible;
-            }
-        }
+        public bool KeywordVisible => keywordVisible;
 
         public ICommand ConfigurationCommand { get; private set; }
 
@@ -683,7 +640,7 @@ namespace Z.BusinessLogic.ViewModels
             set
             {
                 if (value == null)
-                    throw new ArgumentNullException("value");
+                    throw new ArgumentNullException(nameof(value));
 
                 if (listWindowAccess != null)
                     throw new InvalidOperationException("Access can be set only once!");
@@ -692,13 +649,7 @@ namespace Z.BusinessLogic.ViewModels
             }
         }
 
-        public IEnumerable<SuggestionDTO> Suggestions
-        {
-            get
-            {
-                return suggestions;
-            }
-        }
+        public IEnumerable<SuggestionDTO> Suggestions => suggestions;
 
         public int SelectedItemIndex
         {

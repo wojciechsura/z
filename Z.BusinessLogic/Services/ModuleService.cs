@@ -185,9 +185,8 @@ namespace Z.BusinessLogic.Services
         {
             var suggestions = new List<SuggestionData>();
 
-            IZModule exclusiveModule = modules
-                .Where(m => m is IZExclusiveSuggestions && (m as IZExclusiveSuggestions).IsExclusiveText(text))
-                .FirstOrDefault();
+            var exclusiveModule = modules
+                .FirstOrDefault(m => m is IZExclusiveSuggestions && ((IZExclusiveSuggestions) m).IsExclusiveText(text));
 
             if (keyword != null)
             {
@@ -198,17 +197,12 @@ namespace Z.BusinessLogic.Services
             }
             else
             {
-                List<IZModule> source;
+                var source = exclusiveModule != null ? 
+                    new List<IZModule> { exclusiveModule } : 
+                    modules;
 
-                if (exclusiveModule != null)
-                    source = new List<IZModule> { exclusiveModule };
-                else
-                    source = modules;
-
-                for (int i = 0; i < source.Count; i++)
+                foreach (var module in source)
                 {
-                    IZModule module = source[i];
-
                     using (var collector = new SuggestionCollector(suggestions, module))
                     {
                         module.CollectSuggestions(text, null, perfectMatchesOnly, collector);
@@ -231,7 +225,7 @@ namespace Z.BusinessLogic.Services
             modules.Add(module);
 
             if (module is IZInitializable)
-                (module as IZInitializable).Initialize(new ModuleContext(pathService, module.Name));
+                ((IZInitializable) module).Initialize(new ModuleContext(pathService, module.Name));
 
             OnModulesChanged();
         }

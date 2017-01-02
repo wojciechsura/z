@@ -13,9 +13,8 @@ namespace Z.BusinessLogic.ViewModels
     {
         private ISuggestionChoiceWindowAccess access;
 
-        private List<SuggestionData> suggestionData;
-        private List<SuggestionDTO> suggestions;
-        private int selectedItemIndex;
+        private readonly List<SuggestionData> suggestionData;
+        private readonly List<SuggestionDTO> suggestions;
 
         public SuggestionChoiceViewModel(List<SuggestionData> suggestions)
         {
@@ -32,16 +31,10 @@ namespace Z.BusinessLogic.ViewModels
                     suggestionData[i].Suggestion.Image,
                     i));
 
-            selectedItemIndex = 0;
+            SelectedItemIndex = 0;
         }
 
-        public IEnumerable<SuggestionDTO> Suggestions
-        {
-            get
-            {
-                return suggestions;
-            }
-        }
+        public IEnumerable<SuggestionDTO> Suggestions => suggestions;
 
         public void EnterPressed()
         {
@@ -53,17 +46,7 @@ namespace Z.BusinessLogic.ViewModels
             access.CloseWindow(false);
         }
 
-        public int SelectedItemIndex
-        {
-            get
-            {
-                return selectedItemIndex;
-            }
-            set
-            {
-                selectedItemIndex = value;
-            }
-        }
+        public int SelectedItemIndex { get; set; }
 
         public ISuggestionChoiceWindowAccess SuggestionChoiceWindowAccess
         {
@@ -72,7 +55,7 @@ namespace Z.BusinessLogic.ViewModels
                 if (access != null)
                     throw new InvalidOperationException("Access can be set only once!");
                 if (value == null)
-                    throw new ArgumentNullException("value");
+                    throw new ArgumentNullException(nameof(value));
 
                 access = value;
             }

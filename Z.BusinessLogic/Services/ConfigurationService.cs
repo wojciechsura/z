@@ -20,7 +20,7 @@ namespace Z.BusinessLogic.Services
         // Private fields -----------------------------------------------------
 
         private Configuration configuration;
-        private IPathService pathService;
+        private readonly IPathService pathService;
 
         // Private methods ----------------------------------------------------
 
@@ -31,8 +31,7 @@ namespace Z.BusinessLogic.Services
 
         private void OnConfigurationChanged()
         {
-            if (ConfigurationChanged != null)
-                ConfigurationChanged(this, EventArgs.Empty);
+            ConfigurationChanged?.Invoke(this, EventArgs.Empty);
         }
 
         // Public methods -----------------------------------------------------
@@ -104,13 +103,7 @@ namespace Z.BusinessLogic.Services
 
         // Public properties --------------------------------------------------
 
-        public Configuration Configuration
-        {
-            get
-            {
-                return configuration;
-            }
-        }
+        public Configuration Configuration => configuration;
 
         public event EventHandler ConfigurationChanged;
     }

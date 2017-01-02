@@ -9,13 +9,12 @@ namespace Z.BusinessLogic.Types
 {
     class SimpleCommand : ICommand
     {
-        private Action<object> action;
-        private Func<object, bool> canExecute;
+        private readonly Action<object> action;
+        private readonly Func<object, bool> canExecute;
 
         protected virtual void OnCanExecuteChanged()
         {
-            if (CanExecuteChanged != null)
-                CanExecuteChanged(this, EventArgs.Empty);
+            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
         }
 
         public SimpleCommand(Action<object> action)
