@@ -16,22 +16,24 @@ using System.Windows.Media.Imaging;
 
 namespace ShellFoldersModule
 {
-    public class Module : IZModule
+    public class Module : IZModule, IZSuggestionComplete
     {
         private class ShellFolderInfo
         {
-            public ShellFolderInfo(string key, string display, string comment, string command)
+            public ShellFolderInfo(string key, string display, string comment, string command, string path)
             {
                 Key = key;
                 Display = display;
                 Comment = comment;
                 CanonicalName = command;
+                Path = path;
             }
 
             public string Key { get; private set; }
             public string Display { get; private set; }
             public string Comment { get; private set; }
             public string CanonicalName { get; private set; }
+            public string Path { get; private set; }
         }
 
         private const string MODULE_NAME = "ShellFolders";
@@ -58,7 +60,7 @@ namespace ShellFoldersModule
                 var key = Path.GetFileName(fullPath);
                 var displayName = WinApiInterop.GetLocalizedName(fullPath);
 
-                infos.Add(new ShellFolderInfo(key, displayName, fullPath, fullPath));
+                infos.Add(new ShellFolderInfo(key, displayName, fullPath, fullPath, fullPath));
             }
         }
 
@@ -97,7 +99,8 @@ namespace ShellFoldersModule
                 infos.Add(new ShellFolderInfo(shellFolder.CanonicalName,
                     localizedName,
                     comment,
-                    shellFolder.CanonicalName));
+                    shellFolder.CanonicalName,
+                    shellFolder.PathExists ? shellFolder.Path : null));
             }
         }
 
@@ -113,7 +116,7 @@ namespace ShellFoldersModule
             infos.Where(func)
                 .OrderBy(sfi => sfi.Display)
                 .ToList()
-                .ForEach(sfi => collector.AddSuggestion(new SuggestionInfo(sfi.Key, sfi.Display, sfi.Comment, icon, sfi.CanonicalName)));
+                .ForEach(sfi => collector.AddSuggestion(new SuggestionInfo(sfi.Key, sfi.Display, sfi.Comment, icon, sfi)));
         }
 
         public void ExecuteKeywordAction(string action, string expression, ExecuteOptions options)
@@ -142,14 +145,27 @@ namespace ShellFoldersModule
         {
             try
             {
-                string canonicalName = suggestion.Data as string;
-                Process.Start($"shell:{canonicalName}");
+                ShellFolderInfo info = suggestion.Data as ShellFolderInfo;
+                Process.Start($"shell:{info.CanonicalName}");
             }
             catch
             {
                 // TODO notify about error
                 options.PreventClose = true;
             }
+        }
+
+        public bool CanComplete(string action, SuggestionInfo suggestion)
+        {
+            return string.IsNullOrEmpty(action) && !String.IsNullOrEmpty((suggestion.Data as ShellFolderInfo).Path);
+        }
+
+        public string Complete(string action, SuggestionInfo suggestion)
+        {
+            if (string.IsNullOrEmpty(action))
+                return (suggestion.Data as ShellFolderInfo).Path;
+            else
+                return null;
         }
 
         public IEnumerable<KeywordInfo> GetKeywordActions()

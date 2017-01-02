@@ -185,6 +185,27 @@ namespace Z.BusinessLogic.ViewModels
                 ClearSuggestions();
         }
 
+        private void CompleteSuggestion()
+        {
+            var suggestion = GetSelectedSuggestion();
+            if (suggestion != null)
+            {
+                var selectedSuggestionData = suggestionData[suggestion.Index];
+                IZModule module = selectedSuggestionData.Module;
+
+                if (module is IZSuggestionComplete && 
+                    ((IZSuggestionComplete)module).CanComplete(currentKeyword?.Keyword.ActionName, selectedSuggestionData.Suggestion))
+                {
+                    string replace = ((IZSuggestionComplete)module).Complete(currentKeyword?.Keyword.ActionName, selectedSuggestionData.Suggestion);
+
+                    PublishEnteredText(replace);
+                    if (replace.Length > 0)
+                        mainWindowAccess.CaretPosition = replace.Length;
+                    StartEnteredTextTimer();
+                }
+            }
+        }
+
         private void EnteredTextChanged()
         {
             StartEnteredTextTimer();
@@ -571,7 +592,8 @@ namespace Z.BusinessLogic.ViewModels
 
         public bool TabPressed()
         {
-            return false;
+            CompleteSuggestion();
+            return true;
         }
 
         public bool UpPressed()
