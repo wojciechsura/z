@@ -129,6 +129,10 @@
       <Project>{6f1395b3-cef1-49af-89d9-7e3d820b96bc}</Project>
       <Name>ProjectsModule</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ShellFoldersModule\ShellFoldersModule.csproj">
+      <Project>{e1fa0dc1-edf3-4c9a-8a4a-e3947ec8a417}</Project>
+      <Name>ShellFoldersModule</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ShortcutModule\ShortcutModule.csproj">
       <Project>{ae3b556a-9882-438b-ad6c-da7403b503e4}</Project>
       <Name>ShortcutModule</Name>
