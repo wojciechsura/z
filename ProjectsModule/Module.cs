@@ -17,7 +17,7 @@ using Z.Api.Types;
 
 namespace ProjectsModule
 {
-    public class Module : IZModule, IZInitializable, IZConfigurable
+    public class Module : IZModule, IZInitializable, IZConfigurable, IZSuggestionComplete
     {
         private class ConfigurationProvider : IConfigurationProvider
         {
@@ -178,6 +178,19 @@ namespace ProjectsModule
         public void Deinitialize()
         {
             SaveConfiguration();
+        }
+
+        public bool CanComplete(string action, SuggestionInfo suggestion)
+        {
+            return string.IsNullOrEmpty(action);
+        }
+
+        public string Complete(string action, SuggestionInfo suggestion)
+        {
+            if (string.IsNullOrEmpty(action))
+                return suggestion.Data as string;
+            else
+                return null;
         }
 
         public string DisplayName

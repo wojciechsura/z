@@ -51,6 +51,7 @@
     <Compile Include="Interfaces\IConfigurationProvider.cs" />
     <Compile Include="Interfaces\IModuleContext.cs" />
     <Compile Include="Interfaces\ISuggestionCollector.cs" />
+    <Compile Include="ISuggestionComplete.cs" />
     <Compile Include="IZConfigurable.cs" />
     <Compile Include="IZInitializable.cs" />
     <Compile Include="IZModule.cs" />
