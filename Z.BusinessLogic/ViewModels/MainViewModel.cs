@@ -129,6 +129,7 @@ namespace Z.BusinessLogic.ViewModels
         private bool showHint;
         private string keyword;
         private bool keywordVisible;
+        private bool completeHintVisible;
 
         // List window
 
@@ -202,6 +203,8 @@ namespace Z.BusinessLogic.ViewModels
                     if (replace.Length > 0)
                         mainWindowAccess.CaretPosition = replace.Length;
                     StartEnteredTextTimer();
+
+                    PublishCompleteHintVisible(false);
                 }
             }
         }
@@ -210,6 +213,7 @@ namespace Z.BusinessLogic.ViewModels
         {
             StartEnteredTextTimer();
             PublishShowHint(false);
+            PublishCompleteHintVisible(false);
         }
 
         private void EnteredTextTimerTick(object sender, EventArgs e)
@@ -334,7 +338,14 @@ namespace Z.BusinessLogic.ViewModels
 
         private void OpenConfiguration()
         {
+            ClearInput();
             mainWindowAccess.OpenConfiguration();
+        }
+
+        private void PublishCompleteHintVisible(bool value)
+        {
+            completeHintVisible = value;
+            OnPropertyChanged(nameof(CompleteHintVisible));
         }
 
         private void PublishEnteredText(string text)
@@ -389,6 +400,14 @@ namespace Z.BusinessLogic.ViewModels
                 var text = suggestionData[suggestion.Index].Suggestion.Text;
                 PublishEnteredText(text);
                 mainWindowAccess.CaretPosition = text.Length;
+
+                var selectedSuggestionData = suggestionData[suggestion.Index];
+                if (selectedSuggestionData.Module is IZSuggestionComplete)
+                {
+                    PublishCompleteHintVisible((selectedSuggestionData.Module as IZSuggestionComplete).CanComplete(currentKeyword?.Keyword.ActionName, selectedSuggestionData.Suggestion));
+                }
+                else
+                    PublishCompleteHintVisible(false);
             }
         }
 
@@ -432,6 +451,7 @@ namespace Z.BusinessLogic.ViewModels
 
             mainWindowAccess.Show();
             PublishShowHint(true);
+            PublishCompleteHintVisible(false);
         }
 
         private void StartEnteredTextTimer()
@@ -652,6 +672,8 @@ namespace Z.BusinessLogic.ViewModels
         public string Keyword => keyword;
 
         public bool KeywordVisible => keywordVisible;
+
+        public bool CompleteHintVisible => completeHintVisible;
 
         public ICommand ConfigurationCommand { get; private set; }
 

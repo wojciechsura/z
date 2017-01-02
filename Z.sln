@@ -45,6 +45,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleModule", "SampleModul
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShellFoldersModule", "ShellFoldersModule\ShellFoldersModule.csproj", "{E1FA0DC1-EDF3-4C9A-8A4A-E3947EC8A417}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProcessModule", "ProcessModule\ProcessModule.csproj", "{091E8407-56E0-4683-94D0-739D35BF62A2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -127,6 +129,10 @@ Global
 		{E1FA0DC1-EDF3-4C9A-8A4A-E3947EC8A417}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E1FA0DC1-EDF3-4C9A-8A4A-E3947EC8A417}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E1FA0DC1-EDF3-4C9A-8A4A-E3947EC8A417}.Release|Any CPU.Build.0 = Release|Any CPU
+		{091E8407-56E0-4683-94D0-739D35BF62A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{091E8407-56E0-4683-94D0-739D35BF62A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{091E8407-56E0-4683-94D0-739D35BF62A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{091E8407-56E0-4683-94D0-739D35BF62A2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -146,5 +152,6 @@ Global
 		{6F1395B3-CEF1-49AF-89D9-7E3D820B96BC} = {D094C8BF-E19E-4C12-ABE2-578AED985B14}
 		{E35139DC-299F-43A8-8D9F-46881D78F18C} = {D094C8BF-E19E-4C12-ABE2-578AED985B14}
 		{E1FA0DC1-EDF3-4C9A-8A4A-E3947EC8A417} = {D094C8BF-E19E-4C12-ABE2-578AED985B14}
+		{091E8407-56E0-4683-94D0-739D35BF62A2} = {D094C8BF-E19E-4C12-ABE2-578AED985B14}
 	EndGlobalSection
 EndGlobal
