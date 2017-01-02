@@ -61,7 +61,7 @@ namespace Z.BusinessLogic.ViewModels
                 {
                     logic.keywordService.GetKeywords()
                         .OrderBy(k => k.Keyword)
-                        .Select(k => new SuggestionInfo(k.Keyword, k.Keyword, k.Comment, null, k))
+                        .Select(k => new SuggestionInfo(k.Keyword, k.Keyword, k.Comment, k.Module.Icon, k))
                         .ToList()
                         .ForEach(s => collector.AddSuggestion(s));
                 }
