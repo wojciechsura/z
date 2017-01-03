@@ -115,7 +115,7 @@ namespace CustomCommandsModule
                 };
         }
 
-        private void Execute(string expression)
+        private void Execute(string expression, ExecuteOptions options)
         {
             expression = expression.Trim();
 
@@ -149,9 +149,10 @@ namespace CustomCommandsModule
                             throw new InvalidOperationException("Not supported command kind!");
                     }
                 }
-                catch
+                catch (Exception e)
                 {
-                    // TODO notify user
+                    options.ErrorText = $"Cannot execute: {e.Message}";
+                    options.PreventClose = true;
                 }
             }
 
@@ -164,9 +165,9 @@ namespace CustomCommandsModule
             CommandParams enteredCommand = CommandBuilder.SplitCommand(enteredText);
 
             if (perfectMatchesOnly)
-                func = (CustomCommand command) => command.Key.ToUpper() == enteredCommand.Command.ToUpper();
+                func = (CustomCommand command) => command.Key.ToUpper() == enteredCommand.Command.ToUpper() || command.Comment.ToUpper() == enteredCommand.Command.ToUpper();
             else
-                func = (CustomCommand command) => command.Key.ToUpper().Contains(enteredCommand.Command.ToUpper());
+                func = (CustomCommand command) => command.Key.ToUpper().Contains(enteredCommand.Command.ToUpper()) || command.Comment.ToUpper().Contains(enteredCommand.Command.ToUpper());
 
             configuration.Commands
                 .Where(func)
@@ -174,7 +175,7 @@ namespace CustomCommandsModule
                     c.Key, 
                     c.Comment, 
                     icon, 
-                    SuggestionUtils.EvalMatch(enteredText, enteredCommand.Command),
+                    SuggestionUtils.EvalMatch(enteredText, c.Key, c.Comment),
                     c))
                 .ToList()
                 .ForEach(c => collector.AddSuggestion(c));
@@ -182,12 +183,12 @@ namespace CustomCommandsModule
 
         public void ExecuteKeywordAction(string action, string expression, ExecuteOptions options)
         {
-            Execute(expression);
+            Execute(expression, options);
         }
 
         public void ExecuteSuggestion(SuggestionInfo suggestion, ExecuteOptions options)
         {
-            Execute(suggestion.Text);
+            Execute(suggestion.Text, options);
         }
 
         public IEnumerable<KeywordInfo> GetKeywordActions()

@@ -132,15 +132,15 @@ namespace ShellFoldersModule
                 {
                     Process.Start($"shell:{info.First().CanonicalName}");
                 }
-                catch
+                catch (Exception e)
                 {
-                    // TODO notify about error
+                    options.ErrorText = $"Cannot open folder: {e.Message}";
                     options.PreventClose = true;
                 }
             }
             else
             {
-                // TODO notify about error
+                options.ErrorText = "Multiple folders matches entered text. Use suggestion list.";
                 options.PreventClose = true;
             }
         }
@@ -152,9 +152,9 @@ namespace ShellFoldersModule
                 ShellFolderInfo info = suggestion.Data as ShellFolderInfo;
                 Process.Start($"shell:{info.CanonicalName}");
             }
-            catch
+            catch (Exception e)
             {
-                // TODO notify about error
+                options.ErrorText = $"Cannot open folder: {e.Message}";
                 options.PreventClose = true;
             }
         }

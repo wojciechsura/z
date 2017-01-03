@@ -150,6 +150,11 @@ namespace Z
 
         }
 
+        private void MainWindowSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            PositionListWindow();
+        }
+
         // IMainViewModelAccess implementation --------------------------------
 
         void IMainWindowAccess.Show()
@@ -260,6 +265,6 @@ namespace Z
             this.DataContext = viewModel;
 
             listWindow = new ListWindow();
-        }
+        }        
     }
 }

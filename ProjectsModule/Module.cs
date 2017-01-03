@@ -150,10 +150,14 @@ namespace ProjectsModule
         {
             List<string> paths = GetOptionsFor(expression, true);
             if (paths.Count == 1)
+            {
                 Process.Start(paths[0]);
-
-            // TODO notify about error
-            options.PreventClose = true;
+            }
+            else
+            {
+                options.ErrorText = "More than one project matches entered name. Use suggestion list.";
+                options.PreventClose = true;
+            }
         }
 
         public void ExecuteSuggestion(SuggestionInfo suggestion, ExecuteOptions options)
