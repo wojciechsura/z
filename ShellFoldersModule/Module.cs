@@ -13,6 +13,7 @@ using Z.Api.Types;
 using System.Diagnostics;
 using Microsoft.WindowsAPICodePack.Shell;
 using System.Windows.Media.Imaging;
+using Z.Api.Utils;
 
 namespace ShellFoldersModule
 {
@@ -68,6 +69,9 @@ namespace ShellFoldersModule
         {
             string localizedName = shellFolder.LocalizedName;
 
+            if (String.IsNullOrEmpty(localizedName))
+                localizedName = (shellFolder as ShellObject)?.Name;
+
             if (String.IsNullOrEmpty(localizedName) && Directory.Exists(shellFolder.Path))
             {
                 try
@@ -116,7 +120,7 @@ namespace ShellFoldersModule
             infos.Where(func)
                 .OrderBy(sfi => sfi.Display)
                 .ToList()
-                .ForEach(sfi => collector.AddSuggestion(new SuggestionInfo(sfi.Key, sfi.Display, sfi.Comment, icon, sfi)));
+                .ForEach(sfi => collector.AddSuggestion(new SuggestionInfo(sfi.Display, sfi.Display, sfi.Comment, icon, SuggestionUtils.EvalMatch(enteredText, sfi.Key, sfi.Display), sfi)));
         }
 
         public void ExecuteKeywordAction(string action, string expression, ExecuteOptions options)

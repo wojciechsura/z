@@ -16,6 +16,7 @@ namespace Z.BusinessLogic.ViewModels.Configuration
         private readonly IConfigurationService configurationService;
 
         private EnterBehavior enterBehavior;
+        private SuggestionSorting suggestionSorting;
         private int suggestionDelay;
 
         protected void OnPropertyChanged(string name)
@@ -30,6 +31,7 @@ namespace Z.BusinessLogic.ViewModels.Configuration
             var configuration = configurationService.Configuration;
             this.enterBehavior = configuration.Behavior.EnterBehavior;
             this.suggestionDelay = configuration.Behavior.SuggestionDelay;
+            this.suggestionSorting = configuration.Behavior.SuggestionSorting;
         }
 
         public override void Save()
@@ -37,6 +39,7 @@ namespace Z.BusinessLogic.ViewModels.Configuration
             var configuration = configurationService.Configuration;
             configuration.Behavior.EnterBehavior = enterBehavior;
             configuration.Behavior.SuggestionDelay = suggestionDelay;
+            configuration.Behavior.SuggestionSorting = suggestionSorting;
         }
 
         public override IEnumerable<string> Validate()
@@ -73,6 +76,18 @@ namespace Z.BusinessLogic.ViewModels.Configuration
             set
             {
                 suggestionDelay = value;
+            }
+        }
+
+        public SuggestionSorting SuggestionSorting
+        {
+            get
+            {
+                return suggestionSorting;
+            }
+            set
+            {
+                suggestionSorting = value;
             }
         }
 

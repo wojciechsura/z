@@ -10,6 +10,7 @@ using Z.Api.Interfaces;
 using Z.Api.Types;
 using System.Windows.Media;
 using Z.Api;
+using Z.Api.Utils;
 
 namespace Filesystem
 {
@@ -49,12 +50,12 @@ namespace Filesystem
 
             if (perfectMatchesOnly && Directory.Exists(enteredText))
             {
-                collector.AddSuggestion(new SuggestionInfo(enteredText, enteredText, null, folderImage));
+                collector.AddSuggestion(new SuggestionInfo(enteredText, enteredText, null, folderImage, 100));
                 return;
             }
             else if (perfectMatchesOnly && File.Exists(enteredText))
             {
-                collector.AddSuggestion(new SuggestionInfo(enteredText, enteredText, null, fileImage));
+                collector.AddSuggestion(new SuggestionInfo(enteredText, enteredText, null, fileImage, 100));
                 return;
             }
 
@@ -85,14 +86,14 @@ namespace Filesystem
                     foreach (var file in Directory.EnumerateDirectories(dir, search))
                     {
                         string display = file.Length < LONG_FILENAME ? file : $"...{file.Substring(file.Length - LONG_FILENAME)}";
-                        collector.AddSuggestion(new SuggestionInfo(file, display, null, folderImage));
+                        collector.AddSuggestion(new SuggestionInfo(file, display, null, folderImage, SuggestionUtils.EvalMatch(enteredText, file)));
                     }
 
                     // Files
                     foreach (var file in Directory.EnumerateFiles(dir, search))
                     {
                         string display = file.Length < LONG_FILENAME ? file : $"...{file.Substring(file.Length - LONG_FILENAME)}";
-                        collector.AddSuggestion(new SuggestionInfo(file, file, null, fileImage));
+                        collector.AddSuggestion(new SuggestionInfo(file, file, null, fileImage, SuggestionUtils.EvalMatch(enteredText, file)));
                     }
                 }
                 catch

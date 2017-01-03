@@ -44,7 +44,7 @@ namespace ProCalcModule
                 var expression = proCalc.Compile(enteredText);
                 var result = proCalc.Execute(expression);
 
-                collector.AddSuggestion(new SuggestionInfo(enteredText, result.AsString(), COMMENT, null, result));
+                collector.AddSuggestion(new SuggestionInfo(enteredText, result.AsString(), COMMENT, null, 100, result));
             }
             catch
             {

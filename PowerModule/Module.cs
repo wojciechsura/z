@@ -9,6 +9,7 @@ using System.Windows.Media.Imaging;
 using Z.Api;
 using Z.Api.Interfaces;
 using Z.Api.Types;
+using Z.Api.Utils;
 
 namespace PowerModule
 {
@@ -70,7 +71,7 @@ namespace PowerModule
 
             powerInfos
                 .Where(filter)
-                .Select(pi => new SuggestionInfo(pi.Command, pi.Display, pi.Comment, icon, pi))
+                .Select(pi => new SuggestionInfo(pi.Command, pi.Display, pi.Comment, icon, SuggestionUtils.EvalMatch(enteredText, pi.Command), pi))
                 .OrderBy(pi => pi.Display)
                 .ToList()
                 .ForEach(s => collector.AddSuggestion(s));

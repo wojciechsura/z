@@ -9,6 +9,7 @@ using System.Windows.Media.Imaging;
 using Z.Api;
 using Z.Api.Interfaces;
 using Z.Api.Types;
+using Z.Api.Utils;
 
 namespace ProcessModule
 {
@@ -54,7 +55,7 @@ namespace ProcessModule
                         filename = "(unknown path)";
                     }
 
-                    collector.AddSuggestion(new SuggestionInfo(p.ProcessName, p.ProcessName, $"{p.Id}, {filename}", icon, p.Id));
+                    collector.AddSuggestion(new SuggestionInfo(p.ProcessName, p.ProcessName, $"{p.Id}, {filename}", icon, SuggestionUtils.EvalMatch(enteredText, p.ProcessName), p.Id));
                 }
             }
         }

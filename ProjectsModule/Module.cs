@@ -14,6 +14,7 @@ using System.Xml.Serialization;
 using Z.Api;
 using Z.Api.Interfaces;
 using Z.Api.Types;
+using Z.Api.Utils;
 
 namespace ProjectsModule
 {
@@ -140,7 +141,8 @@ namespace ProjectsModule
         {
             foreach (var file in GetOptionsFor(enteredText, perfectMatchesOnly))
             {
-                collector.AddSuggestion(new SuggestionInfo(Path.GetFileName(file), Path.GetFileName(file), file, icon, file));
+                var filename = Path.GetFileName(file);
+                collector.AddSuggestion(new SuggestionInfo(filename, filename, file, icon, SuggestionUtils.EvalMatch(enteredText, filename), file));
             }
         }
 
