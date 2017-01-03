@@ -105,12 +105,28 @@ namespace Filesystem
 
         public void ExecuteKeywordAction(string action, string expression, ExecuteOptions options)
         {
-            Process.Start(expression);
+            try
+            {
+                Process.Start(expression);
+            }
+            catch (Exception e)
+            {
+                options.ErrorText = $"Cannot execute: {e.Message}";
+                options.PreventClose = true;
+            }
         }
 
         public void ExecuteSuggestion(SuggestionInfo suggestion, ExecuteOptions options)
         {
-            Process.Start(suggestion.Text);
+            try
+            {
+                Process.Start(suggestion.Text);
+            }
+            catch (Exception e)
+            {
+                options.ErrorText = $"Cannot execute: {e.Message}";
+                options.PreventClose = true;
+            }
         }
 
         public IEnumerable<KeywordInfo> GetKeywordActions()

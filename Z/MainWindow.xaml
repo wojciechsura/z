@@ -7,7 +7,7 @@
         xmlns:tb="http://www.hardcodet.net/taskbar"
         xmlns:local="clr-namespace:Z"
         mc:Ignorable="d"        
-        PreviewKeyDown="MainKeyDown" LostFocus="MainLostFocus" MouseDown="MainWindowMouseDown"
+        PreviewKeyDown="MainKeyDown" LostFocus="MainLostFocus" MouseDown="MainWindowMouseDown" SizeChanged="MainWindowSizeChanged"
         Width="400" SizeToContent="Height" WindowStyle="None" ResizeMode="NoResize" 
         Visibility="Hidden" ShowInTaskbar="False" Topmost="True" AllowsTransparency="True" Background="Transparent"
         FocusManager.FocusedElement="{Binding ElementName=MainEdit}">
@@ -45,25 +45,32 @@
                             </Border.Effect>
                         </Border>
 
-                        <DockPanel Margin="10">
-                            <Border Style="{StaticResource KeywordBorder}"  DockPanel.Dock="Left" Visibility="{Binding KeywordVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                <TextBlock Style="{StaticResource KeywordText}" VerticalAlignment="Center" Text="{Binding Keyword}"/>
-                            </Border>
-                            <Button DockPanel.Dock="Right" Margin="2" VerticalAlignment="Center"
-                                    Style="{StaticResource GearButtonStyle}" Command="{Binding ConfigurationCommand}" 
-                                    Focusable="False" />
-                            <Grid>
-                                <TextBlock Foreground="#5db2d9" Opacity="0.5" HorizontalAlignment="Left" Margin="10, 0, 0, 0" VerticalAlignment="Center"
-                                           Visibility="{Binding ShowHint, Converter={StaticResource BooleanToVisibilityConverter}}">Enter ? to get list of keywords</TextBlock>
-                                <DockPanel>
-                                    <Border Visibility="{Binding CompleteHintVisible, Converter={StaticResource BooleanToVisibilityConverter}}" VerticalAlignment="Center" Margin="3" DockPanel.Dock="Right" BorderThickness="1" BorderBrush="#5db2d9" Opacity="0.5" CornerRadius="3">
-                                        <TextBlock Foreground="#5db2d9" FontSize="10" FontWeight="Bold" Margin="2">Tab→</TextBlock>
-                                    </Border>
-                                    <TextBox VerticalAlignment="Center" Style="{StaticResource MainEditStyle}" x:Name="MainEdit" Margin="3" Text="{Binding EnteredText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                        PreviewKeyDown="MainEditKeyDown" />
-                                </DockPanel>
-                            </Grid>
-                        </DockPanel>
+                        <StackPanel>
+                            <DockPanel Margin="10">
+                                <Border Style="{StaticResource KeywordBorder}"  DockPanel.Dock="Left" Visibility="{Binding KeywordVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                    <TextBlock Style="{StaticResource KeywordText}" VerticalAlignment="Center" Text="{Binding Keyword}"/>
+                                </Border>
+                                <Button DockPanel.Dock="Right" Margin="2" VerticalAlignment="Center"
+                                        Style="{StaticResource GearButtonStyle}" Command="{Binding ConfigurationCommand}" 
+                                        Focusable="False" />
+
+                                <Grid>
+                                    <TextBlock Foreground="#5db2d9" Opacity="0.5" HorizontalAlignment="Left" Margin="10, 0, 0, 0" VerticalAlignment="Center"
+                                               Visibility="{Binding ShowHint, Converter={StaticResource BooleanToVisibilityConverter}}">Enter ? to get list of keywords</TextBlock>
+
+                                    <DockPanel>
+                                        <Border Visibility="{Binding CompleteHintVisible, Converter={StaticResource BooleanToVisibilityConverter}}" VerticalAlignment="Center" Margin="3" DockPanel.Dock="Right" BorderThickness="1" BorderBrush="#5db2d9" Opacity="0.5" CornerRadius="3">
+                                            <TextBlock Foreground="#5db2d9" FontSize="10" FontWeight="Bold" Margin="2">Tab→</TextBlock>
+                                        </Border>
+                                        <TextBox VerticalAlignment="Center" Style="{StaticResource MainEditStyle}" x:Name="MainEdit" Margin="3" Text="{Binding EnteredText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            PreviewKeyDown="MainEditKeyDown" />
+                                    </DockPanel>
+                                </Grid>
+                            </DockPanel>
+
+                            <TextBlock DockPanel.Dock="Bottom" Foreground="#ffa0a0" Text="{Binding ErrorText}" Margin="16,0,16,16" Visibility="{Binding ErrorText, Converter={StaticResource CollapsedIfEmptyConverter}}" />
+
+                        </StackPanel>
                     </Grid>
                 </Border>
             </Border>

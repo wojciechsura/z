@@ -44,6 +44,7 @@ Source: "..\Z\bin\Release\ControlPanelModule.dll"; DestDir: "{app}"; Flags: igno
 Source: "..\Z\bin\Release\CustomCommandsModule.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Z\bin\Release\DesktopModule.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Z\bin\Release\Filesystem.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Z\bin\Release\Hardcodet.Wpf.TaskbarNotification.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Z\bin\Release\Microsoft.Practices.ServiceLocation.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Z\bin\Release\Microsoft.Practices.Unity.Configuration.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Z\bin\Release\Microsoft.Practices.Unity.dll"; DestDir: "{app}"; Flags: ignoreversion
@@ -87,10 +88,10 @@ Name: "{commonstartup}\"; Filename: "{app}\{#MyAppExeName}"; Tasks: autostart
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
 
 [Components]
-Name: CustomModuleSample; Description: "Install sample custom module source code"
+Name: "CustomModuleSample"; Description: "Install sample custom module source code"
 
 [Dirs]
-Name: "{app}\samples\SampleModule\SampleModule"
-Name: "{app}\samples\SampleModule\Properties\Properties"
-Name: "{app}\samples\SampleModule\Resources\Resources"
+Name: "{app}\samples\SampleModule\SampleModule"; Components: CustomModuleSample
+Name: "{app}\samples\SampleModule\Properties\Properties"; Components: CustomModuleSample
+Name: "{app}\samples\SampleModule\Resources\Resources"; Components: CustomModuleSample
 Name: "{app}\plugins"

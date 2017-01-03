@@ -22,7 +22,6 @@ namespace ControlPanelModule.Infrastructure
 
                 var name = entry.GetValue(null, null) as string;
 
-                // TODO get localized string from file
                 var localizedStringLocation = entry.GetValue("LocalizedString", null) as string;
 
                 string localizedString;

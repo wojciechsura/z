@@ -83,7 +83,7 @@ namespace SampleModule
             }
             else
             {
-                // TODO - add notification about failure in the future
+                options.ErrorText = "Cannot execute!";
                 options.PreventClose = true;
             }
         }

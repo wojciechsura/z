@@ -130,6 +130,7 @@ namespace Z.BusinessLogic.ViewModels
         private string keyword;
         private bool keywordVisible;
         private bool completeHintVisible;
+        private string errorText;
 
         // List window
 
@@ -141,6 +142,7 @@ namespace Z.BusinessLogic.ViewModels
         private void ClearInput()
         {
             PublishEnteredText(null);
+            PublishErrorText(null);
             ClearSuggestions();
             ClearKeywordData();
         }
@@ -251,6 +253,7 @@ namespace Z.BusinessLogic.ViewModels
             StartEnteredTextTimer();
             PublishShowHint(false);
             PublishCompleteHintVisible(false);
+            PublishErrorText(null);
         }
 
         private void EnteredTextTimerTick(object sender, EventArgs e)
@@ -287,9 +290,10 @@ namespace Z.BusinessLogic.ViewModels
                             {
                                 Process.Start(enteredText);
                             }
-                            catch
+                            catch (Exception e)
                             {
-                                // TODO handle commands, which are invalid
+                                options.ErrorText = $"Cannot execute: {e.Message}";
+                                options.PreventClose = true;
                             }
 
                             break;
@@ -303,6 +307,7 @@ namespace Z.BusinessLogic.ViewModels
                             }
                             else
                             {
+                                System.Media.SystemSounds.Beep.Play();
                                 options.PreventClose = true;
                             }
 
@@ -346,6 +351,8 @@ namespace Z.BusinessLogic.ViewModels
 
             if (!options.PreventClose)
                 HideWindow();
+
+            PublishErrorText(options.ErrorText);
         }
 
         private SuggestionDTO GetSelectedSuggestion()
@@ -394,6 +401,12 @@ namespace Z.BusinessLogic.ViewModels
         {
             enteredText = text;
             OnPropertyChanged(nameof(EnteredText));
+        }
+
+        private void PublishErrorText(string error)
+        {
+            errorText = error;
+            OnPropertyChanged(nameof(ErrorText));
         }
 
         private void PublishKeyword(string text)
@@ -559,6 +572,7 @@ namespace Z.BusinessLogic.ViewModels
             showHint = true;
             keyword = null;
             keywordVisible = false;
+            errorText = null;
 
             suggestions = null;
             selectedItemIndex = -1;
@@ -721,6 +735,8 @@ namespace Z.BusinessLogic.ViewModels
         public ICommand ConfigurationCommand { get; private set; }
 
         public ICommand TrayIconClickCommand { get; private set; }
+
+        public string ErrorText => errorText;
 
         // List window
 

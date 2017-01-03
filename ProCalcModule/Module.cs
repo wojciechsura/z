@@ -61,9 +61,10 @@ namespace ProCalcModule
 
                 Clipboard.SetText(result.ToString());
             }
-            catch
+            catch (Exception e)
             {
-                // TODO notify about failure
+                options.ErrorText = $"Cannot evaluate: {e.Message}";
+                options.PreventClose = true;
             }
         }
 

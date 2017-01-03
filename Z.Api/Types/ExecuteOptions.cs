@@ -13,5 +13,10 @@ namespace Z.Api.Types
         /// </summary>
         /// <remarks>Useful, when executing command failed.</remarks>
         public bool PreventClose { get; set; } = false;
+
+        /// <summary>
+        /// Error text to display, if any.
+        /// </summary>
+        public string ErrorText { get; set; } = null;
     }
 }
