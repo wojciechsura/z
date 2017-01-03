@@ -9,17 +9,37 @@ namespace Z.Api.Types
 {
     public sealed class SuggestionInfo
     {
-        public SuggestionInfo(string text, string display, string comment, ImageSource image, byte match, object data = null)
+        public SuggestionInfo(string text, string display, string comment, ImageSource image, byte match)
         {
-            if (match > 100)
-                throw new ArgumentOutOfRangeException(nameof(match));
+            this.Text = text;
+            this.Display = display;
+            this.Comment = comment;
+            this.Image = image;
+            this.Data = null;
+            this.Match = match;
+            this.SortGroup = null;
+        }
 
+        public SuggestionInfo(string text, string display, string comment, ImageSource image, byte match, object data)
+        {
             this.Text = text;
             this.Display = display;
             this.Comment = comment;
             this.Image = image;
             this.Data = data;
             this.Match = match;
+            this.SortGroup = null;
+        }
+
+        public SuggestionInfo(string text, string display, string comment, ImageSource image, byte match, object data, string sortGroup)
+        {
+            this.Text = text;
+            this.Display = display;
+            this.Comment = comment;
+            this.Image = image;
+            this.Data = data;
+            this.Match = match;
+            this.SortGroup = sortGroup;
         }
 
         /// <summary>
@@ -49,5 +69,9 @@ namespace Z.Api.Types
         /// How well suggestion matches entered text, in percents (0..100)
         /// </summary>
         public byte Match { get; private set; }
+        /// <summary>
+        /// Sort group - is precedent to other sorting criteria, allows grouping suggestions
+        /// </summary>
+        public string SortGroup { get; private set; }
     }
 }

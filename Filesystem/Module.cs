@@ -86,14 +86,14 @@ namespace Filesystem
                     foreach (var file in Directory.EnumerateDirectories(dir, search))
                     {
                         string display = file.Length < LONG_FILENAME ? file : $"...{file.Substring(file.Length - LONG_FILENAME)}";
-                        collector.AddSuggestion(new SuggestionInfo(file, display, null, folderImage, SuggestionUtils.EvalMatch(enteredText, file)));
+                        collector.AddSuggestion(new SuggestionInfo(file, display, null, folderImage, SuggestionUtils.EvalMatch(enteredText, file), null, $"{MODULE_NAME}0"));
                     }
-
+                     
                     // Files
                     foreach (var file in Directory.EnumerateFiles(dir, search))
                     {
                         string display = file.Length < LONG_FILENAME ? file : $"...{file.Substring(file.Length - LONG_FILENAME)}";
-                        collector.AddSuggestion(new SuggestionInfo(file, file, null, fileImage, SuggestionUtils.EvalMatch(enteredText, file)));
+                        collector.AddSuggestion(new SuggestionInfo(file, file, null, fileImage, SuggestionUtils.EvalMatch(enteredText, file), null, $"{MODULE_NAME}1"));
                     }
                 }
                 catch

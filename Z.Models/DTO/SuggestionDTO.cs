@@ -9,12 +9,13 @@ namespace Z.Models.DTO
 {
     public class SuggestionDTO
     {
-        public SuggestionDTO(string display, string comment, string module, ImageSource image, int index)
+        public SuggestionDTO(string display, string comment, string module, ImageSource image, byte match, int index)
         {
             Display = display;
             Index = index;
             Comment = comment;
             Module = module;
+            Match = match;
             Image = image;
         }
 
@@ -22,6 +23,7 @@ namespace Z.Models.DTO
         public string Comment { get; private set; }
         public string Module { get; private set; }
         public int Index { get; private set; }
+        public byte Match { get; private set; }
         public ImageSource Image { get; private set; }
     }
 }

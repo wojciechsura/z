@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"        
         xmlns:converters="clr-namespace:Z.Common.Converters"
+        xmlns:tb="http://www.hardcodet.net/taskbar"
         xmlns:local="clr-namespace:Z"
         mc:Ignorable="d"        
         PreviewKeyDown="MainKeyDown" LostFocus="MainLostFocus" MouseDown="MainWindowMouseDown"
@@ -35,6 +36,8 @@
                         </MultiBinding>
                     </Border.Clip>
                     <Grid>
+                        <tb:TaskbarIcon x:Name="MyNotifyIcon" IconSource="z.ico" LeftClickCommand="{Binding TrayIconClickCommand}" />
+                        
                         <!-- Inner shadow caster -->
                         <Border x:Name="DisplayBorder" BorderBrush="#000000" BorderThickness="4" Margin="-5" CornerRadius="6">
                             <Border.Effect>
