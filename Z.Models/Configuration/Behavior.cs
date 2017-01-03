@@ -15,6 +15,8 @@ namespace Z.Models.Configuration
 
         [XmlElement("EnterBehavior")]
         public EnterBehavior EnterBehavior { get; set; } = EnterBehavior.ShellExecute;
+        [XmlElement("SuggestionSorting")]
+        public SuggestionSorting SuggestionSorting { get; set; } = SuggestionSorting.ByModule;
         [XmlElement("SuggestionDelay")]
         public int SuggestionDelay { get; set; } = DEFAULT_SUGGESTION_DELAY;
     }

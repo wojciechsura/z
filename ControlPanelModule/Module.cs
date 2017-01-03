@@ -10,6 +10,7 @@ using System.Windows.Media.Imaging;
 using Z.Api;
 using Z.Api.Interfaces;
 using Z.Api.Types;
+using Z.Api.Utils;
 
 namespace ControlPanelModule
 {
@@ -93,7 +94,7 @@ namespace ControlPanelModule
             controlPanelEntries
                 .Where(filter)
                 .OrderBy(cpe => cpe.DisplayName)
-                .Select(cpe => new SuggestionInfo(cpe.DisplayName, cpe.DisplayName, cpe.InfoTip, icon, cpe))
+                .Select(cpe => new SuggestionInfo(cpe.DisplayName, cpe.DisplayName, cpe.InfoTip, icon, SuggestionUtils.EvalMatch(enteredText, cpe.DisplayName), cpe))
                 .ToList()
                 .ForEach(s => collector.AddSuggestion(s));
         }

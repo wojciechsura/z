@@ -10,6 +10,7 @@ using System.Windows.Media;
 using Z.Api;
 using Z.Api.Interfaces;
 using Z.Api.Types;
+using Z.Api.Utils;
 
 namespace ShortcutModule
 {
@@ -113,7 +114,7 @@ namespace ShortcutModule
             shortcuts
                 .Where(filter)
                 .OrderBy(s => s.Display)
-                .Select(s => new SuggestionInfo(s.Display, s.Display, s.Comment, Icon, s))
+                .Select(s => new SuggestionInfo(s.Display, s.Display, s.Comment, Icon, SuggestionUtils.EvalMatch(enteredText, s.Display), s))
                 .ToList()
                 .ForEach(collector.AddSuggestion);
         }

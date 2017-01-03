@@ -159,6 +159,15 @@
                             </StackPanel>
                         </DockPanel>
 
+                        <DockPanel Style="{StaticResource ItemBlock}">
+                            <TextBlock DockPanel.Dock="Left" Style="{StaticResource ItemDesc}">Suggestion sorting</TextBlock>
+                            <StackPanel Orientation="Vertical">
+                                <RadioButton IsChecked="{Binding SuggestionSorting, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static t:SuggestionSorting.ByModule}}">Sort by module</RadioButton>
+                                <RadioButton IsChecked="{Binding SuggestionSorting, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static t:SuggestionSorting.ByDisplay}}">Sort by title</RadioButton>
+                                <RadioButton IsChecked="{Binding SuggestionSorting, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static t:SuggestionSorting.ByMatch}}">Sort by match</RadioButton>
+                            </StackPanel>
+                        </DockPanel>
+                        
                     </StackPanel>
                         
                 </DataTemplate>

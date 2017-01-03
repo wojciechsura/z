@@ -9,13 +9,17 @@ namespace Z.Api.Types
 {
     public sealed class SuggestionInfo
     {
-        public SuggestionInfo(string text, string display, string comment, ImageSource image, object data = null)
+        public SuggestionInfo(string text, string display, string comment, ImageSource image, byte match, object data = null)
         {
+            if (match > 100)
+                throw new ArgumentOutOfRangeException(nameof(match));
+
             this.Text = text;
             this.Display = display;
             this.Comment = comment;
             this.Image = image;
             this.Data = data;
+            this.Match = match;
         }
 
         /// <summary>
@@ -41,5 +45,9 @@ namespace Z.Api.Types
         /// Module can fill this field with any value, which can be later retrieved if user chooses to execute the suggestion.
         /// </summary>
         public object Data { get; private set; }
+        /// <summary>
+        /// How well suggestion matches entered text, in percents (0..100)
+        /// </summary>
+        public byte Match { get; private set; }
     }
 }

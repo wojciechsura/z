@@ -9,6 +9,7 @@ using System.Windows.Media.Imaging;
 using Z.Api;
 using Z.Api.Interfaces;
 using Z.Api.Types;
+using Z.Api.Utils;
 
 namespace PgsModule
 {
@@ -87,7 +88,7 @@ namespace PgsModule
 
             operations
                 .Where(filter)
-                .Select(op => new SuggestionInfo(op.Word, op.Word, op.Description, icon))
+                .Select(op => new SuggestionInfo(op.Word, op.Word, op.Description, icon, SuggestionUtils.EvalMatch(enteredText, op.Word, op.Description)))
                 .ToList()
                 .ForEach(s => collector.AddSuggestion(s));
         }

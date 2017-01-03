@@ -51,7 +51,7 @@
     <Compile Include="Interfaces\IConfigurationProvider.cs" />
     <Compile Include="Interfaces\IModuleContext.cs" />
     <Compile Include="Interfaces\ISuggestionCollector.cs" />
-    <Compile Include="ISuggestionComplete.cs" />
+    <Compile Include="IZSuggestionComplete.cs" />
     <Compile Include="IZConfigurable.cs" />
     <Compile Include="IZInitializable.cs" />
     <Compile Include="IZModule.cs" />
@@ -71,6 +71,7 @@
     <Compile Include="Types\ExecuteOptions.cs" />
     <Compile Include="Types\KeywordActionInfo.cs" />
     <Compile Include="Types\SuggestionInfo.cs" />
+    <Compile Include="Utils\SuggestionUtils.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

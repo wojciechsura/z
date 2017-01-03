@@ -61,7 +61,7 @@ namespace Z.BusinessLogic.ViewModels
                 {
                     logic.keywordService.GetKeywords()
                         .OrderBy(k => k.Keyword)
-                        .Select(k => new SuggestionInfo(k.Keyword, k.Keyword, k.Comment, k.Module.Icon, k))
+                        .Select(k => new SuggestionInfo(k.Keyword, k.Keyword, k.Comment, k.Module.Icon, 50, k))
                         .ToList()
                         .ForEach(collector.AddSuggestion);
                 }
@@ -168,6 +168,27 @@ namespace Z.BusinessLogic.ViewModels
 
                 if (suggestionData.Count > 0)
                 {
+                    switch (configurationService.Configuration.Behavior.SuggestionSorting)
+                    {
+                        case SuggestionSorting.ByModule:
+                            {
+                                suggestionData.Sort((SuggestionData x, SuggestionData y) => String.Compare(x.Module.DisplayName, y.Module.DisplayName));
+                                break;
+                            }
+                        case SuggestionSorting.ByDisplay:
+                            {
+                                suggestionData.Sort((SuggestionData x, SuggestionData y) => String.Compare(x.Suggestion.Display, y.Suggestion.Display));
+                                break;
+                            }
+                        case SuggestionSorting.ByMatch:
+                            {
+                                suggestionData.Sort((SuggestionData x, SuggestionData y) => y.Suggestion.Match - x.Suggestion.Match);
+                                break;
+                            }
+                        default:
+                            throw new InvalidEnumArgumentException("Not supported suggestion sorting!");
+                    }
+
                     List<SuggestionDTO> suggestionsDTO = new List<SuggestionDTO>();
                     for (int i = 0; i < suggestionData.Count; i++)
                         suggestionsDTO.Add(new SuggestionDTO(suggestionData[i].Suggestion.Display,

@@ -8,6 +8,7 @@ using System.Windows.Media.Imaging;
 using Z.Api;
 using Z.Api.Interfaces;
 using Z.Api.Types;
+using Z.Api.Utils;
 
 namespace SampleModule
 {
@@ -62,7 +63,7 @@ namespace SampleModule
             entries
                 .Where(predicate)
                 .ToList()
-                .ForEach(se => collector.AddSuggestion(new SuggestionInfo(se.Key, se.Key, se.Comment, icon, se.Message)));
+                .ForEach(se => collector.AddSuggestion(new SuggestionInfo(se.Key, se.Key, se.Comment, icon, SuggestionUtils.EvalMatch(enteredText, se.Key), se.Message)));
         }
 
         public void ExecuteKeywordAction(string action, string expression, ExecuteOptions options)

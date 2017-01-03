@@ -16,6 +16,7 @@ using System.Xml.Serialization;
 using Z.Api;
 using Z.Api.Interfaces;
 using Z.Api.Types;
+using Z.Api.Utils;
 
 namespace CustomCommandsModule
 {
@@ -169,7 +170,12 @@ namespace CustomCommandsModule
 
             configuration.Commands
                 .Where(func)
-                .Select(c => new SuggestionInfo(c.Key + (enteredCommand.Params != null ? $" {enteredCommand.Params}" : string.Empty), c.Key, c.Comment, icon, c))
+                .Select(c => new SuggestionInfo(c.Key + (enteredCommand.Params != null ? $" {enteredCommand.Params}" : string.Empty), 
+                    c.Key, 
+                    c.Comment, 
+                    icon, 
+                    SuggestionUtils.EvalMatch(enteredText, enteredCommand.Command),
+                    c))
                 .ToList()
                 .ForEach(c => collector.AddSuggestion(c));
         }
