@@ -126,6 +126,11 @@ namespace Z
 
         private void PositionListWindow()
         {
+            PositionListWindow(this.Width, this.Height);
+        }
+
+        private void PositionListWindow(double width, double height)
+        {
             // Reposition list window
             var screen = System.Windows.Forms.Screen.FromHandle(windowInteropHelper.Handle);
 
@@ -139,20 +144,18 @@ namespace Z
             if (aboveHalf)
             {
                 listWindow.Left = this.Left;
-                listWindow.Top = this.Top + this.Height + LIST_WINDOW_MARGIN;
+                listWindow.Top = this.Top + height + LIST_WINDOW_MARGIN;
             }
             else
             {
                 listWindow.Left = this.Left;
                 listWindow.Top = this.Top - listWindow.Height - LIST_WINDOW_MARGIN;
             }
-
-
         }
 
         private void MainWindowSizeChanged(object sender, SizeChangedEventArgs e)
         {
-            PositionListWindow();
+            PositionListWindow(e.NewSize.Width, e.NewSize.Height);
         }
 
         // IMainViewModelAccess implementation --------------------------------
