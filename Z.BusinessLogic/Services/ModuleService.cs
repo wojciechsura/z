@@ -93,7 +93,6 @@ namespace Z.BusinessLogic.Services
         private void InitDefaultModules()
         {
             AddModule(new WebSearchModule.Module());
-            AddModule(new PgsModule.Module());
             AddModule(new Filesystem.Module());
             AddModule(new ControlPanelModule.Module());
             AddModule(new StartMenuModule.Module());

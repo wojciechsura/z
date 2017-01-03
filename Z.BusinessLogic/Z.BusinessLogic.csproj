@@ -113,10 +113,6 @@
       <Project>{0b9b02a4-b10a-45b5-8c5b-8511a08681ad}</Project>
       <Name>Filesystem</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PgsModule\PgsModule.csproj">
-      <Project>{a0d6ce07-3599-410d-9c48-969a951e9481}</Project>
-      <Name>PgsModule</Name>
-    </ProjectReference>
     <ProjectReference Include="..\PowerModule\PowerModule.csproj">
       <Project>{78162a98-98f9-4354-8b67-06e74a72422f}</Project>
       <Name>PowerModule</Name>
