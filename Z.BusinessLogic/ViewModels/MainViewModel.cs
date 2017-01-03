@@ -162,6 +162,21 @@ namespace Z.BusinessLogic.ViewModels
 
         private void CollectSuggestions()
         {
+            Func<SuggestionData, SuggestionData, int> compareGroups = (x, y) => String.Compare(x.Suggestion.SortGroup, y.Suggestion.SortGroup);
+
+            Func<SuggestionData, SuggestionData, int> compareDisplayNames = (x, y) => String.Compare(x.Suggestion.Display, y.Suggestion.Display);
+
+            Func<SuggestionData, SuggestionData, int> compareModuleDisplayNames = (x, y) => String.Compare(x.Module.DisplayName, y.Module.DisplayName);
+
+            Func<SuggestionData, SuggestionData, int> compareMatches = (x, y) => (int)y.Suggestion.Match - (int)x.Suggestion.Match;
+
+            Func<SuggestionData, SuggestionData, IEnumerable<Func<SuggestionData, SuggestionData, int>>, int> combineCompares =
+                (x, y, compares) =>
+                {
+                    return compares.Select(c => c(x, y))
+                        .FirstOrDefault(r => r != 0);
+                };
+                
             if (!String.IsNullOrEmpty(enteredText) || currentKeyword != null)
             {
                 suggestionData = moduleService.GetSuggestionsFor(enteredText, currentKeyword?.Keyword);
@@ -172,17 +187,17 @@ namespace Z.BusinessLogic.ViewModels
                     {
                         case SuggestionSorting.ByModule:
                             {
-                                suggestionData.Sort((SuggestionData x, SuggestionData y) => String.Compare(x.Module.DisplayName, y.Module.DisplayName));
+                                suggestionData.Sort((x, y) => combineCompares(x, y, new[] { compareGroups, compareModuleDisplayNames, compareDisplayNames }));
                                 break;
                             }
                         case SuggestionSorting.ByDisplay:
                             {
-                                suggestionData.Sort((SuggestionData x, SuggestionData y) => String.Compare(x.Suggestion.Display, y.Suggestion.Display));
+                                suggestionData.Sort((x, y) => combineCompares(x, y, new[] { compareGroups, compareDisplayNames }));
                                 break;
                             }
                         case SuggestionSorting.ByMatch:
                             {
-                                suggestionData.Sort((SuggestionData x, SuggestionData y) => y.Suggestion.Match - x.Suggestion.Match);
+                                suggestionData.Sort((x, y) => combineCompares(x, y, new[] { compareGroups, compareMatches, compareDisplayNames }));
                                 break;
                             }
                         default:
@@ -195,6 +210,7 @@ namespace Z.BusinessLogic.ViewModels
                             suggestionData[i].Suggestion.Comment,
                             suggestionData[i].Module.DisplayName,
                             suggestionData[i].Suggestion.Image,
+                            suggestionData[i].Suggestion.Match,
                             i));
 
                     PublishSuggestions(suggestionsDTO);
@@ -340,6 +356,11 @@ namespace Z.BusinessLogic.ViewModels
         private void HandleConfigurationChanged(object sender, EventArgs e)
         {
             enteredTextTimer.Interval = TimeSpan.FromMilliseconds(configurationService.Configuration.Behavior.SuggestionDelay);
+        }
+
+        private void HandleTrayIconClick()
+        {
+            ShowWindow();
         }
 
         private void HideWindow()
@@ -530,6 +551,7 @@ namespace Z.BusinessLogic.ViewModels
             moduleService.AddModule(helpModule);
 
             ConfigurationCommand = new SimpleCommand((obj) => OpenConfiguration());
+            TrayIconClickCommand = new SimpleCommand((obj) => HandleTrayIconClick());
 
             // Default values
 
@@ -697,6 +719,8 @@ namespace Z.BusinessLogic.ViewModels
         public bool CompleteHintVisible => completeHintVisible;
 
         public ICommand ConfigurationCommand { get; private set; }
+
+        public ICommand TrayIconClickCommand { get; private set; }
 
         // List window
 

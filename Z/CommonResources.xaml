@@ -63,7 +63,7 @@
                         <DockPanel>
                             <Image DockPanel.Dock="Left" Source="{Binding Image}" Width="16" Height="16" VerticalAlignment="Center" Margin="2" 
                                    SnapsToDevicePixels="True" />
-                            <TextBlock Margin="2" DockPanel.Dock="Right" Text="{Binding Module}" VerticalAlignment="Center" Opacity="0.5"/>
+                            <TextBlock Margin="2" DockPanel.Dock="Right" VerticalAlignment="Center" Opacity="0.5" Text="{Binding Module, Mode=OneTime}" />
                             <DockPanel>
                                 <TextBlock DockPanel.Dock="Bottom" Margin="1" Visibility="{Binding Comment, Converter={StaticResource CollapsedIfEmptyConverter}}" 
                                            Text="{Binding Comment}" Opacity="0.5" />

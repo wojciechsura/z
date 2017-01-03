@@ -29,6 +29,7 @@ namespace Z.BusinessLogic.ViewModels
                     suggestionData[i].Suggestion.Comment,
                     suggestionData[i].Module.DisplayName,
                     suggestionData[i].Suggestion.Image,
+                    suggestionData[i].Suggestion.Match,
                     i));
 
             SelectedItemIndex = 0;
