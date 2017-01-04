@@ -88,7 +88,7 @@ Name: "{commonstartup}\"; Filename: "{app}\{#MyAppExeName}"; Tasks: autostart
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
 
 [Components]
-Name: "CustomModuleSample"; Description: "Install sample custom module source code"
+Name: "CustomModuleSample"; Description: "Install sample custom module source code"; Types: full
 
 [Dirs]
 Name: "{app}\samples\SampleModule\SampleModule"; Components: CustomModuleSample
