@@ -155,11 +155,20 @@ namespace Filesystem
 
                     for (int j = 0; j < search.Count; j++)
                     {
-                        foreach (var dir in Directory.EnumerateDirectories(search[j], $"*{pathElements[i]}*"))
+                        try
                         {
-                            var path = dir.EndsWith(Path.DirectorySeparatorChar.ToString()) ? dir : $"{dir}{Path.DirectorySeparatorChar}";
+                            foreach (var dir in Directory.EnumerateDirectories(search[j], $"*{pathElements[i]}*"))
+                            {
+                                var path = dir.EndsWith(Path.DirectorySeparatorChar.ToString())
+                                    ? dir
+                                    : $"{dir}{Path.DirectorySeparatorChar}";
 
-                            newSearch.Add(path);
+                                newSearch.Add(path);
+                            }
+                        }
+                        catch
+                        {
+                            
                         }
                     }
 
@@ -170,20 +179,32 @@ namespace Filesystem
 
                 for (int i = 0; i < search.Count; i++)
                 {
-
-
-                    // Directories
-                    foreach (var file in Directory.EnumerateDirectories(search[i], searchString))
+                    try
                     {
-                        string display = file.Length < LONG_FILENAME ? file : $"...{file.Substring(file.Length - LONG_FILENAME)}";
-                        collector.AddSuggestion(new SuggestionInfo(file, display, null, folderImage, 100, null, $"{MODULE_NAME}0"));
+
+                        // Directories
+                        foreach (var file in Directory.EnumerateDirectories(search[i], searchString))
+                        {
+                            string display = file.Length < LONG_FILENAME
+                                ? file
+                                : $"...{file.Substring(file.Length - LONG_FILENAME)}";
+                            collector.AddSuggestion(new SuggestionInfo(file, display, null, folderImage, 100, null,
+                                $"{MODULE_NAME}0"));
+                        }
+
+                        // Files
+                        foreach (var file in Directory.EnumerateFiles(search[i], searchString))
+                        {
+                            string display = file.Length < LONG_FILENAME
+                                ? file
+                                : $"...{file.Substring(file.Length - LONG_FILENAME)}";
+                            collector.AddSuggestion(new SuggestionInfo(file, file, null, fileImage, 100, null,
+                                $"{MODULE_NAME}1"));
+                        }
                     }
-
-                    // Files
-                    foreach (var file in Directory.EnumerateFiles(search[i], searchString))
+                    catch
                     {
-                        string display = file.Length < LONG_FILENAME ? file : $"...{file.Substring(file.Length - LONG_FILENAME)}";
-                        collector.AddSuggestion(new SuggestionInfo(file, file, null, fileImage, 100, null, $"{MODULE_NAME}1"));
+                        
                     }
                 }
             }
