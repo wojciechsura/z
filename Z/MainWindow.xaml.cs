@@ -193,6 +193,12 @@ namespace Z
             configuration.ShowDialog();
         }
 
+        bool? IMainWindowAccess.SelectSuggestion(SuggestionChoiceViewModel suggestionChoiceViewModel)
+        {
+            SuggestionChoiceWindow win = new SuggestionChoiceWindow(suggestionChoiceViewModel);
+            return win.ShowDialog();
+        }
+
         int IMainWindowAccess.CaretPosition
         {
             get
@@ -218,11 +224,7 @@ namespace Z
             }            
         }
 
-        bool? IMainWindowAccess.SelectSuggestion(SuggestionChoiceViewModel suggestionChoiceViewModel)
-        {
-            SuggestionChoiceWindow win = new SuggestionChoiceWindow(suggestionChoiceViewModel);
-            return win.ShowDialog();
-        }
+        bool IMainWindowAccess.IsVisible => this.IsVisible;
 
         // Protected methods --------------------------------------------------
 
@@ -268,6 +270,6 @@ namespace Z
             this.DataContext = viewModel;
 
             listWindow = new ListWindow();
-        }        
+        }
     }
 }

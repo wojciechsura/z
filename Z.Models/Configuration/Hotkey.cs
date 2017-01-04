@@ -15,5 +15,7 @@ namespace Z.Models.Configuration
         public KeyModifier KeyModifier { get; set; } = KeyModifier.Alt;
         [XmlElement("Key")]
         public Key Key { get; set; } = Key.Space;
+        [XmlElement("HotkeySwitchesVisibility")]
+        public bool HotkeySwitchesVisibility { get; set; } = false;
     }
 }
