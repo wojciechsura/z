@@ -143,6 +143,7 @@ namespace Z.BusinessLogic.ViewModels
         {
             PublishEnteredText(null);
             PublishErrorText(null);
+            PublishCompleteHintVisible(false);
             ClearSuggestions();
             ClearKeywordData();
         }
@@ -377,7 +378,10 @@ namespace Z.BusinessLogic.ViewModels
 
         private void HotkeyPressed(object sender, EventArgs args)
         {
-            ShowWindow();
+            if (mainWindowAccess.IsVisible && configurationService.Configuration.Hotkey.HotkeySwitchesVisibility)
+                HideWindow();
+            else
+                ShowWindow();
         }
 
         private bool IsInputEmpty()

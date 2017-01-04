@@ -32,6 +32,7 @@ namespace Z.BusinessLogic.ViewModels.Configuration
 
         private Key key;
         private KeyModifier keyModifier;
+        private bool hotkeySwitchesVisibility;
 
         // Private methods ----------------------------------------------------
 
@@ -65,6 +66,7 @@ namespace Z.BusinessLogic.ViewModels.Configuration
 
             key = configuration.Hotkey.Key;
             keyModifier = configuration.Hotkey.KeyModifier;
+            hotkeySwitchesVisibility = configuration.Hotkey.HotkeySwitchesVisibility;
 
             #region Available keys
             availableKeyInfos = new List<KeyInfo>
@@ -158,6 +160,7 @@ namespace Z.BusinessLogic.ViewModels.Configuration
             var configuration = configurationService.Configuration;
             configuration.Hotkey.Key = key;
             configuration.Hotkey.KeyModifier = keyModifier;
+            configuration.Hotkey.HotkeySwitchesVisibility = hotkeySwitchesVisibility;
         }
 
         public override IEnumerable<string> Validate()
@@ -228,6 +231,18 @@ namespace Z.BusinessLogic.ViewModels.Configuration
             set
             {
                 key = value.Key;
+            }
+        }
+
+        public bool HotkeySwitchesVisibility
+        {
+            get
+            {
+                return hotkeySwitchesVisibility;                
+            }
+            set
+            {
+                hotkeySwitchesVisibility = value;                 
             }
         }
 
