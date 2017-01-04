@@ -49,7 +49,7 @@ namespace Z.BusinessLogic.ViewModels.Configuration
         public override IEnumerable<string> Validate()
         {
             return configProviders.SelectMany(
-                cp => cp.ConfigProvider.Validate()
+                cp => cp.ConfigProvider.Validate() ?? new string[] { }
                     .Select(m => $"Module \"{cp.Module.DisplayName}\" reports error:\n\t{m}\n\nUse module configuration to fix it or cancel your changes."));
         }
 

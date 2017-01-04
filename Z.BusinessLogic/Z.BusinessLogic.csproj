@@ -110,7 +110,7 @@
       <Name>DesktopModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\Filesystem\Filesystem.csproj">
-      <Project>{0b9b02a4-b10a-45b5-8c5b-8511a08681ad}</Project>
+      <Project>{4bffe3ce-98d9-46cb-a476-5c4f397a1f11}</Project>
       <Name>Filesystem</Name>
     </ProjectReference>
     <ProjectReference Include="..\PowerModule\PowerModule.csproj">
