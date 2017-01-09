@@ -65,6 +65,7 @@ namespace PgsModule
             new OperationInfo("holiday", "https://my.pgs-soft.com/urlopy-dodaj-wniosek", "Nowy wniosek urlopowy"),
             new OperationInfo("tasks", "https://my.pgs-soft.com/karta-pracy-pokaz-moje-zalogowane-czasy", "Zalogowane zadania"),
             new OperationInfo("absencecalendar", "https://my.pgs-soft.com/Report/Report/AbsenceCalendar", "Kalendarz nieobecności"),
+            new OperationInfo("support", "https://support.pgs-soft.com", "Support")
         };
 
         private BitmapImage icon;
