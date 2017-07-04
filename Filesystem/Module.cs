@@ -143,70 +143,77 @@ namespace Filesystem
                 return;
             }
 
-            if (Path.IsPathRooted(enteredText))
+            try
             {
-                string[] pathElements = enteredText.Split(Path.DirectorySeparatorChar);
-
-                List<string> search = new List<string> { pathElements[0] + Path.DirectorySeparatorChar.ToString() };
-
-                for (int i = 1; i < pathElements.Length - 1; i++)
+                if (Path.IsPathRooted(enteredText))
                 {
-                    List<string> newSearch = new List<string>();
+                    string[] pathElements = enteredText.Split(Path.DirectorySeparatorChar);
 
-                    for (int j = 0; j < search.Count; j++)
+                    List<string> search = new List<string> { pathElements[0] + Path.DirectorySeparatorChar.ToString() };
+
+                    for (int i = 1; i < pathElements.Length - 1; i++)
+                    {
+                        List<string> newSearch = new List<string>();
+
+                        for (int j = 0; j < search.Count; j++)
+                        {
+                            try
+                            {
+                                foreach (var dir in Directory.EnumerateDirectories(search[j], $"*{pathElements[i]}*"))
+                                {
+                                    var path = dir.EndsWith(Path.DirectorySeparatorChar.ToString())
+                                        ? dir
+                                        : $"{dir}{Path.DirectorySeparatorChar}";
+
+                                    newSearch.Add(path);
+                                }
+                            }
+                            catch
+                            {
+
+                            }
+                        }
+
+                        search = newSearch;
+                    }
+
+                    string searchString = pathElements.Length > 1 ? $"*{pathElements.Last()}*" : "*";
+
+                    for (int i = 0; i < search.Count; i++)
                     {
                         try
                         {
-                            foreach (var dir in Directory.EnumerateDirectories(search[j], $"*{pathElements[i]}*"))
-                            {
-                                var path = dir.EndsWith(Path.DirectorySeparatorChar.ToString())
-                                    ? dir
-                                    : $"{dir}{Path.DirectorySeparatorChar}";
 
-                                newSearch.Add(path);
+                            // Directories
+                            foreach (var file in Directory.EnumerateDirectories(search[i], searchString))
+                            {
+                                string display = file.Length < LONG_FILENAME
+                                    ? file
+                                    : $"...{file.Substring(file.Length - LONG_FILENAME)}";
+                                collector.AddSuggestion(new SuggestionInfo(file, display, null, folderImage, 100, null,
+                                    $"{MODULE_NAME}0"));
+                            }
+
+                            // Files
+                            foreach (var file in Directory.EnumerateFiles(search[i], searchString))
+                            {
+                                string display = file.Length < LONG_FILENAME
+                                    ? file
+                                    : $"...{file.Substring(file.Length - LONG_FILENAME)}";
+                                collector.AddSuggestion(new SuggestionInfo(file, file, null, fileImage, 100, null,
+                                    $"{MODULE_NAME}1"));
                             }
                         }
                         catch
                         {
-                            
+
                         }
-                    }
-
-                    search = newSearch;            
-                }
-
-                string searchString = pathElements.Length > 1 ? $"*{pathElements.Last()}*" : "*";
-
-                for (int i = 0; i < search.Count; i++)
-                {
-                    try
-                    {
-
-                        // Directories
-                        foreach (var file in Directory.EnumerateDirectories(search[i], searchString))
-                        {
-                            string display = file.Length < LONG_FILENAME
-                                ? file
-                                : $"...{file.Substring(file.Length - LONG_FILENAME)}";
-                            collector.AddSuggestion(new SuggestionInfo(file, display, null, folderImage, 100, null,
-                                $"{MODULE_NAME}0"));
-                        }
-
-                        // Files
-                        foreach (var file in Directory.EnumerateFiles(search[i], searchString))
-                        {
-                            string display = file.Length < LONG_FILENAME
-                                ? file
-                                : $"...{file.Substring(file.Length - LONG_FILENAME)}";
-                            collector.AddSuggestion(new SuggestionInfo(file, file, null, fileImage, 100, null,
-                                $"{MODULE_NAME}1"));
-                        }
-                    }
-                    catch
-                    {
-                        
                     }
                 }
+            }
+            catch
+            {
+
             }
         }
 
