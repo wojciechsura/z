@@ -7,7 +7,7 @@
 #define MyAppURL "http://www.spook.freshsite.pl"
 #define MyAppExeName "Z.exe"
 
-#define PGS
+#undef PGS
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
@@ -45,6 +45,7 @@ Source: "..\Z\bin\Release\CustomCommandsModule.dll"; DestDir: "{app}"; Flags: ig
 Source: "..\Z\bin\Release\DesktopModule.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Z\bin\Release\Filesystem.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Z\bin\Release\Hardcodet.Wpf.TaskbarNotification.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Z\bin\Release\HashModule.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Z\bin\Release\Microsoft.Practices.ServiceLocation.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Z\bin\Release\Microsoft.Practices.Unity.Configuration.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Z\bin\Release\Microsoft.Practices.Unity.dll"; DestDir: "{app}"; Flags: ignoreversion
