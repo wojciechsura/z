@@ -102,29 +102,11 @@ namespace SampleModule
         {
             yield return new KeywordInfo(ACTION_KEYWORD, ACTION_NAME, ACTION_DISPLAY_NAME, ACTION_COMMENT);
         }
-        
-        public string DisplayName
-        {
-            get
-            {
-                return MODULE_DISPLAY_NAME;
-            }
-        }
 
-        public ImageSource Icon
-        {
-            get
-            {
-                return icon;
-            }
-        }
+        public string DisplayName => MODULE_DISPLAY_NAME;
 
-        public string Name
-        {
-            get
-            {
-                return MODULE_NAME;
-            }
-        }
+        public ImageSource Icon => icon;
+
+        public string Name => MODULE_NAME;
     }
 }
