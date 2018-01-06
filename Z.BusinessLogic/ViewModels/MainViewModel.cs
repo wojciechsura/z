@@ -301,7 +301,7 @@ namespace Z.BusinessLogic.ViewModels
                         }
                     case EnterBehavior.ChooseFirst:
                         {
-                            if (suggestions.Count > 0)
+                            if (suggestions != null && suggestions.Count > 0)
                             {
                                 SuggestionData suggestion = suggestionData[0];
                                 suggestion.Module.ExecuteSuggestion(suggestion.Suggestion, options);

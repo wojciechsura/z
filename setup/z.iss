@@ -57,6 +57,7 @@ Source: "..\Z\bin\Release\ProCalcEngine.dll"; DestDir: "{app}"; Flags: ignorever
 Source: "..\Z\bin\Release\ProCalcModule.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Z\bin\Release\ProcessModule.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Z\bin\Release\ProjectsModule.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Z\bin\Release\RunModule.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Z\bin\Release\ShellFoldersModule.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Z\bin\Release\ShortcutModule.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Z\bin\Release\StartMenuModule.dll"; DestDir: "{app}"; Flags: ignoreversion
