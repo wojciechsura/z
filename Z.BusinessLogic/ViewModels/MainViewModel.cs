@@ -165,7 +165,17 @@ namespace Z.BusinessLogic.ViewModels
 
         private void CollectSuggestions()
         {
-            Func<SuggestionData, SuggestionData, int> compareGroups = (x, y) => String.Compare(x.Suggestion.SortGroup, y.Suggestion.SortGroup);
+            Func<SuggestionData, SuggestionData, int> compareGroups = (x, y) =>
+            {
+                if (String.IsNullOrEmpty(x.Suggestion.SortGroup) && String.IsNullOrEmpty(y.Suggestion.SortGroup))
+                    return 0;
+                else if (String.IsNullOrEmpty(x.Suggestion.SortGroup))
+                    return 1;
+                else if (String.IsNullOrEmpty(y.Suggestion.SortGroup))
+                    return -1;
+                else
+                    return String.Compare(x.Suggestion.SortGroup, y.Suggestion.SortGroup);
+            };
 
             Func<SuggestionData, SuggestionData, int> compareDisplayNames = (x, y) => String.Compare(x.Suggestion.Display, y.Suggestion.Display);
 
