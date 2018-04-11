@@ -7,7 +7,7 @@
 #define MyAppURL "http://www.spook.freshsite.pl"
 #define MyAppExeName "Z.exe"
 
-#undef PGS
+#define PGS
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
