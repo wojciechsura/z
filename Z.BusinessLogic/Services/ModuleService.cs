@@ -104,7 +104,8 @@ namespace Z.BusinessLogic.Services
             AddModule(new ShellFoldersModule.Module());
             AddModule(new ProcessModule.Module());
             AddModule(new HashModule.Module());
-            AddModule(new RunModule.RunModule());
+            AddModule(new RunModule.Module());
+            AddModule(new FavoritesModule.Module());
         }
 
         private void LoadPluginModules()

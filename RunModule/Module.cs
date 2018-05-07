@@ -12,7 +12,7 @@ using Z.Api.Types;
 
 namespace RunModule
 {
-    public class RunModule : IZModule
+    public class Module : IZModule
     {
         private const string MODULE_DISPLAY_NAME = "Run";
         private const string MODULE_NAME = "Run";
@@ -24,7 +24,7 @@ namespace RunModule
 
         private ImageSource icon;
 
-        public RunModule()
+        public Module()
         {
             icon = new BitmapImage(new Uri("pack://application:,,,/RunModule;component/Resources/run.png"));
         }
