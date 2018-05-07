@@ -57,6 +57,10 @@ namespace FavoritesModule
         private const string MODULE_DISPLAY_NAME = "Favorites";
         private const string MODULE_NAME = "Favorites";
         private const string CONFIG_FILENAME = "config.xml";
+        private const string FAVORITE_ACTION_COMMENT = "Access favorite places or websites";
+        private const string FAVORITE_ACTION_DISPLAY = "Favorite";
+        private const string FAVORITE_ACTION_KEYWORD = "fav";
+        private const string FAVORITE_ACTION_NAME = "Favorite";
         private readonly ImageSource icon;
         private Configuration configuration;
         private IModuleContext context;
@@ -90,7 +94,7 @@ namespace FavoritesModule
         private void Execute(string expression, ExecuteOptions options)
         {
             Favorite command = configuration.Favorites
-                .Where(c => c.Key.ToUpper() == expression.ToUpper())
+                .Where(c => c.Name.ToUpper() == expression.ToUpper())
                 .FirstOrDefault();
 
             if (command != null)
@@ -112,17 +116,17 @@ namespace FavoritesModule
             Func<Favorite, bool> func;
 
             if (perfectMatchesOnly)
-                func = (Favorite command) => command.Key.ToUpper() == enteredText.ToUpper() || command.Comment.ToUpper() == enteredText.ToUpper();
+                func = (Favorite command) => command.Name.ToUpper() == enteredText.ToUpper() || command.Comment.ToUpper() == enteredText.ToUpper();
             else
-                func = (Favorite command) => command.Key.ToUpper().Contains(enteredText.ToUpper()) || command.Comment.ToUpper().Contains(enteredText.ToUpper());
+                func = (Favorite command) => command.Name.ToUpper().Contains(enteredText.ToUpper()) || command.Comment.ToUpper().Contains(enteredText.ToUpper());
 
             configuration.Favorites
                 .Where(func)
-                .Select(c => new SuggestionInfo(c.Key, 
-                    c.Key, 
+                .Select(c => new SuggestionInfo(c.Name, 
+                    c.Name, 
                     c.Comment,
                     icon,
-                    SuggestionUtils.EvalMatch(enteredText, c.Key, c.Comment),
+                    SuggestionUtils.EvalMatch(enteredText, c.Name, c.Comment),
                     c))
                 .ToList()
                 .ForEach(c => collector.AddSuggestion(c));
@@ -140,7 +144,7 @@ namespace FavoritesModule
 
         public IEnumerable<KeywordInfo> GetKeywordActions()
         {
-            return null;
+            yield return new KeywordInfo(FAVORITE_ACTION_KEYWORD, FAVORITE_ACTION_NAME, FAVORITE_ACTION_DISPLAY, FAVORITE_ACTION_COMMENT);
         }
 
         public void Initialize(IModuleContext context)

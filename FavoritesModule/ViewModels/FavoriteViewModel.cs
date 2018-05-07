@@ -39,7 +39,7 @@ namespace FavoritesModule.ViewModels
         {
             this.callbacks = callbacks;
 
-            Name = sourceCommand.Key;
+            Name = sourceCommand.Name;
             Comment = sourceCommand.Comment;
             Command = sourceCommand.Command;
 
