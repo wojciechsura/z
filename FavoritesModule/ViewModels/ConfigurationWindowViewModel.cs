@@ -56,10 +56,6 @@ namespace FavoritesModule.ViewModels
                 .Any())
                 errors.Add("Favorite names must be unique!");
 
-            if (favorites
-                .Any(c => c.Name.Contains(" ")))
-                errors.Add("Custom command keys cannot contain space characters!");
-
             return errors;
         }
 
@@ -70,7 +66,7 @@ namespace FavoritesModule.ViewModels
             favorites
                 .Select(cc => new Favorite
                 {
-                    Key = cc.Name,
+                    Name = cc.Name,
                     Command = cc.Command,
                     Comment = cc.Comment
                 })

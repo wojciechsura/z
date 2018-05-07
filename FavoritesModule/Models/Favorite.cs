@@ -9,8 +9,8 @@ namespace FavoritesModule.Models
 {   
     public class Favorite
     {
-        [XmlElement("Key")]
-        public string Key { get; set; }
+        [XmlElement("Name")]
+        public string Name { get; set; }
         [XmlElement("Comment")]
         public string Comment { get; set; }
         [XmlElement("Command")]

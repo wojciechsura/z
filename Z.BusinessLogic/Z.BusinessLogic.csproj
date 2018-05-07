@@ -109,9 +109,9 @@
       <Project>{7e5da9a0-bd29-4d32-aa91-a9a2fcb8ca77}</Project>
       <Name>DesktopModule</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Favorites\Favorites.csproj">
+    <ProjectReference Include="..\FavoritesModule\FavoritesModule.csproj">
       <Project>{ec55f916-1929-4ced-9ede-cee2ec673f50}</Project>
-      <Name>Favorites</Name>
+      <Name>FavoritesModule</Name>
     </ProjectReference>
     <ProjectReference Include="..\Filesystem\Filesystem.csproj">
       <Project>{4bffe3ce-98d9-46cb-a476-5c4f397a1f11}</Project>
