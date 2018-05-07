@@ -46,8 +46,8 @@
         </Grid>
         
         <!-- Editor -->
-        
-        <Grid DockPanel.Dock="Bottom" IsEnabled="{Binding ElementName=CommandList, Path=SelectedItem, Converter={StaticResource SelectedToBoolConverter}}">
+
+        <Grid DockPanel.Dock="Bottom" IsEnabled="{Binding ElementName=FavoriteList, Path=SelectedItem, Converter={StaticResource SelectedToBoolConverter}}">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -62,13 +62,13 @@
             </Grid.RowDefinitions>
 
             <TextBlock Grid.Column="0" Grid.Row="0" Style="{StaticResource ItemDesc}" Margin="3">Name (key)</TextBlock>
-            <TextBox Grid.Column="1" Grid.Row="0" Margin="3" Text="{Binding ElementName=CommandList, Path=SelectedItem.Key, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Grid.Column="1" Grid.Row="0" Margin="3" Text="{Binding ElementName=FavoriteList, Path=SelectedItem.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-            <TextBlock Grid.Column="0" Grid.Row="1" Style="{StaticResource ItemDesc}" Margin="3">Command</TextBlock>
-            <TextBox Grid.Column="1" Grid.Row="1" Margin="3" Text="{Binding ElementName=CommandList, Path=SelectedItem.Command, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Grid.Column="0" Grid.Row="1" Style="{StaticResource ItemDesc}" Margin="3">Place or URL</TextBlock>
+            <TextBox Grid.Column="1" Grid.Row="1" Margin="3" Text="{Binding ElementName=FavoriteList, Path=SelectedItem.Command, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
             <TextBlock Grid.Column="0" Grid.Row="2" Style="{StaticResource ItemDesc}" Margin="3">Comment</TextBlock>
-            <TextBox Grid.Column="1" Grid.Row="2" Margin="3" Text="{Binding ElementName=CommandList, Path=SelectedItem.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Grid.Column="1" Grid.Row="2" Margin="3" Text="{Binding ElementName=FavoriteList, Path=SelectedItem.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         </Grid>
 
         <ListBox x:Name="FavoriteList" Margin="3" ItemsSource="{Binding Favorites}" HorizontalContentAlignment="Stretch" Grid.IsSharedSizeScope="True">
@@ -83,7 +83,7 @@
                         </Grid.ColumnDefinitions>
 
                         <Image Grid.Column="0" Source="pack://application:,,,/FavoritesModule;component/Resources/favorites.png" Width="16" Height="16" Margin="3" VerticalAlignment="Center" />
-                        <TextBlock Grid.Column="1" Text="{Binding Key}" Margin="3,3,10,3" VerticalAlignment="Center" />
+                        <TextBlock Grid.Column="1" Text="{Binding Name}" Margin="3,3,10,3" VerticalAlignment="Center" />
                         <TextBlock Grid.Column="2" Text="{Binding Command}" Margin="3" VerticalAlignment="Center" />
                         <Button Grid.Column="3" HorizontalAlignment="Right" Command="{Binding DeleteCommand}" 
                                 Style="{StaticResource TrashButtonStyle}" VerticalAlignment="Center">Delete</Button>

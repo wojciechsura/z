@@ -8,6 +8,6 @@ namespace FavoritesModule.ViewModels.Interfaces
 {
     public interface IFavoriteCallbacks
     {
-        void Delete(FavoriteViewModel command);
+        void Delete(FavoriteViewModel favorite);
     }
 }
