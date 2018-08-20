@@ -1,5 +1,5 @@
-﻿using Spk.ProCalc.Engine;
-using Spk.ProCalc.Engine.Numerics;
+﻿using ProCalc.NET;
+using ProCalc.NET.Numerics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,14 +26,14 @@ namespace ProCalcModule
 
         // Private fields -----------------------------------------------------
 
-        private readonly Engine proCalc;
+        private readonly ProCalcCore proCalc;
         private readonly ImageSource icon;
 
         // Public methods -----------------------------------------------------
 
         public Module()
         {
-            proCalc = new Engine();
+            proCalc = new ProCalcCore();
             icon = new BitmapImage(new Uri("pack://application:,,,/ProCalcModule;component/Resources/calc.png"));
         }
 
@@ -57,7 +57,7 @@ namespace ProCalcModule
             try
             {
                 var expr = proCalc.Compile(expression);
-                var result = proCalc.Execute(expr);
+                var result = proCalc.Execute(expr, null, false);
 
                 Clipboard.SetText(result.ToString());
             }
