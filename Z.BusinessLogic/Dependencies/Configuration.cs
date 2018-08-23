@@ -19,8 +19,10 @@ namespace Z.BusinessLogic.Dependencies
             container.RegisterType<IKeywordService, KeywordService>(new ContainerControlledLifetimeManager());
             container.RegisterType<IConfigurationService, ConfigurationService>(new ContainerControlledLifetimeManager());
             container.RegisterType<IPathService, PathService>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IEventBus, EventBus>(new ContainerControlledLifetimeManager());
 
-            container.RegisterType<MainViewModel>(new ContainerControlledLifetimeManager());            
+            container.RegisterType<MainViewModel>(new ContainerControlledLifetimeManager());
+            container.RegisterType<AppViewModel>(new ContainerControlledLifetimeManager());
             container.RegisterType<ConfigurationViewModel>();
             container.RegisterType<ViewModels.Configuration.GeneralViewModel>();
             container.RegisterType<ViewModels.Configuration.BehaviorViewModel>();

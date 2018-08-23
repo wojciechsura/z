@@ -36,8 +36,6 @@
                         </MultiBinding>
                     </Border.Clip>
                     <Grid>
-                        <tb:TaskbarIcon x:Name="MyNotifyIcon" IconSource="z.ico" LeftClickCommand="{Binding TrayIconClickCommand}" />
-                        
                         <!-- Inner shadow caster -->
                         <Border x:Name="DisplayBorder" BorderBrush="#000000" BorderThickness="4" Margin="-5" CornerRadius="6">
                             <Border.Effect>
@@ -50,6 +48,11 @@
                                 <Border Style="{StaticResource KeywordBorder}"  DockPanel.Dock="Left" Visibility="{Binding KeywordVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
                                     <TextBlock Style="{StaticResource KeywordText}" VerticalAlignment="Center" Text="{Binding Keyword}"/>
                                 </Border>
+
+                                <Button DockPanel.Dock="Right" Margin="2,2,2,2" VerticalAlignment="Center"
+                                        Style="{StaticResource CloseButtonStyle}" Command="{Binding CloseCommand}" 
+                                        Focusable="False" />
+
                                 <Button DockPanel.Dock="Right" Margin="2" VerticalAlignment="Center"
                                         Style="{StaticResource GearButtonStyle}" Command="{Binding ConfigurationCommand}" 
                                         Focusable="False" />
