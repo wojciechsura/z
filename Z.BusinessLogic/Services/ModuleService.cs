@@ -149,7 +149,7 @@ namespace Z.BusinessLogic.Services
 
         protected virtual void OnModulesChanged()
         {
-            ModulesChanged?.Invoke(this, EventArgs.Empty);
+            eventBus.Send(new ModulesChangedEvent());
         }
 
         // IEnumerable<IZModule> implementation -------------------------------
@@ -247,7 +247,5 @@ namespace Z.BusinessLogic.Services
         // Public properties --------------------------------------------------
 
         public int ModuleCount => modules.Count;
-
-        public event EventHandler ModulesChanged;
     }
 }

@@ -89,6 +89,12 @@
       <DependentUpon>ConfigurationWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dependencies\Configuration.cs" />
+    <Compile Include="ProCalcResultsWindow.xaml.cs">
+      <DependentUpon>ProCalcResultsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ProCalcWindow.xaml.cs">
+      <DependentUpon>ProCalcWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Services\WindowService.cs" />
     <Compile Include="SuggestionChoiceWindow.xaml.cs">
       <DependentUpon>SuggestionChoiceWindow.xaml</DependentUpon>
@@ -130,6 +136,26 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="MainWindowResources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="OperatorWindowResources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ProCalcResultsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ProCalcResultsWindowResources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ProCalcWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ProCalcWindowResources.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
