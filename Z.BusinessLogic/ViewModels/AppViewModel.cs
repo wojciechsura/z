@@ -11,12 +11,13 @@ using Z.Wpf.Types;
 
 namespace Z.BusinessLogic.ViewModels
 {
-    public class AppViewModel
+    public class AppViewModel : IEventListener<GlobalHotkeyHitEvent>
     {
         private readonly IWindowService windowService;
         private IApplicationAccess applicationAccess;
         private readonly IConfigurationService configurationService;
         private readonly IEventBus eventBus;
+        private readonly IGlobalHotkeyService globalHotkeyService;
 
         private void HandleTaskbarClick()
         {
@@ -32,11 +33,22 @@ namespace Z.BusinessLogic.ViewModels
             applicationAccess.Shutdown();
         }
 
-        public AppViewModel(IWindowService windowService, IConfigurationService configurationService, IEventBus eventBus)
+        void IEventListener<GlobalHotkeyHitEvent>.Receive(GlobalHotkeyHitEvent @event)
+        {
+            if (configurationService.Configuration.Hotkey.HotkeySwitchesVisibility)
+                windowService.ToggleMainWindow();
+            else
+                windowService.ShowMainWindow();
+        }
+
+        public AppViewModel(IWindowService windowService, IConfigurationService configurationService, IEventBus eventBus, IGlobalHotkeyService globalHotkeyService)
         {
             this.windowService = windowService;
             this.configurationService = configurationService;
             this.eventBus = eventBus;
+            this.globalHotkeyService = globalHotkeyService;
+
+            eventBus.Register((IEventListener<GlobalHotkeyHitEvent>)this);
 
             TaskbarClickCommand = new SimpleCommand((obj) => HandleTaskbarClick());
         }
