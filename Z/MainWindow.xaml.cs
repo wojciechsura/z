@@ -22,13 +22,14 @@ using System.Runtime.InteropServices;
 using Z.BusinessLogic;
 using Z.BusinessLogic.ViewModels;
 using Z.BusinessLogic.ViewModels.Interfaces;
+using Z.Types;
 
 namespace Z
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window, IMainWindowAccess
+    public partial class MainWindow : BaseOperatorWindow, IMainWindowAccess
     {
         // Private constants --------------------------------------------------
 
@@ -221,7 +222,7 @@ namespace Z
             {
                 Left = value.X;
                 Top = value.Y;
-            }            
+            }
         }
 
         bool IMainWindowAccess.IsVisible => this.IsVisible;
@@ -262,6 +263,16 @@ namespace Z
             this.DataContext = viewModel;
 
             listWindow = new ListWindow();
+        }
+
+        public override void Summon()
+        {
+            viewModel.Summon();
+        }
+
+        public override void Dismiss()
+        {
+            viewModel.Dismiss();
         }
     }
 }

@@ -18,12 +18,20 @@ namespace Z.Services
 
         public void HideMainWindow()
         {
-            mainWindow.Hide();
+            mainWindow.Dismiss();
         }
 
         public void ShowMainWindow()
         {
-            mainWindow.Show();
+            mainWindow.Summon();
+        }
+
+        public void ToggleMainWindow()
+        {
+            if (mainWindow.Visibility == System.Windows.Visibility.Visible)
+                HideMainWindow();
+            else
+                ShowMainWindow();
         }
     }
 }

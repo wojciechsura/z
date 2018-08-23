@@ -1,4 +1,4 @@
-﻿<Window x:Class="Z.MainWindow"
+﻿<types:BaseOperatorWindow x:Class="Z.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,19 +6,20 @@
         xmlns:converters="clr-namespace:Z.Common.Converters"
         xmlns:tb="http://www.hardcodet.net/taskbar"
         xmlns:local="clr-namespace:Z"
+        xmlns:types="clr-namespace:Z.Types"
         mc:Ignorable="d"        
         PreviewKeyDown="MainKeyDown" LostFocus="MainLostFocus" MouseDown="MainWindowMouseDown" SizeChanged="MainWindowSizeChanged"
         Width="400" SizeToContent="Height" WindowStyle="None" ResizeMode="NoResize" 
         Visibility="Hidden" ShowInTaskbar="False" Topmost="True" AllowsTransparency="True" Background="Transparent"
         FocusManager.FocusedElement="{Binding ElementName=MainEdit}">
-    <Window.Resources>
+    <types:BaseOperatorWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="MainWindowResources.xaml" />
                 <ResourceDictionary Source="CommonResources.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-    </Window.Resources>
+    </types:BaseOperatorWindow.Resources>
     <Border CornerRadius="10" BorderBrush="#808080" BorderThickness="1" Background="{StaticResource GrayGradientBackground}">
         
         <Border CornerRadius="9" BorderBrush="#80ffffff" BorderThickness="1" Padding="10">
@@ -79,4 +80,4 @@
             </Border>
         </Border>
     </Border>
-</Window>
+</types:BaseOperatorWindow>

@@ -23,7 +23,7 @@ using Z.BusinessLogic.Events;
 
 namespace Z.BusinessLogic.ViewModels
 {
-    public class MainViewModel : INotifyPropertyChanged, IEventListener<ShuttingDownEvent>
+    public class MainViewModel : INotifyPropertyChanged, IEventListener<ShuttingDownEvent>, IEventListener<ConfigurationChangedEvent>
     {
         // Private types ------------------------------------------------------
 
@@ -239,6 +239,16 @@ namespace Z.BusinessLogic.ViewModels
                 ClearSuggestions();
         }
 
+        public void Dismiss()
+        {
+            InternalDismissWindow();
+        }
+
+        public void Summon()
+        {
+            InternalSummonWindow();
+        }
+
         private void CompleteSuggestion()
         {
             var suggestion = GetSelectedSuggestion();
@@ -364,7 +374,7 @@ namespace Z.BusinessLogic.ViewModels
             }
 
             if (!options.PreventClose)
-                HideWindow();
+                InternalDismissWindow();
 
             PublishErrorText(options.ErrorText);
         }
@@ -374,22 +384,14 @@ namespace Z.BusinessLogic.ViewModels
             return selectedItemIndex >= 0 ? suggestions[selectedItemIndex] : null;
         }
 
-        private void HandleConfigurationChanged(object sender, EventArgs e)
+        private void HandleConfigurationChanged()
         {
             enteredTextTimer.Interval = TimeSpan.FromMilliseconds(configurationService.Configuration.Behavior.SuggestionDelay);
         }
 
-        private void HideWindow()
+        private void InternalDismissWindow()
         {
             mainWindowAccess.Hide();
-        }
-
-        private void HotkeyPressed(object sender, EventArgs args)
-        {
-            if (mainWindowAccess.IsVisible && configurationService.Configuration.Hotkey.HotkeySwitchesVisibility)
-                HideWindow();
-            else
-                ShowWindow();
         }
 
         private bool IsInputEmpty()
@@ -512,7 +514,7 @@ namespace Z.BusinessLogic.ViewModels
             UpdateViewmodelKeyword();
         }
 
-        private void ShowWindow()
+        private void InternalSummonWindow()
         {
             ClearInput();
 
@@ -553,6 +555,19 @@ namespace Z.BusinessLogic.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
         }
 
+        // IEventListener implementations -------------------------------------
+
+        void IEventListener<ShuttingDownEvent>.Receive(ShuttingDownEvent @event)
+        {
+            configurationService.Configuration.MainWindow.Position = mainWindowAccess.Position;
+        }
+
+        void IEventListener<ConfigurationChangedEvent>.Receive(ConfigurationChangedEvent @event)
+        {
+            HandleConfigurationChanged();
+        }
+
+
         // Public methods -----------------------------------------------------
 
         public MainViewModel(IGlobalHotkeyService globalHotkeyService,
@@ -568,9 +583,9 @@ namespace Z.BusinessLogic.ViewModels
             this.configurationService = configurationService;
             this.eventBus = eventBus;
             this.applicationController = applicationController;
-            this.configurationService.ConfigurationChanged += HandleConfigurationChanged;
 
             this.eventBus.Register((IEventListener<ShuttingDownEvent>)this);
+            this.eventBus.Register((IEventListener<ConfigurationChangedEvent>)this);
 
             this.suggestionData = null;
 
@@ -579,8 +594,6 @@ namespace Z.BusinessLogic.ViewModels
             this.enteredTextTimer = new DispatcherTimer();
             enteredTextTimer.Interval = TimeSpan.FromMilliseconds(this.configurationService.Configuration.Behavior.SuggestionDelay);
             enteredTextTimer.Tick += EnteredTextTimerTick;
-
-            globalHotkeyService.HotkeyHit += HotkeyPressed;
 
             this.helpModule = new HelpModule(this);
             moduleService.AddModule(helpModule);
@@ -636,7 +649,7 @@ namespace Z.BusinessLogic.ViewModels
             }
             else
             {
-                HideWindow();
+                InternalDismissWindow();
             }
 
             return true;
@@ -702,11 +715,6 @@ namespace Z.BusinessLogic.ViewModels
         public void ListDoubleClick()
         {
             ExecuteCurrentAction();
-        }
-
-        void IEventListener<ShuttingDownEvent>.Receive(ShuttingDownEvent @event)
-        {
-            configurationService.Configuration.MainWindow.Position = mainWindowAccess.Position;
         }
 
         // Public properties --------------------------------------------------

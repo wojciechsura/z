@@ -4,23 +4,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Z.BusinessLogic.Events;
 using Z.BusinessLogic.Infrastructure;
 using Z.BusinessLogic.Services.Interfaces;
 using Z.Common.Types;
 
 namespace Z.BusinessLogic.Services
 {
-    class GlobalHotkeyService : IGlobalHotkeyService
+    class GlobalHotkeyService : IGlobalHotkeyService, IEventListener<ConfigurationChangedEvent>
     {
         private readonly HotkeyService hotkeyService;
         private readonly IConfigurationService configurationService;
+        private readonly IEventBus eventBus;
 
         private bool hotkeyRegistered;
         private int? hotkeyId;
 
         private void OnHotkeyHit()
         {
-            HotkeyHit?.Invoke(this, EventArgs.Empty);
+            eventBus.Send(new GlobalHotkeyHitEvent());
         }
 
         private void HandleHotkeyHit()
@@ -28,7 +30,7 @@ namespace Z.BusinessLogic.Services
             OnHotkeyHit();
         }
 
-        private void HandleConfigurationChanged(object sender, EventArgs e)
+        private void HandleConfigurationChanged()
         {
             if (hotkeyId != null)
                 UnregisterHotkey();
@@ -46,12 +48,14 @@ namespace Z.BusinessLogic.Services
             hotkeyRegistered = false;
         }
 
-        public GlobalHotkeyService(IConfigurationService configurationService)
+        public GlobalHotkeyService(IConfigurationService configurationService, IEventBus eventBus)
         {
             hotkeyService = new HotkeyService();
 
             this.configurationService = configurationService;
-            configurationService.ConfigurationChanged += HandleConfigurationChanged;
+            this.eventBus = eventBus;
+            eventBus.Register((IEventListener<ConfigurationChangedEvent>)this);
+
             RegisterHotkey(configurationService.Configuration.Hotkey.Key, configurationService.Configuration.Hotkey.KeyModifier);
         }
 
@@ -73,8 +77,11 @@ namespace Z.BusinessLogic.Services
             }
         }
 
-        public bool HotkeyRegistered => hotkeyRegistered;
+        void IEventListener<ConfigurationChangedEvent>.Receive(ConfigurationChangedEvent @event)
+        {
+            HandleConfigurationChanged();
+        }
 
-        public event EventHandler HotkeyHit;
+        public bool HotkeyRegistered => hotkeyRegistered;
     }
 }

@@ -10,5 +10,6 @@ namespace Z.BusinessLogic.Services.Interfaces
     {
         void ShowMainWindow();
         void HideMainWindow();
+        void ToggleMainWindow();
     }
 }

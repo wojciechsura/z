@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 using Z.Api;
 using Z.Api.Interfaces;
 using Z.Api.Types;
+using Z.BusinessLogic.Events;
 using Z.BusinessLogic.Services.Interfaces;
 using Z.Models;
 
 namespace Z.BusinessLogic.Services
 {
-    class KeywordService : IKeywordService
+    class KeywordService : IKeywordService, IEventListener<ConfigurationChangedEvent>
     {
         private class InternalKeywordData
         {
@@ -24,6 +25,7 @@ namespace Z.BusinessLogic.Services
 
         private readonly IModuleService moduleService;
         private readonly IConfigurationService configurationService;
+        private readonly IEventBus eventBus;
         private List<InternalKeywordData> keywords;
 
         // Private methods ----------------------------------------------------
@@ -63,7 +65,7 @@ namespace Z.BusinessLogic.Services
             }
         }
 
-        private void HandleConfigurationChanged(object sender, EventArgs e)
+        private void HandleConfigurationChanged()
         {
             ReloadKeywords();
         }
@@ -81,13 +83,15 @@ namespace Z.BusinessLogic.Services
 
         // Public methods -----------------------------------------------------
 
-        public KeywordService(IModuleService moduleService, IConfigurationService configurationService)
+        public KeywordService(IModuleService moduleService, IConfigurationService configurationService, IEventBus eventBus)
         {
             this.moduleService = moduleService;
             this.configurationService = configurationService;
+            this.eventBus = eventBus;
+
+            eventBus.Register((IEventListener<ConfigurationChangedEvent>)this);
 
             moduleService.ModulesChanged += HandleModulesChanged;
-            configurationService.ConfigurationChanged += HandleConfigurationChanged;
 
             ReloadKeywords();
         }
@@ -104,6 +108,11 @@ namespace Z.BusinessLogic.Services
             return keywords
                 .Select(k => new KeywordData(k.Keyword, k.Info.Name, k.Info.DisplayName, k.Info.Comment, k.Module))
                 .ToList();
+        }
+
+        void IEventListener<ConfigurationChangedEvent>.Receive(ConfigurationChangedEvent @event)
+        {
+            HandleConfigurationChanged();
         }
     }
 }
