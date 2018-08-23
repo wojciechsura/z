@@ -7,7 +7,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using Z.Api.Interfaces;
-using Z.BusinessLogic.Types;
+using Z.Wpf.Types;
 
 namespace Z.BusinessLogic.ViewModels.Configuration.Modules
 {

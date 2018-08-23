@@ -59,9 +59,17 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Events\ShuttingDownEvent.cs" />
+    <Compile Include="Services\EventBus.cs" />
+    <Compile Include="Services\Interfaces\IApplicationController.cs" />
+    <Compile Include="Services\Interfaces\IEventListener.cs" />
+    <Compile Include="Services\Interfaces\IEventBus.cs" />
     <Compile Include="Services\Interfaces\IPathService.cs" />
+    <Compile Include="Services\Interfaces\IWindowService.cs" />
     <Compile Include="Services\Interfaces\IZExclusiveSuggestions.cs" />
     <Compile Include="Services\PathService.cs" />
+    <Compile Include="Events\BaseEvent.cs" />
+    <Compile Include="ViewModels\AppViewModel.cs" />
     <Compile Include="ViewModels\ConfigurationViewModel.cs" />
     <Compile Include="Dependencies\Configuration.cs" />
     <Compile Include="Infrastructure\HotkeyService.cs" />
@@ -72,6 +80,7 @@
     <Compile Include="ViewModels\Configuration\Keywords\KeywordOverrideViewModel.cs" />
     <Compile Include="ViewModels\Configuration\ModulesViewModel.cs" />
     <Compile Include="ViewModels\Configuration\Modules\ModuleConfigViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IApplicationAccess.cs" />
     <Compile Include="ViewModels\Interfaces\IConfigurationWindowAccess.cs" />
     <Compile Include="ViewModels\Interfaces\IListWindowAccess.cs" />
     <Compile Include="ViewModels\Interfaces\IMainWindowAccess.cs" />
@@ -91,7 +100,6 @@
     <Compile Include="Services\Interfaces\IModuleService.cs" />
     <Compile Include="Services\KeywordService.cs" />
     <Compile Include="Services\ModuleService.cs" />
-    <Compile Include="Types\SimpleCommand.cs" />
     <Compile Include="ViewModels\SuggestionChoiceViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -173,6 +181,10 @@
     <ProjectReference Include="..\Z.Models\Z.Models.csproj">
       <Project>{b6914e5d-5681-4693-b589-76e6de1ad836}</Project>
       <Name>Z.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Z.Wpf\Z.Wpf.csproj">
+      <Project>{7a248954-2ade-41ef-b42e-0dc48d20174e}</Project>
+      <Name>Z.Wpf</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

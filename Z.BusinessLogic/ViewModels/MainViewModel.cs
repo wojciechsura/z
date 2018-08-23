@@ -15,14 +15,15 @@ using Z.Api.Interfaces;
 using Z.Api.Types;
 using System.ComponentModel;
 using System.Windows.Media;
-using Z.BusinessLogic.Types;
+using Z.Wpf.Types;
 using Z.BusinessLogic.ViewModels.Interfaces;
 using Z.Common.Types;
 using Z.Api;
+using Z.BusinessLogic.Events;
 
 namespace Z.BusinessLogic.ViewModels
 {
-    public class MainViewModel : INotifyPropertyChanged
+    public class MainViewModel : INotifyPropertyChanged, IEventListener<ShuttingDownEvent>
     {
         // Private types ------------------------------------------------------
 
@@ -112,6 +113,8 @@ namespace Z.BusinessLogic.ViewModels
         private readonly IKeywordService keywordService;
         private readonly IModuleService moduleService;
         private readonly IConfigurationService configurationService;
+        private readonly IEventBus eventBus;
+        private readonly IApplicationController applicationController;
 
         private readonly DispatcherTimer enteredTextTimer;
 
@@ -376,11 +379,6 @@ namespace Z.BusinessLogic.ViewModels
             enteredTextTimer.Interval = TimeSpan.FromMilliseconds(configurationService.Configuration.Behavior.SuggestionDelay);
         }
 
-        private void HandleTrayIconClick()
-        {
-            ShowWindow();
-        }
-
         private void HideWindow()
         {
             mainWindowAccess.Hide();
@@ -523,6 +521,11 @@ namespace Z.BusinessLogic.ViewModels
             PublishCompleteHintVisible(false);
         }
 
+        private void Shutdown()
+        {
+            applicationController.Shutdown();
+        }
+
         private void StartEnteredTextTimer()
         {
             // Reset timer if it is already counting down
@@ -555,14 +558,19 @@ namespace Z.BusinessLogic.ViewModels
         public MainViewModel(IGlobalHotkeyService globalHotkeyService,
             IKeywordService keywordService,
             IModuleService moduleService,
-            IConfigurationService configurationService)
+            IConfigurationService configurationService,
+            IEventBus eventBus,
+            IApplicationController applicationController)
         {
             this.globalHotkeyService = globalHotkeyService;
             this.keywordService = keywordService;
             this.moduleService = moduleService;
             this.configurationService = configurationService;
-
+            this.eventBus = eventBus;
+            this.applicationController = applicationController;
             this.configurationService.ConfigurationChanged += HandleConfigurationChanged;
+
+            this.eventBus.Register((IEventListener<ShuttingDownEvent>)this);
 
             this.suggestionData = null;
 
@@ -578,7 +586,7 @@ namespace Z.BusinessLogic.ViewModels
             moduleService.AddModule(helpModule);
 
             ConfigurationCommand = new SimpleCommand((obj) => OpenConfiguration());
-            TrayIconClickCommand = new SimpleCommand((obj) => HandleTrayIconClick());
+            CloseCommand = new SimpleCommand((obj) => Shutdown());
 
             // Default values
 
@@ -606,18 +614,6 @@ namespace Z.BusinessLogic.ViewModels
             }
 
             return false;
-        }
-
-        public bool Closing()
-        {
-            // Store window position
-            configurationService.Configuration.MainWindow.Position = mainWindowAccess.Position;
-            configurationService.Save();
-
-            // Notify ModuleService to deinitialize modules
-            moduleService.NotifyClosing();
-
-            return true;
         }
 
         public bool DownPressed()
@@ -708,6 +704,11 @@ namespace Z.BusinessLogic.ViewModels
             ExecuteCurrentAction();
         }
 
+        void IEventListener<ShuttingDownEvent>.Receive(ShuttingDownEvent @event)
+        {
+            configurationService.Configuration.MainWindow.Position = mainWindowAccess.Position;
+        }
+
         // Public properties --------------------------------------------------
 
         // Main window
@@ -748,7 +749,7 @@ namespace Z.BusinessLogic.ViewModels
 
         public ICommand ConfigurationCommand { get; private set; }
 
-        public ICommand TrayIconClickCommand { get; private set; }
+        public ICommand CloseCommand { get; private set; }
 
         public string ErrorText => errorText;
 
