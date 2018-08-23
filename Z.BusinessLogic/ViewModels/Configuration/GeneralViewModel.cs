@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Z.BusinessLogic.Services.Interfaces;
-using Z.BusinessLogic.Types;
+using Z.Wpf.Types;
 using Z.Common.Types;
 
 namespace Z.BusinessLogic.ViewModels.Configuration

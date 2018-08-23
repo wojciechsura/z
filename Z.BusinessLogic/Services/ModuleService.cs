@@ -10,12 +10,13 @@ using System.Threading.Tasks;
 using Z.Api;
 using Z.Api.Interfaces;
 using Z.Api.Types;
+using Z.BusinessLogic.Events;
 using Z.BusinessLogic.Services.Interfaces;
 using Z.Models;
 
 namespace Z.BusinessLogic.Services
 {
-    class ModuleService : IModuleService
+    class ModuleService : IModuleService, IEventListener<ShuttingDownEvent>
     {
         // Private constants --------------------------------------------------
 
@@ -87,6 +88,7 @@ namespace Z.BusinessLogic.Services
 
         private readonly List<IZModule> modules;
         private readonly IPathService pathService;
+        private readonly IEventBus eventBus;
 
         // Private methods ----------------------------------------------------
 
@@ -170,9 +172,12 @@ namespace Z.BusinessLogic.Services
                 .SingleOrDefault(m => m.Name == internalName);
         }
 
-        public ModuleService(IPathService pathService)
+        public ModuleService(IPathService pathService, IEventBus eventBus)
         {
             this.pathService = pathService;
+            this.eventBus = eventBus;
+
+            eventBus.Register((IEventListener<ShuttingDownEvent>)this);
 
             modules = new List<IZModule>();
             InitDefaultModules();
@@ -233,7 +238,7 @@ namespace Z.BusinessLogic.Services
             OnModulesChanged();
         }
 
-        public void NotifyClosing()
+        void IEventListener<ShuttingDownEvent>.Receive(ShuttingDownEvent @event)
         {
             foreach (var module in modules.OfType<IZInitializable>())
                 module.Deinitialize();

@@ -237,16 +237,8 @@ namespace Z
 
         protected override void OnClosing(CancelEventArgs e)
         {
-            base.OnClosing(e);
-
-            if (!viewModel.Closing())
-                e.Cancel = true;
-        }
-
-        protected override void OnClosed(EventArgs e)
-        {
-            listWindow.Close();
-            base.OnClosed(e);
+            Hide();
+            e.Cancel = true;
         }
 
         protected override void OnInitialized(EventArgs e)
