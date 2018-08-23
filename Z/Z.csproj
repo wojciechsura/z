@@ -93,6 +93,7 @@
     <Compile Include="SuggestionChoiceWindow.xaml.cs">
       <DependentUpon>SuggestionChoiceWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Types\BaseOperatorWindow.cs" />
     <Page Include="CommonResources.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
