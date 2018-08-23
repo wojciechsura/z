@@ -22,6 +22,7 @@ namespace Z.BusinessLogic.Dependencies
             container.RegisterType<IEventBus, EventBus>(new ContainerControlledLifetimeManager());
 
             container.RegisterType<MainViewModel>(new ContainerControlledLifetimeManager());
+            container.RegisterType<ProCalcViewModel>(new ContainerControlledLifetimeManager());
             container.RegisterType<AppViewModel>(new ContainerControlledLifetimeManager());
             container.RegisterType<ConfigurationViewModel>();
             container.RegisterType<ViewModels.Configuration.GeneralViewModel>();

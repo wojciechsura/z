@@ -12,7 +12,7 @@ using Z.Models;
 
 namespace Z.BusinessLogic.Services
 {
-    class KeywordService : IKeywordService, IEventListener<ConfigurationChangedEvent>
+    class KeywordService : IKeywordService, IEventListener<ConfigurationChangedEvent>, IEventListener<ModulesChangedEvent>
     {
         private class InternalKeywordData
         {
@@ -70,7 +70,7 @@ namespace Z.BusinessLogic.Services
             ReloadKeywords();
         }
 
-        private void HandleModulesChanged(object sender, EventArgs e)
+        private void HandleModulesChanged()
         {
             ReloadKeywords();
         }
@@ -79,6 +79,18 @@ namespace Z.BusinessLogic.Services
         {
             keywords = CollectOriginalKeywords();
             ApplyKeywordOverrides(keywords);
+        }
+
+        // IEventListener implementation --------------------------------------
+
+        void IEventListener<ConfigurationChangedEvent>.Receive(ConfigurationChangedEvent @event)
+        {
+            HandleConfigurationChanged();
+        }
+
+        void IEventListener<ModulesChangedEvent>.Receive(ModulesChangedEvent @event)
+        {
+            HandleModulesChanged();
         }
 
         // Public methods -----------------------------------------------------
@@ -90,8 +102,6 @@ namespace Z.BusinessLogic.Services
             this.eventBus = eventBus;
 
             eventBus.Register((IEventListener<ConfigurationChangedEvent>)this);
-
-            moduleService.ModulesChanged += HandleModulesChanged;
 
             ReloadKeywords();
         }
@@ -108,11 +118,6 @@ namespace Z.BusinessLogic.Services
             return keywords
                 .Select(k => new KeywordData(k.Keyword, k.Info.Name, k.Info.DisplayName, k.Info.Comment, k.Module))
                 .ToList();
-        }
-
-        void IEventListener<ConfigurationChangedEvent>.Receive(ConfigurationChangedEvent @event)
-        {
-            HandleConfigurationChanged();
         }
     }
 }

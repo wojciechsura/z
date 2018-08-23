@@ -61,6 +61,7 @@
   <ItemGroup>
     <Compile Include="Events\ConfigurationChangedEvent.cs" />
     <Compile Include="Events\GlobalHotkeyHitEvent.cs" />
+    <Compile Include="Events\ModulesChangedEvent.cs" />
     <Compile Include="Events\ShuttingDownEvent.cs" />
     <Compile Include="Services\EventBus.cs" />
     <Compile Include="Services\Interfaces\IApplicationController.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="ViewModels\Interfaces\IConfigurationWindowAccess.cs" />
     <Compile Include="ViewModels\Interfaces\IListWindowAccess.cs" />
     <Compile Include="ViewModels\Interfaces\IMainWindowAccess.cs" />
+    <Compile Include="ViewModels\Interfaces\IProCalcWindowAccess.cs" />
     <Compile Include="ViewModels\Interfaces\ISuggestionChoiceWindowAccess.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -102,6 +104,7 @@
     <Compile Include="Services\Interfaces\IModuleService.cs" />
     <Compile Include="Services\KeywordService.cs" />
     <Compile Include="Services\ModuleService.cs" />
+    <Compile Include="ViewModels\ProCalcViewModel.cs" />
     <Compile Include="ViewModels\SuggestionChoiceViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
