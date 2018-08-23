@@ -29,7 +29,6 @@ namespace Z
 
         protected override void OnClosing(CancelEventArgs e)
         {
-            Hide();
             e.Cancel = true;
         }
 

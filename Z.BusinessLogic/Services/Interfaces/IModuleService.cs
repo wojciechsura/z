@@ -17,6 +17,5 @@ namespace Z.BusinessLogic.Services.Interfaces
         void AddModule(IZModule helpModule);
 
         int ModuleCount { get; }
-        event EventHandler ModulesChanged;
     }
 }
