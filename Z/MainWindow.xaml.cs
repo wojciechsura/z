@@ -136,7 +136,7 @@ namespace Z
             var screen = System.Windows.Forms.Screen.FromHandle(windowInteropHelper.Handle);
 
             int halfScreenHeight = screen.WorkingArea.Height / 2;
-            int listWindowHeight = Math.Min(LIST_WINDOW_HEIGHT, (int)(halfScreenHeight - this.ActualHeight / 2) - LIST_WINDOW_MARGIN);
+            int listWindowHeight = Math.Min((int)listWindow.ActualHeight, (int)(halfScreenHeight - this.ActualHeight / 2) - LIST_WINDOW_MARGIN);
             int halfScreenHeightPos = screen.WorkingArea.Top + halfScreenHeight;
             var aboveHalf = this.Top + this.ActualHeight / 2 <= halfScreenHeightPos;
 

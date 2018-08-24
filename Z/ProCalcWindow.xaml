@@ -8,14 +8,14 @@
         xmlns:local="clr-namespace:Z"
         xmlns:types="clr-namespace:Z.Types"
         mc:Ignorable="d"        
-        PreviewKeyDown="MainKeyDown" LostFocus="MainLostFocus" MouseDown="MainWindowMouseDown" SizeChanged="MainWindowSizeChanged"
+        PreviewKeyDown="ProCalcKeyDown" LostFocus="ProCalcLostFocus" MouseDown="ProCalcWindowMouseDown" SizeChanged="ProCalcWindowSizeChanged"
         Width="400" SizeToContent="Height" WindowStyle="None" ResizeMode="NoResize" 
         ShowInTaskbar="False" Topmost="True" AllowsTransparency="True" Background="Transparent"
         FocusManager.FocusedElement="{Binding ElementName=MainEdit}">
     <types:BaseOperatorWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="MainWindowResources.xaml" />
+                <ResourceDictionary Source="ProCalcWindowResources.xaml" />
                 <ResourceDictionary Source="CommonResources.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

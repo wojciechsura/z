@@ -10,10 +10,12 @@ namespace Z.Services
     class WindowService : IWindowService
     {
         private MainWindow mainWindow;
+        private ProCalcWindow proCalcWindow;
 
         public WindowService()
         {
             mainWindow = new MainWindow();
+            proCalcWindow = new ProCalcWindow();
         }
 
         public void HideMainWindow()
@@ -32,6 +34,24 @@ namespace Z.Services
                 HideMainWindow();
             else
                 ShowMainWindow();
+        }
+
+        public void HideProCalcWindow()
+        {
+            proCalcWindow.Dismiss();
+        }
+
+        public void ShowProCalcWindow()
+        {
+            proCalcWindow.Summon();
+        }
+
+        public void ToggleProCalcWindow()
+        {
+            if (proCalcWindow.Visibility == System.Windows.Visibility.Visible)
+                HideProCalcWindow();
+            else
+                ShowProCalcWindow();
         }
     }
 }
