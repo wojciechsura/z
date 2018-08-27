@@ -26,12 +26,17 @@ namespace Z.Services
         public void ShowMainWindow()
         {
             mainWindow.Value.Summon();
+
+            if (proCalcWindow.Value.IsVisible)
+                proCalcWindow.Value.Dismiss();
         }
 
         public void ToggleMainWindow()
         {
-            if (mainWindow.Value.Visibility == System.Windows.Visibility.Visible)
+            if (mainWindow.Value.IsVisible)
                 HideMainWindow();
+            else if (proCalcWindow.Value.IsVisible)
+                HideProCalcWindow();
             else
                 ShowMainWindow();
         }
@@ -44,14 +49,9 @@ namespace Z.Services
         public void ShowProCalcWindow()
         {
             proCalcWindow.Value.Summon();
-        }
 
-        public void ToggleProCalcWindow()
-        {
-            if (proCalcWindow.Value.Visibility == System.Windows.Visibility.Visible)
-                HideProCalcWindow();
-            else
-                ShowProCalcWindow();
+            if (mainWindow.Value.IsVisible)
+                mainWindow.Value.Dismiss();
         }
     }
 }

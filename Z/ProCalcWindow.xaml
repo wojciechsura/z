@@ -48,15 +48,15 @@
                             <DockPanel Margin="10">
 
                                 <Button DockPanel.Dock="Right" Margin="2" VerticalAlignment="Center"
-                                        Style="{StaticResource GearButtonStyle}" Command="{Binding ConfigurationCommand}" 
+                                        Style="{StaticResource GearButtonStyle}"
                                         Focusable="False" Click="GearButtonClick">
                                     <Button.ContextMenu>
                                         <ContextMenu>
-                                            <MenuItem Command="{Binding SwitchToZCommand}" Header="Z launcher" />
-                                            <MenuItem Command="{Binding SwitchToProCalcCommand}" Header="ProCac" />
+                                            <MenuItem Click="ZLauncherMenuItem_Click" Header="Z launcher" />
+                                            <MenuItem Click="ProCalcMenuItem_Click" Header="ProCalc" />
                                             <Separator />
-                                            <MenuItem Command="{Binding ConfigurationCommand}" Header="Configuration" />
-                                            <MenuItem Command="{Binding CloseCommand}" Header="Close" />
+                                            <MenuItem Click="ConfigurationMenuItem_Click" Header="Configuration" />
+                                            <MenuItem Click="CloseMenuItem_Click" Header="Close" />
                                         </ContextMenu>
                                     </Button.ContextMenu>
                                 </Button>
