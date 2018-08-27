@@ -30,7 +30,7 @@ namespace Z
         // Private constants --------------------------------------------------
 
         private readonly int RESULTS_WINDOW_MARGIN = 16;
-        private readonly int RESULTS_WINDOW_HEIGHT = 400;
+        private readonly int RESULTS_WINDOW_HEIGHT = 200;
 
         // Private fields -----------------------------------------------------
 
@@ -102,7 +102,7 @@ namespace Z
             var screen = System.Windows.Forms.Screen.FromHandle(windowInteropHelper.Handle);
 
             int halfScreenHeight = screen.WorkingArea.Height / 2;
-            int listWindowHeight = Math.Min((int)resultsWindow.ActualHeight, (int)(halfScreenHeight - this.ActualHeight / 2) - RESULTS_WINDOW_MARGIN);
+            int listWindowHeight = Math.Min(RESULTS_WINDOW_HEIGHT, (int)(halfScreenHeight - this.ActualHeight / 2) - RESULTS_WINDOW_MARGIN);
             int halfScreenHeightPos = screen.WorkingArea.Top + halfScreenHeight;
             var aboveHalf = this.Top + this.ActualHeight / 2 <= halfScreenHeightPos;
 
@@ -238,6 +238,30 @@ namespace Z
         public override void Summon()
         {
             viewModel.Summon();
+        }
+
+        private void ZLauncherMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (viewModel.SwitchToZCommand.CanExecute(null))
+                viewModel.SwitchToZCommand.Execute(null);
+        }
+
+        private void ProCalcMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (viewModel.SwitchToProCalcCommand.CanExecute(null))
+                viewModel.SwitchToProCalcCommand.Execute(null);
+        }
+
+        private void ConfigurationMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (viewModel.ConfigurationCommand.CanExecute(null))
+                viewModel.ConfigurationCommand.Execute(null);
+        }
+
+        private void CloseMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (viewModel.CloseCommand.CanExecute(null))
+                viewModel.CloseCommand.Execute(null);
         }
     }
 }

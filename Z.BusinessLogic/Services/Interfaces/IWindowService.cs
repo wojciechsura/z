@@ -13,6 +13,5 @@ namespace Z.BusinessLogic.Services.Interfaces
         void ToggleMainWindow();
         void ShowProCalcWindow();
         void HideProCalcWindow();
-        void ToggleProCalcWindow();
     }
 }
