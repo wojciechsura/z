@@ -30,7 +30,7 @@ namespace Z
         // Private constants --------------------------------------------------
 
         private readonly int RESULTS_WINDOW_MARGIN = 16;
-        private readonly int RESULTS_WINDOW_HEIGHT = 200;
+        private readonly int RESULTS_WINDOW_HEIGHT = 206;
 
         // Private fields -----------------------------------------------------
 
@@ -198,6 +198,7 @@ namespace Z
         protected override void OnLocationChanged(EventArgs e)
         {
             PositionResultsWindow();
+            viewModel.NotifyPositionChanged((int)Left, (int)Top);
 
             base.OnLocationChanged(e);
         }

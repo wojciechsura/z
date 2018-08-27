@@ -20,10 +20,11 @@ using Z.BusinessLogic.ViewModels.Interfaces;
 using Z.Common.Types;
 using Z.Api;
 using Z.BusinessLogic.Events;
+using System.Windows;
 
 namespace Z.BusinessLogic.ViewModels
 {
-    public class MainViewModel : INotifyPropertyChanged, IEventListener<ShuttingDownEvent>, IEventListener<ConfigurationChangedEvent>
+    public class MainViewModel : INotifyPropertyChanged, IEventListener<ShuttingDownEvent>, IEventListener<ConfigurationChangedEvent>, IEventListener<PositionChangedEvent>
     {
         // Private types ------------------------------------------------------
 
@@ -135,6 +136,7 @@ namespace Z.BusinessLogic.ViewModels
         private bool keywordVisible;
         private bool completeHintVisible;
         private string errorText;
+        private bool suspendPositionChangeNotifications = false;
 
         // List window
 
@@ -238,6 +240,11 @@ namespace Z.BusinessLogic.ViewModels
             }
             else
                 ClearSuggestions();
+        }
+
+        public void NotifyPositionChanged(int left, int top)
+        {
+            eventBus.Send(new PositionChangedEvent(left, top, this));
         }
 
         public void Dismiss()
@@ -578,6 +585,22 @@ namespace Z.BusinessLogic.ViewModels
             HandleConfigurationChanged();
         }
 
+        void IEventListener<PositionChangedEvent>.Receive(PositionChangedEvent @event)
+        {
+            if (@event.Origin != this && ((int)@event.X != (int)mainWindowAccess.Position.X || (int)@event.Y != (int)mainWindowAccess.Position.Y))
+            {
+                try
+                {
+                    // Don't propagate this as an event
+                    suspendPositionChangeNotifications = true;
+                    mainWindowAccess.Position = new Point(@event.X, @event.Y);
+                }
+                finally
+                {
+                    suspendPositionChangeNotifications = false;
+                }
+            }
+        }
 
         // Public methods -----------------------------------------------------
 
@@ -599,6 +622,7 @@ namespace Z.BusinessLogic.ViewModels
 
             this.eventBus.Register((IEventListener<ShuttingDownEvent>)this);
             this.eventBus.Register((IEventListener<ConfigurationChangedEvent>)this);
+            this.eventBus.Register((IEventListener<PositionChangedEvent>)this);
 
             this.suggestionData = null;
 

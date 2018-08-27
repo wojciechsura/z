@@ -237,6 +237,7 @@ namespace Z
         protected override void OnLocationChanged(EventArgs e)
         {
             PositionListWindow();
+            viewModel.NotifyPositionChanged((int)Left, (int)Top);
 
             base.OnLocationChanged(e);
         }

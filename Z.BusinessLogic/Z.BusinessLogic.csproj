@@ -66,6 +66,7 @@
     <Compile Include="Events\ConfigurationChangedEvent.cs" />
     <Compile Include="Events\GlobalHotkeyHitEvent.cs" />
     <Compile Include="Events\ModulesChangedEvent.cs" />
+    <Compile Include="Events\PositionChangedEvent.cs" />
     <Compile Include="Events\ShuttingDownEvent.cs" />
     <Compile Include="Services\EventBus.cs" />
     <Compile Include="Services\Interfaces\IApplicationController.cs" />
