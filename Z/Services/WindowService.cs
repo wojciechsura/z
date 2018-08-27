@@ -9,28 +9,28 @@ namespace Z.Services
 {
     class WindowService : IWindowService
     {
-        private MainWindow mainWindow;
-        private ProCalcWindow proCalcWindow;
+        private Lazy<MainWindow> mainWindow;
+        private Lazy<ProCalcWindow> proCalcWindow;
 
         public WindowService()
         {
-            mainWindow = new MainWindow();
-            proCalcWindow = new ProCalcWindow();
+            mainWindow = new Lazy<MainWindow>(() => new MainWindow());
+            proCalcWindow = new Lazy<ProCalcWindow>(() => new ProCalcWindow());
         }
 
         public void HideMainWindow()
         {
-            mainWindow.Dismiss();
+            mainWindow.Value.Dismiss();
         }
 
         public void ShowMainWindow()
         {
-            mainWindow.Summon();
+            mainWindow.Value.Summon();
         }
 
         public void ToggleMainWindow()
         {
-            if (mainWindow.Visibility == System.Windows.Visibility.Visible)
+            if (mainWindow.Value.Visibility == System.Windows.Visibility.Visible)
                 HideMainWindow();
             else
                 ShowMainWindow();
@@ -38,17 +38,17 @@ namespace Z.Services
 
         public void HideProCalcWindow()
         {
-            proCalcWindow.Dismiss();
+            proCalcWindow.Value.Dismiss();
         }
 
         public void ShowProCalcWindow()
         {
-            proCalcWindow.Summon();
+            proCalcWindow.Value.Summon();
         }
 
         public void ToggleProCalcWindow()
         {
-            if (proCalcWindow.Visibility == System.Windows.Visibility.Visible)
+            if (proCalcWindow.Value.Visibility == System.Windows.Visibility.Visible)
                 HideProCalcWindow();
             else
                 ShowProCalcWindow();

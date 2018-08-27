@@ -57,29 +57,4 @@
         </Style.Setters>
     </Style>
 
-    <Style x:Key="CloseButtonStyle" TargetType="Button">
-        <Style.Setters>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="Transparent">
-                            <Path Name="Path" Fill="#5db2d9" Opacity="0.5">
-                                <Path.Data>
-                                    <PathGeometry Figures="m 2 0 3 3 3 -3 2 2 -3 3 3 3 -2 2 -3 -3 -3 3 -2 -2 3 -3 -3 -3 z" FillRule="NonZero"/>
-                                </Path.Data>
-                            </Path>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Path" Property="Opacity" Value="1.0" />
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter TargetName="Path" Property="Opacity" Value="0.3" />
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style.Setters>
-    </Style>
 </ResourceDictionary>

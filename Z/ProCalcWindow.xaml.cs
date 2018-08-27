@@ -138,6 +138,11 @@ namespace Z
             resultsWindow.Hide();
         }
 
+        private void GearButtonClick(object sender, RoutedEventArgs e)
+        {
+            (sender as Button).ContextMenu.IsOpen = true;
+        }
+
         // IProCalcWindowAccess implementation --------------------------------
 
         void IProCalcWindowAccess.Show()

@@ -159,6 +159,11 @@ namespace Z
             PositionListWindow(e.NewSize.Width, e.NewSize.Height);
         }
 
+        private void GearButtonClick(object sender, RoutedEventArgs e)
+        {
+            (sender as Button).ContextMenu.IsOpen = true;
+        }
+
         // IMainViewModelAccess implementation --------------------------------
 
         void IMainWindowAccess.Show()

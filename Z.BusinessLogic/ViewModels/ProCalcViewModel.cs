@@ -8,6 +8,8 @@ using Z.BusinessLogic.ViewModels.Interfaces;
 using ProCalc.NET;
 using ProCalc.NET.Exceptions;
 using Z.BusinessLogic.Services.Interfaces;
+using System.Windows.Input;
+using Z.Wpf.Types;
 
 namespace Z.BusinessLogic.ViewModels
 {
@@ -15,6 +17,8 @@ namespace Z.BusinessLogic.ViewModels
     {
         private IProCalcWindowAccess access;
         private IConfigurationService configurationService;
+        private IWindowService windowService;
+        private IApplicationController applicationController;
         private ProCalcCore proCalcCore;
 
         private string result = "";
@@ -52,10 +56,30 @@ namespace Z.BusinessLogic.ViewModels
             ErrorText = null;
         }
 
-
         private bool IsInputEmpty()
         {
             return String.IsNullOrEmpty(enteredText);
+        }
+
+        private void OpenConfiguration()
+        {
+            ClearInput();
+            access.OpenConfiguration();
+        }
+
+        private void Shutdown()
+        {
+            applicationController.Shutdown();
+        }
+
+        private void DoSwitchToZ()
+        {
+            windowService.ShowMainWindow();
+        }
+
+        private void DoSwitchToProCalc()
+        {
+            windowService.ShowProCalcWindow();
         }
 
         protected void OnPropertyChanged(string name)
@@ -63,11 +87,20 @@ namespace Z.BusinessLogic.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
-        public ProCalcViewModel(IConfigurationService configurationService)
+        public ProCalcViewModel(IConfigurationService configurationService,
+            IWindowService windowService,
+            IApplicationController applicationController)
         {
             this.configurationService = configurationService;
+            this.windowService = windowService;
+            this.applicationController = applicationController;
 
             proCalcCore = new ProCalcCore();
+
+            ConfigurationCommand = new SimpleCommand((obj) => OpenConfiguration());
+            CloseCommand = new SimpleCommand((obj) => Shutdown());
+            SwitchToZCommand = new SimpleCommand((obj) => DoSwitchToZ());
+            SwitchToProCalcCommand = new SimpleCommand((obj) => DoSwitchToProCalc());
         }
 
         public IProCalcWindowAccess ProCalcWindowAccess
@@ -280,6 +313,15 @@ namespace Z.BusinessLogic.ViewModels
                 OnPropertyChanged(nameof(ErrorText));
             }
         }
+
+        public ICommand ConfigurationCommand { get; private set; }
+
+        public ICommand CloseCommand { get; private set; }
+
+        public ICommand SwitchToZCommand { get; private set; }
+
+        public ICommand SwitchToProCalcCommand { get; private set; }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
     }
