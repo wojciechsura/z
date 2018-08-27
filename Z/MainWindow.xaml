@@ -10,7 +10,7 @@
         mc:Ignorable="d"        
         PreviewKeyDown="MainKeyDown" LostFocus="MainLostFocus" MouseDown="MainWindowMouseDown" SizeChanged="MainWindowSizeChanged"
         Width="400" SizeToContent="Height" WindowStyle="None" ResizeMode="NoResize" 
-        Visibility="Hidden" ShowInTaskbar="False" Topmost="True" AllowsTransparency="True" Background="Transparent"
+        ShowInTaskbar="False" Topmost="True" AllowsTransparency="True" Background="Transparent"
         FocusManager.FocusedElement="{Binding ElementName=MainEdit}">
     <types:BaseOperatorWindow.Resources>
         <ResourceDictionary>
@@ -50,13 +50,19 @@
                                     <TextBlock Style="{StaticResource KeywordText}" VerticalAlignment="Center" Text="{Binding Keyword}"/>
                                 </Border>
 
-                                <Button DockPanel.Dock="Right" Margin="2,2,2,2" VerticalAlignment="Center"
-                                        Style="{StaticResource CloseButtonStyle}" Command="{Binding CloseCommand}" 
-                                        Focusable="False" />
-
                                 <Button DockPanel.Dock="Right" Margin="2" VerticalAlignment="Center"
-                                        Style="{StaticResource GearButtonStyle}" Command="{Binding ConfigurationCommand}" 
-                                        Focusable="False" />
+                                        Style="{StaticResource GearButtonStyle}"
+                                        Focusable="False" Click="GearButtonClick">
+                                    <Button.ContextMenu>
+                                        <ContextMenu>
+                                            <MenuItem Command="{Binding SwitchToZCommand}" Header="Z launcher" />
+                                            <MenuItem Command="{Binding SwitchToProCalcCommand}" Header="ProCac" />
+                                            <Separator />
+                                            <MenuItem Command="{Binding ConfigurationCommand}" Header="Configuration" />
+                                            <MenuItem Command="{Binding CloseCommand}" Header="Close" />
+                                        </ContextMenu>
+                                    </Button.ContextMenu>
+                                </Button>
 
                                 <Grid>
                                     <TextBlock Foreground="#5db2d9" Opacity="0.5" HorizontalAlignment="Left" Margin="10, 0, 0, 0" VerticalAlignment="Center"

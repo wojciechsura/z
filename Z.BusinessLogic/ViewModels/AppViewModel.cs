@@ -36,9 +36,9 @@ namespace Z.BusinessLogic.ViewModels
         void IEventListener<GlobalHotkeyHitEvent>.Receive(GlobalHotkeyHitEvent @event)
         {
             if (configurationService.Configuration.Hotkey.HotkeySwitchesVisibility)
-                windowService.ToggleProCalcWindow();
+                windowService.ToggleMainWindow();
             else
-                windowService.ShowProCalcWindow();
+                windowService.ShowMainWindow();
         }
 
         public AppViewModel(IWindowService windowService, IConfigurationService configurationService, IEventBus eventBus, IGlobalHotkeyService globalHotkeyService)

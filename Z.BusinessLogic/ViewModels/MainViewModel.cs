@@ -115,6 +115,7 @@ namespace Z.BusinessLogic.ViewModels
         private readonly IConfigurationService configurationService;
         private readonly IEventBus eventBus;
         private readonly IApplicationController applicationController;
+        private readonly IWindowService windowService;
 
         private readonly DispatcherTimer enteredTextTimer;
 
@@ -548,6 +549,16 @@ namespace Z.BusinessLogic.ViewModels
             PublishKeywordVisible(currentKeyword != null);
         }
 
+        private void DoSwitchToZ()
+        {
+            windowService.ShowMainWindow();
+        }
+
+        private void DoSwitchToProCalc()
+        {
+            windowService.ShowProCalcWindow();
+        }
+
         // Protected methods --------------------------------------------------
 
         protected void OnPropertyChanged(string property)
@@ -575,7 +586,8 @@ namespace Z.BusinessLogic.ViewModels
             IModuleService moduleService,
             IConfigurationService configurationService,
             IEventBus eventBus,
-            IApplicationController applicationController)
+            IApplicationController applicationController,
+            IWindowService windowService)
         {
             this.globalHotkeyService = globalHotkeyService;
             this.keywordService = keywordService;
@@ -583,6 +595,7 @@ namespace Z.BusinessLogic.ViewModels
             this.configurationService = configurationService;
             this.eventBus = eventBus;
             this.applicationController = applicationController;
+            this.windowService = windowService;
 
             this.eventBus.Register((IEventListener<ShuttingDownEvent>)this);
             this.eventBus.Register((IEventListener<ConfigurationChangedEvent>)this);
@@ -600,6 +613,8 @@ namespace Z.BusinessLogic.ViewModels
 
             ConfigurationCommand = new SimpleCommand((obj) => OpenConfiguration());
             CloseCommand = new SimpleCommand((obj) => Shutdown());
+            SwitchToZCommand = new SimpleCommand((obj) => DoSwitchToZ());
+            SwitchToProCalcCommand = new SimpleCommand((obj) => DoSwitchToProCalc());
 
             // Default values
 
@@ -758,6 +773,10 @@ namespace Z.BusinessLogic.ViewModels
         public ICommand ConfigurationCommand { get; private set; }
 
         public ICommand CloseCommand { get; private set; }
+
+        public ICommand SwitchToZCommand { get; private set; }
+
+        public ICommand SwitchToProCalcCommand { get; private set; }
 
         public string ErrorText => errorText;
 
