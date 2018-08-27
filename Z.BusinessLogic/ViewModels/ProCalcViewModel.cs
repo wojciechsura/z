@@ -10,16 +10,19 @@ using ProCalc.NET.Exceptions;
 using Z.BusinessLogic.Services.Interfaces;
 using System.Windows.Input;
 using Z.Wpf.Types;
+using Z.BusinessLogic.Events;
+using System.Windows;
 
 namespace Z.BusinessLogic.ViewModels
 {
-    public class ProCalcViewModel : INotifyPropertyChanged
+    public class ProCalcViewModel : INotifyPropertyChanged, IEventListener<PositionChangedEvent>
     {
+        private readonly IConfigurationService configurationService;
+        private readonly IWindowService windowService;
+        private readonly IApplicationController applicationController;
+        private readonly ProCalcCore proCalcCore;
+        private readonly IEventBus eventBus;
         private IProCalcWindowAccess access;
-        private IConfigurationService configurationService;
-        private IWindowService windowService;
-        private IApplicationController applicationController;
-        private ProCalcCore proCalcCore;
 
         private string result = "";
         private string binResult = "";
@@ -30,6 +33,7 @@ namespace Z.BusinessLogic.ViewModels
         private string errorText;
         private string enteredText;
         private bool showHint;
+        private bool suspendPositionChangeNotifications = false;
 
         private void ClearInput()
         {
@@ -82,18 +86,45 @@ namespace Z.BusinessLogic.ViewModels
             windowService.ShowProCalcWindow();
         }
 
+        // Protected methods --------------------------------------------------
+
         protected void OnPropertyChanged(string name)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
+        // IEventListener implementation --------------------------------------
+
+        void IEventListener<PositionChangedEvent>.Receive(PositionChangedEvent @event)
+        {
+            if (@event.Origin != this && ((int)@event.X != (int)access.Position.X || (int)@event.Y != (int)access.Position.Y))
+            {
+                try
+                {
+                    // Don't propagate this as an event
+                    suspendPositionChangeNotifications = true;
+                    access.Position = new Point(@event.X, @event.Y);
+                }
+                finally
+                {
+                    suspendPositionChangeNotifications = false;
+                }
+            }
+        }
+
+        // Public methods -----------------------------------------------------
+
         public ProCalcViewModel(IConfigurationService configurationService,
             IWindowService windowService,
-            IApplicationController applicationController)
+            IApplicationController applicationController,
+            IEventBus eventBus)
         {
             this.configurationService = configurationService;
             this.windowService = windowService;
             this.applicationController = applicationController;
+            this.eventBus = eventBus;
+
+            this.eventBus.Register((IEventListener<PositionChangedEvent>)this);
 
             proCalcCore = new ProCalcCore();
 
@@ -233,6 +264,12 @@ namespace Z.BusinessLogic.ViewModels
                 octResult = value;
                 OnPropertyChanged(nameof(OctResult));
             }
+        }
+
+        public void NotifyPositionChanged(int left, int top)
+        {
+            if (!suspendPositionChangeNotifications)
+                eventBus.Send(new PositionChangedEvent(left, top, this));
         }
 
         public string HexResult
