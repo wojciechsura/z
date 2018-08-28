@@ -193,6 +193,11 @@ namespace Z
 
         bool IProCalcWindowAccess.IsVisible => this.IsVisible;
 
+        void IProCalcWindowAccess.InputSelectAll()
+        {
+            MainEdit.SelectAll();
+        }
+
         // Protected methods --------------------------------------------------
 
         protected override void OnLocationChanged(EventArgs e)
