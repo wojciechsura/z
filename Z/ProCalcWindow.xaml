@@ -20,7 +20,20 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </types:BaseOperatorWindow.Resources>
-    <Border CornerRadius="10" BorderBrush="#808080" BorderThickness="1" Background="{StaticResource GrayGradientBackground}">
+    <types:BaseOperatorWindow.InputBindings>
+        <KeyBinding Key="Z"
+                Modifiers="Alt" 
+                Command="{Binding SwitchToZCommand}" />
+        <KeyBinding Key="C"
+                    Modifiers="Alt"
+                    Command="{Binding SwitchToProCalcCommand}" />
+        <KeyBinding Key="F1"
+                Command="{Binding SwitchToZCommand}" />
+        <KeyBinding Key="F3"
+                    Command="{Binding SwitchToProCalcCommand}" />
+    </types:BaseOperatorWindow.InputBindings>
+
+    <Border CornerRadius="10" BorderBrush="#808080" BorderThickness="1" Background="{StaticResource SkyGradientBackground}">
 
         <Border CornerRadius="9" BorderBrush="#80ffffff" BorderThickness="1" Padding="10">
             <Border CornerRadius="{Binding ElementName=DisplayBorder, Path=CornerRadius}">
@@ -52,8 +65,8 @@
                                         Focusable="False" Click="GearButtonClick">
                                     <Button.ContextMenu>
                                         <ContextMenu>
-                                            <MenuItem Click="ZLauncherMenuItem_Click" Header="Z launcher" />
-                                            <MenuItem Click="ProCalcMenuItem_Click" Header="ProCalc" />
+                                            <MenuItem Click="ZLauncherMenuItem_Click" Header="Z launcher" InputGestureText="Alt+Z or F1" />
+                                            <MenuItem Click="ProCalcMenuItem_Click" Header="ProCalc" InputGestureText="Alt+C or F3"/>
                                             <Separator />
                                             <MenuItem Click="ConfigurationMenuItem_Click" Header="Configuration" />
                                             <MenuItem Click="CloseMenuItem_Click" Header="Close" />

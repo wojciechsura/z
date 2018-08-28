@@ -180,6 +180,8 @@ namespace Z.BusinessLogic.ViewModels
         {
             // Evaluate expression
 
+            access.InputSelectAll();
+
             try
             {
                 var compiled = proCalcCore.Compile(enteredText);

@@ -19,7 +19,7 @@
     </Window.Resources>
 
     <!-- Outer dark frame and window background -->
-    <Border CornerRadius="6" BorderBrush="#808080" BorderThickness="1" Background="{StaticResource GrayGradientBackground}">
+    <Border CornerRadius="6" BorderBrush="#808080" BorderThickness="1" Background="{StaticResource SkyGradientBackground}">
         <!-- Inner bright frame -->
         <Border CornerRadius="5" BorderBrush="#80ffffff" BorderThickness="1" Padding="3">
             <!-- Display with outer glow -->

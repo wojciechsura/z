@@ -16,5 +16,6 @@ namespace Z.BusinessLogic.ViewModels.Interfaces
         void Show();
         void Hide();
         void OpenConfiguration();
+        void InputSelectAll();
     }
 }
