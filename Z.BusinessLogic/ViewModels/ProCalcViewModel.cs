@@ -15,7 +15,7 @@ using System.Windows;
 
 namespace Z.BusinessLogic.ViewModels
 {
-    public class ProCalcViewModel : INotifyPropertyChanged, IEventListener<PositionChangedEvent>
+    public class ProCalcViewModel : INotifyPropertyChanged, IEventListener<PositionChangedEvent>, IEventListener<ShuttingDownEvent>
     {
         private readonly IConfigurationService configurationService;
         private readonly IWindowService windowService;
@@ -101,6 +101,11 @@ namespace Z.BusinessLogic.ViewModels
 
         // IEventListener implementation --------------------------------------
 
+        void IEventListener<ShuttingDownEvent>.Receive(ShuttingDownEvent @event)
+        {
+            configurationService.Configuration.ProCalcWindow.Position = access.Position;
+        }
+
         void IEventListener<PositionChangedEvent>.Receive(PositionChangedEvent @event)
         {
             if (configurationService.Configuration.General.SynchronizeWindowPositions && 
@@ -134,6 +139,7 @@ namespace Z.BusinessLogic.ViewModels
             this.eventBus = eventBus;
 
             this.eventBus.Register((IEventListener<PositionChangedEvent>)this);
+            this.eventBus.Register((IEventListener<ShuttingDownEvent>)this);
 
             proCalcCore = new ProCalcCore();
 
@@ -158,7 +164,7 @@ namespace Z.BusinessLogic.ViewModels
 
         public void Initialized()
         {
-            access.Position = configurationService.Configuration.MainWindow.Position;
+            access.Position = configurationService.Configuration.ProCalcWindow.Position;
         }
 
         public void Dismiss()
@@ -204,6 +210,8 @@ namespace Z.BusinessLogic.ViewModels
                 FractionResult = result.AsIntFraction();
 
                 ErrorText = null;
+
+                access.ShowResults();
             }
             catch (ProCalcException e)
             {

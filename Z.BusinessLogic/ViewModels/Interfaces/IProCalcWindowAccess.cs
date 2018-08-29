@@ -14,6 +14,7 @@ namespace Z.BusinessLogic.ViewModels.Interfaces
         bool IsVisible { get; }
 
         void Show();
+        void ShowResults();
         void Hide();
         void OpenConfiguration();
         void InputSelectAll();

@@ -148,10 +148,14 @@ namespace Z
         void IProCalcWindowAccess.Show()
         {
             Show();
-            ShowResults();
             PositionResultsWindow();
 
             SetForegroundWindow(this.windowInteropHelper.Handle);
+        }
+
+        void IProCalcWindowAccess.ShowResults()
+        {
+            ShowResults();
         }
 
         void IProCalcWindowAccess.Hide()
