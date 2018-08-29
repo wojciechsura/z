@@ -587,7 +587,10 @@ namespace Z.BusinessLogic.ViewModels
 
         void IEventListener<PositionChangedEvent>.Receive(PositionChangedEvent @event)
         {
-            if (@event.Origin != this && ((int)@event.X != (int)mainWindowAccess.Position.X || (int)@event.Y != (int)mainWindowAccess.Position.Y))
+            if (configurationService.Configuration.General.SynchronizeWindowPositions && 
+                @event.Origin != this && 
+                    ((int)@event.X != (int)mainWindowAccess.Position.X || 
+                    (int)@event.Y != (int)mainWindowAccess.Position.Y))
             {
                 try
                 {

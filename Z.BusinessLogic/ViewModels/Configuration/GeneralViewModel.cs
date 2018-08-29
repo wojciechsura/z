@@ -33,6 +33,7 @@ namespace Z.BusinessLogic.ViewModels.Configuration
         private Key key;
         private KeyModifier keyModifier;
         private bool hotkeySwitchesVisibility;
+        private bool synchronizeWindowPositions;
 
         // Private methods ----------------------------------------------------
 
@@ -67,6 +68,7 @@ namespace Z.BusinessLogic.ViewModels.Configuration
             key = configuration.Hotkey.Key;
             keyModifier = configuration.Hotkey.KeyModifier;
             hotkeySwitchesVisibility = configuration.Hotkey.HotkeySwitchesVisibility;
+            synchronizeWindowPositions = configuration.General.SynchronizeWindowPositions;
 
             #region Available keys
             availableKeyInfos = new List<KeyInfo>
@@ -161,6 +163,7 @@ namespace Z.BusinessLogic.ViewModels.Configuration
             configuration.Hotkey.Key = key;
             configuration.Hotkey.KeyModifier = keyModifier;
             configuration.Hotkey.HotkeySwitchesVisibility = hotkeySwitchesVisibility;
+            configuration.General.SynchronizeWindowPositions = synchronizeWindowPositions;
         }
 
         public override IEnumerable<string> Validate()
@@ -243,6 +246,18 @@ namespace Z.BusinessLogic.ViewModels.Configuration
             set
             {
                 hotkeySwitchesVisibility = value;                 
+            }
+        }
+
+        public bool SynchronizeWindowPositions
+        {
+            get
+            {
+                return synchronizeWindowPositions;
+            }
+            set
+            {
+                synchronizeWindowPositions = value;
             }
         }
 
