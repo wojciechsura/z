@@ -62,6 +62,10 @@
                             <TextBlock Style="{StaticResource SingleItemDesc}">Hotkey switches visibility</TextBlock>
                             <CheckBox IsChecked="{Binding HotkeySwitchesVisibility, Mode=TwoWay}">Use hotkey again to hide window</CheckBox>
                         </StackPanel>
+                        <StackPanel Orientation="Horizontal" Style="{StaticResource ItemBlock}">
+                            <TextBlock Style="{StaticResource SingleItemDesc}">Synchronize window positions</TextBlock>
+                            <CheckBox IsChecked="{Binding SynchronizeWindowPositions, Mode=TwoWay}">ProCalc window position will be synchronized with Z window</CheckBox>
+                        </StackPanel>
                     </StackPanel>
                         
                 </DataTemplate>

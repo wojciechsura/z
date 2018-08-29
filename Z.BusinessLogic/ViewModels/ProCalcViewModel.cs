@@ -39,6 +39,12 @@ namespace Z.BusinessLogic.ViewModels
         {
             EnteredText = null;
             ErrorText = null;
+            Result = "";
+            BinResult = "";
+            OctResult = "";
+            HexResult = "";
+            DmsResult = "";
+            FractionResult = "";
         }
 
         private void InternalDismissWindow()
@@ -97,7 +103,10 @@ namespace Z.BusinessLogic.ViewModels
 
         void IEventListener<PositionChangedEvent>.Receive(PositionChangedEvent @event)
         {
-            if (@event.Origin != this && ((int)@event.X != (int)access.Position.X || (int)@event.Y != (int)access.Position.Y))
+            if (configurationService.Configuration.General.SynchronizeWindowPositions && 
+                @event.Origin != this && 
+                    ((int)@event.X != (int)access.Position.X || 
+                    (int)@event.Y != (int)access.Position.Y))
             {
                 try
                 {

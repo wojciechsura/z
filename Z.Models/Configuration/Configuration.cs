@@ -18,5 +18,7 @@ namespace Z.Models.Configuration
         public Behavior Behavior { get; set; } = new Behavior();
         [XmlElement("Keywords")]
         public Keywords Keywords { get; set; } = new Keywords();
+        [XmlElement("General")]
+        public General General { get; set; } = new General();
     }
 }

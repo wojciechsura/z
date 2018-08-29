@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Configuration\Behavior.cs" />
     <Compile Include="Configuration\Configuration.cs" />
+    <Compile Include="Configuration\General.cs" />
     <Compile Include="Configuration\Hotkey.cs" />
     <Compile Include="Configuration\KeywordOverride.cs" />
     <Compile Include="Configuration\Keywords.cs" />
