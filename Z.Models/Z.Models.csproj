@@ -52,6 +52,7 @@
     <Compile Include="Configuration\MainWindow.cs" />
     <Compile Include="DTO\SuggestionDTO.cs" />
     <Compile Include="KeywordData.cs" />
+    <Compile Include="Configuration\ProCalcWindow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SuggestionData.cs" />
   </ItemGroup>
