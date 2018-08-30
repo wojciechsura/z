@@ -244,7 +244,8 @@ namespace Z.BusinessLogic.ViewModels
 
         public void NotifyPositionChanged(int left, int top)
         {
-            eventBus.Send(new PositionChangedEvent(left, top, this));
+            if (!suspendPositionChangeNotifications)
+                eventBus.Send(new PositionChangedEvent(left, top, this));
         }
 
         public void Dismiss()
