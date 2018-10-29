@@ -67,6 +67,7 @@ Source: "..\Z\bin\Release\Z.BusinessLogic.dll"; DestDir: "{app}"; Flags: ignorev
 Source: "..\Z\bin\Release\Z.Common.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Z\bin\Release\Z.Dependencies.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Z\bin\Release\Z.Models.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Z\bin\Release\Z.Wpf.dll"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 Source: "..\SampleModule\Module.cs"; DestDir: "{app}\samples\SampleModule\"; Flags: ignoreversion; Components: CustomModuleSample
 Source: "..\SampleModule\SampleModule.csproj"; DestDir: "{app}\samples\SampleModule\"; Flags: ignoreversion; Components: CustomModuleSample

@@ -13,7 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Microsoft.Practices.Unity;
-using Z.BusinessLogic.Types;
+using Z.Wpf.Types;
 using Z.BusinessLogic;
 using Z.BusinessLogic.ViewModels.Interfaces;
 using Z.BusinessLogic.ViewModels;

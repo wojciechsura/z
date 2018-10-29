@@ -15,14 +15,16 @@ using Z.Api.Interfaces;
 using Z.Api.Types;
 using System.ComponentModel;
 using System.Windows.Media;
-using Z.BusinessLogic.Types;
+using Z.Wpf.Types;
 using Z.BusinessLogic.ViewModels.Interfaces;
 using Z.Common.Types;
 using Z.Api;
+using Z.BusinessLogic.Events;
+using System.Windows;
 
 namespace Z.BusinessLogic.ViewModels
 {
-    public class MainViewModel : INotifyPropertyChanged
+    public class MainViewModel : INotifyPropertyChanged, IEventListener<ShuttingDownEvent>, IEventListener<ConfigurationChangedEvent>, IEventListener<PositionChangedEvent>
     {
         // Private types ------------------------------------------------------
 
@@ -112,6 +114,9 @@ namespace Z.BusinessLogic.ViewModels
         private readonly IKeywordService keywordService;
         private readonly IModuleService moduleService;
         private readonly IConfigurationService configurationService;
+        private readonly IEventBus eventBus;
+        private readonly IApplicationController applicationController;
+        private readonly IWindowService windowService;
 
         private readonly DispatcherTimer enteredTextTimer;
 
@@ -131,6 +136,7 @@ namespace Z.BusinessLogic.ViewModels
         private bool keywordVisible;
         private bool completeHintVisible;
         private string errorText;
+        private bool suspendPositionChangeNotifications = false;
 
         // List window
 
@@ -234,6 +240,22 @@ namespace Z.BusinessLogic.ViewModels
             }
             else
                 ClearSuggestions();
+        }
+
+        public void NotifyPositionChanged(int left, int top)
+        {
+            if (!suspendPositionChangeNotifications)
+                eventBus.Send(new PositionChangedEvent(left, top, this));
+        }
+
+        public void Dismiss()
+        {
+            InternalDismissWindow();
+        }
+
+        public void Summon()
+        {
+            InternalSummonWindow();
         }
 
         private void CompleteSuggestion()
@@ -361,7 +383,7 @@ namespace Z.BusinessLogic.ViewModels
             }
 
             if (!options.PreventClose)
-                HideWindow();
+                InternalDismissWindow();
 
             PublishErrorText(options.ErrorText);
         }
@@ -371,27 +393,14 @@ namespace Z.BusinessLogic.ViewModels
             return selectedItemIndex >= 0 ? suggestions[selectedItemIndex] : null;
         }
 
-        private void HandleConfigurationChanged(object sender, EventArgs e)
+        private void HandleConfigurationChanged()
         {
             enteredTextTimer.Interval = TimeSpan.FromMilliseconds(configurationService.Configuration.Behavior.SuggestionDelay);
         }
 
-        private void HandleTrayIconClick()
-        {
-            ShowWindow();
-        }
-
-        private void HideWindow()
+        private void InternalDismissWindow()
         {
             mainWindowAccess.Hide();
-        }
-
-        private void HotkeyPressed(object sender, EventArgs args)
-        {
-            if (mainWindowAccess.IsVisible && configurationService.Configuration.Hotkey.HotkeySwitchesVisibility)
-                HideWindow();
-            else
-                ShowWindow();
         }
 
         private bool IsInputEmpty()
@@ -514,13 +523,18 @@ namespace Z.BusinessLogic.ViewModels
             UpdateViewmodelKeyword();
         }
 
-        private void ShowWindow()
+        private void InternalSummonWindow()
         {
             ClearInput();
 
             mainWindowAccess.Show();
             PublishShowHint(true);
             PublishCompleteHintVisible(false);
+        }
+
+        private void Shutdown()
+        {
+            applicationController.Shutdown();
         }
 
         private void StartEnteredTextTimer()
@@ -543,6 +557,16 @@ namespace Z.BusinessLogic.ViewModels
             PublishKeywordVisible(currentKeyword != null);
         }
 
+        private void DoSwitchToZ()
+        {
+            windowService.ShowMainWindow();
+        }
+
+        private void DoSwitchToProCalc()
+        {
+            windowService.ShowProCalcWindow();
+        }
+
         // Protected methods --------------------------------------------------
 
         protected void OnPropertyChanged(string property)
@@ -550,19 +574,59 @@ namespace Z.BusinessLogic.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
         }
 
+        // IEventListener implementations -------------------------------------
+
+        void IEventListener<ShuttingDownEvent>.Receive(ShuttingDownEvent @event)
+        {
+            configurationService.Configuration.MainWindow.Position = mainWindowAccess.Position;
+        }
+
+        void IEventListener<ConfigurationChangedEvent>.Receive(ConfigurationChangedEvent @event)
+        {
+            HandleConfigurationChanged();
+        }
+
+        void IEventListener<PositionChangedEvent>.Receive(PositionChangedEvent @event)
+        {
+            if (configurationService.Configuration.General.SynchronizeWindowPositions && 
+                @event.Origin != this && 
+                    ((int)@event.X != (int)mainWindowAccess.Position.X || 
+                    (int)@event.Y != (int)mainWindowAccess.Position.Y))
+            {
+                try
+                {
+                    // Don't propagate this as an event
+                    suspendPositionChangeNotifications = true;
+                    mainWindowAccess.Position = new Point(@event.X, @event.Y);
+                }
+                finally
+                {
+                    suspendPositionChangeNotifications = false;
+                }
+            }
+        }
+
         // Public methods -----------------------------------------------------
 
         public MainViewModel(IGlobalHotkeyService globalHotkeyService,
             IKeywordService keywordService,
             IModuleService moduleService,
-            IConfigurationService configurationService)
+            IConfigurationService configurationService,
+            IEventBus eventBus,
+            IApplicationController applicationController,
+            IWindowService windowService)
         {
             this.globalHotkeyService = globalHotkeyService;
             this.keywordService = keywordService;
             this.moduleService = moduleService;
             this.configurationService = configurationService;
+            this.eventBus = eventBus;
+            this.applicationController = applicationController;
+            this.windowService = windowService;
 
-            this.configurationService.ConfigurationChanged += HandleConfigurationChanged;
+            this.eventBus.Register((IEventListener<ShuttingDownEvent>)this);
+            this.eventBus.Register((IEventListener<ConfigurationChangedEvent>)this);
+            this.eventBus.Register((IEventListener<PositionChangedEvent>)this);
 
             this.suggestionData = null;
 
@@ -572,13 +636,13 @@ namespace Z.BusinessLogic.ViewModels
             enteredTextTimer.Interval = TimeSpan.FromMilliseconds(this.configurationService.Configuration.Behavior.SuggestionDelay);
             enteredTextTimer.Tick += EnteredTextTimerTick;
 
-            globalHotkeyService.HotkeyHit += HotkeyPressed;
-
             this.helpModule = new HelpModule(this);
             moduleService.AddModule(helpModule);
 
             ConfigurationCommand = new SimpleCommand((obj) => OpenConfiguration());
-            TrayIconClickCommand = new SimpleCommand((obj) => HandleTrayIconClick());
+            CloseCommand = new SimpleCommand((obj) => Shutdown());
+            SwitchToZCommand = new SimpleCommand((obj) => DoSwitchToZ());
+            SwitchToProCalcCommand = new SimpleCommand((obj) => DoSwitchToProCalc());
 
             // Default values
 
@@ -608,18 +672,6 @@ namespace Z.BusinessLogic.ViewModels
             return false;
         }
 
-        public bool Closing()
-        {
-            // Store window position
-            configurationService.Configuration.MainWindow.Position = mainWindowAccess.Position;
-            configurationService.Save();
-
-            // Notify ModuleService to deinitialize modules
-            moduleService.NotifyClosing();
-
-            return true;
-        }
-
         public bool DownPressed()
         {
             SelectNextSuggestion();
@@ -640,7 +692,7 @@ namespace Z.BusinessLogic.ViewModels
             }
             else
             {
-                HideWindow();
+                InternalDismissWindow();
             }
 
             return true;
@@ -748,7 +800,11 @@ namespace Z.BusinessLogic.ViewModels
 
         public ICommand ConfigurationCommand { get; private set; }
 
-        public ICommand TrayIconClickCommand { get; private set; }
+        public ICommand CloseCommand { get; private set; }
+
+        public ICommand SwitchToZCommand { get; private set; }
+
+        public ICommand SwitchToProCalcCommand { get; private set; }
 
         public string ErrorText => errorText;
 
