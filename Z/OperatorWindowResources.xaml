@@ -1,0 +1,60 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Z">
+    <Style x:Key="MainEditStyle" TargetType="TextBox">
+        <Style.Setters>
+            <Setter Property="CaretBrush" Value="White" />
+            <Setter Property="Foreground" Value="#5db2d9" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <ScrollViewer x:Name="PART_ContentHost" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style.Setters>
+    </Style>
+
+    <Style x:Key="KeywordBorder" TargetType="Border">
+        <Style.Setters>
+            <Setter Property="Padding" Value="5 1" />
+            <Setter Property="BorderBrush" Value="#5db2d9" />
+            <Setter Property="BorderThickness" Value="1" />
+        </Style.Setters>
+    </Style>
+
+    <Style x:Key="KeywordText" TargetType="TextBlock">
+        <Style.Setters>
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Foreground" Value="#5db2d9" />
+        </Style.Setters>
+    </Style>
+
+    <Style x:Key="GearButtonStyle" TargetType="Button">
+        <Style.Setters>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="Transparent">
+                            <Path Name="Path" Fill="#5db2d9" Opacity="0.5">
+                                <Path.Data>
+                                    <PathGeometry Figures="m 7.9988927 5.1071433 c -1.5965534 0 -2.89175 1.295196 -2.89175 2.8928574 0 1.5959813 1.2951966 2.8939643 2.89175 2.8939643 1.5971073 0 2.8828213 -1.2980003 2.8828213 -2.8939643 C 10.881697 6.4023393 9.595982 5.1071433 7.9988927 5.1071433 Z m 5.7979823 4.5546787 -0.521214 1.255571 0.929678 1.825892 0.122768 0.241072 -1.289071 1.289072 L 10.924107 13.274553 9.668536 13.790179 9.03125 15.741071 8.9497853 16 7.127786 16 6.339286 13.798 5.083714 13.280143 3.2550713 14.207607 3.014 14.328142 1.7255 13.040196 2.723268 10.924125 2.205964 9.6696613 0.25837467 9.033482 0 8.949786 0 7.1289107 2.2036787 6.339286 2.720982 5.0859287 1.7940893 3.256126 1.6718747 3.0161607 2.9586967 1.72934 5.0764467 2.7265547 6.3303573 2.208144 6.9670713 0.258358 7.0491073 0 8.870536 0 9.6596073 2.2048047 10.911839 2.7232153 12.741071 1.7951967 12.984375 1.6729827 14.272321 2.959804 13.274553 5.0741973 13.790179 6.3303573 15.743303 6.967072 16 7.049108 16 8.8694293 Z" FillRule="NonZero"/>
+                                </Path.Data>
+                            </Path>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Path" Property="Opacity" Value="1.0" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Path" Property="Opacity" Value="0.3" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style.Setters>
+    </Style>
+
+</ResourceDictionary>

@@ -4,6 +4,6 @@ namespace Z.BusinessLogic.Services.Interfaces
 {
     public interface IGlobalHotkeyService
     {
-        event EventHandler HotkeyHit;
+        bool HotkeyRegistered { get; }
     }
 }

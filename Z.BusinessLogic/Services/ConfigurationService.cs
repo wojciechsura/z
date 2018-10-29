@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Xml.Serialization;
+using Z.BusinessLogic.Events;
 using Z.BusinessLogic.Services.Interfaces;
 using Z.Models.Configuration;
 
@@ -21,6 +22,7 @@ namespace Z.BusinessLogic.Services
 
         private Configuration configuration;
         private readonly IPathService pathService;
+        private readonly IEventBus eventBus;
 
         // Private methods ----------------------------------------------------
 
@@ -29,16 +31,12 @@ namespace Z.BusinessLogic.Services
             return Path.Combine(pathService.GetConfigDirectory(), CONFIG_FILENAME);
         }
 
-        private void OnConfigurationChanged()
-        {
-            ConfigurationChanged?.Invoke(this, EventArgs.Empty);
-        }
-
         // Public methods -----------------------------------------------------
 
-        public ConfigurationService(IPathService pathService)
+        public ConfigurationService(IPathService pathService, IEventBus eventBus)
         {
             this.pathService = pathService;
+            this.eventBus = eventBus;
 
             // Defaults
             configuration = new Configuration();
@@ -98,13 +96,11 @@ namespace Z.BusinessLogic.Services
 
         public void NotifyConfigurationChanged()
         {
-            OnConfigurationChanged();
+            eventBus.Send(new ConfigurationChangedEvent());
         }
 
         // Public properties --------------------------------------------------
 
         public Configuration Configuration => configuration;
-
-        public event EventHandler ConfigurationChanged;
     }
 }
