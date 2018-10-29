@@ -89,9 +89,17 @@
       <DependentUpon>ConfigurationWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dependencies\Configuration.cs" />
+    <Compile Include="ProCalcResultsWindow.xaml.cs">
+      <DependentUpon>ProCalcResultsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ProCalcWindow.xaml.cs">
+      <DependentUpon>ProCalcWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Services\WindowService.cs" />
     <Compile Include="SuggestionChoiceWindow.xaml.cs">
       <DependentUpon>SuggestionChoiceWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Types\BaseOperatorWindow.cs" />
     <Page Include="CommonResources.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -128,6 +136,26 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="MainWindowResources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="OperatorWindowResources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ProCalcResultsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ProCalcResultsWindowResources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ProCalcWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ProCalcWindowResources.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -180,6 +208,10 @@
     <ProjectReference Include="..\Z.Models\Z.Models.csproj">
       <Project>{b6914e5d-5681-4693-b589-76e6de1ad836}</Project>
       <Name>Z.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Z.Wpf\Z.Wpf.csproj">
+      <Project>{7a248954-2ade-41ef-b42e-0dc48d20174e}</Project>
+      <Name>Z.Wpf</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 using Z.Api;
 using Z.Api.Interfaces;
 using Z.Api.Types;
+using Z.BusinessLogic.Events;
 using Z.BusinessLogic.Services.Interfaces;
 using Z.Models;
 
 namespace Z.BusinessLogic.Services
 {
-    class KeywordService : IKeywordService
+    class KeywordService : IKeywordService, IEventListener<ConfigurationChangedEvent>, IEventListener<ModulesChangedEvent>
     {
         private class InternalKeywordData
         {
@@ -24,6 +25,7 @@ namespace Z.BusinessLogic.Services
 
         private readonly IModuleService moduleService;
         private readonly IConfigurationService configurationService;
+        private readonly IEventBus eventBus;
         private List<InternalKeywordData> keywords;
 
         // Private methods ----------------------------------------------------
@@ -63,12 +65,12 @@ namespace Z.BusinessLogic.Services
             }
         }
 
-        private void HandleConfigurationChanged(object sender, EventArgs e)
+        private void HandleConfigurationChanged()
         {
             ReloadKeywords();
         }
 
-        private void HandleModulesChanged(object sender, EventArgs e)
+        private void HandleModulesChanged()
         {
             ReloadKeywords();
         }
@@ -79,15 +81,27 @@ namespace Z.BusinessLogic.Services
             ApplyKeywordOverrides(keywords);
         }
 
+        // IEventListener implementation --------------------------------------
+
+        void IEventListener<ConfigurationChangedEvent>.Receive(ConfigurationChangedEvent @event)
+        {
+            HandleConfigurationChanged();
+        }
+
+        void IEventListener<ModulesChangedEvent>.Receive(ModulesChangedEvent @event)
+        {
+            HandleModulesChanged();
+        }
+
         // Public methods -----------------------------------------------------
 
-        public KeywordService(IModuleService moduleService, IConfigurationService configurationService)
+        public KeywordService(IModuleService moduleService, IConfigurationService configurationService, IEventBus eventBus)
         {
             this.moduleService = moduleService;
             this.configurationService = configurationService;
+            this.eventBus = eventBus;
 
-            moduleService.ModulesChanged += HandleModulesChanged;
-            configurationService.ConfigurationChanged += HandleConfigurationChanged;
+            eventBus.Register((IEventListener<ConfigurationChangedEvent>)this);
 
             ReloadKeywords();
         }

@@ -22,13 +22,14 @@ using System.Runtime.InteropServices;
 using Z.BusinessLogic;
 using Z.BusinessLogic.ViewModels;
 using Z.BusinessLogic.ViewModels.Interfaces;
+using Z.Types;
 
 namespace Z
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window, IMainWindowAccess
+    public partial class MainWindow : BaseOperatorWindow, IMainWindowAccess
     {
         // Private constants --------------------------------------------------
 
@@ -158,6 +159,11 @@ namespace Z
             PositionListWindow(e.NewSize.Width, e.NewSize.Height);
         }
 
+        private void GearButtonClick(object sender, RoutedEventArgs e)
+        {
+            (sender as Button).ContextMenu.IsOpen = true;
+        }
+
         // IMainViewModelAccess implementation --------------------------------
 
         void IMainWindowAccess.Show()
@@ -221,7 +227,7 @@ namespace Z
             {
                 Left = value.X;
                 Top = value.Y;
-            }            
+            }
         }
 
         bool IMainWindowAccess.IsVisible => this.IsVisible;
@@ -231,22 +237,14 @@ namespace Z
         protected override void OnLocationChanged(EventArgs e)
         {
             PositionListWindow();
+            viewModel.NotifyPositionChanged((int)Left, (int)Top);
 
             base.OnLocationChanged(e);
         }
 
         protected override void OnClosing(CancelEventArgs e)
         {
-            base.OnClosing(e);
-
-            if (!viewModel.Closing())
-                e.Cancel = true;
-        }
-
-        protected override void OnClosed(EventArgs e)
-        {
-            listWindow.Close();
-            base.OnClosed(e);
+            e.Cancel = true;
         }
 
         protected override void OnInitialized(EventArgs e)
@@ -270,6 +268,40 @@ namespace Z
             this.DataContext = viewModel;
 
             listWindow = new ListWindow();
+        }
+
+        public override void Summon()
+        {
+            viewModel.Summon();
+        }
+
+        public override void Dismiss()
+        {
+            viewModel.Dismiss();
+        }
+
+        private void ZLauncherMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (viewModel.SwitchToZCommand.CanExecute(null))
+                viewModel.SwitchToZCommand.Execute(null);
+        }
+
+        private void ProCalcMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (viewModel.SwitchToProCalcCommand.CanExecute(null))
+                viewModel.SwitchToProCalcCommand.Execute(null);
+        }
+
+        private void ConfigurationMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (viewModel.ConfigurationCommand.CanExecute(null))
+                viewModel.ConfigurationCommand.Execute(null);
+        }
+
+        private void CloseMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (viewModel.CloseCommand.CanExecute(null))
+                viewModel.CloseCommand.Execute(null);
         }
     }
 }

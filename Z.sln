@@ -53,6 +53,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RunModule", "RunModule\RunM
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FavoritesModule", "FavoritesModule\FavoritesModule.csproj", "{EC55F916-1929-4CED-9EDE-CEE2EC673F50}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Z.Wpf", "Z.Wpf\Z.Wpf.csproj", "{7A248954-2ADE-41EF-B42E-0DC48D20174E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -151,6 +153,10 @@ Global
 		{EC55F916-1929-4CED-9EDE-CEE2EC673F50}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EC55F916-1929-4CED-9EDE-CEE2EC673F50}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EC55F916-1929-4CED-9EDE-CEE2EC673F50}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A248954-2ADE-41EF-B42E-0DC48D20174E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A248954-2ADE-41EF-B42E-0DC48D20174E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A248954-2ADE-41EF-B42E-0DC48D20174E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A248954-2ADE-41EF-B42E-0DC48D20174E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

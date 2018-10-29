@@ -9,7 +9,7 @@ using Z.BusinessLogic.ViewModels.Interfaces;
 using Z.Dependencies;
 using Microsoft.Practices.Unity;
 using System.Windows.Input;
-using Z.BusinessLogic.Types;
+using Z.Wpf.Types;
 
 namespace Z.BusinessLogic.ViewModels
 {

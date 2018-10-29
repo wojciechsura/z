@@ -16,6 +16,7 @@ using Microsoft.Practices.Unity;
 using Z.BusinessLogic;
 using Z.BusinessLogic.ViewModels.Interfaces;
 using Z.BusinessLogic.ViewModels;
+using System.ComponentModel;
 
 namespace Z
 {
@@ -26,9 +27,14 @@ namespace Z
     {
         private readonly MainViewModel viewModel;
 
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            e.Cancel = true;
+        }
+
         public ListWindow()
         {
-            viewModel = Container.Instance.Resolve<MainViewModel>();
+            viewModel = Dependencies.Container.Instance.Resolve<MainViewModel>();
             viewModel.ListWindowAccess = this;
 
             InitializeComponent();
