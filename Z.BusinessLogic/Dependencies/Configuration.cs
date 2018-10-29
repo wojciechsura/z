@@ -14,8 +14,7 @@ namespace Z.BusinessLogic.Dependencies
     {
         public static void Configure(IUnityContainer container)
         {
-            container.RegisterType<IGlobalHotkeyService, GlobalHotkeyService>(new ContainerControlledLifetimeManager());
-            container.RegisterType<IModuleService, ModuleService>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IGlobalHotkeyService, GlobalHotkeyService>(new ContainerControlledLifetimeManager());            
             container.RegisterType<IKeywordService, KeywordService>(new ContainerControlledLifetimeManager());
             container.RegisterType<IConfigurationService, ConfigurationService>(new ContainerControlledLifetimeManager());
             container.RegisterType<IPathService, PathService>(new ContainerControlledLifetimeManager());
@@ -29,6 +28,11 @@ namespace Z.BusinessLogic.Dependencies
             container.RegisterType<ViewModels.Configuration.BehaviorViewModel>();
             container.RegisterType<ViewModels.Configuration.KeywordsViewModel>();
             container.RegisterType<ViewModels.Configuration.ModulesViewModel>();
+        }
+
+        public static void LateConfigure(IUnityContainer container)
+        {
+            container.RegisterInstance<IModuleService>(container.Resolve<ModuleService>());
         }
     }
 }

@@ -23,5 +23,10 @@ namespace Z.Dependencies
         {
             Container.Dispose();
         }
+
+        internal static void LateConfigure()
+        {
+            BusinessLogic.Dependencies.Configuration.LateConfigure(Container.Instance);
+        }
     }
 }
