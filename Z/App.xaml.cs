@@ -47,6 +47,7 @@ namespace Z
             }
 
             Configuration.Configure(this);
+            Configuration.LateConfigure();
 
             viewModel = Dependencies.Container.Instance.Resolve<AppViewModel>();
             viewModel.ApplicationAccess = this;
