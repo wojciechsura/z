@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,11 +25,22 @@ namespace Z.BusinessLogic.ViewModels
             windowService.ShowMainWindow();
         }
 
-        public void Shutdown()
+        private void SaveConfigOnShutdown()
         {
             eventBus.Send(new ShuttingDownEvent());
 
             configurationService.Save();
+        }
+
+        private void HandleSessionEnding(object sender, SessionEndingEventArgs e)
+        {
+            SaveConfigOnShutdown();
+        }
+
+        public void Shutdown()
+        {
+            SaveConfigOnShutdown();
+            SystemEvents.SessionEnding -= HandleSessionEnding;
 
             applicationAccess.Shutdown();
         }
@@ -51,6 +63,8 @@ namespace Z.BusinessLogic.ViewModels
             eventBus.Register((IEventListener<GlobalHotkeyHitEvent>)this);
 
             TaskbarClickCommand = new SimpleCommand((obj) => HandleTaskbarClick());
+
+            SystemEvents.SessionEnding += HandleSessionEnding;
         }
 
         public ICommand TaskbarClickCommand { get; private set; }
