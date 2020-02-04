@@ -93,7 +93,7 @@ namespace CustomCommandsModule
             int i = 0;
             bool inQuotes = false;
 
-            while (!inQuotes && i < command.Length && command[i] != ' ')
+            while (i < command.Length && (inQuotes || command[i] != ' '))
             {
                 if (command[i] == '"')
                     inQuotes = !inQuotes;
