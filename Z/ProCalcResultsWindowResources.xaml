@@ -7,8 +7,8 @@
 
     <Style x:Key="ResultEditStyle" TargetType="TextBox">
         <Style.Setters>
-            <Setter Property="CaretBrush" Value="White" />
-            <Setter Property="Foreground" Value="#5db2d9" />
+            <Setter Property="CaretBrush" Value="{StaticResource MainTextBrush}" />
+            <Setter Property="Foreground" Value="{StaticResource MainTextBrush}" />
             <Setter Property="FontSize" Value="14" />
             <Setter Property="IsReadOnly" Value="True" />
             <Setter Property="TextAlignment" Value="Right" />
@@ -30,7 +30,7 @@
     </Style>
 
     <Style x:Key="MainResultLabel" TargetType="Label">
-        <Setter Property="Foreground" Value="#5db2d9" />
+        <Setter Property="Foreground" Value="{StaticResource MainTextBrush}" />
     </Style>
     
 </ResourceDictionary>
