@@ -1,50 +1,35 @@
-﻿<Window x:Class="Z.ListWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Z"
-        xmlns:models="clr-namespace:Z.Models.DTO;assembly=Z.Models"
-        mc:Ignorable="d"
-        WindowStyle="None" ResizeMode="NoResize" Visibility="Hidden" ShowInTaskbar="False" 
-        Topmost="True" AllowsTransparency="True" Background="Transparent"
-        Title="ListWindow" MinWidth="400" SizeToContent="Width" ShowActivated="False"
-        PreviewKeyDown="HandleWindowPreviewKeyDown">
+﻿<Window
+    x:Class="Z.ListWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:Z"
+    xmlns:models="clr-namespace:Z.Models.DTO;assembly=Z.Models"
+    xmlns:controls="clr-namespace:Z.Controls"
+    mc:Ignorable="d"
+    WindowStyle="None" ResizeMode="NoResize" Visibility="Hidden" ShowInTaskbar="False" 
+    Topmost="True" AllowsTransparency="True" Background="Transparent"
+    Title="ListWindow" MinWidth="400" SizeToContent="Width" ShowActivated="False"
+    PreviewKeyDown="HandleWindowPreviewKeyDown">
+   
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="CommonResources.xaml" />
+                <ResourceDictionary Source="SuggestionListboxStyles.xaml" />
                 <ResourceDictionary Source="ListWindowResources.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    
-    <!-- Outer dark frame and window background -->
-    <Border CornerRadius="6" BorderBrush="#808080" BorderThickness="1" Background="{StaticResource GrayGradientBackground}">
-        <!-- Inner bright frame -->
-        <Border CornerRadius="5" BorderBrush="#80ffffff" BorderThickness="1" Padding="3">
-            <!-- Display with outer glow -->
-            <Border Background="{StaticResource DisplayGradientBackground}" Margin="5">
-                <Border.Effect>
-                    <DropShadowEffect Color="White" Direction="0" BlurRadius="5" ShadowDepth="0" />
-                </Border.Effect>
 
-                <!-- Display container -->
-                <Grid ClipToBounds="True">
-                    
-                    <!-- Inner shadow caster -->
-                    <Border x:Name="DisplayBorder" BorderBrush="#000000" BorderThickness="4" Margin="-5">
-                        <Border.Effect>
-                            <DropShadowEffect Color="#000000" Opacity="1" BlurRadius="10" ShadowDepth="0" Direction="0"/>
-                        </Border.Effect>
-                    </Border>
+    <controls:WindowChrome>
+        <ListBox x:Name="mainListBox" Style="{StaticResource SuggestionListboxStyle}" 
+                 ItemContainerStyle="{StaticResource SuggestionListboxItemStyle}"
+                 ItemsSource="{Binding Suggestions}" 
+                 SelectedIndex="{Binding SelectedItemIndex, Mode=TwoWay}"
+                 MouseDoubleClick="HandleListDoubleClick">
+        </ListBox>
+    </controls:WindowChrome>
 
-                    <!-- Display contents above shadow -->
-                    <ListBox x:Name="mainListBox" Style="{StaticResource SuggestionListboxStyle}" ItemContainerStyle="{StaticResource SuggestionListboxItemStyle}"
-                        ItemsSource="{Binding Suggestions}"  SelectedIndex="{Binding SelectedItemIndex, Mode=TwoWay}" 
-                             MouseDoubleClick="HandleListDoubleClick"/>
-                </Grid>
-            </Border>
-        </Border>
-    </Border>
 </Window>

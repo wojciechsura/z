@@ -7,6 +7,7 @@
         xmlns:tb="http://www.hardcodet.net/taskbar"
         xmlns:local="clr-namespace:Z"
         xmlns:types="clr-namespace:Z.Types"
+                          xmlns:controls="clr-namespace:Z.Controls"
         mc:Ignorable="d"        
         PreviewKeyDown="MainKeyDown" LostFocus="MainLostFocus" MouseDown="MainWindowMouseDown" SizeChanged="MainWindowSizeChanged"
         Width="400" SizeToContent="Height" WindowStyle="None" ResizeMode="NoResize" 
@@ -32,70 +33,50 @@
         <KeyBinding Key="F3"
                     Command="{Binding SwitchToProCalcCommand}" />
     </types:BaseOperatorWindow.InputBindings>
-    <Border CornerRadius="10" BorderBrush="#808080" BorderThickness="1" Background="{StaticResource GrayGradientBackground}">
-        
-        <Border CornerRadius="9" BorderBrush="#80ffffff" BorderThickness="1" Padding="10">
-            <Border CornerRadius="{Binding ElementName=DisplayBorder, Path=CornerRadius}">
-                <Border.Effect>
-                    <DropShadowEffect Color="White" Direction="0" BlurRadius="5" ShadowDepth="0" />
-                </Border.Effect>
 
-                <Border x:Name="Display" CornerRadius="{Binding ElementName=DisplayBorder, Path=CornerRadius}" Background="{StaticResource DisplayGradientBackground}">
-                    <Border.Clip>
-                        <MultiBinding Converter="{StaticResource RectGeometryGenerator}">
-                            <Binding ElementName="Display" Path="ActualWidth" />
-                            <Binding ElementName="Display" Path="ActualHeight" />
-                            <Binding ElementName="DisplayBorder" Path="CornerRadius" />
-                        </MultiBinding>
-                    </Border.Clip>
-                    <Grid>
-                        <!-- Inner shadow caster -->
-                        <Border x:Name="DisplayBorder" BorderBrush="#000000" BorderThickness="4" Margin="-5" CornerRadius="6">
-                            <Border.Effect>
-                                <DropShadowEffect Color="#000000" Opacity="1" BlurRadius="10" ShadowDepth="0" Direction="0"/>
-                            </Border.Effect>
-                        </Border>
-
-                        <StackPanel>
-                            <DockPanel Margin="10">
-                                <Border Style="{StaticResource KeywordBorder}"  DockPanel.Dock="Left" Visibility="{Binding KeywordVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                    <TextBlock Style="{StaticResource KeywordText}" VerticalAlignment="Center" Text="{Binding Keyword}"/>
-                                </Border>
-
-                                <Button DockPanel.Dock="Right" Margin="2" VerticalAlignment="Center"
-                                        Style="{StaticResource GearButtonStyle}"
-                                        Focusable="False" Click="GearButtonClick">
-                                    <Button.ContextMenu>
-                                        <ContextMenu>
-                                            <MenuItem Click="ZLauncherMenuItem_Click" Header="Z launcher" InputGestureText="Alt+Z or F1" />
-                                            <MenuItem Click="ProCalcMenuItem_Click" Header="ProCalc" InputGestureText="Alt+C or F3" />
-                                            <Separator />
-                                            <MenuItem Click="ConfigurationMenuItem_Click" Header="Configuration" />
-                                            <MenuItem Click="CloseMenuItem_Click" Header="Close" />
-                                        </ContextMenu>
-                                    </Button.ContextMenu>
-                                </Button>
-
-                                <Grid>
-                                    <TextBlock Foreground="#5db2d9" Opacity="0.5" HorizontalAlignment="Left" Margin="10, 0, 0, 0" VerticalAlignment="Center"
-                                               Visibility="{Binding ShowHint, Converter={StaticResource BooleanToVisibilityConverter}}">Enter ? to get list of keywords</TextBlock>
-
-                                    <DockPanel>
-                                        <Border Visibility="{Binding CompleteHintVisible, Converter={StaticResource BooleanToVisibilityConverter}}" VerticalAlignment="Center" Margin="3" DockPanel.Dock="Right" BorderThickness="1" BorderBrush="#5db2d9" Opacity="0.5" CornerRadius="3">
-                                            <TextBlock Foreground="#5db2d9" FontSize="10" FontWeight="Bold" Margin="2">Tab→</TextBlock>
-                                        </Border>
-                                        <TextBox VerticalAlignment="Center" Style="{StaticResource MainEditStyle}" x:Name="MainEdit" Margin="3" Text="{Binding EnteredText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                            PreviewKeyDown="MainEditKeyDown" />
-                                    </DockPanel>
-                                </Grid>
-                            </DockPanel>
-
-                            <TextBlock DockPanel.Dock="Bottom" Foreground="#ffa0a0" Text="{Binding ErrorText}" Margin="16,0,16,16" Visibility="{Binding ErrorText, Converter={StaticResource CollapsedIfEmptyConverter}}" />
-
-                        </StackPanel>
-                    </Grid>
+    <controls:WindowChrome>
+        <StackPanel>
+            <DockPanel>
+                <Border Style="{StaticResource KeywordBorder}" 
+                            DockPanel.Dock="Left" 
+                            Visibility="{Binding KeywordVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <TextBlock Style="{StaticResource KeywordText}" VerticalAlignment="Center" Text="{Binding Keyword}"/>
                 </Border>
-            </Border>
-        </Border>
-    </Border>
+
+                <Button DockPanel.Dock="Right" Margin="2" VerticalAlignment="Center"
+                                    Style="{StaticResource GearButtonStyle}"
+                                    Focusable="False" Click="GearButtonClick">
+                    <Button.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Click="ZLauncherMenuItem_Click" Header="Z launcher" InputGestureText="Alt+Z or F1" />
+                            <MenuItem Click="ProCalcMenuItem_Click" Header="ProCalc" InputGestureText="Alt+C or F3" />
+                            <Separator />
+                            <MenuItem Click="ConfigurationMenuItem_Click" Header="Configuration" />
+                            <MenuItem Click="CloseMenuItem_Click" Header="Close" />
+                        </ContextMenu>
+                    </Button.ContextMenu>
+                </Button>
+
+                <Grid>
+                    <TextBlock Foreground="{StaticResource MainTextBrush}" Opacity="0.5" HorizontalAlignment="Left" Margin="10, 0, 0, 0" VerticalAlignment="Center"
+                                            Visibility="{Binding ShowHint, Converter={StaticResource BooleanToVisibilityConverter}}">Enter ? to get list of keywords</TextBlock>
+
+                    <DockPanel>
+                        <Border Visibility="{Binding CompleteHintVisible, Converter={StaticResource BooleanToVisibilityConverter}}" VerticalAlignment="Center" Margin="3" 
+                                    DockPanel.Dock="Right" BorderThickness="1" 
+                                    BorderBrush="{StaticResource MainTextBrush}" Opacity="0.5" CornerRadius="3">
+                            <TextBlock Foreground="{StaticResource MainTextBrush}" FontSize="10" FontWeight="Bold" Margin="2">Tab→</TextBlock>
+                        </Border>
+                        <TextBox VerticalAlignment="Center" Style="{StaticResource MainEditStyle}" x:Name="MainEdit" Margin="3" Text="{Binding EnteredText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        PreviewKeyDown="MainEditKeyDown" />
+                    </DockPanel>
+                </Grid>
+            </DockPanel>
+
+            <TextBlock DockPanel.Dock="Bottom" Foreground="{StaticResource ErrorTextBrush}" Text="{Binding ErrorText}" 
+                           Margin="{StaticResource ErrorMargin}" 
+                           Visibility="{Binding ErrorText, Converter={StaticResource CollapsedIfEmptyConverter}}" />
+
+        </StackPanel>
+    </controls:WindowChrome>
 </types:BaseOperatorWindow>

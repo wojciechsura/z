@@ -84,10 +84,10 @@
     <Compile Include="Common\Converters\CollapsedIfEmptyConverter.cs" />
     <Compile Include="Common\Converters\EnumDescriptionConverter.cs" />
     <Compile Include="Common\Converters\EnumToBooleanConverter.cs" />
-    <Compile Include="Common\Converters\RectGeometryGenerator.cs" />
     <Compile Include="ConfigurationWindow.xaml.cs">
       <DependentUpon>ConfigurationWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\WindowChrome.cs" />
     <Compile Include="Dependencies\Configuration.cs" />
     <Compile Include="ProCalcResultsWindow.xaml.cs">
       <DependentUpon>ProCalcResultsWindow.xaml</DependentUpon>
@@ -109,6 +109,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ConfigurationWindowStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\WindowChromeResources.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -160,6 +164,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SuggestionChoiceWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SuggestionListboxStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
