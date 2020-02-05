@@ -4,84 +4,31 @@
                     xmlns:controls="clr-namespace:System.Windows.Controls;assembly=PresentationFramework"
                     xmlns:converters="clr-namespace:Z.Common.Converters">
 
-    <converters:RectGeometryGenerator x:Key="RectGeometryGenerator" />
     <converters:CollapsedIfEmptyConverter x:Key="CollapsedIfEmptyConverter" />
     <converters:EnumDescriptionConverter x:Key="EnumDescriptionConverter" />
     <converters:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
     <controls:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+       
+    <SolidColorBrush x:Key="MainTextBrush">#000000</SolidColorBrush>
+    <SolidColorBrush x:Key="MutedColorBrush">#80000000</SolidColorBrush>
+    <SolidColorBrush x:Key="ErrorTextBrush">#ff8080</SolidColorBrush>
 
-    <LinearGradientBrush x:Key="GrayGradientBackground">
-        <LinearGradientBrush.GradientStops>
-            <GradientStop Offset="0" Color="#c0c0c0" />
-            <GradientStop Offset="0.25" Color="#e0e0e0" />
-            <GradientStop Offset="0.75" Color="#e0e0e0" />
-            <GradientStop Offset="1" Color="#c0c0c0" />
-        </LinearGradientBrush.GradientStops>
-    </LinearGradientBrush>
+    <SolidColorBrush x:Key="SelectionBackground">#0083C5</SolidColorBrush>
+    <SolidColorBrush x:Key="SelectionForeground">#ffffff</SolidColorBrush>
 
-    <LinearGradientBrush x:Key="SkyGradientBackground">
-        <LinearGradientBrush.GradientStops>
-            <GradientStop Offset="0" Color="#abb6d6" />
-            <GradientStop Offset="0.25" Color="#d6dceb" />
-            <GradientStop Offset="0.75" Color="#d6dceb" />
-            <GradientStop Offset="1" Color="#abb6d6" />
-        </LinearGradientBrush.GradientStops>
-    </LinearGradientBrush>
-    
-    <LinearGradientBrush x:Key="DisplayGradientBackground" StartPoint="0, 0" EndPoint="1, 0">
-        <LinearGradientBrush.GradientStops>
-            <GradientStop Offset="0" Color="#2c343f" />
-            <GradientStop Offset="0.05" Color="#232a32" />
-            <GradientStop Offset="0.95" Color="#232a32" />
-            <GradientStop Offset="1" Color="#2c343f" />
-        </LinearGradientBrush.GradientStops>
-    </LinearGradientBrush>
+    <Color x:Key="ScrollBarArrowColor">#80000000</Color>
+    <Color x:Key="ScrollBarDisabledArrowColor">#80000000</Color>
+    <Color x:Key="ScrollBarHoverArrowColor">#e0000000</Color>
+    <SolidColorBrush x:Key="ScrollBarThumbBorderColorBrush">#80000000</SolidColorBrush>
+    <SolidColorBrush x:Key="ScrollBarThumbBackgroundColorBrush">#40000000</SolidColorBrush>
 
-    <Style x:Key="SuggestionListboxItemStyle" TargetType="ListBoxItem">
-        <Style.Setters>
-            <Setter Property="Foreground" Value="#5db2d9" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ListBoxItem">
-                        <Border Name="SelectionBorder" Background="Transparent" CornerRadius="1">
-                            <ContentPresenter />
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsSelected" Value="True">
-                                <Trigger.Setters>
-                                    <Setter Property="Foreground" Value="#ffffff" />
-                                    <Setter TargetName="SelectionBorder" Property="Background" Value="#29abdb" />
-                                </Trigger.Setters>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style.Setters>
-    </Style>
+    <SolidColorBrush x:Key="MainEditCaretBrush">#000000</SolidColorBrush>
+    <SolidColorBrush x:Key="MainEditForeground">#000000</SolidColorBrush>
+    <SolidColorBrush x:Key="KeywordBorderBrush">#000000</SolidColorBrush>
+    <SolidColorBrush x:Key="KeywordForegroundBrush">#000000</SolidColorBrush>
+    <SolidColorBrush x:Key="ListboxItemMainBrush">#000000</SolidColorBrush>
+    <SolidColorBrush x:Key="GearIconBrush">#000000</SolidColorBrush>
 
-    <Style x:Key="SuggestionListboxStyle" TargetType="ListBox">
-        <Style.Setters>
-            <Setter Property="Background" Value="Transparent" />
-            <Setter Property="BorderBrush" Value="{x:Null}" />
-            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-            <Setter Property="ItemTemplate">
-                <Setter.Value>
-                    <DataTemplate DataType="models:SuggestionDTO">
+    <Thickness x:Key="ErrorMargin">6</Thickness>
 
-                        <DockPanel>
-                            <Image DockPanel.Dock="Left" Source="{Binding Image}" Width="16" Height="16" VerticalAlignment="Center" Margin="2" 
-                                   SnapsToDevicePixels="True" />
-                            <TextBlock Margin="2" DockPanel.Dock="Right" VerticalAlignment="Center" Opacity="0.5" Text="{Binding Module, Mode=OneTime}" />
-                            <DockPanel>
-                                <TextBlock DockPanel.Dock="Bottom" Margin="1" Visibility="{Binding Comment, Converter={StaticResource CollapsedIfEmptyConverter}}" 
-                                           Text="{Binding Comment}" Opacity="0.5" />
-                                <TextBlock Margin="1" Text="{Binding Display}" FontSize="14"/>
-                            </DockPanel>
-                        </DockPanel>
-                    </DataTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style.Setters>
-    </Style>
 </ResourceDictionary>

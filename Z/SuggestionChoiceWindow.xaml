@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Z"
+        xmlns:controls="clr-namespace:Z.Controls"
         mc:Ignorable="d"
         Title="SuggestionChoiceWindow" ResizeMode="NoResize" WindowStyle="None"
         MinHeight="100"
@@ -14,42 +15,21 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="CommonResources.xaml" />
+                <ResourceDictionary Source="SuggestionListboxStyles.xaml" />
                 <ResourceDictionary Source="ListWindowResources.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
 
-    <!-- Outer dark frame and window background -->
-    <Border CornerRadius="6" BorderBrush="#808080" BorderThickness="1" Background="{StaticResource GrayGradientBackground}">
-        <!-- Inner bright frame -->
-        <Border CornerRadius="5" BorderBrush="#80ffffff" BorderThickness="1" Padding="3">
-            <!-- Display with outer glow -->
-            <Border Background="{StaticResource DisplayGradientBackground}" Margin="5">
-                <Border.Effect>
-                    <DropShadowEffect Color="White" Direction="0" BlurRadius="5" ShadowDepth="0" />
-                </Border.Effect>
+    <controls:WindowChrome>
+        <StackPanel Orientation="Vertical">
 
-                <!-- Display container -->
-                <Grid ClipToBounds="True">
-
-                    <!-- Inner shadow caster -->
-                    <Border x:Name="DisplayBorder" BorderBrush="#000000" BorderThickness="4" Margin="-5">
-                        <Border.Effect>
-                            <DropShadowEffect Color="#000000" Opacity="1" BlurRadius="10" ShadowDepth="0" Direction="0"/>
-                        </Border.Effect>
-                    </Border>
-
-                    <StackPanel Orientation="Vertical">
-
-                        <TextBlock Margin="8" Foreground="#5db2d9">Multiple suggestions match, choose one below:</TextBlock>
+            <TextBlock Margin="8" Foreground="{StaticResource MainTextBrush}">Multiple suggestions match, choose one below:</TextBlock>
                         
-                        <!-- Display contents above shadow -->
-                        <ListBox x:Name="SuggestionList" Style="{StaticResource SuggestionListboxStyle}" ItemContainerStyle="{StaticResource SuggestionListboxItemStyle}"
-                            ItemsSource="{Binding Suggestions}"  SelectedIndex="{Binding SelectedItemIndex, Mode=TwoWay}">
-                        </ListBox>
-                    </StackPanel>
-                </Grid>
-            </Border>
-        </Border>
-    </Border>
+            <!-- Display contents above shadow -->
+            <ListBox x:Name="SuggestionList" Style="{StaticResource SuggestionListboxStyle}" ItemContainerStyle="{StaticResource SuggestionListboxItemStyle}"
+                ItemsSource="{Binding Suggestions}"  SelectedIndex="{Binding SelectedItemIndex, Mode=TwoWay}">
+            </ListBox>
+        </StackPanel>
+    </controls:WindowChrome>
 </Window>

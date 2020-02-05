@@ -23,12 +23,12 @@ namespace Z
     /// <summary>
     /// Interaction logic for ListWindow.xaml
     /// </summary>
-    public partial class ListWindow : Window, IListWindowAccess
+    public partial class ListWindow : IListWindowAccess
     {
         private readonly MainViewModel viewModel;
 
         protected override void OnClosing(CancelEventArgs e)
-        {
+        {            
             e.Cancel = true;
         }
 

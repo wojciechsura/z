@@ -4,6 +4,13 @@
              xmlns:local="clr-namespace:Z"
              ShutdownMode="OnExplicitShutdown">
     <Application.Resources>
-         
+
+        <!-- Control styles -->
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Controls\WindowChromeResources.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+        
     </Application.Resources>
 </Application>
