@@ -7,7 +7,8 @@
 #define MyAppURL "http://www.spook.freshsite.pl"
 #define MyAppExeName "Z.exe"
 
-#define PGS
+; #define PGS
+#define WSCAD
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
@@ -79,6 +80,9 @@ Source: "..\SampleModule\Properties\Settings.settings"; DestDir: "{app}\samples\
 Source: "..\SampleModule\Resources\sample.png"; DestDir: "{app}\samples\SampleModule\Resources\"; Flags: ignoreversion; Components: CustomModuleSample
 #ifdef PGS
 Source: "..\PgsModule\bin\Release\PgsModule.dll"; DestDir: "{app}\plugins\"; Flags: ignoreversion
+#endif
+#ifdef WSCAD
+Source: "..\WsCADModule\bin\Release\WsCADModule.dll"; DestDir: "{app}\plugins\"; Flags: ignoreversion
 #endif
 
 [Icons]
