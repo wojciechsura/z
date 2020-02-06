@@ -45,6 +45,7 @@ Source: "..\Z\bin\Release\ControlPanelModule.dll"; DestDir: "{app}"; Flags: igno
 Source: "..\Z\bin\Release\CustomCommandsModule.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Z\bin\Release\DesktopModule.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Z\bin\Release\Filesystem.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Z\bin\Release\FavoritesModule.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Z\bin\Release\Hardcodet.Wpf.TaskbarNotification.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Z\bin\Release\HashModule.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Z\bin\Release\Microsoft.Practices.ServiceLocation.dll"; DestDir: "{app}"; Flags: ignoreversion

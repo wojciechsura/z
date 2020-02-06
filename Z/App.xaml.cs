@@ -13,6 +13,8 @@ using Z.Dependencies;
 using Microsoft.Practices.Unity;
 using Z.BusinessLogic.Services.Interfaces;
 using Z.BusinessLogic.ViewModels.Interfaces;
+using System.Windows.Threading;
+using System.Reflection;
 
 namespace Z
 {
@@ -32,10 +34,12 @@ namespace Z
             taskbarIcon.Icon = new Icon(GetResourceStream(new Uri(@"pack://application:,,,/Z.ico")).Stream);
             taskbarIcon.LeftClickCommand = viewModel.TaskbarClickCommand;
         }
-
+       
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+
+            Application.Current.DispatcherUnhandledException += HandleUncaughtException;
 
             bool isNewInstance = false;
             singleInstanceMutex = new Mutex(true, "Spooksoft.ZLauncher", out isNewInstance);
@@ -53,6 +57,29 @@ namespace Z
             viewModel.ApplicationAccess = this;
 
             InitializeTaskbarIcon();
+        }
+
+        private void HandleUncaughtException(object sender, DispatcherUnhandledExceptionEventArgs e)
+        {
+            string localRoaming = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            if (!localRoaming.EndsWith("\\"))
+                localRoaming += '\\';
+
+            string appDataPath = $"{localRoaming}Spooksoft\\Z\\Log\\";
+            System.IO.Directory.CreateDirectory(appDataPath);
+
+            string logPath = System.IO.Path.Combine(appDataPath, "error.log");
+
+            string error = e.Exception.ToString();
+
+            if (!System.IO.File.Exists(logPath))
+                System.IO.File.WriteAllText(logPath, "");
+
+            var log = $"-------------------------------------------------------\n{DateTime.Now}\n\n{error}";
+
+            System.IO.File.AppendAllText(logPath, log);
+
+            e.Handled = false;
         }
 
         protected override void OnExit(ExitEventArgs e)
