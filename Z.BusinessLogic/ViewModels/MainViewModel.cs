@@ -578,7 +578,7 @@ namespace Z.BusinessLogic.ViewModels
 
         void IEventListener<ShuttingDownEvent>.Receive(ShuttingDownEvent @event)
         {
-            configurationService.Configuration.MainWindow.Position = mainWindowAccess.Position;
+            configurationService.Configuration.MainWindow.RelativePosition = mainWindowAccess.RelativePosition;
         }
 
         void IEventListener<ConfigurationChangedEvent>.Receive(ConfigurationChangedEvent @event)
@@ -700,7 +700,7 @@ namespace Z.BusinessLogic.ViewModels
 
         public void Initialized()
         {
-            mainWindowAccess.Position = configurationService.Configuration.MainWindow.Position;
+            mainWindowAccess.RelativePosition = configurationService.Configuration.MainWindow.RelativePosition;
         }
 
         public bool SpacePressed()

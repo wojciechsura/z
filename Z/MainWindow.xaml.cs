@@ -40,7 +40,6 @@ namespace Z
 
         private readonly MainViewModel viewModel;
         private readonly ListWindow listWindow;
-        private readonly WindowInteropHelper windowInteropHelper;
 
         // Private methods ----------------------------------------------------
 
@@ -230,6 +229,18 @@ namespace Z
             }
         }
 
+        Point IMainWindowAccess.RelativePosition
+        {
+            get
+            {
+                return EvalRelativePosition();
+            }
+            set
+            {
+                SetRelativePosition(value);
+            }
+        }
+
         bool IMainWindowAccess.IsVisible => this.IsVisible;
 
         // Protected methods --------------------------------------------------
@@ -256,35 +267,6 @@ namespace Z
 
         // Public methods -----------------------------------------------------
 
-        [StructLayout(LayoutKind.Sequential)]
-        public struct MARGINS
-        {
-
-            public int leftWidth;
-            public int rightWidth;
-            public int topHeight;
-            public int bottomHeight;
-
-            public MARGINS(int leftWidth, int rightWidth, int topHeight, int bottomHeight)
-            {
-                this.leftWidth = leftWidth;
-                this.rightWidth = rightWidth;
-                this.topHeight = topHeight;
-                this.bottomHeight = bottomHeight;
-            }
-
-            public MARGINS(int all)
-            {
-                this.leftWidth = all;
-                this.rightWidth = all;
-                this.topHeight = all;
-                this.bottomHeight = all;
-            }
-        }
-
-        [DllImport("dwmapi.dll")]
-        static extern int DwmExtendFrameIntoClientArea(IntPtr hwnd, ref MARGINS margins);
-
         public MainWindow()
         {
             viewModel = Dependencies.Container.Instance.Resolve<MainViewModel>();
@@ -292,14 +274,9 @@ namespace Z
 
             InitializeComponent();
 
-            windowInteropHelper = new WindowInteropHelper(this);
-
             this.DataContext = viewModel;
 
             listWindow = new ListWindow();
-
-            MARGINS margins = new MARGINS(-1);
-            DwmExtendFrameIntoClientArea(windowInteropHelper.Handle, ref margins);
         }
 
         public override void Summon()
