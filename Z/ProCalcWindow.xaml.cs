@@ -35,7 +35,6 @@ namespace Z
         // Private fields -----------------------------------------------------
 
         private ProCalcViewModel viewModel;
-        private WindowInteropHelper windowInteropHelper;
         private ProCalcResultsWindow resultsWindow;
 
         // Private methods ----------------------------------------------------
@@ -244,8 +243,6 @@ namespace Z
             viewModel.ProCalcWindowAccess = this;
 
             InitializeComponent();
-
-            windowInteropHelper = new WindowInteropHelper(this);
 
             this.DataContext = viewModel;
 
