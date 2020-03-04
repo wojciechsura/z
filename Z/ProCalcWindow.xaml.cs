@@ -195,6 +195,18 @@ namespace Z
             }
         }
 
+        Point IProCalcWindowAccess.RelativePosition
+        {
+            get
+            {
+                return EvalRelativePosition();
+            }
+            set
+            {
+                SetRelativePosition(value);
+            }
+        }
+
         bool IProCalcWindowAccess.IsVisible => this.IsVisible;
 
         void IProCalcWindowAccess.InputSelectAll()

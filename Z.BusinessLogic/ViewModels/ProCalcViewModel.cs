@@ -103,7 +103,9 @@ namespace Z.BusinessLogic.ViewModels
 
         void IEventListener<ShuttingDownEvent>.Receive(ShuttingDownEvent @event)
         {
-            configurationService.Configuration.ProCalcWindow.Position = access.Position;
+            
+
+            configurationService.Configuration.ProCalcWindow.RelativePosition = access.RelativePosition;
         }
 
         void IEventListener<PositionChangedEvent>.Receive(PositionChangedEvent @event)
@@ -164,7 +166,7 @@ namespace Z.BusinessLogic.ViewModels
 
         public void Initialized()
         {
-            access.Position = configurationService.Configuration.ProCalcWindow.Position;
+            access.RelativePosition = configurationService.Configuration.ProCalcWindow.RelativePosition;
         }
 
         public void Dismiss()
