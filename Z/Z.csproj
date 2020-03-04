@@ -84,6 +84,7 @@
     <Compile Include="Common\Converters\CollapsedIfEmptyConverter.cs" />
     <Compile Include="Common\Converters\EnumDescriptionConverter.cs" />
     <Compile Include="Common\Converters\EnumToBooleanConverter.cs" />
+    <Compile Include="Common\PositionHelper.cs" />
     <Compile Include="ConfigurationWindow.xaml.cs">
       <DependentUpon>ConfigurationWindow.xaml</DependentUpon>
     </Compile>

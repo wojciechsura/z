@@ -10,7 +10,7 @@ namespace Z.Models.Configuration
 {
     public class ProCalcWindow
     {
-        [XmlElement("Position")]
-        public Point Position { get; set; }
+        [XmlElement("RelativePosition")]
+        public Point RelativePosition { get; set; }
     }
 }

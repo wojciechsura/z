@@ -18,6 +18,7 @@ namespace Z.BusinessLogic.ViewModels.Interfaces
 
         int CaretPosition { get; set; }
         Point Position { get; set; }
+        Point RelativePosition { get; set; }
         bool IsVisible { get; }
     }
 }
