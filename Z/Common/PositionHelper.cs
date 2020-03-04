@@ -9,7 +9,7 @@ namespace Z.Common
 {
     internal static class PositionHelper
     {
-        internal static Point EvalRelativePosition(Rect winRect, System.Drawing.Rectangle screenSize)
+        internal static Point EvalRelativePosition(Rect winRect, Size screenSize)
         {
             double halfScreenHeight = screenSize.Height / 2;
             double halfScreenWidth = screenSize.Width / 2;
@@ -20,7 +20,7 @@ namespace Z.Common
             return new Point(relativeLeft, relativeTop);
         }
 
-        internal static Point EvalAbsolutePosition(Point relativePoint, System.Drawing.Rectangle screenSize)
+        internal static Point EvalAbsolutePosition(Point relativePoint, Size screenSize)
         {
             double left = relativePoint.X >= 0 ? relativePoint.X : relativePoint.X + screenSize.Width;
             double top = relativePoint.Y >= 0 ? relativePoint.Y : relativePoint.Y + screenSize.Height;

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
+using System.Windows.Media;
 using Z.Common;
 
 namespace Z.Types
@@ -13,11 +14,39 @@ namespace Z.Types
     {
         protected readonly WindowInteropHelper windowInteropHelper;
 
-        protected void SetRelativePosition(Point value)
+        private Point GetPointsToPixelsConversion(Visual visual)
+        {
+            Matrix matrix;
+            var source = PresentationSource.FromVisual(visual);
+            if (source != null)
+            {
+                matrix = source.CompositionTarget.TransformToDevice;
+            }
+            else
+            {
+                using (var src = new HwndSource(new HwndSourceParameters()))
+                {
+                    matrix = src.CompositionTarget.TransformToDevice;
+                }
+            }
+
+            return new Point(matrix.M11, matrix.M22);
+        }
+
+        private Size GetLogicalScreenSize()
         {
             var screen = System.Windows.Forms.Screen.FromHandle(windowInteropHelper.Handle);
+            var conversion = GetPointsToPixelsConversion(this);
+            Size screenSize = new Size(screen.WorkingArea.Width / conversion.X, screen.WorkingArea.Height / conversion.Y);
+            return screenSize;
+        }
 
-            var pos = PositionHelper.EvalAbsolutePosition(value, screen.WorkingArea);
+        protected void SetRelativePosition(Point value)
+        {
+            Size screenSize = GetLogicalScreenSize();
+            var pos = PositionHelper.EvalAbsolutePosition(value, screenSize);
+
+            System.Diagnostics.Trace.WriteLine($"Set position; size: {screenSize}, pos: {pos}");
 
             Left = pos.X;
             Top = pos.Y;
@@ -25,9 +54,12 @@ namespace Z.Types
 
         protected Point EvalRelativePosition()
         {
-            var screen = System.Windows.Forms.Screen.FromHandle(windowInteropHelper.Handle);
+            Size screenSize = GetLogicalScreenSize();
             var winRect = new Rect(this.Left, this.Top, this.Width, this.Height);
-            return PositionHelper.EvalRelativePosition(winRect, screen.WorkingArea);
+
+            System.Diagnostics.Trace.WriteLine($"Eval position; size: {screenSize}, winRect: {winRect}");
+
+            return PositionHelper.EvalRelativePosition(winRect, screenSize);
         }
 
         public BaseOperatorWindow()
