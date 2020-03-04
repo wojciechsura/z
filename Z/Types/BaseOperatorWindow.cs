@@ -46,8 +46,6 @@ namespace Z.Types
             Size screenSize = GetLogicalScreenSize();
             var pos = PositionHelper.EvalAbsolutePosition(value, screenSize);
 
-            System.Diagnostics.Trace.WriteLine($"Set position; size: {screenSize}, pos: {pos}");
-
             Left = pos.X;
             Top = pos.Y;
         }
@@ -56,8 +54,6 @@ namespace Z.Types
         {
             Size screenSize = GetLogicalScreenSize();
             var winRect = new Rect(this.Left, this.Top, this.Width, this.Height);
-
-            System.Diagnostics.Trace.WriteLine($"Eval position; size: {screenSize}, winRect: {winRect}");
 
             return PositionHelper.EvalRelativePosition(winRect, screenSize);
         }
