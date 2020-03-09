@@ -6,18 +6,21 @@ using System.Text;
 using System.Threading.Tasks;
 using ProCalc.NET;
 using ProCalc.NET.Exceptions;
-using Z.BusinessLogic.Services.Interfaces;
 using System.Windows.Input;
 using Z.Wpf.Types;
 using Z.BusinessLogic.Events;
 using System.Windows;
+using Z.BusinessLogic.Services.EventBus;
+using Z.BusinessLogic.Services.Config;
+using Z.BusinessLogic.Services.AppWindows;
+using Z.BusinessLogic.Services.Application;
 
 namespace Z.BusinessLogic.ViewModels.ProCalc
 {
     public class ProCalcViewModel : INotifyPropertyChanged, IEventListener<PositionChangedEvent>, IEventListener<ShuttingDownEvent>
     {
         private readonly IConfigurationService configurationService;
-        private readonly IWindowService windowService;
+        private readonly IAppWindowService windowService;
         private readonly IApplicationController applicationController;
         private readonly ProCalcCore proCalcCore;
         private readonly IEventBus eventBus;
@@ -130,7 +133,7 @@ namespace Z.BusinessLogic.ViewModels.ProCalc
         // Public methods -----------------------------------------------------
 
         public ProCalcViewModel(IConfigurationService configurationService,
-            IWindowService windowService,
+            IAppWindowService windowService,
             IApplicationController applicationController,
             IEventBus eventBus)
         {

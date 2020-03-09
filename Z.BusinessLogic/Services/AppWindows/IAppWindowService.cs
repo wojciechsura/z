@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Z.BusinessLogic.Services.Interfaces
+namespace Z.BusinessLogic.Services.AppWindows
 {
-    public interface IWindowService
+    public interface IAppWindowService
     {
         void ShowMainWindow();
         void HideMainWindow();

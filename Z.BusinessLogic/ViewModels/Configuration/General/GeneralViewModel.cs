@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Z.BusinessLogic.Services.Interfaces;
 using Z.Wpf.Types;
 using Z.Common.Types;
 using Z.BusinessLogic.ViewModels.Configuration.Base;
+using Z.BusinessLogic.Services.Config;
 
 namespace Z.BusinessLogic.ViewModels.Configuration.General
 {

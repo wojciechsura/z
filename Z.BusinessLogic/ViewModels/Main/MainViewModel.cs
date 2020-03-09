@@ -8,7 +8,6 @@ using System.Windows.Threading;
 using Z.Models;
 
 using Microsoft.Practices.Unity;
-using Z.BusinessLogic.Services.Interfaces;
 using Z.Models.DTO;
 using System.Diagnostics;
 using Z.Api.Interfaces;
@@ -21,6 +20,13 @@ using Z.Api;
 using Z.BusinessLogic.Events;
 using System.Windows;
 using Z.BusinessLogic.ViewModels.Base;
+using Z.BusinessLogic.Services.EventBus;
+using Z.BusinessLogic.Services.Module;
+using Z.BusinessLogic.Services.GlobalHotkey;
+using Z.BusinessLogic.Services.Keyword;
+using Z.BusinessLogic.Services.Config;
+using Z.BusinessLogic.Services.Application;
+using Z.BusinessLogic.Services.AppWindows;
 
 namespace Z.BusinessLogic.ViewModels.Main
 {
@@ -119,7 +125,7 @@ namespace Z.BusinessLogic.ViewModels.Main
         private readonly IConfigurationService configurationService;
         private readonly IEventBus eventBus;
         private readonly IApplicationController applicationController;
-        private readonly IWindowService windowService;
+        private readonly IAppWindowService windowService;
 
         private readonly LauncherViewModel launcherViewModel;
 
@@ -563,7 +569,7 @@ namespace Z.BusinessLogic.ViewModels.Main
             IConfigurationService configurationService,
             IEventBus eventBus,
             IApplicationController applicationController,
-            IWindowService windowService)
+            IAppWindowService windowService)
         {
             this.globalHotkeyService = globalHotkeyService;
             this.keywordService = keywordService;

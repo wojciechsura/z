@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Z.BusinessLogic.Services.Interfaces;
 using Z.BusinessLogic.ViewModels.Configuration;
 using Z.Dependencies;
 using Microsoft.Practices.Unity;
@@ -14,6 +13,7 @@ using Z.BusinessLogic.ViewModels.Configuration.General;
 using Z.BusinessLogic.ViewModels.Configuration.Behavior;
 using Z.BusinessLogic.ViewModels.Configuration.Keywords;
 using Z.BusinessLogic.ViewModels.Configuration.Modules;
+using Z.BusinessLogic.Services.Config;
 
 namespace Z.BusinessLogic.ViewModels.Configuration
 {
