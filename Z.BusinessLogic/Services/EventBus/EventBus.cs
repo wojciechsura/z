@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Z.BusinessLogic.Events;
-using Z.BusinessLogic.Services.Interfaces;
 
-namespace Z.BusinessLogic.Services
+namespace Z.BusinessLogic.Services.EventBus
 {
     class EventBus : IEventBus
     {

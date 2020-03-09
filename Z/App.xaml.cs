@@ -11,10 +11,10 @@ using System.Windows;
 using Z.BusinessLogic.ViewModels;
 using Z.Dependencies;
 using Microsoft.Practices.Unity;
-using Z.BusinessLogic.Services.Interfaces;
 using System.Windows.Threading;
 using System.Reflection;
 using Z.BusinessLogic.ViewModels.Application;
+using Z.BusinessLogic.Services.Application;
 
 namespace Z
 {

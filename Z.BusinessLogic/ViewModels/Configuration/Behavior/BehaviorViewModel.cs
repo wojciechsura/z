@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Z.BusinessLogic.Services.Interfaces;
+using Z.BusinessLogic.Services.Config;
 using Z.BusinessLogic.ViewModels.Configuration.Base;
 using Z.Common.Types;
 

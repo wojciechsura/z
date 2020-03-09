@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Z.BusinessLogic.Events;
-using Z.BusinessLogic.Services.Interfaces;
+using Z.BusinessLogic.Services.Config;
+using Z.BusinessLogic.Services.EventBus;
 
 namespace Z.BusinessLogic.ViewModels.Main
 {

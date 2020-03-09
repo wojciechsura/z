@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Z.Api;
 using Z.Api.Interfaces;
-using Z.BusinessLogic.Services.Interfaces;
+using Z.BusinessLogic.Services.Module;
 using Z.BusinessLogic.ViewModels.Configuration.Base;
 using Z.BusinessLogic.ViewModels.Configuration.Modules;
 

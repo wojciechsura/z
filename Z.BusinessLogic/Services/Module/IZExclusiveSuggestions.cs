@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Z.BusinessLogic.Services.Interfaces
+namespace Z.BusinessLogic.Services.Module
 {
-    public interface IApplicationController
+    internal interface IZExclusiveSuggestions
     {
-        void Shutdown();
+        bool IsExclusiveText(string text);
     }
 }

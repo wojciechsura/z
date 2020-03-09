@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Z.BusinessLogic.Services.Interfaces;
+using Z.BusinessLogic.Services.AppWindows;
 
 namespace Z.Services
 {
-    class WindowService : IWindowService
+    class AppWindowService : IAppWindowService
     {
         private Lazy<MainWindow> mainWindow;
         private Lazy<ProCalcWindow> proCalcWindow;
 
-        public WindowService()
+        public AppWindowService()
         {
             mainWindow = new Lazy<MainWindow>(() => new MainWindow());
             proCalcWindow = new Lazy<ProCalcWindow>(() => new ProCalcWindow());
