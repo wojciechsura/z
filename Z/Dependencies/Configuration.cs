@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Z.BusinessLogic.Services.Interfaces;
+using Z.BusinessLogic.Services.Application;
+using Z.BusinessLogic.Services.AppWindows;
 using Z.Services;
 
 namespace Z.Dependencies
@@ -14,7 +15,7 @@ namespace Z.Dependencies
         public static void Configure(App app)
         {
             Container.Instance.RegisterInstance<IApplicationController>(app);
-            Container.Instance.RegisterType<IWindowService, WindowService>(new ContainerControlledLifetimeManager());
+            Container.Instance.RegisterType<IAppWindowService, AppWindowService>(new ContainerControlledLifetimeManager());
 
             BusinessLogic.Dependencies.Configuration.Configure(Container.Instance);
         }

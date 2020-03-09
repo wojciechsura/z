@@ -6,14 +6,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Z.BusinessLogic.Events;
-using Z.BusinessLogic.Services.Interfaces;
+using Z.BusinessLogic.Services.AppWindows;
+using Z.BusinessLogic.Services.Config;
+using Z.BusinessLogic.Services.EventBus;
+using Z.BusinessLogic.Services.GlobalHotkey;
 using Z.Wpf.Types;
 
 namespace Z.BusinessLogic.ViewModels.Application
 {
     public class AppViewModel : IEventListener<GlobalHotkeyHitEvent>
     {
-        private readonly IWindowService windowService;
+        private readonly IAppWindowService windowService;
         private IApplicationAccess applicationAccess;
         private readonly IConfigurationService configurationService;
         private readonly IEventBus eventBus;
@@ -52,7 +55,7 @@ namespace Z.BusinessLogic.ViewModels.Application
                 windowService.ShowMainWindow();
         }
 
-        public AppViewModel(IWindowService windowService, IConfigurationService configurationService, IEventBus eventBus, IGlobalHotkeyService globalHotkeyService)
+        public AppViewModel(IAppWindowService windowService, IConfigurationService configurationService, IEventBus eventBus, IGlobalHotkeyService globalHotkeyService)
         {
             this.windowService = windowService;
             this.configurationService = configurationService;

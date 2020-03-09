@@ -6,11 +6,16 @@ using System.Text;
 using System.Threading.Tasks;
 using Z.BusinessLogic.ViewModels;
 using Z.BusinessLogic.Services;
-using Z.BusinessLogic.Services.Interfaces;
 using Z.BusinessLogic.ViewModels.Main;
 using Z.BusinessLogic.ViewModels.ProCalc;
 using Z.BusinessLogic.ViewModels.Application;
 using Z.BusinessLogic.ViewModels.Configuration;
+using Z.BusinessLogic.Services.GlobalHotkey;
+using Z.BusinessLogic.Services.Keyword;
+using Z.BusinessLogic.Services.Config;
+using Z.BusinessLogic.Services.Paths;
+using Z.BusinessLogic.Services.EventBus;
+using Z.BusinessLogic.Services.Module;
 
 namespace Z.BusinessLogic.Dependencies
 {
