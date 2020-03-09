@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Z.BusinessLogic.ViewModels.Interfaces;
 using ProCalc.NET;
 using ProCalc.NET.Exceptions;
 using Z.BusinessLogic.Services.Interfaces;
@@ -13,7 +12,7 @@ using Z.Wpf.Types;
 using Z.BusinessLogic.Events;
 using System.Windows;
 
-namespace Z.BusinessLogic.ViewModels
+namespace Z.BusinessLogic.ViewModels.ProCalc
 {
     public class ProCalcViewModel : INotifyPropertyChanged, IEventListener<PositionChangedEvent>, IEventListener<ShuttingDownEvent>
     {
