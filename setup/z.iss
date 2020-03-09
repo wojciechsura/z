@@ -4,7 +4,7 @@
 #define MyAppName "Z"
 #define MyAppVersion "1.0"
 #define MyAppPublisher "Spooksoft"
-#define MyAppURL "http://www.spook.freshsite.pl"
+#define MyAppURL "http://www.spooksoft.pl"
 #define MyAppExeName "Z.exe"
 
 ; #define PGS

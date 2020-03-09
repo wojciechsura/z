@@ -21,10 +21,11 @@ using Z.Common.Types;
 using Z.Api;
 using Z.BusinessLogic.Events;
 using System.Windows;
+using Z.BusinessLogic.ViewModels.Base;
 
 namespace Z.BusinessLogic.ViewModels
 {
-    public class MainViewModel : INotifyPropertyChanged, IEventListener<ShuttingDownEvent>, IEventListener<ConfigurationChangedEvent>, IEventListener<PositionChangedEvent>
+    public class MainViewModel : BaseViewModel, IEventListener<ShuttingDownEvent>, IEventListener<ConfigurationChangedEvent>, IEventListener<PositionChangedEvent>
     {
         // Private types ------------------------------------------------------
 
@@ -147,9 +148,9 @@ namespace Z.BusinessLogic.ViewModels
 
         private void ClearInput()
         {
-            PublishEnteredText(null);
-            PublishErrorText(null);
-            PublishCompleteHintVisible(false);
+            EnteredText = null;
+            ErrorText = null;
+            CompleteHintVisible = false;
             ClearSuggestions();
             ClearKeywordData();
         }
@@ -164,8 +165,7 @@ namespace Z.BusinessLogic.ViewModels
         private void ClearSuggestions()
         {
             suggestionData = null;
-
-            PublishSuggestions(null);
+            Suggestions = null;
             mainWindowAccess.HideList();
         }
 
@@ -232,7 +232,7 @@ namespace Z.BusinessLogic.ViewModels
                             suggestionData[i].Suggestion.Match,
                             i));
 
-                    PublishSuggestions(suggestionsDTO);
+                    Suggestions = suggestionsDTO;
                     mainWindowAccess.ShowList();
                 }
                 else
@@ -271,12 +271,12 @@ namespace Z.BusinessLogic.ViewModels
                 {
                     string replace = ((IZSuggestionComplete)module).Complete(currentKeyword?.Keyword.ActionName, selectedSuggestionData.Suggestion);
 
-                    PublishEnteredText(replace);
+                    EnteredText = replace;
                     if (replace.Length > 0)
                         mainWindowAccess.CaretPosition = replace.Length;
                     StartEnteredTextTimer();
 
-                    PublishCompleteHintVisible(false);
+                    CompleteHintVisible = false;
                 }
             }
         }
@@ -284,9 +284,9 @@ namespace Z.BusinessLogic.ViewModels
         private void EnteredTextChanged()
         {
             StartEnteredTextTimer();
-            PublishShowHint(false);
-            PublishCompleteHintVisible(false);
-            PublishErrorText(null);
+            ShowHint = false;
+            CompleteHintVisible = false;
+            ErrorText = null;
         }
 
         private void EnteredTextTimerTick(object sender, EventArgs e)
@@ -385,7 +385,7 @@ namespace Z.BusinessLogic.ViewModels
             if (!options.PreventClose)
                 InternalDismissWindow();
 
-            PublishErrorText(options.ErrorText);
+            ErrorText = options.ErrorText;
         }
 
         private SuggestionDTO GetSelectedSuggestion()
@@ -414,79 +414,31 @@ namespace Z.BusinessLogic.ViewModels
             mainWindowAccess.OpenConfiguration();
         }
 
-        private void PublishCompleteHintVisible(bool value)
-        {
-            completeHintVisible = value;
-            OnPropertyChanged(nameof(CompleteHintVisible));
-        }
-
-        private void PublishEnteredText(string text)
-        {
-            enteredText = text;
-            OnPropertyChanged(nameof(EnteredText));
-        }
-
-        private void PublishErrorText(string error)
-        {
-            errorText = error;
-            OnPropertyChanged(nameof(ErrorText));
-        }
-
-        private void PublishKeyword(string text)
-        {
-            keyword = text;
-            OnPropertyChanged(nameof(Keyword));
-        }
-
-        private void PublishKeywordVisible(bool value)
-        {
-            keywordVisible = value;
-            OnPropertyChanged(nameof(KeywordVisible));
-        }
-
-        private void PublishSelectedItemIndex(int index)
-        {
-            if (suggestions != null && (index < -1 || index >= suggestions.Count))
-                throw new ArgumentOutOfRangeException(nameof(index));
-
-            selectedItemIndex = index;
-            OnPropertyChanged(nameof(SelectedItemIndex));
-            SelectedSuggestionChanged();
-
-            listWindowAccess.EnsureSelectedIsVisible();
-        }
-
-        private void PublishShowHint(bool value)
-        {
-            showHint = value;
-            OnPropertyChanged(nameof(ShowHint));
-        }
-
-        private void PublishSuggestions(List<SuggestionDTO> suggestions)
-        {
-            this.suggestions = suggestions;
-            OnPropertyChanged(nameof(Suggestions));
-            PublishSelectedItemIndex(-1);
-        }
-
-        private void SelectedSuggestionChanged()
+        private void HandleSelectedItemChanged()
         {
             SuggestionDTO suggestion = GetSelectedSuggestion();
 
             if (suggestion != null)
             {
                 var text = suggestionData[suggestion.Index].Suggestion.Text;
-                PublishEnteredText(text);
+                EnteredText = text;
                 mainWindowAccess.CaretPosition = text.Length;
 
                 var selectedSuggestionData = suggestionData[suggestion.Index];
                 if (selectedSuggestionData.Module is IZSuggestionComplete)
                 {
-                    PublishCompleteHintVisible((selectedSuggestionData.Module as IZSuggestionComplete).CanComplete(currentKeyword?.Keyword.ActionName, selectedSuggestionData.Suggestion));
+                    CompleteHintVisible = (selectedSuggestionData.Module as IZSuggestionComplete).CanComplete(currentKeyword?.Keyword.ActionName, selectedSuggestionData.Suggestion);
                 }
                 else
-                    PublishCompleteHintVisible(false);
+                    CompleteHintVisible = false;
             }
+
+            listWindowAccess.EnsureSelectedIsVisible();
+        }
+
+        private void HandleSuggestionsChanged()
+        {
+            SelectedItemIndex = -1;
         }
 
         private void SelectPreviousSuggestion()
@@ -494,9 +446,9 @@ namespace Z.BusinessLogic.ViewModels
             if (suggestions != null && suggestions.Any())
             {
                 if (selectedItemIndex > 0)
-                    PublishSelectedItemIndex(selectedItemIndex - 1);
+                    SelectedItemIndex = selectedItemIndex - 1;
                 else
-                    PublishSelectedItemIndex(suggestions.Count - 1);
+                    SelectedItemIndex = suggestions.Count - 1;
             }
         }
 
@@ -505,15 +457,15 @@ namespace Z.BusinessLogic.ViewModels
             if (suggestions != null && suggestions.Any())
             {
                 if (selectedItemIndex >= 0 && selectedItemIndex < suggestions.Count - 1)
-                    PublishSelectedItemIndex(selectedItemIndex + 1);
+                    SelectedItemIndex = selectedItemIndex + 1;
                 else
-                    PublishSelectedItemIndex(0);
+                    SelectedItemIndex = 0;
             }
         }
 
         private void SetKeywordData(Models.KeywordData action, string keywordText, string enteredText)
         {
-            PublishEnteredText(enteredText);
+            EnteredText = enteredText;
             SetKeywordData(action, keywordText);
         }
 
@@ -528,8 +480,8 @@ namespace Z.BusinessLogic.ViewModels
             ClearInput();
 
             mainWindowAccess.Show();
-            PublishShowHint(true);
-            PublishCompleteHintVisible(false);
+            ShowHint = true;
+            CompleteHintVisible = false;
         }
 
         private void Shutdown()
@@ -553,8 +505,8 @@ namespace Z.BusinessLogic.ViewModels
 
         private void UpdateViewmodelKeyword()
         {
-            PublishKeyword(currentKeyword?.Keyword.DisplayName);
-            PublishKeywordVisible(currentKeyword != null);
+            Keyword = currentKeyword?.Keyword.DisplayName;
+            KeywordVisible = currentKeyword != null;
         }
 
         private void DoSwitchToZ()
@@ -565,13 +517,6 @@ namespace Z.BusinessLogic.ViewModels
         private void DoSwitchToProCalc()
         {
             windowService.ShowProCalcWindow();
-        }
-
-        // Protected methods --------------------------------------------------
-
-        protected void OnPropertyChanged(string property)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
         }
 
         // IEventListener implementations -------------------------------------
@@ -662,7 +607,7 @@ namespace Z.BusinessLogic.ViewModels
             {
                 int keywordTextLength = currentKeyword.StoredText.Length;
 
-                PublishEnteredText(currentKeyword.StoredText + enteredText);
+                EnteredText = currentKeyword.StoredText + enteredText;
                 mainWindowAccess.CaretPosition = keywordTextLength;
 
                 ClearKeywordData();
@@ -720,7 +665,7 @@ namespace Z.BusinessLogic.ViewModels
                 if (action != null)
                 {
                     SetKeywordData(action, possibleKeyword);
-                    PublishEnteredText(enteredText.Substring(mainWindowAccess.CaretPosition));
+                    EnteredText = enteredText.Substring(mainWindowAccess.CaretPosition);
                     mainWindowAccess.CaretPosition = 0;
 
                     // Module may want to provide suggestions on empty text
@@ -779,24 +724,33 @@ namespace Z.BusinessLogic.ViewModels
 
         public string EnteredText
         {
-            get
-            {
-                return enteredText;
-            }
-            set
-            {
-                enteredText = value;
-                EnteredTextChanged();
-            }
+            get => enteredText;
+            set => Set(ref enteredText, () => EnteredText, value, EnteredTextChanged);            
         }
 
-        public bool ShowHint => showHint;
+        public bool ShowHint
+        {
+            get => showHint;
+            set => showHint = value;
+        }
 
-        public string Keyword => keyword;
+        public string Keyword
+        {
+            get => keyword;
+            set => Set(ref keyword, () => Keyword, value);
+        }
 
-        public bool KeywordVisible => keywordVisible;
+        public bool KeywordVisible
+        {
+            get => keywordVisible;
+            set => Set(ref keywordVisible, () => KeywordVisible, value);
+        }
 
-        public bool CompleteHintVisible => completeHintVisible;
+        public bool CompleteHintVisible
+        {
+            get => completeHintVisible;
+            set => Set(ref completeHintVisible, () => CompleteHintVisible, value);
+        }
 
         public ICommand ConfigurationCommand { get; private set; }
 
@@ -806,7 +760,11 @@ namespace Z.BusinessLogic.ViewModels
 
         public ICommand SwitchToProCalcCommand { get; private set; }
 
-        public string ErrorText => errorText;
+        public string ErrorText
+        {
+            get => errorText;
+            set => Set(ref errorText, () => ErrorText, value);
+        }
 
         // List window
 
@@ -824,21 +782,22 @@ namespace Z.BusinessLogic.ViewModels
             }
         }
 
-        public IEnumerable<SuggestionDTO> Suggestions => suggestions;
+        public List<SuggestionDTO> Suggestions
+        {
+            get => suggestions;
+            set => Set(ref suggestions, () => Suggestions, value, HandleSuggestionsChanged);
+        }
 
         public int SelectedItemIndex
         {
-            get
+            get => selectedItemIndex;
+            set 
             {
-                return selectedItemIndex;
-            }
-            set
-            {
-                selectedItemIndex = value;
-                SelectedSuggestionChanged();
+                if (suggestions != null && (value < -1 || value >= suggestions.Count))
+                    throw new ArgumentOutOfRangeException(nameof(value));
+
+                Set(ref selectedItemIndex, () => SelectedItemIndex, value, HandleSelectedItemChanged);
             }
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
     }
 }
