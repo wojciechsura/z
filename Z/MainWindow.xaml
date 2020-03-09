@@ -59,7 +59,7 @@
 
                 <Grid>
                     <TextBlock Foreground="{StaticResource MainTextBrush}" Opacity="0.5" HorizontalAlignment="Left" Margin="10, 0, 0, 0" VerticalAlignment="Center"
-                                            Visibility="{Binding ShowHint, Converter={StaticResource BooleanToVisibilityConverter}}">Enter ? to get list of keywords</TextBlock>
+                                            Visibility="{Binding ShowHint, Converter={StaticResource BooleanToVisibilityConverter}}">Enter ? to get list of keywords. Press up for launcher.</TextBlock>
 
                     <DockPanel>
                         <Border Visibility="{Binding CompleteHintVisible, Converter={StaticResource BooleanToVisibilityConverter}}" VerticalAlignment="Center" Margin="3" 
@@ -67,8 +67,8 @@
                                     BorderBrush="{StaticResource MainTextBrush}" Opacity="0.5" CornerRadius="3">
                             <TextBlock Foreground="{StaticResource MainTextBrush}" FontSize="10" FontWeight="Bold" Margin="2">Tab→</TextBlock>
                         </Border>
-                        <TextBox VerticalAlignment="Center" Style="{StaticResource MainEditStyle}" x:Name="MainEdit" Margin="3" Text="{Binding EnteredText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                        PreviewKeyDown="MainEditKeyDown" />
+                        <TextBox VerticalAlignment="Center" Style="{StaticResource MainEditStyle}" x:Name="MainEdit" Margin="3" Text="{Binding EnteredText, Mode=TwoWay, 
+                            UpdateSourceTrigger=PropertyChanged}" PreviewKeyDown="MainEditKeyDown" />
                     </DockPanel>
                 </Grid>
             </DockPanel>

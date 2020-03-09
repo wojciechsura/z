@@ -14,9 +14,9 @@ using System.Windows.Shapes;
 using Z.Dependencies;
 using Microsoft.Practices.Unity;
 using Z.BusinessLogic;
-using Z.BusinessLogic.ViewModels.Interfaces;
 using Z.BusinessLogic.ViewModels;
 using System.ComponentModel;
+using Z.BusinessLogic.ViewModels.Main;
 
 namespace Z
 {

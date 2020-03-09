@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 using Z.BusinessLogic.ViewModels;
 using Z.BusinessLogic.Services;
 using Z.BusinessLogic.Services.Interfaces;
+using Z.BusinessLogic.ViewModels.Main;
+using Z.BusinessLogic.ViewModels.ProCalc;
+using Z.BusinessLogic.ViewModels.Application;
+using Z.BusinessLogic.ViewModels.Configuration;
 
 namespace Z.BusinessLogic.Dependencies
 {
@@ -24,10 +28,10 @@ namespace Z.BusinessLogic.Dependencies
             container.RegisterType<ProCalcViewModel>(new ContainerControlledLifetimeManager());
             container.RegisterType<AppViewModel>(new ContainerControlledLifetimeManager());
             container.RegisterType<ConfigurationViewModel>();
-            container.RegisterType<ViewModels.Configuration.GeneralViewModel>();
-            container.RegisterType<ViewModels.Configuration.BehaviorViewModel>();
-            container.RegisterType<ViewModels.Configuration.KeywordsViewModel>();
-            container.RegisterType<ViewModels.Configuration.ModulesViewModel>();
+            container.RegisterType<ViewModels.Configuration.General.GeneralViewModel>();
+            container.RegisterType<ViewModels.Configuration.Behavior.BehaviorViewModel>();
+            container.RegisterType<ViewModels.Configuration.Keywords.KeywordsViewModel>();
+            container.RegisterType<ViewModels.Configuration.Modules.ModulesViewModel>();
         }
 
         public static void LateConfigure(IUnityContainer container)

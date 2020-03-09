@@ -12,9 +12,9 @@ using Z.BusinessLogic.ViewModels;
 using Z.Dependencies;
 using Microsoft.Practices.Unity;
 using Z.BusinessLogic.Services.Interfaces;
-using Z.BusinessLogic.ViewModels.Interfaces;
 using System.Windows.Threading;
 using System.Reflection;
+using Z.BusinessLogic.ViewModels.Application;
 
 namespace Z
 {

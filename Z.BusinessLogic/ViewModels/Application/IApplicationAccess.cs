@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Z.BusinessLogic.ViewModels.Interfaces
+namespace Z.BusinessLogic.ViewModels.Application
 {
-    public interface IListWindowAccess
+    public interface IApplicationAccess
     {
-        void EnsureSelectedIsVisible();
+        void Shutdown();
     }
 }

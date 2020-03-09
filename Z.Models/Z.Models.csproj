@@ -49,6 +49,8 @@
     <Compile Include="Configuration\Hotkey.cs" />
     <Compile Include="Configuration\KeywordOverride.cs" />
     <Compile Include="Configuration\Keywords.cs" />
+    <Compile Include="Configuration\Launcher.cs" />
+    <Compile Include="Configuration\LauncherShortcut.cs" />
     <Compile Include="Configuration\MainWindow.cs" />
     <Compile Include="DTO\SuggestionDTO.cs" />
     <Compile Include="KeywordData.cs" />

@@ -12,13 +12,13 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Z.BusinessLogic.ViewModels;
-using Z.BusinessLogic.ViewModels.Interfaces;
 using Z.Types;
 using Microsoft.Practices.Unity;
 using System.Windows.Interop;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Windows.Threading;
+using Z.BusinessLogic.ViewModels.ProCalc;
 
 namespace Z
 {

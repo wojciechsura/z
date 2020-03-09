@@ -21,8 +21,8 @@ using System.ComponentModel;
 using System.Runtime.InteropServices;
 using Z.BusinessLogic;
 using Z.BusinessLogic.ViewModels;
-using Z.BusinessLogic.ViewModels.Interfaces;
 using Z.Types;
+using Z.BusinessLogic.ViewModels.Main;
 
 namespace Z
 {

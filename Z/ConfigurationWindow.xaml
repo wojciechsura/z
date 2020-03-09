@@ -5,7 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Z"
         xmlns:conf="clr-namespace:Z.BusinessLogic.ViewModels.Configuration;assembly=Z.BusinessLogic"
-        xmlns:key="clr-namespace:Z.BusinessLogic.ViewModels.Configuration.Keywords;assembly=Z.BusinessLogic"
+        xmlns:cbase="clr-namespace:Z.BusinessLogic.ViewModels.Configuration.Base;assembly=Z.BusinessLogic"
+        xmlns:cmod="clr-namespace:Z.BusinessLogic.ViewModels.Configuration.Modules;assembly=Z.BusinessLogic"
+        xmlns:cbeh="clr-namespace:Z.BusinessLogic.ViewModels.Configuration.Behavior;assembly=Z.BusinessLogic"
+        xmlns:ckey="clr-namespace:Z.BusinessLogic.ViewModels.Configuration.Keywords;assembly=Z.BusinessLogic"
+        xmlns:cgen="clr-namespace:Z.BusinessLogic.ViewModels.Configuration.General;assembly=Z.BusinessLogic"
         xmlns:t="clr-namespace:Z.Common.Types;assembly=Z.Common"
         mc:Ignorable="d"
         Title="Z Configuration" Height="600" Width="800" ResizeMode="NoResize"
@@ -27,14 +31,14 @@
         </Grid>
         <ListBox x:Name="Pages" DockPanel.Dock="Left" Width="200" Margin="6" ItemsSource="{Binding Pages}">
             <ListBox.ItemTemplate>
-                <DataTemplate DataType="{x:Type conf:BaseConfigurationViewModel}">
+                <DataTemplate DataType="{x:Type cbase:BaseConfigurationViewModel}">
                     <TextBlock Margin="2" Text="{Binding DisplayName}" />
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
         <ContentPresenter Content="{Binding ElementName=Pages, Path=SelectedItem}">
             <ContentPresenter.Resources>
-                <DataTemplate DataType="{x:Type conf:GeneralViewModel}">
+                <DataTemplate DataType="{x:Type cgen:GeneralViewModel}">
                     
                     <!-- General settings -->
                     
@@ -69,7 +73,7 @@
                     </StackPanel>
                         
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type conf:KeywordsViewModel}">
+                <DataTemplate DataType="{x:Type ckey:KeywordsViewModel}">
                     
                     <!-- Keyword settings -->
 
@@ -115,7 +119,7 @@
                         
                     </DockPanel>
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type conf:BehaviorViewModel}">
+                <DataTemplate DataType="{x:Type cbeh:BehaviorViewModel}">
                     
                     <!-- Behavior settings -->
                     
@@ -179,7 +183,7 @@
                     </StackPanel>
                         
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type conf:ModulesViewModel}">
+                <DataTemplate DataType="{x:Type cmod:ModulesViewModel}">
 
                     <!-- Modules -->
                     

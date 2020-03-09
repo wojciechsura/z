@@ -15,8 +15,8 @@ using System.Windows.Shapes;
 using Microsoft.Practices.Unity;
 using Z.Wpf.Types;
 using Z.BusinessLogic;
-using Z.BusinessLogic.ViewModels.Interfaces;
 using Z.BusinessLogic.ViewModels;
+using Z.BusinessLogic.ViewModels.Configuration;
 
 namespace Z
 {
