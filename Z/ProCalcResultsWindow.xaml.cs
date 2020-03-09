@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Z.BusinessLogic.ViewModels;
 using Microsoft.Practices.Unity;
+using Z.BusinessLogic.ViewModels.ProCalc;
 
 namespace Z
 {

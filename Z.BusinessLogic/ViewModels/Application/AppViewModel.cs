@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Z.BusinessLogic.Events;
 using Z.BusinessLogic.Services.Interfaces;
-using Z.BusinessLogic.ViewModels.Interfaces;
 using Z.Wpf.Types;
 
-namespace Z.BusinessLogic.ViewModels
+namespace Z.BusinessLogic.ViewModels.Application
 {
     public class AppViewModel : IEventListener<GlobalHotkeyHitEvent>
     {

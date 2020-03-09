@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Z.BusinessLogic.ViewModels;
-using Z.BusinessLogic.ViewModels.Interfaces;
+using Z.BusinessLogic.ViewModels.Main;
 
 namespace Z
 {
