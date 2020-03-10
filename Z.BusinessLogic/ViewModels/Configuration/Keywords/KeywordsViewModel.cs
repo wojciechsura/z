@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Z.Api.Interfaces;
 using Z.Api.Types;
 using Z.BusinessLogic.ViewModels.Configuration.Keywords;
-using Z.Models.Configuration;
+using Z.BusinessLogic.Models.Configuration;
 using Z.Api;
 using Z.BusinessLogic.ViewModels.Configuration.Base;
 using Z.BusinessLogic.Services.Config;

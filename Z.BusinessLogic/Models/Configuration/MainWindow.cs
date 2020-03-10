@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Xml.Serialization;
 
-namespace Z.Models.Configuration
+namespace Z.BusinessLogic.Models.Configuration
 {
-    public class ProCalcWindow
+    public class MainWindow
     {
         [XmlElement("RelativePosition")]
         public Point RelativePosition { get; set; }

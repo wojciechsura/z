@@ -25,7 +25,7 @@ namespace Z
     /// </summary>
     public partial class ListWindow : IListWindowAccess
     {
-        private readonly MainViewModel viewModel;
+        private readonly ListViewModel viewModel;
 
         protected override void OnClosing(CancelEventArgs e)
         {            
@@ -34,7 +34,7 @@ namespace Z
 
         public ListWindow()
         {
-            viewModel = Dependencies.Container.Instance.Resolve<MainViewModel>();
+            viewModel = Dependencies.Container.Instance.Resolve<MainViewModel>().ListViewModel;
             viewModel.ListWindowAccess = this;
 
             InitializeComponent();

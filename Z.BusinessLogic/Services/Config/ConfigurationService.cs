@@ -9,7 +9,7 @@ using System.Xml.Serialization;
 using Z.BusinessLogic.Events;
 using Z.BusinessLogic.Services.EventBus;
 using Z.BusinessLogic.Services.Paths;
-using Z.Models.Configuration;
+using Z.BusinessLogic.Models.Configuration;
 
 namespace Z.BusinessLogic.Services.Config
 {

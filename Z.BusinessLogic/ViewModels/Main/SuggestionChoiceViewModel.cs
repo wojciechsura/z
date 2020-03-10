@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Z.Models;
-using Z.Models.DTO;
+using Z.BusinessLogic.Models;
 
 namespace Z.BusinessLogic.ViewModels.Main
 {
@@ -13,28 +12,19 @@ namespace Z.BusinessLogic.ViewModels.Main
         private ISuggestionChoiceWindowAccess access;
 
         private readonly List<SuggestionData> suggestionData;
-        private readonly List<SuggestionDTO> suggestions;
+        private readonly List<SuggestionViewModel> suggestions;
 
-        public SuggestionChoiceViewModel(List<SuggestionData> suggestions)
+        public SuggestionChoiceViewModel(List<SuggestionViewModel> suggestions)
         {
             if (suggestions.Count < 2)
                 throw new ArgumentException(nameof(suggestions));
 
-            this.suggestionData = suggestions;
-
-            this.suggestions = new List<SuggestionDTO>();
-            for (int i = 0; i < suggestionData.Count; i++)
-                this.suggestions.Add(new SuggestionDTO(suggestionData[i].Suggestion.Display,
-                    suggestionData[i].Suggestion.Comment,
-                    suggestionData[i].Module.DisplayName,
-                    suggestionData[i].Suggestion.Image,
-                    suggestionData[i].Suggestion.Match,
-                    i));
+            this.suggestions = suggestions;
 
             SelectedItemIndex = 0;
         }
 
-        public IEnumerable<SuggestionDTO> Suggestions => suggestions;
+        public IReadOnlyCollection<SuggestionViewModel> Suggestions => suggestions;
 
         public void EnterPressed()
         {

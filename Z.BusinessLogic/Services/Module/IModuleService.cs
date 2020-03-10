@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Z.Api;
 using Z.Api.Interfaces;
-using Z.Models;
+using Z.BusinessLogic.Models;
 
 namespace Z.BusinessLogic.Services.Module
 {

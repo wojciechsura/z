@@ -5,7 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="clr-namespace:Z"
-    xmlns:models="clr-namespace:Z.Models.DTO;assembly=Z.Models"
+    xmlns:models="clr-namespace:Z.BusinessLogic.ViewModels.Main;assembly=Z.BusinessLogic"
     xmlns:controls="clr-namespace:Z.Controls"
     mc:Ignorable="d"
     WindowStyle="None" ResizeMode="NoResize" Visibility="Hidden" ShowInTaskbar="False" 

@@ -5,10 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Threading;
-using Z.Models;
 
 using Microsoft.Practices.Unity;
-using Z.Models.DTO;
 using System.Diagnostics;
 using Z.Api.Interfaces;
 using Z.Api.Types;
@@ -27,10 +25,11 @@ using Z.BusinessLogic.Services.Keyword;
 using Z.BusinessLogic.Services.Config;
 using Z.BusinessLogic.Services.Application;
 using Z.BusinessLogic.Services.AppWindows;
+using Z.BusinessLogic.Models;
 
 namespace Z.BusinessLogic.ViewModels.Main
 {
-    public class MainViewModel : BaseViewModel, 
+    public class MainViewModel : BaseViewModel, IMainHandler,
         IEventListener<ShuttingDownEvent>, 
         IEventListener<ConfigurationChangedEvent>, 
         IEventListener<PositionChangedEvent>
@@ -128,6 +127,7 @@ namespace Z.BusinessLogic.ViewModels.Main
         private readonly IAppWindowService windowService;
 
         private readonly LauncherViewModel launcherViewModel;
+        private readonly ListViewModel listViewModel;
 
         private readonly DispatcherTimer enteredTextTimer;
 
@@ -137,7 +137,6 @@ namespace Z.BusinessLogic.ViewModels.Main
         private List<SuggestionData> suggestionData;
 
         private IMainWindowAccess mainWindowAccess;
-        private IListWindowAccess listWindowAccess;
 
         // Main window
 
@@ -148,11 +147,6 @@ namespace Z.BusinessLogic.ViewModels.Main
         private bool completeHintVisible;
         private string errorText;
         private bool suspendPositionChangeNotifications = false;
-
-        // List window
-
-        private List<SuggestionDTO> suggestions;
-        private int selectedItemIndex;
 
         // Private methods ----------------------------------------------------
 
@@ -175,7 +169,8 @@ namespace Z.BusinessLogic.ViewModels.Main
         private void ClearSuggestions()
         {
             suggestionData = null;
-            Suggestions = null;
+            listViewModel.Suggestions = null;
+
             mainWindowAccess.HideList();
         }
 
@@ -233,16 +228,11 @@ namespace Z.BusinessLogic.ViewModels.Main
                             throw new InvalidEnumArgumentException("Not supported suggestion sorting!");
                     }
 
-                    List<SuggestionDTO> suggestionsDTO = new List<SuggestionDTO>();
-                    for (int i = 0; i < suggestionData.Count; i++)
-                        suggestionsDTO.Add(new SuggestionDTO(suggestionData[i].Suggestion.Display,
-                            suggestionData[i].Suggestion.Comment,
-                            suggestionData[i].Module.DisplayName,
-                            suggestionData[i].Suggestion.Image,
-                            suggestionData[i].Suggestion.Match,
-                            i));
+                    List<SuggestionViewModel> suggestions = suggestionData
+                        .Select(sd => new SuggestionViewModel(sd))
+                        .ToList();
 
-                    Suggestions = suggestionsDTO;
+                    listViewModel.Suggestions = suggestions;
                     mainWindowAccess.ShowList();
                 }
                 else
@@ -270,10 +260,10 @@ namespace Z.BusinessLogic.ViewModels.Main
 
         private void CompleteSuggestion()
         {
-            var suggestion = GetSelectedSuggestion();
+            var suggestion = listViewModel.SelectedSuggestion;
             if (suggestion != null)
             {
-                var selectedSuggestionData = suggestionData[suggestion.Index];
+                var selectedSuggestionData = suggestion.SuggestionData;
                 IZModule module = selectedSuggestionData.Module;
 
                 if (module is IZSuggestionComplete && 
@@ -305,16 +295,17 @@ namespace Z.BusinessLogic.ViewModels.Main
             CollectSuggestions();
         }
 
-        private void ExecuteCurrentAction()
+        private void DoExecuteCurrentAction()
         {
             // Stopping timer
             enteredTextTimer.Stop();
 
             ExecuteOptions options = new ExecuteOptions();
 
-            if (GetSelectedSuggestion() != null)
+            if (listViewModel.SelectedSuggestion != null)
             {
-                SuggestionData suggestion = suggestionData[GetSelectedSuggestion().Index];
+                // TODO store suggestion data in the DTO
+                SuggestionData suggestion = listViewModel.SelectedSuggestion.SuggestionData;
                 suggestion.Module.ExecuteSuggestion(suggestion.Suggestion, options);
             }
             else if (currentKeyword != null)
@@ -343,7 +334,7 @@ namespace Z.BusinessLogic.ViewModels.Main
                         }
                     case EnterBehavior.ChooseFirst:
                         {
-                            if (suggestions != null && suggestions.Count > 0)
+                            if (listViewModel.Suggestions != null && listViewModel.Suggestions.Count > 0)
                             {
                                 SuggestionData suggestion = suggestionData[0];
                                 suggestion.Module.ExecuteSuggestion(suggestion.Suggestion, options);
@@ -374,7 +365,7 @@ namespace Z.BusinessLogic.ViewModels.Main
                             }
                             else
                             {
-                                SuggestionChoiceViewModel suggestionChoiceViewModel = new SuggestionChoiceViewModel(suggestionData);
+                                SuggestionChoiceViewModel suggestionChoiceViewModel = new SuggestionChoiceViewModel(listViewModel.Suggestions);
                                 bool? result = mainWindowAccess.SelectSuggestion(suggestionChoiceViewModel);
 
                                 if (result == true)
@@ -398,14 +389,36 @@ namespace Z.BusinessLogic.ViewModels.Main
             ErrorText = options.ErrorText;
         }
 
-        private SuggestionDTO GetSelectedSuggestion()
-        {
-            return selectedItemIndex >= 0 ? suggestions[selectedItemIndex] : null;
-        }
-
         private void HandleConfigurationChanged()
         {
             enteredTextTimer.Interval = TimeSpan.FromMilliseconds(configurationService.Configuration.Behavior.SuggestionDelay);
+        }
+
+        private void HandleListViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(ListViewModel.SelectedItemIndex))
+            {
+                SuggestionViewModel suggestion = listViewModel.SelectedSuggestion;
+
+                if (suggestion != null)
+                {
+                    var text = suggestion.SuggestionData.Suggestion.Text;
+                    
+                    // TODO Silent change is required here - implementation is not perfect though
+                    enteredText = text;
+                    OnPropertyChanged(() => EnteredText);
+                    
+                    mainWindowAccess.CaretPosition = text.Length;
+
+                    var selectedSuggestionData = suggestion.SuggestionData;
+                    if (selectedSuggestionData.Module is IZSuggestionComplete)
+                    {
+                        CompleteHintVisible = (selectedSuggestionData.Module as IZSuggestionComplete).CanComplete(currentKeyword?.Keyword.ActionName, selectedSuggestionData.Suggestion);
+                    }
+                    else
+                        CompleteHintVisible = false;
+                }
+            }
         }
 
         private void InternalDismissWindow()
@@ -422,55 +435,6 @@ namespace Z.BusinessLogic.ViewModels.Main
         {
             ClearInput();
             mainWindowAccess.OpenConfiguration();
-        }
-
-        private void HandleSelectedItemChanged()
-        {
-            SuggestionDTO suggestion = GetSelectedSuggestion();
-
-            if (suggestion != null)
-            {
-                var text = suggestionData[suggestion.Index].Suggestion.Text;
-                EnteredText = text;
-                mainWindowAccess.CaretPosition = text.Length;
-
-                var selectedSuggestionData = suggestionData[suggestion.Index];
-                if (selectedSuggestionData.Module is IZSuggestionComplete)
-                {
-                    CompleteHintVisible = (selectedSuggestionData.Module as IZSuggestionComplete).CanComplete(currentKeyword?.Keyword.ActionName, selectedSuggestionData.Suggestion);
-                }
-                else
-                    CompleteHintVisible = false;
-            }
-
-            listWindowAccess.EnsureSelectedIsVisible();
-        }
-
-        private void HandleSuggestionsChanged()
-        {
-            SelectedItemIndex = -1;
-        }
-
-        private void SelectPreviousSuggestion()
-        {
-            if (suggestions != null && suggestions.Any())
-            {
-                if (selectedItemIndex > 0)
-                    SelectedItemIndex = selectedItemIndex - 1;
-                else
-                    SelectedItemIndex = suggestions.Count - 1;
-            }
-        }
-
-        private void SelectNextSuggestion()
-        {
-            if (suggestions != null && suggestions.Any())
-            {
-                if (selectedItemIndex >= 0 && selectedItemIndex < suggestions.Count - 1)
-                    SelectedItemIndex = selectedItemIndex + 1;
-                else
-                    SelectedItemIndex = 0;
-            }
         }
 
         private void SetKeywordData(Models.KeywordData action, string keywordText, string enteredText)
@@ -527,6 +491,13 @@ namespace Z.BusinessLogic.ViewModels.Main
         private void DoSwitchToProCalc()
         {
             windowService.ShowProCalcWindow();
+        }
+
+        // IMainHandler implementation ----------------------------------------
+
+        void IMainHandler.ExecuteCurrentAction()
+        {
+            DoExecuteCurrentAction();
         }
 
         // IEventListener implementations -------------------------------------
@@ -607,8 +578,12 @@ namespace Z.BusinessLogic.ViewModels.Main
             keywordVisible = false;
             errorText = null;
 
-            suggestions = null;
-            selectedItemIndex = -1;
+            // Dependent viewmodels
+
+            listViewModel = new ListViewModel(this);
+            listViewModel.PropertyChanged += HandleListViewModelPropertyChanged;
+            
+            launcherViewModel = new LauncherViewModel(configurationService);
         }
 
         public bool BackspacePressed()
@@ -629,13 +604,13 @@ namespace Z.BusinessLogic.ViewModels.Main
 
         public bool DownPressed()
         {
-            SelectNextSuggestion();
+            listViewModel.SelectNextSuggestion();
             return true;
         }
 
         public bool EnterPressed()
         {
-            ExecuteCurrentAction();
+            DoExecuteCurrentAction();
             return true;
         }
 
@@ -696,23 +671,13 @@ namespace Z.BusinessLogic.ViewModels.Main
 
         public bool UpPressed()
         {
-            SelectPreviousSuggestion();
+            listViewModel.SelectPreviousSuggestion();
             return true;
         }
 
         public void WindowLostFocus()
         {
             // HideWindow();
-        }
-
-        public void ListWindowEnterPressed()
-        {
-            ExecuteCurrentAction();
-        }
-
-        public void ListDoubleClick()
-        {
-            ExecuteCurrentAction();
         }
 
         // Public properties --------------------------------------------------
@@ -778,36 +743,6 @@ namespace Z.BusinessLogic.ViewModels.Main
 
         // List window
 
-        public IListWindowAccess ListWindowAccess
-        {
-            set
-            {
-                if (value == null)
-                    throw new ArgumentNullException(nameof(value));
-
-                if (listWindowAccess != null)
-                    throw new InvalidOperationException("Access can be set only once!");
-
-                listWindowAccess = value;
-            }
-        }
-
-        public List<SuggestionDTO> Suggestions
-        {
-            get => suggestions;
-            set => Set(ref suggestions, () => Suggestions, value, HandleSuggestionsChanged);
-        }
-
-        public int SelectedItemIndex
-        {
-            get => selectedItemIndex;
-            set 
-            {
-                if (suggestions != null && (value < -1 || value >= suggestions.Count))
-                    throw new ArgumentOutOfRangeException(nameof(value));
-
-                Set(ref selectedItemIndex, () => SelectedItemIndex, value, HandleSelectedItemChanged);
-            }
-        }
+        public ListViewModel ListViewModel => listViewModel;
     }
 }
