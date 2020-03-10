@@ -12,6 +12,9 @@ namespace Z.BusinessLogic.ViewModels.Main
     public class LauncherViewModel : IEventListener<ConfigurationChangedEvent>
     {
         private readonly IConfigurationService configurationService;
+        private readonly IMainHandler handler;
+
+        private ILauncherWindowAccess launcherWindowAccess;
 
         private LauncherShortcutViewModel launcherRoot;
 
@@ -28,11 +31,46 @@ namespace Z.BusinessLogic.ViewModels.Main
             UpdateLauncherRoot();
         }
 
-        public LauncherViewModel(IConfigurationService configurationService)
+        public LauncherViewModel(IMainHandler handler, IConfigurationService configurationService)
         {
+            this.handler = handler;
             this.configurationService = configurationService;
 
             UpdateLauncherRoot();
+        }
+
+        public ILauncherWindowAccess LauncherWindowAccess
+        {
+            set
+            {
+                if (value == null)
+                    throw new ArgumentNullException(nameof(value));
+
+                if (launcherWindowAccess != null)
+                    throw new InvalidOperationException("Access can be set only once!");
+
+                launcherWindowAccess = value;
+            }
+        }
+
+        internal void MoveDown()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void EnterPressed()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void SpacePressed()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void MoveUp()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -20,5 +20,8 @@ namespace Z.BusinessLogic.ViewModels.Main
         Point Position { get; set; }
         Point RelativePosition { get; set; }
         bool IsVisible { get; }
+
+        void ShowLauncher();
+        void HideLauncher();
     }
 }
