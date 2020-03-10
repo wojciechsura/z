@@ -68,6 +68,20 @@
     <Compile Include="Events\ModulesChangedEvent.cs" />
     <Compile Include="Events\PositionChangedEvent.cs" />
     <Compile Include="Events\ShuttingDownEvent.cs" />
+    <Compile Include="Models\Configuration\Behavior.cs" />
+    <Compile Include="Models\Configuration\Configuration.cs" />
+    <Compile Include="Models\Configuration\General.cs" />
+    <Compile Include="Models\Configuration\Hotkey.cs" />
+    <Compile Include="Models\Configuration\KeywordOverride.cs" />
+    <Compile Include="Models\Configuration\Keywords.cs" />
+    <Compile Include="Models\Configuration\Launcher.cs" />
+    <Compile Include="Models\Configuration\LauncherShortcut.cs" />
+    <Compile Include="Models\Configuration\MainWindow.cs" />
+    <Compile Include="Models\Configuration\ProCalcWindow.cs" />
+    <Compile Include="Models\KeywordData.cs" />
+    <Compile Include="Models\SuggestionData.cs" />
+    <Compile Include="ViewModels\Main\IMainHandler.cs" />
+    <Compile Include="ViewModels\Main\SuggestionViewModel.cs" />
     <Compile Include="Services\EventBus\EventBus.cs" />
     <Compile Include="Services\Application\IApplicationController.cs" />
     <Compile Include="Services\EventBus\IEventListener.cs" />
@@ -93,6 +107,7 @@
     <Compile Include="ViewModels\Configuration\IConfigurationWindowAccess.cs" />
     <Compile Include="ViewModels\Main\IListWindowAccess.cs" />
     <Compile Include="ViewModels\Main\IMainWindowAccess.cs" />
+    <Compile Include="ViewModels\Main\ListViewModel.cs" />
     <Compile Include="ViewModels\ProCalc\IProCalcWindowAccess.cs" />
     <Compile Include="ViewModels\Main\ISuggestionChoiceWindowAccess.cs" />
     <Compile Include="ViewModels\Main\LauncherShortcutViewModel.cs" />
@@ -190,10 +205,6 @@
     <ProjectReference Include="..\Z.Dependencies\Z.Dependencies.csproj">
       <Project>{4d075ffa-1213-4dad-8f14-50f6edf2f5bf}</Project>
       <Name>Z.Dependencies</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Z.Models\Z.Models.csproj">
-      <Project>{b6914e5d-5681-4693-b589-76e6de1ad836}</Project>
-      <Name>Z.Models</Name>
     </ProjectReference>
     <ProjectReference Include="..\Z.Wpf\Z.Wpf.csproj">
       <Project>{7a248954-2ade-41ef-b42e-0dc48d20174e}</Project>

@@ -214,10 +214,6 @@
       <Project>{4d075ffa-1213-4dad-8f14-50f6edf2f5bf}</Project>
       <Name>Z.Dependencies</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Z.Models\Z.Models.csproj">
-      <Project>{b6914e5d-5681-4693-b589-76e6de1ad836}</Project>
-      <Name>Z.Models</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Z.Wpf\Z.Wpf.csproj">
       <Project>{7a248954-2ade-41ef-b42e-0dc48d20174e}</Project>
       <Name>Z.Wpf</Name>

@@ -7,7 +7,7 @@ using System.Windows.Input;
 using System.Xml.Serialization;
 using Z.Common.Types;
 
-namespace Z.Models.Configuration
+namespace Z.BusinessLogic.Models.Configuration
 {    
     public class Hotkey
     {
