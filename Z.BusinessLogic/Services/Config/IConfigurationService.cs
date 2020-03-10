@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Z.Models.Configuration;
+using Z.BusinessLogic.Models.Configuration;
 
 namespace Z.BusinessLogic.Services.Config
 {

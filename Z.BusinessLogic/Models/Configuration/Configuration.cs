@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace Z.Models.Configuration
+namespace Z.BusinessLogic.Models.Configuration
 {
     [XmlRoot("Configuration")]
     public class Configuration

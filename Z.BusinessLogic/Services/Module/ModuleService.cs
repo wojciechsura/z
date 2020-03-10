@@ -11,9 +11,9 @@ using Z.Api;
 using Z.Api.Interfaces;
 using Z.Api.Types;
 using Z.BusinessLogic.Events;
+using Z.BusinessLogic.Models;
 using Z.BusinessLogic.Services.EventBus;
 using Z.BusinessLogic.Services.Paths;
-using Z.Models;
 
 namespace Z.BusinessLogic.Services.Module
 {
