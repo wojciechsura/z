@@ -11,7 +11,6 @@ namespace Z.BusinessLogic.ViewModels.Main
     {
         private ISuggestionChoiceWindowAccess access;
 
-        private readonly List<SuggestionData> suggestionData;
         private readonly List<SuggestionViewModel> suggestions;
 
         public SuggestionChoiceViewModel(List<SuggestionViewModel> suggestions)
