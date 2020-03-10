@@ -26,6 +26,7 @@ using Z.BusinessLogic.Services.Config;
 using Z.BusinessLogic.Services.Application;
 using Z.BusinessLogic.Services.AppWindows;
 using Z.BusinessLogic.Models;
+using Z.BusinessLogic.Types.Main;
 
 namespace Z.BusinessLogic.ViewModels.Main
 {
@@ -36,9 +37,9 @@ namespace Z.BusinessLogic.ViewModels.Main
     {
         // Private types ------------------------------------------------------
 
-        private class CurrentKeyword
+        private class CurrentKeywordInfo
         {
-            public CurrentKeyword(KeywordData keyword, string storedText)
+            public CurrentKeywordInfo(KeywordData keyword, string storedText)
             {
                 Keyword = keyword;
                 StoredText = storedText;
@@ -133,13 +134,14 @@ namespace Z.BusinessLogic.ViewModels.Main
 
         private readonly HelpModule helpModule;
 
-        private CurrentKeyword currentKeyword;
+        private CurrentKeywordInfo currentKeyword;
         private List<SuggestionData> suggestionData;
 
         private IMainWindowAccess mainWindowAccess;
 
         // Main window
 
+        private MainWorkingMode workingMode;
         private string enteredText;
         private bool showHint;
         private string keyword;
@@ -155,27 +157,29 @@ namespace Z.BusinessLogic.ViewModels.Main
             EnteredText = null;
             ErrorText = null;
             CompleteHintVisible = false;
+
             ClearSuggestions();
             ClearKeywordData();
+
+            WorkingMode = MainWorkingMode.Idle;
         }
 
         private void ClearKeywordData()
         {
-            currentKeyword = null;
-
-            UpdateViewmodelKeyword();
+            CurrentKeyword = null;
         }
 
         private void ClearSuggestions()
         {
             suggestionData = null;
             listViewModel.Suggestions = null;
-
-            mainWindowAccess.HideList();
         }
 
         private void CollectSuggestions()
         {
+            if (workingMode != MainWorkingMode.SuggestionList)
+                System.Diagnostics.Debug.WriteLine("CollectSuggestions not in suggestion list mode!");
+
             Func<SuggestionData, SuggestionData, int> compareGroups = (x, y) =>
             {
                 if (String.IsNullOrEmpty(x.Suggestion.SortGroup) && String.IsNullOrEmpty(y.Suggestion.SortGroup))
@@ -242,24 +246,11 @@ namespace Z.BusinessLogic.ViewModels.Main
                 ClearSuggestions();
         }
 
-        public void NotifyPositionChanged(int left, int top)
-        {
-            if (!suspendPositionChangeNotifications)
-                eventBus.Send(new PositionChangedEvent(left, top, this));
-        }
-
-        public void Dismiss()
-        {
-            InternalDismissWindow();
-        }
-
-        public void Summon()
-        {
-            InternalSummonWindow();
-        }
-
         private void CompleteSuggestion()
         {
+            if (workingMode != MainWorkingMode.SuggestionList)
+                System.Diagnostics.Debug.WriteLine("CompleteSuggestion not in suggestion list mode!");
+
             var suggestion = listViewModel.SelectedSuggestion;
             if (suggestion != null)
             {
@@ -292,11 +283,24 @@ namespace Z.BusinessLogic.ViewModels.Main
         private void EnteredTextTimerTick(object sender, EventArgs e)
         {
             StopEnteredTextTimer();
-            CollectSuggestions();
+
+            if (EnteredText.Length > 0)
+            {
+                WorkingMode = MainWorkingMode.SuggestionList;
+                CollectSuggestions();
+            }
+            else
+            {
+                ClearSuggestions();
+                WorkingMode = MainWorkingMode.Idle;
+            }
         }
 
         private void DoExecuteCurrentAction()
         {
+            if (workingMode != MainWorkingMode.SuggestionList)
+                System.Diagnostics.Debug.WriteLine("DoExecuteCurrentAction not in suggestion list mode!");
+
             // Stopping timer
             enteredTextTimer.Stop();
 
@@ -394,8 +398,17 @@ namespace Z.BusinessLogic.ViewModels.Main
             enteredTextTimer.Interval = TimeSpan.FromMilliseconds(configurationService.Configuration.Behavior.SuggestionDelay);
         }
 
+        private void HandleCurrentKeywordChanged()
+        {
+            Keyword = currentKeyword?.Keyword.DisplayName;
+            KeywordVisible = currentKeyword != null;
+        }
+
         private void HandleListViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
+            if (workingMode != MainWorkingMode.SuggestionList)
+                System.Diagnostics.Debug.WriteLine("HandleListViewModelPropertyChanged not in suggestion list mode!");
+
             if (e.PropertyName == nameof(ListViewModel.SelectedItemIndex))
             {
                 SuggestionViewModel suggestion = listViewModel.SelectedSuggestion;
@@ -421,9 +434,32 @@ namespace Z.BusinessLogic.ViewModels.Main
             }
         }
 
+        private void HandleWorkingModeChanged()
+        {
+            switch (workingMode)
+            {
+                case MainWorkingMode.Idle:
+                    mainWindowAccess.HideList();
+                    mainWindowAccess.HideLauncher();
+                    break;
+                case MainWorkingMode.SuggestionList:
+                    mainWindowAccess.HideLauncher();
+                    mainWindowAccess.ShowList();
+                    break;
+                case MainWorkingMode.Launcher:
+                    mainWindowAccess.ShowLauncher();
+                    mainWindowAccess.ShowList();
+                    break;
+                default:
+                    throw new InvalidEnumArgumentException("Unsupported working mode!");
+            }
+        }
+
         private void InternalDismissWindow()
         {
             mainWindowAccess.Hide();
+
+            ClearInput();
         }
 
         private bool IsInputEmpty()
@@ -434,19 +470,25 @@ namespace Z.BusinessLogic.ViewModels.Main
         private void OpenConfiguration()
         {
             ClearInput();
+
             mainWindowAccess.OpenConfiguration();
         }
 
         private void SetKeywordData(Models.KeywordData action, string keywordText, string enteredText)
         {
+            if (workingMode != MainWorkingMode.SuggestionList)
+                System.Diagnostics.Debug.WriteLine("SetKeywordData not in suggestion list mode!");
+
             EnteredText = enteredText;
             SetKeywordData(action, keywordText);
         }
 
         private void SetKeywordData(Models.KeywordData action, string keywordText)
         {
-            currentKeyword = new CurrentKeyword(action, $"{keywordText} ");
-            UpdateViewmodelKeyword();
+            if (workingMode != MainWorkingMode.SuggestionList)
+                System.Diagnostics.Debug.WriteLine("SetKeywordData not in suggestion list mode!");
+
+            CurrentKeyword = new CurrentKeywordInfo(action, $"{keywordText} ");
         }
 
         private void InternalSummonWindow()
@@ -477,12 +519,6 @@ namespace Z.BusinessLogic.ViewModels.Main
             enteredTextTimer.Stop();
         }
 
-        private void UpdateViewmodelKeyword()
-        {
-            Keyword = currentKeyword?.Keyword.DisplayName;
-            KeywordVisible = currentKeyword != null;
-        }
-
         private void DoSwitchToZ()
         {
             windowService.ShowMainWindow();
@@ -491,6 +527,14 @@ namespace Z.BusinessLogic.ViewModels.Main
         private void DoSwitchToProCalc()
         {
             windowService.ShowProCalcWindow();
+        }
+
+        // Private properties -------------------------------------------------
+
+        private CurrentKeywordInfo CurrentKeyword
+        {
+            get => currentKeyword;
+            set => Set(ref currentKeyword, () => CurrentKeyword, value, HandleCurrentKeywordChanged);
         }
 
         // IMainHandler implementation ----------------------------------------
@@ -556,6 +600,8 @@ namespace Z.BusinessLogic.ViewModels.Main
 
             this.suggestionData = null;
 
+            workingMode = MainWorkingMode.Idle;
+
             currentKeyword = null;
 
             this.enteredTextTimer = new DispatcherTimer();
@@ -583,7 +629,7 @@ namespace Z.BusinessLogic.ViewModels.Main
             listViewModel = new ListViewModel(this);
             listViewModel.PropertyChanged += HandleListViewModelPropertyChanged;
             
-            launcherViewModel = new LauncherViewModel(configurationService);
+            launcherViewModel = new LauncherViewModel(this, configurationService);
         }
 
         public bool BackspacePressed()
@@ -602,27 +648,66 @@ namespace Z.BusinessLogic.ViewModels.Main
             return false;
         }
 
+        public void Dismiss()
+        {
+            InternalDismissWindow();
+        }
+
         public bool DownPressed()
         {
-            listViewModel.SelectNextSuggestion();
+            switch (workingMode)
+            {
+                case MainWorkingMode.Idle:
+                    // TODO enter launcher
+                    WorkingMode = MainWorkingMode.Launcher;
+                    break;
+                case MainWorkingMode.SuggestionList:
+                    listViewModel.SelectNextSuggestion();
+                    break;
+                case MainWorkingMode.Launcher:
+                    launcherViewModel.MoveDown();
+                    break;
+                default:
+                    throw new InvalidEnumArgumentException("Unsupported working mode");
+            }
+
             return true;
         }
 
         public bool EnterPressed()
         {
-            DoExecuteCurrentAction();
+            switch (workingMode)
+            {
+                case MainWorkingMode.Idle:
+                    // Nothing to do
+                    break;
+                case MainWorkingMode.SuggestionList:
+                    DoExecuteCurrentAction();
+                    break;
+                case MainWorkingMode.Launcher:
+                    launcherViewModel.EnterPressed();
+                    break;
+                default:
+                    throw new InvalidEnumArgumentException("Unsupported working mode");
+            }
+            
             return true;
         }
 
         public bool EscapePressed()
         {
-            if (!IsInputEmpty())
+            switch (workingMode)
             {
-                ClearInput();
-            }
-            else
-            {
-                InternalDismissWindow();
+                case MainWorkingMode.Idle:
+                    InternalDismissWindow();
+                    break;
+                case MainWorkingMode.SuggestionList:
+                    ClearInput();
+                    break;
+                case MainWorkingMode.Launcher:
+                    // TODO exit launcher
+                    WorkingMode = MainWorkingMode.Idle;
+                    break;
             }
 
             return true;
@@ -633,45 +718,97 @@ namespace Z.BusinessLogic.ViewModels.Main
             mainWindowAccess.RelativePosition = configurationService.Configuration.MainWindow.RelativePosition;
         }
 
+        public void NotifyPositionChanged(int left, int top)
+        {
+            if (!suspendPositionChangeNotifications)
+                eventBus.Send(new PositionChangedEvent(left, top, this));
+        }
+
         public bool SpacePressed()
         {
-            if (String.IsNullOrEmpty(enteredText))
-                return false;
-
-            int indexOfSpace = enteredText.IndexOf(' ');
-
-            // Check if potential keyword is entered
-            if (mainWindowAccess.CaretPosition > 0
-                && (indexOfSpace >= mainWindowAccess.CaretPosition || indexOfSpace == -1))
+            switch (workingMode)
             {
-                string possibleKeyword = enteredText.Substring(0, mainWindowAccess.CaretPosition);
+                case MainWorkingMode.Idle:
+                    return false;
+                case MainWorkingMode.SuggestionList:
+                    {
+                        if (String.IsNullOrEmpty(enteredText))
+                            return false;
 
-                Models.KeywordData action = keywordService.GetKeywordAction(possibleKeyword);
-                if (action != null)
-                {
-                    SetKeywordData(action, possibleKeyword);
-                    EnteredText = enteredText.Substring(mainWindowAccess.CaretPosition);
-                    mainWindowAccess.CaretPosition = 0;
+                        int indexOfSpace = enteredText.IndexOf(' ');
 
-                    // Module may want to provide suggestions on empty text
-                    enteredTextTimer.Start();
+                        // Check if potential keyword is entered
+                        if (mainWindowAccess.CaretPosition > 0
+                            && (indexOfSpace >= mainWindowAccess.CaretPosition || indexOfSpace == -1))
+                        {
+                            string possibleKeyword = enteredText.Substring(0, mainWindowAccess.CaretPosition);
 
-                    return true;
-                }
-            }
+                            Models.KeywordData action = keywordService.GetKeywordAction(possibleKeyword);
+                            if (action != null)
+                            {
+                                SetKeywordData(action, possibleKeyword);
+                                EnteredText = enteredText.Substring(mainWindowAccess.CaretPosition);
+                                mainWindowAccess.CaretPosition = 0;
 
-            return false;
+                                // Module may want to provide suggestions on empty text
+                                enteredTextTimer.Start();
+
+                                return true;
+                            }
+                        }
+
+                        return false;
+                    }
+                case MainWorkingMode.Launcher:
+                    // TODO exit launcher
+                    WorkingMode = MainWorkingMode.Idle;
+                    return false;
+                default:
+                    throw new InvalidEnumArgumentException("Unsupported working mode!");
+            }            
+        }
+
+        public void Summon()
+        {
+            InternalSummonWindow();
         }
 
         public bool TabPressed()
         {
-            CompleteSuggestion();
-            return true;
+            switch (workingMode)
+            {
+                case MainWorkingMode.Idle:
+                    // Nothing to do, consume tab
+                    return true;
+                case MainWorkingMode.SuggestionList:
+                    CompleteSuggestion();
+                    return true;
+                case MainWorkingMode.Launcher:
+                    // Nothing to do, consume tab
+                    return true;
+                default:
+                    throw new InvalidEnumArgumentException("Unsupported working mode!");
+            }            
         }
 
         public bool UpPressed()
         {
-            listViewModel.SelectPreviousSuggestion();
+            switch (workingMode)
+            {
+                case MainWorkingMode.Idle:
+                    // TODO enter launcher
+                    WorkingMode = MainWorkingMode.Launcher;
+                    break;
+                case MainWorkingMode.SuggestionList:
+                    listViewModel.SelectPreviousSuggestion();
+                    break;
+                case MainWorkingMode.Launcher:
+                    launcherViewModel.MoveUp();
+                    break;
+                default:
+                    throw new InvalidEnumArgumentException("Unsupported working mode");
+            }
+
             return true;
         }
 
@@ -741,8 +878,14 @@ namespace Z.BusinessLogic.ViewModels.Main
             set => Set(ref errorText, () => ErrorText, value);
         }
 
-        // List window
+        public MainWorkingMode WorkingMode
+        {
+            get => workingMode;
+            set => Set(ref workingMode, () => WorkingMode, value, HandleWorkingModeChanged);
+        }
 
         public ListViewModel ListViewModel => listViewModel;
+
+        public LauncherViewModel LauncherViewModel => launcherViewModel;
     }
 }

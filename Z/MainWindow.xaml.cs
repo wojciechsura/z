@@ -40,6 +40,7 @@ namespace Z
 
         private readonly MainViewModel viewModel;
         private readonly ListWindow listWindow;
+        private readonly LauncherWindow launcherWindow;
 
         // Private methods ----------------------------------------------------
 
@@ -124,38 +125,44 @@ namespace Z
                 this.DragMove();
         }
 
-        private void PositionListWindow()
+        private void PositionSubWindows()
         {
-            PositionListWindow(this.Width, this.Height);
+            PositionSubWindows(this.Width, this.Height);
         }
 
-        private void PositionListWindow(double width, double height)
+        private void PositionSubWindow(Window subWindow, double width, double height)
         {
             // Reposition list window
             var screen = System.Windows.Forms.Screen.FromHandle(windowInteropHelper.Handle);
 
             int halfScreenHeight = screen.WorkingArea.Height / 2;
-            int listWindowHeight = Math.Min(LIST_WINDOW_HEIGHT, (int)(halfScreenHeight - this.ActualHeight / 2) - LIST_WINDOW_MARGIN);
+            int subWindowHeight = Math.Min(LIST_WINDOW_HEIGHT, (int)(halfScreenHeight - this.ActualHeight / 2) - LIST_WINDOW_MARGIN);
             int halfScreenHeightPos = screen.WorkingArea.Top + halfScreenHeight;
-            var aboveHalf = this.Top + this.ActualHeight / 2 <= halfScreenHeightPos;
+            bool aboveHalf = this.Top + this.ActualHeight / 2 <= halfScreenHeightPos;
 
-            listWindow.Height = listWindowHeight;
+            subWindow.Height = subWindowHeight;
 
             if (aboveHalf)
             {
-                listWindow.Left = this.Left;
-                listWindow.Top = this.Top + height + LIST_WINDOW_MARGIN;
+                subWindow.Left = this.Left;
+                subWindow.Top = this.Top + height + LIST_WINDOW_MARGIN;
             }
             else
             {
-                listWindow.Left = this.Left;
-                listWindow.Top = this.Top - listWindow.Height - LIST_WINDOW_MARGIN;
+                subWindow.Left = this.Left;
+                subWindow.Top = this.Top - subWindow.Height - LIST_WINDOW_MARGIN;
             }
+        }
+
+        private void PositionSubWindows(double width, double height)
+        {
+            PositionSubWindow(listWindow, width, height);
+            PositionSubWindow(launcherWindow, width, height);
         }
 
         private void MainWindowSizeChanged(object sender, SizeChangedEventArgs e)
         {
-            PositionListWindow(e.NewSize.Width, e.NewSize.Height);
+            PositionSubWindows(e.NewSize.Width, e.NewSize.Height);
         }
 
         private void GearButtonClick(object sender, RoutedEventArgs e)
@@ -168,28 +175,41 @@ namespace Z
         void IMainWindowAccess.Show()
         {
             Show();
-            PositionListWindow();
+            PositionSubWindows();
 
             SetForegroundWindow(this.windowInteropHelper.Handle);
         }
 
         void IMainWindowAccess.Hide()
         {
+            ((IMainWindowAccess)this).HideLauncher();
             ((IMainWindowAccess)this).HideList();
             Hide();
         }
 
         void IMainWindowAccess.ShowList()
         {
-             listWindow.Show();
+            ((IMainWindowAccess)this).HideLauncher();
+            listWindow.Show();
 
             // Schedule repositioning of list window
-            listWindow.Dispatcher.Invoke(() => PositionListWindow(), DispatcherPriority.Render);
+            listWindow.Dispatcher.Invoke(() => PositionSubWindows(), DispatcherPriority.Render);
+        }
+
+        void IMainWindowAccess.ShowLauncher()
+        {
+            ((IMainWindowAccess)this).HideList();
+            launcherWindow.Show();
         }
 
         void IMainWindowAccess.HideList()
         {
             listWindow.Hide();
+        }
+
+        void IMainWindowAccess.HideLauncher()
+        {
+            launcherWindow.Hide();
         }
 
         void IMainWindowAccess.OpenConfiguration()
@@ -247,7 +267,7 @@ namespace Z
 
         protected override void OnLocationChanged(EventArgs e)
         {
-            PositionListWindow();
+            PositionSubWindows();
             viewModel.NotifyPositionChanged((int)Left, (int)Top);
 
             base.OnLocationChanged(e);
@@ -277,6 +297,7 @@ namespace Z
             this.DataContext = viewModel;
 
             listWindow = new ListWindow();
+            launcherWindow = new LauncherWindow();
         }
 
         public override void Summon()

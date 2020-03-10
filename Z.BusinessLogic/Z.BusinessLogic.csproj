@@ -80,6 +80,8 @@
     <Compile Include="Models\Configuration\ProCalcWindow.cs" />
     <Compile Include="Models\KeywordData.cs" />
     <Compile Include="Models\SuggestionData.cs" />
+    <Compile Include="Types\Main\MainWorkingMode.cs" />
+    <Compile Include="ViewModels\Main\ILauncherWindowAccess.cs" />
     <Compile Include="ViewModels\Main\IMainHandler.cs" />
     <Compile Include="ViewModels\Main\SuggestionViewModel.cs" />
     <Compile Include="Services\EventBus\EventBus.cs" />
