@@ -52,6 +52,17 @@ namespace Z.BusinessLogic.ViewModels.Base
             }
         }
 
+        protected void Set<T>(ref T field, Expression<Func<T>> property, T value, Action changeHandler, Action beforeChangeHandler, bool force = false)
+        {
+            if (!Equals(field, value) || force)
+            {
+                beforeChangeHandler();
+                field = value;
+                OnPropertyChanged(property);
+                changeHandler();
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
     }
 }
