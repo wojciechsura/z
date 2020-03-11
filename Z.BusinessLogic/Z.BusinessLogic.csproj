@@ -81,8 +81,9 @@
     <Compile Include="Models\KeywordData.cs" />
     <Compile Include="Models\SuggestionData.cs" />
     <Compile Include="Types\Main\MainWorkingMode.cs" />
-    <Compile Include="ViewModels\Main\ILauncherWindowAccess.cs" />
+    <Compile Include="ViewModels\Main\Launcher\ILauncherWindowAccess.cs" />
     <Compile Include="ViewModels\Main\IMainHandler.cs" />
+    <Compile Include="ViewModels\Main\Launcher\LauncherRowViewModel.cs" />
     <Compile Include="ViewModels\Main\SuggestionViewModel.cs" />
     <Compile Include="Services\EventBus\EventBus.cs" />
     <Compile Include="Services\Application\IApplicationController.cs" />
@@ -112,8 +113,8 @@
     <Compile Include="ViewModels\Main\ListViewModel.cs" />
     <Compile Include="ViewModels\ProCalc\IProCalcWindowAccess.cs" />
     <Compile Include="ViewModels\Main\ISuggestionChoiceWindowAccess.cs" />
-    <Compile Include="ViewModels\Main\LauncherShortcutViewModel.cs" />
-    <Compile Include="ViewModels\Main\LauncherViewModel.cs" />
+    <Compile Include="ViewModels\Main\Launcher\LauncherShortcutViewModel.cs" />
+    <Compile Include="ViewModels\Main\Launcher\LauncherViewModel.cs" />
     <Compile Include="ViewModels\Main\MainViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Text.Designer.cs">

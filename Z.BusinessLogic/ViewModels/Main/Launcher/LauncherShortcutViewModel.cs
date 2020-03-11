@@ -4,13 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Z.BusinessLogic.Models.Configuration;
+using Z.BusinessLogic.ViewModels.Base;
 
-namespace Z.BusinessLogic.ViewModels.Main
+namespace Z.BusinessLogic.ViewModels.Main.Launcher
 {
-    public class LauncherShortcutViewModel
+    public class LauncherShortcutViewModel : BaseViewModel
     {
+        // Private fields -----------------------------------------------------
+
+        private bool selected;
+
+        // Public methods -----------------------------------------------------
+
         public LauncherShortcutViewModel(LauncherShortcut launcherShortcut)
         {
+            selected = false;
+
             Name = launcherShortcut.Name;
 
             List<LauncherShortcutViewModel> subItems = new List<LauncherShortcutViewModel>();
@@ -24,7 +33,16 @@ namespace Z.BusinessLogic.ViewModels.Main
             SubItems = subItems;
         }
 
+        // Public properties --------------------------------------------------
+
         public string Name { get; }
-        public IReadOnlyCollection<LauncherShortcutViewModel> SubItems { get; }
+        
+        public IReadOnlyList<LauncherShortcutViewModel> SubItems { get; }
+        
+        public bool Selected
+        {
+            get => selected;
+            set => Set(ref selected, () => Selected, value);
+        }
     }
 }

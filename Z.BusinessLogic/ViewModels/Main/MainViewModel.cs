@@ -27,6 +27,7 @@ using Z.BusinessLogic.Services.Application;
 using Z.BusinessLogic.Services.AppWindows;
 using Z.BusinessLogic.Models;
 using Z.BusinessLogic.Types.Main;
+using Z.BusinessLogic.ViewModels.Main.Launcher;
 
 namespace Z.BusinessLogic.ViewModels.Main
 {
@@ -152,9 +153,16 @@ namespace Z.BusinessLogic.ViewModels.Main
 
         // Private methods ----------------------------------------------------
 
+        private void SilentSetEnteredText(string newText)
+        {
+            enteredText = newText;
+            OnPropertyChanged(() => EnteredText);
+        }
+
         private void ClearInput()
         {
-            EnteredText = null;
+            SilentSetEnteredText(null);
+
             ErrorText = null;
             CompleteHintVisible = false;
 
@@ -416,10 +424,8 @@ namespace Z.BusinessLogic.ViewModels.Main
                 if (suggestion != null)
                 {
                     var text = suggestion.SuggestionData.Suggestion.Text;
-                    
-                    // TODO Silent change is required here - implementation is not perfect though
-                    enteredText = text;
-                    OnPropertyChanged(() => EnteredText);
+
+                    SilentSetEnteredText(text);
                     
                     mainWindowAccess.CaretPosition = text.Length;
 
@@ -448,7 +454,7 @@ namespace Z.BusinessLogic.ViewModels.Main
                     break;
                 case MainWorkingMode.Launcher:
                     mainWindowAccess.ShowLauncher();
-                    mainWindowAccess.ShowList();
+                    mainWindowAccess.HideList();
                     break;
                 default:
                     throw new InvalidEnumArgumentException("Unsupported working mode!");
@@ -527,6 +533,18 @@ namespace Z.BusinessLogic.ViewModels.Main
         private void DoSwitchToProCalc()
         {
             windowService.ShowProCalcWindow();
+        }
+
+        private void EnterLauncherMode()
+        {
+            launcherViewModel.Init();
+            WorkingMode = MainWorkingMode.Launcher;
+        }
+
+        private void ExitLauncherMode()
+        {
+            WorkingMode = MainWorkingMode.Idle;
+            launcherViewModel.Clear();
         }
 
         // Private properties -------------------------------------------------
@@ -658,8 +676,7 @@ namespace Z.BusinessLogic.ViewModels.Main
             switch (workingMode)
             {
                 case MainWorkingMode.Idle:
-                    // TODO enter launcher
-                    WorkingMode = MainWorkingMode.Launcher;
+                    EnterLauncherMode();                    
                     break;
                 case MainWorkingMode.SuggestionList:
                     listViewModel.SelectNextSuggestion();
@@ -705,8 +722,7 @@ namespace Z.BusinessLogic.ViewModels.Main
                     ClearInput();
                     break;
                 case MainWorkingMode.Launcher:
-                    // TODO exit launcher
-                    WorkingMode = MainWorkingMode.Idle;
+                    ExitLauncherMode();
                     break;
             }
 
@@ -718,10 +734,42 @@ namespace Z.BusinessLogic.ViewModels.Main
             mainWindowAccess.RelativePosition = configurationService.Configuration.MainWindow.RelativePosition;
         }
 
+        public bool LeftPressed()
+        {
+            switch (workingMode)
+            {
+                case MainWorkingMode.Idle:
+                    return false;
+                case MainWorkingMode.SuggestionList:
+                    return false;
+                case MainWorkingMode.Launcher:
+                    launcherViewModel.MoveLeft();
+                    return true;                    
+                default:
+                    throw new InvalidEnumArgumentException("Unsupported working mode!");
+            }
+        }
+
         public void NotifyPositionChanged(int left, int top)
         {
             if (!suspendPositionChangeNotifications)
                 eventBus.Send(new PositionChangedEvent(left, top, this));
+        }
+
+        public bool RightPressed()
+        {
+            switch (workingMode)
+            {
+                case MainWorkingMode.Idle:
+                    return false;
+                case MainWorkingMode.SuggestionList:
+                    return false;
+                case MainWorkingMode.Launcher:
+                    launcherViewModel.MoveRight();
+                    return true;
+                default:
+                    throw new InvalidEnumArgumentException("Unsupported working mode!");
+            }
         }
 
         public bool SpacePressed()
@@ -796,8 +844,7 @@ namespace Z.BusinessLogic.ViewModels.Main
             switch (workingMode)
             {
                 case MainWorkingMode.Idle:
-                    // TODO enter launcher
-                    WorkingMode = MainWorkingMode.Launcher;
+                    EnterLauncherMode();
                     break;
                 case MainWorkingMode.SuggestionList:
                     listViewModel.SelectPreviousSuggestion();
