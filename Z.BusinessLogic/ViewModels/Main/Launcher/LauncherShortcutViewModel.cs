@@ -13,31 +13,23 @@ namespace Z.BusinessLogic.ViewModels.Main.Launcher
         // Private fields -----------------------------------------------------
 
         private bool selected;
+        private readonly LauncherShortcut launcherShortcut;
 
         // Public methods -----------------------------------------------------
 
         public LauncherShortcutViewModel(LauncherShortcut launcherShortcut)
         {
             selected = false;
-
-            Name = launcherShortcut.Name;
-
-            List<LauncherShortcutViewModel> subItems = new List<LauncherShortcutViewModel>();
-
-            for (int i = 0; i < launcherShortcut.SubItems.Count; i++)
-            {
-                var subItem = new LauncherShortcutViewModel(launcherShortcut.SubItems[i]);
-                subItems.Add(subItem);
-            }
-
-            SubItems = subItems;
+            LauncherShortcut = launcherShortcut ?? throw new ArgumentNullException(nameof(launcherShortcut));
         }
 
         // Public properties --------------------------------------------------
 
-        public string Name { get; }
-        
-        public IReadOnlyList<LauncherShortcutViewModel> SubItems { get; }
+        public string Name => LauncherShortcut.Name;
+
+        public LauncherShortcut LauncherShortcut { get; }
+
+        public bool HasSubItems => LauncherShortcut.SubItems.Count > 0;
         
         public bool Selected
         {

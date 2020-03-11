@@ -9,7 +9,7 @@ namespace Z.BusinessLogic.Models.Configuration
 {
     public class Launcher
     {
-        [XmlElement("Root")]
-        public LauncherShortcut Root { get; set; }
+        [XmlArray("Items")]
+        public List<LauncherShortcut> Items { get; set; } = new List<LauncherShortcut>();
     }
 }

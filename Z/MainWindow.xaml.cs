@@ -351,14 +351,6 @@ namespace Z
             listWindow = new ListWindow();
 
             launcherWindow = new LauncherWindow();
-            launcherWindow.SizeChanged += HandleLauncherWindowSizeChanged;
-        }
-
-        private void HandleLauncherWindowSizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            var positionInfo = GetWindowPositioningInfo(this.ActualWidth, this.ActualHeight);
-
-            PositionSubWindow(launcherWindow, positionInfo);
         }
 
         public override void Summon()

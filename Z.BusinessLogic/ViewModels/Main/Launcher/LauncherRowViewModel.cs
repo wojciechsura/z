@@ -12,7 +12,6 @@ namespace Z.BusinessLogic.ViewModels.Main.Launcher
         // Private fields -----------------------------------------------------
 
         private LauncherShortcutViewModel selectedItem;
-        private bool active;
 
         // Private methods ----------------------------------------------------
 
@@ -46,8 +45,6 @@ namespace Z.BusinessLogic.ViewModels.Main.Launcher
 
         public LauncherRowViewModel(IReadOnlyList<LauncherShortcutViewModel> items)
         {
-            active = false;
-
             Items = items ?? throw new ArgumentNullException(nameof(items));
             SelectedItem = Items.FirstOrDefault();
         }
@@ -60,12 +57,6 @@ namespace Z.BusinessLogic.ViewModels.Main.Launcher
         {
             get => selectedItem;
             set => Set(ref selectedItem, () => SelectedItem, value, HandleAfterSelectedItemChanged, HandleBeforeSelectedItemChanged);
-        }
-
-        public bool Active
-        {
-            get => active;
-            set => Set(ref active, () => Active, value);
         }
 
         internal void SelectPrevious()

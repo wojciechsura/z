@@ -22,45 +22,28 @@
     </Window.Resources>
 
     <controls:WindowChrome>
-        <ItemsControl ItemsSource="{Binding Rows}">
+        <ItemsControl ItemsSource="{Binding SelectedRow.Items}">
             <ItemsControl.ItemTemplate>
-                
-                <!-- Row template -->
-                
-                <DataTemplate DataType="{x:Type vm:LauncherRowViewModel}">
-                    <Border>
-                        <ItemsControl ItemsSource="{Binding Items}">
-                            <ItemsControl.ItemTemplate>
 
-                                <!-- Item template -->
+                <!-- Item template -->
 
-                                <DataTemplate DataType="{x:Type vm:LauncherShortcutViewModel}">
-                                    <Border x:Name="bRoot" BorderThickness="2" BorderBrush="Transparent">
-                                        <Label Content="{Binding Name}" />
-                                    </Border>
-                                    <DataTemplate.Triggers>
-                                        <DataTrigger Binding="{Binding Selected}" Value="True">
-                                            <DataTrigger.Setters>
-                                                <Setter TargetName="bRoot" Property="BorderBrush" Value="#ff0000" />
-                                            </DataTrigger.Setters>
-                                        </DataTrigger>
-                                    </DataTemplate.Triggers>
-                                </DataTemplate>
-
-                            </ItemsControl.ItemTemplate>
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <StackPanel Orientation="Horizontal" />
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                        </ItemsControl>
+                <DataTemplate DataType="{x:Type vm:LauncherShortcutViewModel}">
+                    <Border x:Name="bRoot" BorderThickness="2" BorderBrush="Transparent">
+                        <Label Content="{Binding Name}" />
                     </Border>
+                    <DataTemplate.Triggers>
+                        <DataTrigger Binding="{Binding Selected}" Value="True">
+                            <DataTrigger.Setters>
+                                <Setter TargetName="bRoot" Property="BorderBrush" Value="#ff0000" />
+                            </DataTrigger.Setters>
+                        </DataTrigger>
+                    </DataTemplate.Triggers>
                 </DataTemplate>
-                
+
             </ItemsControl.ItemTemplate>
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <controls:ReversibleStackPanel Reverse="{Binding Reversed}" />
+                    <StackPanel Orientation="Horizontal" />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
         </ItemsControl>
