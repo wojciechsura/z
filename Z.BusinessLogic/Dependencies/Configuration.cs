@@ -37,6 +37,7 @@ namespace Z.BusinessLogic.Dependencies
             container.RegisterType<ViewModels.Configuration.Behavior.BehaviorViewModel>();
             container.RegisterType<ViewModels.Configuration.Keywords.KeywordsViewModel>();
             container.RegisterType<ViewModels.Configuration.Modules.ModulesViewModel>();
+            container.RegisterType<ViewModels.Configuration.Launcher.LauncherViewModel>();
         }
 
         public static void LateConfigure(IUnityContainer container)
