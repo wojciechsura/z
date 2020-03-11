@@ -14,6 +14,7 @@ using Z.BusinessLogic.ViewModels.Configuration.Behavior;
 using Z.BusinessLogic.ViewModels.Configuration.Keywords;
 using Z.BusinessLogic.ViewModels.Configuration.Modules;
 using Z.BusinessLogic.Services.Config;
+using Z.BusinessLogic.ViewModels.Configuration.Launcher;
 
 namespace Z.BusinessLogic.ViewModels.Configuration
 {
@@ -61,7 +62,8 @@ namespace Z.BusinessLogic.ViewModels.Configuration
                 Container.Instance.Resolve<GeneralViewModel>(),
                 Container.Instance.Resolve<BehaviorViewModel>(),
                 Container.Instance.Resolve<KeywordsViewModel>(),
-                Container.Instance.Resolve<ModulesViewModel>()
+                Container.Instance.Resolve<ModulesViewModel>(),
+                Container.Instance.Resolve<LauncherViewModel>()
             };
 
             OkCommand = new SimpleCommand((obj) => HandleOk());
