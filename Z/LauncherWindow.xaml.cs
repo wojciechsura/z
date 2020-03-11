@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Z.BusinessLogic.ViewModels.Main;
 using Microsoft.Practices.Unity;
+using Z.BusinessLogic.ViewModels.Main.Launcher;
 
 namespace Z
 {
@@ -37,6 +38,30 @@ namespace Z
             InitializeComponent();
 
             this.DataContext = viewModel;
+        }
+
+        private void HandlePreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case Key.Left:
+                    viewModel.MoveLeft();
+                    break;
+                case Key.Right:
+                    viewModel.MoveRight();
+                    break;
+                case Key.Up:
+                    viewModel.MoveUp();
+                    break;
+                case Key.Down:
+                    viewModel.MoveDown();
+                    break;
+                case Key.Enter:
+                    viewModel.EnterPressed();
+                    break;
+            }
+
+            e.Handled = true;
         }
     }
 }

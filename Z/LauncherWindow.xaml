@@ -5,11 +5,13 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="clr-namespace:Z"
     xmlns:models="clr-namespace:Z.BusinessLogic.ViewModels.Main;assembly=Z.BusinessLogic"
+        xmlns:vm="clr-namespace:Z.BusinessLogic.ViewModels.Main.Launcher;assembly=Z.BusinessLogic"
     xmlns:controls="clr-namespace:Z.Controls"
     mc:Ignorable="d"
     WindowStyle="None" ResizeMode="NoResize" Visibility="Hidden" ShowInTaskbar="False" 
     Topmost="True" AllowsTransparency="True" Background="Transparent"
-    Title="ListWindow" MinWidth="400" SizeToContent="Width" ShowActivated="False">
+    Title="ListWindow" MinWidth="400" SizeToContent="WidthAndHeight" ShowActivated="False"
+        PreviewKeyDown="HandlePreviewKeyDown">
 
     <Window.Resources>
         <ResourceDictionary>
@@ -20,7 +22,48 @@
     </Window.Resources>
 
     <controls:WindowChrome>
-        <Label>Ala ma kota</Label>
+        <ItemsControl ItemsSource="{Binding Rows}">
+            <ItemsControl.ItemTemplate>
+                
+                <!-- Row template -->
+                
+                <DataTemplate DataType="{x:Type vm:LauncherRowViewModel}">
+                    <Border>
+                        <ItemsControl ItemsSource="{Binding Items}">
+                            <ItemsControl.ItemTemplate>
+
+                                <!-- Item template -->
+
+                                <DataTemplate DataType="{x:Type vm:LauncherShortcutViewModel}">
+                                    <Border x:Name="bRoot" BorderThickness="2" BorderBrush="Transparent">
+                                        <Label Content="{Binding Name}" />
+                                    </Border>
+                                    <DataTemplate.Triggers>
+                                        <DataTrigger Binding="{Binding Selected}" Value="True">
+                                            <DataTrigger.Setters>
+                                                <Setter TargetName="bRoot" Property="BorderBrush" Value="#ff0000" />
+                                            </DataTrigger.Setters>
+                                        </DataTrigger>
+                                    </DataTemplate.Triggers>
+                                </DataTemplate>
+
+                            </ItemsControl.ItemTemplate>
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                    </Border>
+                </DataTemplate>
+                
+            </ItemsControl.ItemTemplate>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Vertical" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
     </controls:WindowChrome>
 
 </Window>
