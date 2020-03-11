@@ -15,19 +15,25 @@ using System.Windows.Shapes;
 using Z.BusinessLogic.ViewModels.Main;
 using Microsoft.Practices.Unity;
 using Z.BusinessLogic.ViewModels.Main.Launcher;
+using Z.Controls;
 
 namespace Z
 {
     /// <summary>
     /// Interaction logic for LauncherWindow.xaml
     /// </summary>
-    public partial class LauncherWindow : Window, ILauncherWindowAccess
+    public partial class LauncherWindow : BaseSubWindow, ILauncherWindowAccess
     {
         private readonly LauncherViewModel viewModel;
 
         protected override void OnClosing(CancelEventArgs e)
         {
             e.Cancel = true;
+        }
+
+        protected override void OnReversedChanged()
+        {
+            viewModel.Reversed = this.Reversed;
         }
 
         public LauncherWindow()
