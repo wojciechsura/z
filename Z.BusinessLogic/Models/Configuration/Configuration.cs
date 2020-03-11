@@ -12,13 +12,10 @@ namespace Z.BusinessLogic.Models.Configuration
     {
         public Configuration()
         {
-            Launcher.Root = new LauncherShortcut { Name = "Root" };
-            var root = Launcher.Root;
-
             for (int i = 0; i < 3; i++)
             {
                 var item = new LauncherShortcut { Name = $"Item {i + 1}" };
-                root.SubItems.Add(item);
+                Launcher.Items.Add(item);
 
                 if (i < 2)
                 {
