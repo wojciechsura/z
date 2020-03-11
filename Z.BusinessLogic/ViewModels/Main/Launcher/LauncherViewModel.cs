@@ -25,6 +25,7 @@ namespace Z.BusinessLogic.ViewModels.Main.Launcher
         private LauncherShortcutViewModel launcherRoot;
 
         private LauncherRowViewModel selectedRow;
+        private bool reversed;
 
         // Private methods ----------------------------------------------------
 
@@ -61,38 +62,7 @@ namespace Z.BusinessLogic.ViewModels.Main.Launcher
                 selectedRow.Active = true;
         }
 
-        // IEventListener implementations -------------------------------------
-
-        void IEventListener<ConfigurationChangedEvent>.Receive(ConfigurationChangedEvent @event)
-        {
-            UpdateLauncherRoot();
-        }
-
-        // Public methods -----------------------------------------------------
-
-        public LauncherViewModel(IMainHandler handler, IConfigurationService configurationService)
-        {
-            this.handler = handler;
-            this.configurationService = configurationService;
-
-            UpdateLauncherRoot();
-        }
-
-        public ILauncherWindowAccess LauncherWindowAccess
-        {
-            set
-            {
-                if (value == null)
-                    throw new ArgumentNullException(nameof(value));
-
-                if (launcherWindowAccess != null)
-                    throw new InvalidOperationException("Access can be set only once!");
-
-                launcherWindowAccess = value;
-            }
-        }
-
-        public void MoveDown()
+        private void GoBack()
         {
             if (selectedRow != null)
             {
@@ -107,7 +77,7 @@ namespace Z.BusinessLogic.ViewModels.Main.Launcher
             }
         }
 
-        public void MoveUp()
+        private void GoForward()
         {
             if (selectedRow.SelectedItem.SubItems.Count > 0)
             {
@@ -116,6 +86,54 @@ namespace Z.BusinessLogic.ViewModels.Main.Launcher
 
                 SelectedRow = row;
             }
+        }
+
+        // IEventListener implementations -------------------------------------
+
+        void IEventListener<ConfigurationChangedEvent>.Receive(ConfigurationChangedEvent @event)
+        {
+            UpdateLauncherRoot();
+        }
+
+        // Public methods -----------------------------------------------------
+
+        public LauncherViewModel(IMainHandler handler, IConfigurationService configurationService)
+        {
+            this.handler = handler;
+            this.configurationService = configurationService;
+
+            reversed = false;
+
+            UpdateLauncherRoot();
+        }
+
+        public void Init()
+        {
+            UpdateLauncherRoot();
+        }
+
+        public void Clear()
+        {
+            rows.Clear();
+            SelectedRow = null;
+        }
+
+        // Public properties --------------------------------------------------
+
+        public void MoveDown()
+        {
+            if (reversed)
+                GoBack();
+            else
+                GoForward();
+        }
+
+        public void MoveUp()
+        {
+            if (reversed)
+                GoForward();
+            else
+                GoBack();
         }
 
         public void MoveLeft()
@@ -136,10 +154,24 @@ namespace Z.BusinessLogic.ViewModels.Main.Launcher
 
         public void EnterPressed()
         {
-
+            // TODO choose item
         }
 
         // Public properties --------------------------------------------------
+
+        public ILauncherWindowAccess LauncherWindowAccess
+        {
+            set
+            {
+                if (value == null)
+                    throw new ArgumentNullException(nameof(value));
+
+                if (launcherWindowAccess != null)
+                    throw new InvalidOperationException("Access can be set only once!");
+
+                launcherWindowAccess = value;
+            }
+        }
 
         public ObservableCollection<LauncherRowViewModel> Rows => rows;
 
@@ -151,15 +183,10 @@ namespace Z.BusinessLogic.ViewModels.Main.Launcher
             set => Set(ref selectedRow, () => SelectedRow, value, HandleAfterSelectedRowChanged, HandleBeforeSelectedRowChanged);
         }
 
-        public void Init()
+        public bool Reversed
         {
-            UpdateLauncherRoot();
-        }
-
-        public void Clear()
-        {
-            rows.Clear();
-            SelectedRow = null;
+            get => reversed;
+            set => Set(ref reversed, () => Reversed, value);
         }
     }
 }
