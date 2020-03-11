@@ -11,20 +11,16 @@ using Z.BusinessLogic.ViewModels.Base;
 
 namespace Z.BusinessLogic.ViewModels.Main.Launcher
 {
-    public class LauncherViewModel : BaseViewModel, IEventListener<ConfigurationChangedEvent>
+    public class LauncherViewModel : BaseViewModel
     {
         // Private fields -----------------------------------------------------
 
         private readonly IConfigurationService configurationService;
         private readonly IMainHandler handler;
-
-        private readonly ObservableCollection<LauncherRowViewModel> rows = new ObservableCollection<LauncherRowViewModel>();
+        private readonly List<LauncherRowViewModel> rows = new List<LauncherRowViewModel>();
 
         private ILauncherWindowAccess launcherWindowAccess;
 
-        private LauncherShortcutViewModel launcherRoot;
-
-        private LauncherRowViewModel selectedRow;
         private bool reversed;
 
         // Private methods ----------------------------------------------------
@@ -33,66 +29,41 @@ namespace Z.BusinessLogic.ViewModels.Main.Launcher
         {
             rows.Clear();
 
-            if (configurationService.Configuration.Launcher.Root != null)
+            if (configurationService.Configuration.Launcher.Items != null)
             {
-                launcherRoot = new LauncherShortcutViewModel(configurationService.Configuration.Launcher.Root);
+                var items = configurationService.Configuration.Launcher.Items
+                    .Select(i => new LauncherShortcutViewModel(i))
+                    .ToList();
 
-                var row = new LauncherRowViewModel(launcherRoot.SubItems);                
+                var row = new LauncherRowViewModel(items);
                 rows.Add(row);
-
-                SelectedRow = row;
             }
-            else
-            {
-                launcherRoot = null;
 
-                SelectedRow = null;
-            }
-        }
-
-        private void HandleBeforeSelectedRowChanged()
-        {
-            if (selectedRow != null)
-                selectedRow.Active = false;
-        }
-
-        private void HandleAfterSelectedRowChanged()
-        {
-            if (selectedRow != null)
-                selectedRow.Active = true;
+            OnPropertyChanged(() => SelectedRow);
         }
 
         private void GoBack()
         {
-            if (selectedRow != null)
+            if (rows.Count > 1)
             {
-                int selectedRowIndex = rows.IndexOf(selectedRow);
-
-                if (selectedRowIndex > 0)
-                {
-                    SelectedRow = rows[selectedRowIndex - 1];
-                    while (rows.Count > selectedRowIndex)
-                        rows.RemoveAt(rows.Count - 1);
-                }
+                rows.RemoveAt(rows.Count - 1);
+                OnPropertyChanged(() => SelectedRow);
             }
         }
 
         private void GoForward()
         {
-            if (selectedRow.SelectedItem.SubItems.Count > 0)
+            if (SelectedRow != null && SelectedRow.SelectedItem.HasSubItems)
             {
-                var row = new LauncherRowViewModel(selectedRow.SelectedItem.SubItems);
+                var items = SelectedRow.SelectedItem.LauncherShortcut.SubItems
+                    .Select(i => new LauncherShortcutViewModel(i))
+                    .ToList();
+
+                var row = new LauncherRowViewModel(items);
                 rows.Add(row);
 
-                SelectedRow = row;
+                OnPropertyChanged(() => SelectedRow);
             }
-        }
-
-        // IEventListener implementations -------------------------------------
-
-        void IEventListener<ConfigurationChangedEvent>.Receive(ConfigurationChangedEvent @event)
-        {
-            UpdateLauncherRoot();
         }
 
         // Public methods -----------------------------------------------------
@@ -103,8 +74,6 @@ namespace Z.BusinessLogic.ViewModels.Main.Launcher
             this.configurationService = configurationService;
 
             reversed = false;
-
-            UpdateLauncherRoot();
         }
 
         public void Init()
@@ -115,7 +84,8 @@ namespace Z.BusinessLogic.ViewModels.Main.Launcher
         public void Clear()
         {
             rows.Clear();
-            SelectedRow = null;
+
+            OnPropertyChanged(() => SelectedRow);
         }
 
         // Public properties --------------------------------------------------
@@ -138,18 +108,14 @@ namespace Z.BusinessLogic.ViewModels.Main.Launcher
 
         public void MoveLeft()
         {
-            if (selectedRow != null)
-            {
-                selectedRow.SelectPrevious();
-            }
+            if (SelectedRow != null)
+                SelectedRow.SelectPrevious();
         }
 
         public void MoveRight()
         {
-            if (selectedRow != null)
-            {
-                selectedRow.SelectNext();
-            }
+            if (SelectedRow != null)
+                SelectedRow.SelectNext();
         }
 
         public void EnterPressed()
@@ -173,15 +139,9 @@ namespace Z.BusinessLogic.ViewModels.Main.Launcher
             }
         }
 
-        public ObservableCollection<LauncherRowViewModel> Rows => rows;
-
         // TODO Make selected row always the last item on the list
         // TODO Handle all cases when SelectedRow is null or has no items
-        public LauncherRowViewModel SelectedRow
-        {
-            get => selectedRow;
-            set => Set(ref selectedRow, () => SelectedRow, value, HandleAfterSelectedRowChanged, HandleBeforeSelectedRowChanged);
-        }
+        public LauncherRowViewModel SelectedRow => rows?.LastOrDefault();
 
         public bool Reversed
         {
