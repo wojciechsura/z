@@ -81,6 +81,8 @@
     <Compile Include="Models\KeywordData.cs" />
     <Compile Include="Models\SuggestionData.cs" />
     <Compile Include="Types\Main\MainWorkingMode.cs" />
+    <Compile Include="ViewModels\Configuration\Launcher\LauncherEntryViewModel.cs" />
+    <Compile Include="ViewModels\Configuration\Launcher\LauncherViewModel.cs" />
     <Compile Include="ViewModels\Main\Launcher\ILauncherWindowAccess.cs" />
     <Compile Include="ViewModels\Main\IMainHandler.cs" />
     <Compile Include="ViewModels\Main\Launcher\LauncherRowViewModel.cs" />
