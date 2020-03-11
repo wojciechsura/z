@@ -109,9 +109,9 @@ namespace Z.BusinessLogic.ViewModels.Main.Launcher
 
         public void MoveUp()
         {
-            if (selectedRow.Items.Count > 0)
+            if (selectedRow.SelectedItem.SubItems.Count > 0)
             {
-                var row = new LauncherRowViewModel(selectedRow.Items);
+                var row = new LauncherRowViewModel(selectedRow.SelectedItem.SubItems);
                 rows.Add(row);
 
                 SelectedRow = row;
@@ -143,6 +143,8 @@ namespace Z.BusinessLogic.ViewModels.Main.Launcher
 
         public ObservableCollection<LauncherRowViewModel> Rows => rows;
 
+        // TODO Make selected row always the last item on the list
+        // TODO Handle all cases when SelectedRow is null or has no items
         public LauncherRowViewModel SelectedRow
         {
             get => selectedRow;
