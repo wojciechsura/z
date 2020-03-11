@@ -17,13 +17,14 @@ using Z.BusinessLogic;
 using Z.BusinessLogic.ViewModels;
 using System.ComponentModel;
 using Z.BusinessLogic.ViewModels.Main;
+using Z.Controls;
 
 namespace Z
 {
     /// <summary>
     /// Interaction logic for ListWindow.xaml
     /// </summary>
-    public partial class ListWindow : IListWindowAccess
+    public partial class ListWindow : BaseSubWindow, IListWindowAccess
     {
         private readonly ListViewModel viewModel;
 

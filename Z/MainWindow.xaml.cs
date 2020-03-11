@@ -23,6 +23,7 @@ using Z.BusinessLogic;
 using Z.BusinessLogic.ViewModels;
 using Z.Types;
 using Z.BusinessLogic.ViewModels.Main;
+using Z.Controls;
 
 namespace Z
 {
@@ -35,27 +36,27 @@ namespace Z
 
         private class WindowPositioningInfo
         {
-            public WindowPositioningInfo(double halfScreenWidth, double halfScreenHeight, bool beforeHalf, bool aboveHalf)
+            public WindowPositioningInfo(double windowWidth, double windowHeight, double halfScreenWidth, double halfScreenHeight, bool beforeHalf, bool aboveHalf)
             {
-                this.HalfScreenWidth = halfScreenWidth;
-                this.HalfScreenHeight = halfScreenHeight;
-                this.BeforeHalf = beforeHalf;
-                this.AboveHalf = aboveHalf;
+                WindowWidth = windowWidth;
+                WindowHeight = windowHeight;
+                HalfScreenWidth = halfScreenWidth;
+                HalfScreenHeight = halfScreenHeight;
+                BeforeHalf = beforeHalf;
+                AboveHalf = aboveHalf;
             }
 
+            public double WindowWidth { get; }
+            public double WindowHeight { get; }
             public double HalfScreenWidth { get; }
-
             public double HalfScreenHeight { get; }
-
             public bool BeforeHalf { get; }
-
             public bool AboveHalf { get; }
         }
 
         // Private constants --------------------------------------------------
 
         private readonly int LIST_WINDOW_MARGIN = 16;
-        private readonly int LIST_WINDOW_HEIGHT = 400;
 
         // Private fields -----------------------------------------------------
 
@@ -158,8 +159,10 @@ namespace Z
                 this.DragMove();
         }
 
-        private void PositionSubWindow(Window subWindow, WindowPositioningInfo positioningInfo)
-        {            
+        private void PositionSubWindow(BaseSubWindow subWindow, WindowPositioningInfo positioningInfo)
+        {
+            subWindow.Reversed = !positioningInfo.AboveHalf;
+
             if (positioningInfo.AboveHalf)
                 subWindow.Top = this.Top + this.ActualHeight + LIST_WINDOW_MARGIN;
             else
@@ -184,22 +187,19 @@ namespace Z
             double halfScreenWidthPos = screen.WorkingArea.Left + halfScreenWidth;
             bool beforeHalf = this.Left + width / 2 <= halfScreenWidthPos;
 
-            return new WindowPositioningInfo(halfScreenWidth, halfScreenHeight, beforeHalf, aboveHalf);
+            return new WindowPositioningInfo(width, height, halfScreenWidth, halfScreenHeight, beforeHalf, aboveHalf);
         }
 
-        private void HandleWindowGeometryChanged(double width, double height)
+        private void PositionSubWindows(WindowPositioningInfo positioningInfo)
         {
-            var positioningInfo = GetWindowPositioningInfo(width, height);
-
-            listWindow.Height = Math.Min(LIST_WINDOW_HEIGHT, (int)(positioningInfo.HalfScreenHeight - this.ActualHeight / 2) - LIST_WINDOW_MARGIN);
-
             PositionSubWindow(listWindow, positioningInfo);
             PositionSubWindow(launcherWindow, positioningInfo);
         }
 
         private void MainWindowSizeChanged(object sender, SizeChangedEventArgs e)
         {
-            HandleWindowGeometryChanged(e.NewSize.Width, e.NewSize.Height);
+            var positionInfo = GetWindowPositioningInfo(e.NewSize.Width, e.NewSize.Height);
+            PositionSubWindows(positionInfo);
         }
 
         private void GearButtonClick(object sender, RoutedEventArgs e)
@@ -212,7 +212,9 @@ namespace Z
         void IMainWindowAccess.Show()
         {
             Show();
-            HandleWindowGeometryChanged(this.ActualWidth, this.ActualHeight);
+
+            var positionInfo = GetWindowPositioningInfo(this.ActualWidth, this.ActualHeight);
+            PositionSubWindows(positionInfo);
 
             SetForegroundWindow(this.windowInteropHelper.Handle);
         }
@@ -230,7 +232,11 @@ namespace Z
             listWindow.Show();
 
             // Schedule repositioning of list window
-            listWindow.Dispatcher.Invoke(() => HandleWindowGeometryChanged(this.ActualWidth, this.ActualHeight), DispatcherPriority.Render);
+            listWindow.Dispatcher.Invoke(() => 
+            {
+                var positionInfo = GetWindowPositioningInfo(this.ActualWidth, this.ActualHeight);
+                PositionSubWindows(positionInfo);
+            }, DispatcherPriority.Render);
         }
 
         void IMainWindowAccess.ShowLauncher()
@@ -239,7 +245,11 @@ namespace Z
             launcherWindow.Show();
 
             // Schedule repositioning of list window
-            launcherWindow.Dispatcher.Invoke(() => HandleWindowGeometryChanged(this.ActualWidth, this.ActualHeight), DispatcherPriority.Render);
+            launcherWindow.Dispatcher.Invoke(() =>
+            {
+                var positionInfo = GetWindowPositioningInfo(this.ActualWidth, this.ActualHeight);
+                PositionSubWindows(positionInfo);
+            }, DispatcherPriority.Render);
         }
 
         void IMainWindowAccess.HideList()
@@ -307,7 +317,9 @@ namespace Z
 
         protected override void OnLocationChanged(EventArgs e)
         {
-            HandleWindowGeometryChanged(this.ActualWidth, this.ActualHeight);
+            var positionInfo = GetWindowPositioningInfo(this.ActualWidth, this.ActualHeight);
+            PositionSubWindows(positionInfo);
+
             viewModel.NotifyPositionChanged((int)Left, (int)Top);
 
             base.OnLocationChanged(e);
@@ -337,7 +349,16 @@ namespace Z
             this.DataContext = viewModel;
 
             listWindow = new ListWindow();
+
             launcherWindow = new LauncherWindow();
+            launcherWindow.SizeChanged += HandleLauncherWindowSizeChanged;
+        }
+
+        private void HandleLauncherWindowSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            var positionInfo = GetWindowPositioningInfo(this.ActualWidth, this.ActualHeight);
+
+            PositionSubWindow(launcherWindow, positionInfo);
         }
 
         public override void Summon()
