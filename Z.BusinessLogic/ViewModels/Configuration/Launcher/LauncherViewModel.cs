@@ -105,7 +105,6 @@ namespace Z.BusinessLogic.ViewModels.Configuration.Launcher
             }
         }
 
-
         public LauncherViewModel(IConfigurationService configurationService, IDialogService dialogService)
         {
             this.configurationService = configurationService;
