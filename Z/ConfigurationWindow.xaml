@@ -274,7 +274,10 @@
                             </TreeView.Resources>
                             <TreeView.ItemTemplate>
                                 <HierarchicalDataTemplate DataType="{x:Type clnc:LauncherEntryViewModel}" ItemsSource="{Binding Items}">
-                                    <Label Content="{Binding Name}" />
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="Resources/Images/New16.png" />
+                                        <TextBlock Text="{Binding Name}" />
+                                    </StackPanel>
                                 </HierarchicalDataTemplate>
                             </TreeView.ItemTemplate>
                         </TreeView>
