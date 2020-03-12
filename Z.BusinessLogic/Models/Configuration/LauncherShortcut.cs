@@ -11,6 +11,8 @@ namespace Z.BusinessLogic.Models.Configuration
     {
         [XmlElement("Name")]
         public string Name { get; set; }
+        [XmlElement("Command")]
+        public string Command { get; set; }
         [XmlArray("SubItems")]
         public List<LauncherShortcut> SubItems { get; set; } = new List<LauncherShortcut>();
     }

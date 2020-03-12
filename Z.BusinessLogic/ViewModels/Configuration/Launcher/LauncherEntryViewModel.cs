@@ -9,18 +9,28 @@ using Z.BusinessLogic.ViewModels.Base;
 
 namespace Z.BusinessLogic.ViewModels.Configuration.Launcher
 {
-    public class LauncherEntryViewModel : BaseViewModel
+    public class LauncherEntryViewModel : HierarchicalViewModel<LauncherEntryViewModel>
     {
-        private string name;
+        private readonly LauncherEntryViewModel parent;
         private readonly ObservableCollection<LauncherEntryViewModel> items = new ObservableCollection<LauncherEntryViewModel>();
 
-        public LauncherEntryViewModel(LauncherShortcut shortcut)
+        private string name;
+        private string command;
+
+        public LauncherEntryViewModel(LauncherEntryViewModel parent)
+        {
+            this.parent = parent;
+        }
+
+        public LauncherEntryViewModel(LauncherEntryViewModel parent, LauncherShortcut shortcut)
+            : this(parent)
         {
             name = shortcut.Name;
+            command = shortcut.Command;
 
             for (int i = 0; i < shortcut.SubItems.Count; i++)
             {
-                var subitem = new LauncherEntryViewModel(shortcut.SubItems[i]);
+                var subitem = new LauncherEntryViewModel(this, shortcut.SubItems[i]);
                 items.Add(subitem);
             }
         }
@@ -38,6 +48,7 @@ namespace Z.BusinessLogic.ViewModels.Configuration.Launcher
             var result = new LauncherShortcut()
             {
                 Name = this.name,
+                Command = this.command,
                 SubItems = subitems
             };
 
@@ -50,6 +61,14 @@ namespace Z.BusinessLogic.ViewModels.Configuration.Launcher
             set => Set(ref name, () => Name, value);
         }
 
+        public string Command
+        {
+            get => command;
+            set => Set(ref command, () => Command, value);
+        }
+
         public ObservableCollection<LauncherEntryViewModel> Items => items;
+
+        public override LauncherEntryViewModel Parent => parent;
     }
 }

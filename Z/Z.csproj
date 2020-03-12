@@ -59,6 +59,9 @@
       <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.19\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -84,6 +87,9 @@
     <Compile Include="Common\Converters\CollapsedIfEmptyConverter.cs" />
     <Compile Include="Common\Converters\EnumDescriptionConverter.cs" />
     <Compile Include="Common\Converters\EnumToBooleanConverter.cs" />
+    <Compile Include="Common\Converters\SelectedToBooleanConverter.cs" />
+    <Compile Include="Common\Extensions\LauncherTreeViewBehavior.cs" />
+    <Compile Include="Common\Extensions\TreeViewBehavior.cs" />
     <Compile Include="Common\PositionHelper.cs" />
     <Compile Include="ConfigurationWindow.xaml.cs">
       <DependentUpon>ConfigurationWindow.xaml</DependentUpon>
@@ -100,7 +106,8 @@
     <Compile Include="ProCalcWindow.xaml.cs">
       <DependentUpon>ProCalcWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Services\AppWindowService.cs" />
+    <Compile Include="Services\AppWindows\AppWindowService.cs" />
+    <Compile Include="Services\Dialogs\DialogService.cs" />
     <Compile Include="SuggestionChoiceWindow.xaml.cs">
       <DependentUpon>SuggestionChoiceWindow.xaml</DependentUpon>
     </Compile>

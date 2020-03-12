@@ -139,8 +139,6 @@ namespace Z.BusinessLogic.ViewModels.Main.Launcher
             }
         }
 
-        // TODO Make selected row always the last item on the list
-        // TODO Handle all cases when SelectedRow is null or has no items
         public LauncherRowViewModel SelectedRow => rows?.LastOrDefault();
 
         public bool Reversed
