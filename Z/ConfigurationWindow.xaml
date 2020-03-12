@@ -4,13 +4,17 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Z"
+        xmlns:conv="clr-namespace:Z.Common.Converters"
+        xmlns:ext="clr-namespace:Z.Common.Extensions"
         xmlns:conf="clr-namespace:Z.BusinessLogic.ViewModels.Configuration;assembly=Z.BusinessLogic"
         xmlns:cbase="clr-namespace:Z.BusinessLogic.ViewModels.Configuration.Base;assembly=Z.BusinessLogic"
         xmlns:cmod="clr-namespace:Z.BusinessLogic.ViewModels.Configuration.Modules;assembly=Z.BusinessLogic"
         xmlns:cbeh="clr-namespace:Z.BusinessLogic.ViewModels.Configuration.Behavior;assembly=Z.BusinessLogic"
         xmlns:ckey="clr-namespace:Z.BusinessLogic.ViewModels.Configuration.Keywords;assembly=Z.BusinessLogic"
         xmlns:cgen="clr-namespace:Z.BusinessLogic.ViewModels.Configuration.General;assembly=Z.BusinessLogic"
+        xmlns:clnc="clr-namespace:Z.BusinessLogic.ViewModels.Configuration.Launcher;assembly=Z.BusinessLogic"
         xmlns:t="clr-namespace:Z.Common.Types;assembly=Z.Common"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         Title="Z Configuration" Height="600" Width="800" ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">
@@ -20,6 +24,8 @@
                 <ResourceDictionary Source="ConfigurationWindowStyles.xaml" />
                 <ResourceDictionary Source="CommonResources.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <conv:SelectedToBooleanConverter x:Key="SelectedToBooleanConverter" />
         </ResourceDictionary>
     </Window.Resources>
     <DockPanel>
@@ -215,6 +221,63 @@
                                 </GridView>
                             </ListView.View>
                         </ListView>
+                    </DockPanel>
+
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type clnc:LauncherViewModel}">
+
+                    <DockPanel Style="{StaticResource ConfigurationPage}">
+                        <TextBlock DockPanel.Dock="Top" Margin="3" Style="{StaticResource Header}">Launcher</TextBlock>
+                        <Separator DockPanel.Dock="Top" />
+
+                        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                            <Button Command="{Binding AddSameLevelCommand}">Add item on same level</Button>
+                            <Button Command="{Binding AddChildCommand}">Add item as child</Button>
+                            <Button Command="{Binding DeleteCommand}">Delete item</Button>
+                            <Button Command="{Binding MoveUpCommand}">Move up</Button>
+                            <Button Command="{Binding MoveDownCommand}">Move down</Button>
+                        </StackPanel>
+
+                        <Grid DockPanel.Dock="Bottom" IsEnabled="{Binding ElementName=LauncherItems, Path=SelectedItem, Converter={StaticResource SelectedToBooleanConverter}}">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Column="0" Grid.Row="0" Style="{StaticResource ItemDesc}" Margin="3">Name</TextBlock>
+                            <TextBox Grid.Column="1" Grid.Row="0" Margin="3" Text="{Binding ElementName=LauncherItems, Path=SelectedItem.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                            <TextBlock Grid.Column="0" Grid.Row="1" Style="{StaticResource ItemDesc}" Margin="3">Command</TextBlock>
+                            <DockPanel Grid.Column="1" Grid.Row="1">
+                                <Button DockPanel.Dock="Left" Content="..." Command="{Binding ChoosePathCommand}" />
+                                <TextBox Margin="3" Text="{Binding ElementName=LauncherItems, Path=SelectedItem.Command, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </DockPanel>
+                        </Grid>
+
+                        <TreeView x:Name="LauncherItems" Margin="3" ItemsSource="{Binding Items}">
+                            <i:Interaction.Behaviors>
+                                <ext:LauncherTreeViewBehavior SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}" />
+                            </i:Interaction.Behaviors>
+                            <TreeView.Resources>
+                                <Style TargetType="TreeViewItem">
+                                    <Style.Setters>
+                                        <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+                                        <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+                                    </Style.Setters>
+                                </Style>
+                            </TreeView.Resources>
+                            <TreeView.ItemTemplate>
+                                <HierarchicalDataTemplate DataType="{x:Type clnc:LauncherEntryViewModel}" ItemsSource="{Binding Items}">
+                                    <Label Content="{Binding Name}" />
+                                </HierarchicalDataTemplate>
+                            </TreeView.ItemTemplate>
+                        </TreeView>
                     </DockPanel>
 
                 </DataTemplate>

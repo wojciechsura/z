@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Z.BusinessLogic.Services.AppWindows;
 
-namespace Z.Services
+namespace Z.Services.AppWindows
 {
     class AppWindowService : IAppWindowService
     {

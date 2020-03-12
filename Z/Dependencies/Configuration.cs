@@ -6,7 +6,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Z.BusinessLogic.Services.Application;
 using Z.BusinessLogic.Services.AppWindows;
+using Z.BusinessLogic.Services.Dialogs;
 using Z.Services;
+using Z.Services.AppWindows;
+using Z.Services.Dialogs;
 
 namespace Z.Dependencies
 {
@@ -16,6 +19,7 @@ namespace Z.Dependencies
         {
             Container.Instance.RegisterInstance<IApplicationController>(app);
             Container.Instance.RegisterType<IAppWindowService, AppWindowService>(new ContainerControlledLifetimeManager());
+            Container.Instance.RegisterType<IDialogService, DialogService>(new ContainerControlledLifetimeManager());
 
             BusinessLogic.Dependencies.Configuration.Configure(Container.Instance);
         }
