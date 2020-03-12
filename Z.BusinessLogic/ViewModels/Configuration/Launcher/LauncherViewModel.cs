@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ using System.Windows.Input;
 using Z.BusinessLogic.Models.Configuration;
 using Z.BusinessLogic.Services.Config;
 using Z.BusinessLogic.Services.Dialogs;
+using Z.BusinessLogic.Services.Messaging;
 using Z.BusinessLogic.ViewModels.Configuration.Base;
 using Z.Wpf.Types;
 
@@ -20,6 +22,7 @@ namespace Z.BusinessLogic.ViewModels.Configuration.Launcher
         private readonly ObservableCollection<LauncherEntryViewModel> items = new ObservableCollection<LauncherEntryViewModel>();
         private readonly IConfigurationService configurationService;
         private readonly IDialogService dialogService;
+        private readonly IMessagingService messagingService;
         private LauncherEntryViewModel selectedItem;
 
         private void DoChoosePath()
@@ -28,7 +31,34 @@ namespace Z.BusinessLogic.ViewModels.Configuration.Launcher
             if (result.Result)
             {
                 selectedItem.Command = result.FileName;
+                
+                // Resolve icon if no icon is set yet.
+                if (selectedItem.Icon == null)
+                    TryAutoResolveIcon();
             }
+        }
+
+        private bool TryAutoResolveIcon()
+        {
+            try
+            {
+                var icon = Icon.ExtractAssociatedIcon(selectedItem.Command);
+                Bitmap bitmap = icon.ToBitmap();
+
+                selectedItem.Icon = bitmap;
+            }
+            catch
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        private void DoAutoResolveIcon()
+        {
+            if (!TryAutoResolveIcon())
+                messagingService.Warn("Could not resolve icon automatically. Choose icon manually.");            
         }
 
         private void DoMoveDown()
@@ -105,11 +135,11 @@ namespace Z.BusinessLogic.ViewModels.Configuration.Launcher
             }
         }
 
-        public LauncherViewModel(IConfigurationService configurationService, IDialogService dialogService)
+        public LauncherViewModel(IConfigurationService configurationService, IDialogService dialogService, IMessagingService messagingService)
         {
             this.configurationService = configurationService;
             this.dialogService = dialogService;
-
+            this.messagingService = messagingService;
             for (int i = 0; i < configurationService.Configuration.Launcher.Items.Count; i++)
             {
                 var item = new LauncherEntryViewModel(null, configurationService.Configuration.Launcher.Items[i]);
@@ -125,6 +155,7 @@ namespace Z.BusinessLogic.ViewModels.Configuration.Launcher
             DeleteCommand = new SimpleCommand(obj => DoDelete());
             MoveUpCommand = new SimpleCommand(obj => DoMoveUp());
             MoveDownCommand = new SimpleCommand(obj => DoMoveDown());
+            AutoResolveIconCommand = new SimpleCommand(obj => DoAutoResolveIcon());
         }
 
         public override void Save()
@@ -155,6 +186,7 @@ namespace Z.BusinessLogic.ViewModels.Configuration.Launcher
         public ICommand DeleteCommand { get; }
         public ICommand MoveUpCommand { get; }
         public ICommand MoveDownCommand { get; }
+        public ICommand AutoResolveIconCommand { get; }
 
         public LauncherEntryViewModel SelectedItem
         {

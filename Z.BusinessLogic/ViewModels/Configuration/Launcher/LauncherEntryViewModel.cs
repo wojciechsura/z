@@ -1,9 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Interop;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using Z.BusinessLogic.Models.Configuration;
 using Z.BusinessLogic.ViewModels.Base;
 
@@ -16,6 +24,68 @@ namespace Z.BusinessLogic.ViewModels.Configuration.Launcher
 
         private string name;
         private string command;
+        private Bitmap icon;
+        private ImageSource iconSource;
+
+        [DllImport("gdi32.dll", EntryPoint = "DeleteObject")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool DeleteObject([In] IntPtr hObject);
+
+        private ImageSource GetIconSource()
+        {
+            if (iconSource != null)
+                return iconSource;
+
+            if (icon == null)
+                return null;
+
+            IntPtr handle = IntPtr.Zero;
+            try
+            {
+                handle = icon.GetHbitmap();
+                iconSource = Imaging.CreateBitmapSourceFromHBitmap(handle, IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+            }
+            finally
+            {
+                DeleteObject(handle);
+            }
+
+            return iconSource;
+        }
+
+        private void HandleIconChanged()
+        {
+            iconSource = null;
+            OnPropertyChanged(() => IconSource);
+        }
+
+        private Bitmap IconFromBase64(string base64Icon)
+        {
+            if (string.IsNullOrEmpty(base64Icon))
+                return null;
+
+            try
+            {
+                var stream = new MemoryStream(Convert.FromBase64String(base64Icon));
+                Bitmap bitmap = new Bitmap(stream);
+                return bitmap;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        private string IconToBase64(Bitmap icon)
+        {
+            if (icon == null)
+                return String.Empty;
+
+            MemoryStream stream = new MemoryStream();
+            icon.Save(stream, ImageFormat.Png);
+
+            return Convert.ToBase64String(stream.ToArray());
+        }
 
         public LauncherEntryViewModel(LauncherEntryViewModel parent)
         {
@@ -27,6 +97,7 @@ namespace Z.BusinessLogic.ViewModels.Configuration.Launcher
         {
             name = shortcut.Name;
             command = shortcut.Command;
+            icon = IconFromBase64(shortcut.Base64Icon);            
 
             for (int i = 0; i < shortcut.SubItems.Count; i++)
             {
@@ -49,6 +120,7 @@ namespace Z.BusinessLogic.ViewModels.Configuration.Launcher
             {
                 Name = this.name,
                 Command = this.command,
+                Base64Icon = IconToBase64(icon),
                 SubItems = subitems
             };
 
@@ -65,6 +137,17 @@ namespace Z.BusinessLogic.ViewModels.Configuration.Launcher
         {
             get => command;
             set => Set(ref command, () => Command, value);
+        }
+
+        public Bitmap Icon
+        {
+            get => icon;
+            set => Set(ref icon, () => Icon, value, HandleIconChanged);
+        }
+
+        public ImageSource IconSource
+        {
+            get => GetIconSource();
         }
 
         public ObservableCollection<LauncherEntryViewModel> Items => items;
