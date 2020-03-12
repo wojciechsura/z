@@ -54,6 +54,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -83,6 +84,7 @@
     <Compile Include="Models\SaveDialogResult.cs" />
     <Compile Include="Models\SuggestionData.cs" />
     <Compile Include="Services\Dialogs\IDialogService.cs" />
+    <Compile Include="Services\Messaging\IMessagingService.cs" />
     <Compile Include="Types\Main\MainWorkingMode.cs" />
     <Compile Include="ViewModels\Base\HierarchicalViewModel.cs" />
     <Compile Include="ViewModels\Configuration\Launcher\LauncherEntryViewModel.cs" />

@@ -29,7 +29,10 @@
 
                 <DataTemplate DataType="{x:Type vm:LauncherShortcutViewModel}">
                     <Border x:Name="bRoot" BorderThickness="2" BorderBrush="Transparent">
-                        <Label Content="{Binding Name}" />
+                        <StackPanel Orientation="Vertical">
+                            <Image Width="32" Height="32" Margin="3" Source="{Binding Icon}" HorizontalAlignment="Center" />
+                            <Label Content="{Binding Name}" HorizontalAlignment="Center"/>
+                        </StackPanel>
                     </Border>
                     <DataTemplate.Triggers>
                         <DataTrigger Binding="{Binding Selected}" Value="True">
