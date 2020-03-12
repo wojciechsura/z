@@ -79,8 +79,12 @@
     <Compile Include="Models\Configuration\MainWindow.cs" />
     <Compile Include="Models\Configuration\ProCalcWindow.cs" />
     <Compile Include="Models\KeywordData.cs" />
+    <Compile Include="Models\OpenDialogResult.cs" />
+    <Compile Include="Models\SaveDialogResult.cs" />
     <Compile Include="Models\SuggestionData.cs" />
+    <Compile Include="Services\Dialogs\IDialogService.cs" />
     <Compile Include="Types\Main\MainWorkingMode.cs" />
+    <Compile Include="ViewModels\Base\HierarchicalViewModel.cs" />
     <Compile Include="ViewModels\Configuration\Launcher\LauncherEntryViewModel.cs" />
     <Compile Include="ViewModels\Configuration\Launcher\LauncherViewModel.cs" />
     <Compile Include="ViewModels\Main\Launcher\ILauncherWindowAccess.cs" />
