@@ -248,6 +248,7 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
 
                             <TextBlock Grid.Column="0" Grid.Row="0" Style="{StaticResource ItemDesc}" Margin="3">Name</TextBlock>
@@ -258,25 +259,23 @@
                                 <Button DockPanel.Dock="Left" Content="..." Command="{Binding ChoosePathCommand}" />
                                 <TextBox Margin="3" Text="{Binding ElementName=LauncherItems, Path=SelectedItem.Command, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             </DockPanel>
+
+                            <TextBlock Grid.Column="0" Grid.Row="2" Style="{StaticResource ItemDesc}" Margin="3">Icon</TextBlock>
+                            <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal">
+                                <Image Width="32" Height="32" Source="{Binding ElementName=LauncherItems, Path=SelectedItem.IconSource}" />
+                                <Button Command="{Binding AutoResolveIconCommand}">Find automatically</Button>
+                            </StackPanel>
                         </Grid>
 
                         <TreeView x:Name="LauncherItems" Margin="3" ItemsSource="{Binding Items}">
                             <i:Interaction.Behaviors>
                                 <ext:LauncherTreeViewBehavior SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}" />
                             </i:Interaction.Behaviors>
-                            <TreeView.Resources>
-                                <Style TargetType="TreeViewItem">
-                                    <Style.Setters>
-                                        <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
-                                        <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
-                                    </Style.Setters>
-                                </Style>
-                            </TreeView.Resources>
                             <TreeView.ItemTemplate>
                                 <HierarchicalDataTemplate DataType="{x:Type clnc:LauncherEntryViewModel}" ItemsSource="{Binding Items}">
                                     <StackPanel Orientation="Horizontal">
-                                        <Image Source="Resources/Images/New16.png" />
-                                        <TextBlock Text="{Binding Name}" />
+                                        <Image Source="Resources/Images/New16.png" Margin="3"/>
+                                        <Label Content="{Binding Name}" />
                                     </StackPanel>
                                 </HierarchicalDataTemplate>
                             </TreeView.ItemTemplate>
