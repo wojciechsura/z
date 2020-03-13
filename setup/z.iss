@@ -44,8 +44,8 @@ Source: "..\Z\bin\Release\Z.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Z\bin\Release\ControlPanelModule.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Z\bin\Release\CustomCommandsModule.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Z\bin\Release\DesktopModule.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Z\bin\Release\Filesystem.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Z\bin\Release\FavoritesModule.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Z\bin\Release\Filesystem.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Z\bin\Release\Hardcodet.Wpf.TaskbarNotification.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Z\bin\Release\HashModule.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Z\bin\Release\Microsoft.Practices.ServiceLocation.dll"; DestDir: "{app}"; Flags: ignoreversion
@@ -69,6 +69,7 @@ Source: "..\Z\bin\Release\Z.BusinessLogic.dll"; DestDir: "{app}"; Flags: ignorev
 Source: "..\Z\bin\Release\Z.Common.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Z\bin\Release\Z.Dependencies.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Z\bin\Release\Z.Wpf.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Z\bin\Release\Z.exe.config"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 Source: "..\SampleModule\Module.cs"; DestDir: "{app}\samples\SampleModule\"; Flags: ignoreversion; Components: CustomModuleSample
 Source: "..\SampleModule\SampleModule.csproj"; DestDir: "{app}\samples\SampleModule\"; Flags: ignoreversion; Components: CustomModuleSample

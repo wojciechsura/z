@@ -51,13 +51,6 @@ namespace Z.BusinessLogic.ViewModels.Configuration.General
                 keyModifier &= ~modifier;
         }
 
-        // Protected methods --------------------------------------------------
-
-        protected void OnPropertyChanged(string name)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
-
         // Public methods -----------------------------------------------------
 
         public GeneralViewModel(IConfigurationService configurationService)
@@ -261,7 +254,5 @@ namespace Z.BusinessLogic.ViewModels.Configuration.General
                 synchronizeWindowPositions = value;
             }
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

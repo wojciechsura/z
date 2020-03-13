@@ -20,11 +20,6 @@ namespace Z.BusinessLogic.ViewModels.Configuration.Behavior
         private SuggestionSorting suggestionSorting;
         private int suggestionDelay;
 
-        protected void OnPropertyChanged(string name)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
-
         public BehaviorViewModel(IConfigurationService configurationService)
         {
             this.configurationService = configurationService;
@@ -91,7 +86,5 @@ namespace Z.BusinessLogic.ViewModels.Configuration.Behavior
                 suggestionSorting = value;
             }
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
     }
 }
