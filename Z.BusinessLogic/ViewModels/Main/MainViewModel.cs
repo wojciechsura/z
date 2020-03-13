@@ -699,7 +699,8 @@ namespace Z.BusinessLogic.ViewModels.Main
             switch (workingMode)
             {
                 case MainWorkingMode.Idle:
-                    EnterLauncherMode();                    
+                    if (!Reversed)
+                        EnterLauncherMode();                    
                     break;
                 case MainWorkingMode.SuggestionList:
                     listViewModel.SelectNextSuggestion();
@@ -867,7 +868,8 @@ namespace Z.BusinessLogic.ViewModels.Main
             switch (workingMode)
             {
                 case MainWorkingMode.Idle:
-                    EnterLauncherMode();
+                    if (Reversed)
+                        EnterLauncherMode();
                     break;
                 case MainWorkingMode.SuggestionList:
                     listViewModel.SelectPreviousSuggestion();
@@ -947,6 +949,8 @@ namespace Z.BusinessLogic.ViewModels.Main
             get => errorText;
             set => Set(ref errorText, () => ErrorText, value);
         }
+
+        public bool Reversed { get; set; }
 
         public MainWorkingMode WorkingMode
         {

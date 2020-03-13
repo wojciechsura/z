@@ -192,6 +192,8 @@ namespace Z
 
         private void PositionSubWindows(WindowPositioningInfo positioningInfo)
         {
+            viewModel.Reversed = !positioningInfo.AboveHalf;
+
             PositionSubWindow(listWindow, positioningInfo);
             PositionSubWindow(launcherWindow, positioningInfo);
         }
