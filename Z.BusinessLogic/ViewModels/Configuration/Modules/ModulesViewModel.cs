@@ -33,11 +33,6 @@ namespace Z.BusinessLogic.ViewModels.Configuration.Modules
 
         private readonly List<ModuleConfigViewModel> modules;
 
-        protected void OnPropertyChanged(string name)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
-
         public override void Save()
         {
             foreach (var provider in configProviders)
@@ -93,7 +88,5 @@ namespace Z.BusinessLogic.ViewModels.Configuration.Modules
         }
 
         public IEnumerable<ModuleConfigViewModel> Modules => modules;
-
-        public event PropertyChangedEventHandler PropertyChanged;
     }
 }
