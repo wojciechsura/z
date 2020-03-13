@@ -22,6 +22,7 @@
     </Window.Resources>
 
     <controls:WindowChrome>
+        <StackPanel Orientation="Vertical">
         <ItemsControl ItemsSource="{Binding SelectedRow.Items}">
             <ItemsControl.ItemTemplate>
 
@@ -31,13 +32,14 @@
                     <Border x:Name="bRoot" BorderThickness="2" BorderBrush="Transparent">
                         <StackPanel Orientation="Vertical">
                             <Image Width="32" Height="32" Margin="3" Source="{Binding Icon}" HorizontalAlignment="Center" />
-                            <Label Content="{Binding Name}" HorizontalAlignment="Center"/>
+                            <Label Content="{Binding Name}" HorizontalAlignment="Center" Foreground="{Binding RelativeSource={RelativeSource AncestorType=Border}, Path=(TextBlock.Foreground)}"/>
                         </StackPanel>
                     </Border>
                     <DataTemplate.Triggers>
                         <DataTrigger Binding="{Binding Selected}" Value="True">
                             <DataTrigger.Setters>
-                                <Setter TargetName="bRoot" Property="BorderBrush" Value="#ff0000" />
+                                <Setter TargetName="bRoot" Property="Background" Value="{x:Static SystemColors.HighlightBrush}" />
+                                <Setter TargetName="bRoot" Property="TextBlock.Foreground" Value="{x:Static SystemColors.HighlightTextBrush}" />
                             </DataTrigger.Setters>
                         </DataTrigger>
                     </DataTemplate.Triggers>
@@ -50,6 +52,9 @@
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
         </ItemsControl>
+            <Separator Margin="4" />
+            <TextBlock HorizontalAlignment="Center" Text="{Binding SelectedRow.Header}" />
+        </StackPanel>
     </controls:WindowChrome>
 
 </controls:BaseSubWindow>

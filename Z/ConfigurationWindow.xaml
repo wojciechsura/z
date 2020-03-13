@@ -261,9 +261,12 @@
                             </DockPanel>
 
                             <TextBlock Grid.Column="0" Grid.Row="2" Style="{StaticResource ItemDesc}" Margin="3">Icon</TextBlock>
-                            <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal">
-                                <Image Width="32" Height="32" Source="{Binding ElementName=LauncherItems, Path=SelectedItem.IconSource}" />
-                                <Button Command="{Binding AutoResolveIconCommand}">Find automatically</Button>
+                            <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Vertical">
+                                <StackPanel Orientation="Horizontal">
+                                    <ComboBox ItemsSource="{Binding IconModes}" SelectedItem="{Binding ElementName=LauncherItems, Path=SelectedItem.IconMode}" Width="150" />
+                                    <Button Command="{Binding AutoResolveIconCommand}">Find automatically</Button>
+                                </StackPanel>
+                                <Image Width="32" Height="32" Source="{Binding ElementName=LauncherItems, Path=SelectedItem.IconSource}" Margin="0,4" />
                             </StackPanel>
                         </Grid>
 
@@ -271,6 +274,11 @@
                             <i:Interaction.Behaviors>
                                 <ext:LauncherTreeViewBehavior SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}" />
                             </i:Interaction.Behaviors>
+                            <TreeView.Resources>
+                                <Style TargetType="TreeViewItem">
+                                    <Setter Property="IsExpanded" Value="{Binding IsExpanded}" />
+                                </Style>
+                            </TreeView.Resources>
                             <TreeView.ItemTemplate>
                                 <HierarchicalDataTemplate DataType="{x:Type clnc:LauncherEntryViewModel}" ItemsSource="{Binding Items}">
                                     <StackPanel Orientation="Horizontal">

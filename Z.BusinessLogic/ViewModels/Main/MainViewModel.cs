@@ -28,10 +28,11 @@ using Z.BusinessLogic.Services.AppWindows;
 using Z.BusinessLogic.Models;
 using Z.BusinessLogic.Types.Main;
 using Z.BusinessLogic.ViewModels.Main.Launcher;
+using Z.BusinessLogic.Services.Image;
 
 namespace Z.BusinessLogic.ViewModels.Main
 {
-    public class MainViewModel : BaseViewModel, IMainHandler,
+    public class MainViewModel : BaseViewModel, IMainHandler, ILauncherHandler,
         IEventListener<ShuttingDownEvent>, 
         IEventListener<ConfigurationChangedEvent>, 
         IEventListener<PositionChangedEvent>
@@ -127,7 +128,7 @@ namespace Z.BusinessLogic.ViewModels.Main
         private readonly IEventBus eventBus;
         private readonly IApplicationController applicationController;
         private readonly IAppWindowService windowService;
-
+        private readonly IImageResources imageResources;
         private readonly LauncherViewModel launcherViewModel;
         private readonly ListViewModel listViewModel;
 
@@ -555,6 +556,26 @@ namespace Z.BusinessLogic.ViewModels.Main
             set => Set(ref currentKeyword, () => CurrentKeyword, value, HandleCurrentKeywordChanged);
         }
 
+        // ILauncherHandler implementation ------------------------------------
+
+        void ILauncherHandler.ExitLauncher()
+        {
+            ExitLauncherMode();
+        }
+
+        void ILauncherHandler.ExecuteShortcut(Models.Configuration.LauncherShortcut shortcut)
+        {
+            try
+            {
+                Process.Start(shortcut.Command);
+                InternalDismissWindow();
+            }
+            catch(Exception e)
+            {
+                ErrorText = $"Failed to open shortcut: {e.Message}";
+            }
+        }
+
         // IMainHandler implementation ----------------------------------------
 
         void IMainHandler.ExecuteCurrentAction()
@@ -602,7 +623,8 @@ namespace Z.BusinessLogic.ViewModels.Main
             IConfigurationService configurationService,
             IEventBus eventBus,
             IApplicationController applicationController,
-            IAppWindowService windowService)
+            IAppWindowService windowService,
+            IImageResources imageResources)
         {
             this.globalHotkeyService = globalHotkeyService;
             this.keywordService = keywordService;
@@ -611,6 +633,7 @@ namespace Z.BusinessLogic.ViewModels.Main
             this.eventBus = eventBus;
             this.applicationController = applicationController;
             this.windowService = windowService;
+            this.imageResources = imageResources;
 
             this.eventBus.Register((IEventListener<ShuttingDownEvent>)this);
             this.eventBus.Register((IEventListener<ConfigurationChangedEvent>)this);
@@ -647,7 +670,7 @@ namespace Z.BusinessLogic.ViewModels.Main
             listViewModel = new ListViewModel(this);
             listViewModel.PropertyChanged += HandleListViewModelPropertyChanged;
             
-            launcherViewModel = new LauncherViewModel(this, configurationService);
+            launcherViewModel = new LauncherViewModel(this, imageResources, configurationService);
         }
 
         public bool BackspacePressed()

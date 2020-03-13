@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -11,6 +12,8 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Z.BusinessLogic.Models.Configuration;
+using Z.BusinessLogic.Services.Image;
+using Z.BusinessLogic.Types.Launcher;
 using Z.BusinessLogic.ViewModels.Base;
 
 namespace Z.BusinessLogic.ViewModels.Main.Launcher
@@ -22,47 +25,56 @@ namespace Z.BusinessLogic.ViewModels.Main.Launcher
         private bool selected;
         private bool cachedIconValid = false;
         private ImageSource cachedIcon = null;
+        private readonly IImageResources imageResources;
 
         // Private methods ----------------------------------------------------
-
-        [DllImport("gdi32.dll", EntryPoint = "DeleteObject")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool DeleteObject([In] IntPtr hObject);
 
         private ImageSource GetIcon()
         {
             if (cachedIconValid)
                 return cachedIcon;
 
-            if (string.IsNullOrEmpty(LauncherShortcut.Base64Icon))
+            switch (LauncherShortcut.IconMode)
             {
-                cachedIcon = null;
-                cachedIconValid = true;
-            }
-            else
-            {
-                try
-                {
-                    MemoryStream ms = new MemoryStream(Convert.FromBase64String(LauncherShortcut.Base64Icon));
-                    Bitmap bitmap = new Bitmap(ms);
-
-                    IntPtr handle = IntPtr.Zero;
-                    try
-                    {
-                        handle = bitmap.GetHbitmap();
-                        cachedIcon = Imaging.CreateBitmapSourceFromHBitmap(handle, IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
-                        cachedIconValid = true;
-                    }
-                    finally
-                    {
-                        DeleteObject(handle);
-                    }                  
-                }
-                catch
-                {
-                    cachedIcon = null;
+                case IconMode.Default:
+                    cachedIcon = imageResources.GetIconByName("LauncherGeneric32.png");
                     cachedIconValid = true;
-                }
+                    break;
+                case IconMode.Folder:
+                    cachedIcon = imageResources.GetIconByName("Folder32.png");
+                    cachedIconValid = true;
+                    break;
+                case IconMode.Custom:
+                    {
+                        if (string.IsNullOrEmpty(LauncherShortcut.IconData))
+                        {
+                            cachedIcon = null;
+                            cachedIconValid = true;
+                        }
+                        else
+                        {
+                            try
+                            {
+                                MemoryStream ms = new MemoryStream(Convert.FromBase64String(LauncherShortcut.IconData));
+
+                                BitmapImage image = new BitmapImage();
+                                image.BeginInit();
+                                image.StreamSource = ms;
+                                image.EndInit();
+
+                                cachedIcon = image;
+                            }
+                            catch
+                            {
+                                cachedIcon = null;
+                                cachedIconValid = true;
+                            }
+                        }
+
+                        break;
+                    }
+                default:
+                    throw new InvalidEnumArgumentException("Unsupported icon mode!");
             }
 
             return cachedIcon;
@@ -70,8 +82,10 @@ namespace Z.BusinessLogic.ViewModels.Main.Launcher
 
         // Public methods -----------------------------------------------------
 
-        public LauncherShortcutViewModel(LauncherShortcut launcherShortcut)
+        public LauncherShortcutViewModel(IImageResources imageResources, LauncherShortcut launcherShortcut)
         {
+            this.imageResources = imageResources;
+
             selected = false;
             LauncherShortcut = launcherShortcut ?? throw new ArgumentNullException(nameof(launcherShortcut));
             cachedIcon = null;

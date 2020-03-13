@@ -9,7 +9,9 @@ using System.Windows.Input;
 using Z.BusinessLogic.Models.Configuration;
 using Z.BusinessLogic.Services.Config;
 using Z.BusinessLogic.Services.Dialogs;
+using Z.BusinessLogic.Services.Image;
 using Z.BusinessLogic.Services.Messaging;
+using Z.BusinessLogic.Types.Launcher;
 using Z.BusinessLogic.ViewModels.Configuration.Base;
 using Z.Wpf.Types;
 
@@ -23,6 +25,7 @@ namespace Z.BusinessLogic.ViewModels.Configuration.Launcher
         private readonly IConfigurationService configurationService;
         private readonly IDialogService dialogService;
         private readonly IMessagingService messagingService;
+        private readonly IImageResources imageResources;
         private LauncherEntryViewModel selectedItem;
 
         private void DoChoosePath()
@@ -112,18 +115,24 @@ namespace Z.BusinessLogic.ViewModels.Configuration.Launcher
 
         private void DoAddChild()
         {
-            var newItem = new LauncherEntryViewModel(selectedItem);
+            var newItem = new LauncherEntryViewModel(selectedItem, imageResources);
 
             if (selectedItem == null)
                 items.Add(newItem);
             else
+            {
                 selectedItem.Items.Add(newItem);
+                selectedItem.IsExpanded = true;
+
+                if (selectedItem.IconMode == IconMode.Default)
+                    selectedItem.IconMode = IconMode.Folder;
+            }
         }
 
         private void DoAddSameLevel()
         {
             var parent = selectedItem?.Parent;
-            var newItem = new LauncherEntryViewModel(parent);
+            var newItem = new LauncherEntryViewModel(parent, imageResources);
 
             if (parent == null)
             {
@@ -135,14 +144,19 @@ namespace Z.BusinessLogic.ViewModels.Configuration.Launcher
             }
         }
 
-        public LauncherViewModel(IConfigurationService configurationService, IDialogService dialogService, IMessagingService messagingService)
+        public LauncherViewModel(IConfigurationService configurationService,
+            IDialogService dialogService,
+            IMessagingService messagingService,
+            IImageResources imageResources)
         {
             this.configurationService = configurationService;
             this.dialogService = dialogService;
             this.messagingService = messagingService;
+            this.imageResources = imageResources;
+
             for (int i = 0; i < configurationService.Configuration.Launcher.Items.Count; i++)
             {
-                var item = new LauncherEntryViewModel(null, configurationService.Configuration.Launcher.Items[i]);
+                var item = new LauncherEntryViewModel(null, imageResources, configurationService.Configuration.Launcher.Items[i]);
                 items.Add(item);
             }
 
@@ -156,6 +170,8 @@ namespace Z.BusinessLogic.ViewModels.Configuration.Launcher
             MoveUpCommand = new SimpleCommand(obj => DoMoveUp());
             MoveDownCommand = new SimpleCommand(obj => DoMoveDown());
             AutoResolveIconCommand = new SimpleCommand(obj => DoAutoResolveIcon());
+
+            IconModes = (IconMode[])Enum.GetValues(typeof(IconMode));
         }
 
         public override void Save()
@@ -193,5 +209,7 @@ namespace Z.BusinessLogic.ViewModels.Configuration.Launcher
             get => selectedItem;
             set => Set(ref selectedItem, () => SelectedItem, value);
         }
+
+        public IconMode[] IconModes { get; }
     }
 }
