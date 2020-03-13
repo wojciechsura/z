@@ -43,10 +43,44 @@ namespace Z.BusinessLogic.ViewModels.Main.Launcher
 
         // Public methods -----------------------------------------------------
 
-        public LauncherRowViewModel(IReadOnlyList<LauncherShortcutViewModel> items)
+        public LauncherRowViewModel(string header, IReadOnlyList<LauncherShortcutViewModel> items)
         {
+            this.Header = header;
+
             Items = items ?? throw new ArgumentNullException(nameof(items));
             SelectedItem = Items.FirstOrDefault();
+        }
+
+        public void SelectPrevious()
+        {
+            if (selectedItem == null)
+            {
+                selectedItem = Items?.LastOrDefault();
+            }
+            else
+            {
+                var index = IndexOfItem(selectedItem);
+                if (index > 0)
+                {
+                    SelectedItem = Items[index - 1];
+                }
+            }
+        }
+
+        public void SelectNext()
+        {
+            if (selectedItem == null)
+            {
+                selectedItem = Items?.FirstOrDefault();
+            }
+            else
+            {
+                var index = IndexOfItem(selectedItem);
+                if (index < Items.Count - 1)
+                {
+                    SelectedItem = Items[index + 1];
+                }
+            }
         }
 
         // Public properties --------------------------------------------------
@@ -59,22 +93,6 @@ namespace Z.BusinessLogic.ViewModels.Main.Launcher
             set => Set(ref selectedItem, () => SelectedItem, value, HandleAfterSelectedItemChanged, HandleBeforeSelectedItemChanged);
         }
 
-        internal void SelectPrevious()
-        {
-            var index = IndexOfItem(selectedItem);
-            if (index > 0)
-            {
-                SelectedItem = Items[index - 1];
-            }
-        }
-
-        internal void SelectNext()
-        {
-            var index = IndexOfItem(selectedItem);
-            if (index < Items.Count - 1)
-            {
-                SelectedItem = Items[index + 1];
-            }            
-        }
+        public string Header { get; }
     }
 }

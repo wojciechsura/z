@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -13,6 +14,8 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Z.BusinessLogic.Models.Configuration;
+using Z.BusinessLogic.Services.Image;
+using Z.BusinessLogic.Types.Launcher;
 using Z.BusinessLogic.ViewModels.Base;
 
 namespace Z.BusinessLogic.ViewModels.Configuration.Launcher
@@ -20,12 +23,15 @@ namespace Z.BusinessLogic.ViewModels.Configuration.Launcher
     public class LauncherEntryViewModel : HierarchicalViewModel<LauncherEntryViewModel>
     {
         private readonly LauncherEntryViewModel parent;
+        private readonly IImageResources imageResources;
         private readonly ObservableCollection<LauncherEntryViewModel> items = new ObservableCollection<LauncherEntryViewModel>();
 
         private string name;
         private string command;
         private Bitmap icon;
         private ImageSource iconSource;
+        private bool isExpanded;
+        private IconMode iconMode;
 
         [DllImport("gdi32.dll", EntryPoint = "DeleteObject")]
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -36,24 +42,52 @@ namespace Z.BusinessLogic.ViewModels.Configuration.Launcher
             if (iconSource != null)
                 return iconSource;
 
-            if (icon == null)
-                return null;
+            switch (iconMode)
+            {
+                case IconMode.Default:
+                    iconSource = imageResources.GetIconByName("LauncherGeneric32.png");
+                    break;
+                case IconMode.Folder:
+                    iconSource = imageResources.GetIconByName("Folder32.png");
+                    break;
+                case IconMode.Custom:
+                    {
+                        if (icon == null)
+                        {
+                            iconSource = null;
+                            break;
+                        }
 
-            IntPtr handle = IntPtr.Zero;
-            try
-            {
-                handle = icon.GetHbitmap();
-                iconSource = Imaging.CreateBitmapSourceFromHBitmap(handle, IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
-            }
-            finally
-            {
-                DeleteObject(handle);
+                        IntPtr handle = IntPtr.Zero;
+                        try
+                        {
+                            handle = icon.GetHbitmap();
+                            iconSource = Imaging.CreateBitmapSourceFromHBitmap(handle, IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+                        }
+                        finally
+                        {
+                            DeleteObject(handle);
+                        }
+
+                        break;
+                    }
+                default:
+                    throw new InvalidEnumArgumentException("Unsupported icon mode!");
             }
 
             return iconSource;
         }
 
         private void HandleIconChanged()
+        {
+            IconMode = IconMode.Custom;
+
+            iconSource = null;
+            OnPropertyChanged(() => IconSource);
+
+        }
+
+        private void HandleIconModeChanged()
         {
             iconSource = null;
             OnPropertyChanged(() => IconSource);
@@ -87,21 +121,25 @@ namespace Z.BusinessLogic.ViewModels.Configuration.Launcher
             return Convert.ToBase64String(stream.ToArray());
         }
 
-        public LauncherEntryViewModel(LauncherEntryViewModel parent)
+        public LauncherEntryViewModel(LauncherEntryViewModel parent, IImageResources imageResources)
         {
             this.parent = parent;
+            this.imageResources = imageResources;
+
+            isExpanded = false;
         }
 
-        public LauncherEntryViewModel(LauncherEntryViewModel parent, LauncherShortcut shortcut)
-            : this(parent)
+        public LauncherEntryViewModel(LauncherEntryViewModel parent, IImageResources imageResources, LauncherShortcut shortcut)
+            : this(parent, imageResources)
         {
             name = shortcut.Name;
             command = shortcut.Command;
-            icon = IconFromBase64(shortcut.Base64Icon);            
+            icon = IconFromBase64(shortcut.IconData);
+            iconMode = shortcut.IconMode;
 
             for (int i = 0; i < shortcut.SubItems.Count; i++)
             {
-                var subitem = new LauncherEntryViewModel(this, shortcut.SubItems[i]);
+                var subitem = new LauncherEntryViewModel(this, imageResources, shortcut.SubItems[i]);
                 items.Add(subitem);
             }
         }
@@ -120,11 +158,18 @@ namespace Z.BusinessLogic.ViewModels.Configuration.Launcher
             {
                 Name = this.name,
                 Command = this.command,
-                Base64Icon = IconToBase64(icon),
+                IconData = IconToBase64(icon),
+                IconMode = iconMode,
                 SubItems = subitems
             };
 
             return result;
+        }
+
+        public bool IsExpanded
+        {
+            get => isExpanded;
+            set => Set(ref isExpanded, () => IsExpanded, value);
         }
 
         public string Name
@@ -143,6 +188,12 @@ namespace Z.BusinessLogic.ViewModels.Configuration.Launcher
         {
             get => icon;
             set => Set(ref icon, () => Icon, value, HandleIconChanged);
+        }
+
+        public IconMode IconMode
+        {
+            get => iconMode;
+            set => Set(ref iconMode, () => IconMode, value, HandleIconModeChanged);
         }
 
         public ImageSource IconSource

@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Z.BusinessLogic.ViewModels.Main
+namespace Z.BusinessLogic.Types.Launcher
 {
-    public interface IMainHandler
+    public enum IconMode
     {
-        void ExecuteCurrentAction();        
+        Default,
+        Folder,
+        Custom
     }
 }

@@ -84,11 +84,14 @@
     <Compile Include="Models\SaveDialogResult.cs" />
     <Compile Include="Models\SuggestionData.cs" />
     <Compile Include="Services\Dialogs\IDialogService.cs" />
+    <Compile Include="Services\Image\IImageResources.cs" />
     <Compile Include="Services\Messaging\IMessagingService.cs" />
+    <Compile Include="Types\Launcher\IconMode.cs" />
     <Compile Include="Types\Main\MainWorkingMode.cs" />
     <Compile Include="ViewModels\Base\HierarchicalViewModel.cs" />
     <Compile Include="ViewModels\Configuration\Launcher\LauncherEntryViewModel.cs" />
     <Compile Include="ViewModels\Configuration\Launcher\LauncherViewModel.cs" />
+    <Compile Include="ViewModels\Main\Launcher\ILauncherHandler.cs" />
     <Compile Include="ViewModels\Main\Launcher\ILauncherWindowAccess.cs" />
     <Compile Include="ViewModels\Main\IMainHandler.cs" />
     <Compile Include="ViewModels\Main\Launcher\LauncherRowViewModel.cs" />
@@ -228,9 +231,7 @@
       <LastGenOutput>Text.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Services\Interfaces\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
