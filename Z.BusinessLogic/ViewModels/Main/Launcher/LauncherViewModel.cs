@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Z.BusinessLogic.Events;
 using Z.BusinessLogic.Services.Config;
 using Z.BusinessLogic.Services.EventBus;
+using Z.BusinessLogic.Services.Image;
 using Z.BusinessLogic.ViewModels.Base;
 
 namespace Z.BusinessLogic.ViewModels.Main.Launcher
@@ -16,7 +17,8 @@ namespace Z.BusinessLogic.ViewModels.Main.Launcher
         // Private fields -----------------------------------------------------
 
         private readonly IConfigurationService configurationService;
-        private readonly IMainHandler handler;
+        private readonly IImageResources imageResources;
+        private readonly ILauncherHandler handler;
         private readonly List<LauncherRowViewModel> rows = new List<LauncherRowViewModel>();
 
         private ILauncherWindowAccess launcherWindowAccess;
@@ -32,10 +34,10 @@ namespace Z.BusinessLogic.ViewModels.Main.Launcher
             if (configurationService.Configuration.Launcher.Items != null)
             {
                 var items = configurationService.Configuration.Launcher.Items
-                    .Select(i => new LauncherShortcutViewModel(i))
+                    .Select(i => new LauncherShortcutViewModel(imageResources, i))
                     .ToList();
 
-                var row = new LauncherRowViewModel(items);
+                var row = new LauncherRowViewModel("Launcher", items);
                 rows.Add(row);
             }
 
@@ -49,17 +51,23 @@ namespace Z.BusinessLogic.ViewModels.Main.Launcher
                 rows.RemoveAt(rows.Count - 1);
                 OnPropertyChanged(() => SelectedRow);
             }
+            else
+            {
+                handler.ExitLauncher();
+            }
         }
 
         private void GoForward()
         {
-            if (SelectedRow != null && SelectedRow.SelectedItem.HasSubItems)
+            if (SelectedRow != null && SelectedRow.SelectedItem != null && SelectedRow.SelectedItem.HasSubItems)
             {
                 var items = SelectedRow.SelectedItem.LauncherShortcut.SubItems
-                    .Select(i => new LauncherShortcutViewModel(i))
+                    .Select(i => new LauncherShortcutViewModel(imageResources, i))
                     .ToList();
 
-                var row = new LauncherRowViewModel(items);
+                string header = $"{rows.Last().Header} → {SelectedRow.SelectedItem.LauncherShortcut.Name}";
+
+                var row = new LauncherRowViewModel(header, items);
                 rows.Add(row);
 
                 OnPropertyChanged(() => SelectedRow);
@@ -68,10 +76,11 @@ namespace Z.BusinessLogic.ViewModels.Main.Launcher
 
         // Public methods -----------------------------------------------------
 
-        public LauncherViewModel(IMainHandler handler, IConfigurationService configurationService)
+        public LauncherViewModel(ILauncherHandler handler, IImageResources imageResources, IConfigurationService configurationService)
         {
             this.handler = handler;
             this.configurationService = configurationService;
+            this.imageResources = imageResources;
 
             reversed = false;
         }
@@ -120,7 +129,16 @@ namespace Z.BusinessLogic.ViewModels.Main.Launcher
 
         public void EnterPressed()
         {
-            // TODO choose item
+            if (SelectedRow != null && SelectedRow.SelectedItem != null)
+            {
+                var selected = SelectedRow.SelectedItem;
+                if (String.IsNullOrEmpty(selected.LauncherShortcut.Command) && selected.HasSubItems)
+                    GoForward();
+                else
+                {
+                    handler.ExecuteShortcut(SelectedRow.SelectedItem.LauncherShortcut);
+                }
+            }
         }
 
         // Public properties --------------------------------------------------

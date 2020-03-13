@@ -108,6 +108,7 @@
     </Compile>
     <Compile Include="Services\AppWindows\AppWindowService.cs" />
     <Compile Include="Services\Dialogs\DialogService.cs" />
+    <Compile Include="Services\Image\ImageResources.cs" />
     <Compile Include="Services\Messaging\MessagingService.cs" />
     <Compile Include="SuggestionChoiceWindow.xaml.cs">
       <DependentUpon>SuggestionChoiceWindow.xaml</DependentUpon>
@@ -238,9 +239,14 @@
   <ItemGroup>
     <Resource Include="Z.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\Images\LauncherGeneric32.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\New16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Folder32.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
