@@ -54,6 +54,7 @@ Source: "..\Z\bin\Release\Microsoft.Practices.Unity.dll"; DestDir: "{app}"; Flag
 Source: "..\Z\bin\Release\Microsoft.Practices.Unity.RegistrationByConvention.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Z\bin\Release\Microsoft.WindowsAPICodePack.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Z\bin\Release\Microsoft.WindowsAPICodePack.Shell.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Z\bin\Release\Microsoft.Xaml.Behaviors.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Z\bin\Release\PowerModule.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Z\bin\Release\ProCalc.NET.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Z\bin\Release\ProCalcModule.dll"; DestDir: "{app}"; Flags: ignoreversion

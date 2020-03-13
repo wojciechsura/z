@@ -11,6 +11,5 @@
                 <ResourceDictionary Source="Controls\WindowChromeResources.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-        
     </Application.Resources>
 </Application>
