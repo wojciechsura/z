@@ -231,11 +231,22 @@
                         <Separator DockPanel.Dock="Top" />
 
                         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
-                            <Button Command="{Binding AddSameLevelCommand}">Add item on same level</Button>
-                            <Button Command="{Binding AddChildCommand}">Add item as child</Button>
-                            <Button Command="{Binding DeleteCommand}">Delete item</Button>
-                            <Button Command="{Binding MoveUpCommand}">Move up</Button>
-                            <Button Command="{Binding MoveDownCommand}">Move down</Button>
+                            <Button Style="{StaticResource ImageButton}" Command="{Binding AddSameLevelCommand}">
+                                <Image Width="16" Height="16" Source="Resources/Images/AddSameLevel16.png"/>
+                            </Button>
+                            <Button Style="{StaticResource ImageButton}" Command="{Binding AddChildCommand}">
+                                <Image Width="16" Height="16" Source="Resources/Images/AddChild16.png" />
+                            </Button>
+                            <Button Style="{StaticResource ImageButton}" Command="{Binding DeleteCommand}">
+                                <Image Width="16" Height="16" Source="Resources/Images/Delete16.png" />
+                            </Button>
+                            <Separator Margin="3" />
+                            <Button Style="{StaticResource ImageButton}" Command="{Binding MoveUpCommand}">
+                                <Image Width="16" Height="16" Source="Resources/Images/Up16.png"/>
+                            </Button>
+                            <Button Style="{StaticResource ImageButton}" Command="{Binding MoveDownCommand}">
+                                <Image Width="16" Height="16" Source="Resources/Images/Down16.png"/>
+                            </Button>
                         </StackPanel>
 
                         <Grid DockPanel.Dock="Bottom" IsEnabled="{Binding ElementName=LauncherItems, Path=SelectedItem, Converter={StaticResource SelectedToBooleanConverter}}">
@@ -256,18 +267,17 @@
 
                             <TextBlock Grid.Column="0" Grid.Row="1" Style="{StaticResource ItemDesc}" Margin="3">Command</TextBlock>
                             <DockPanel Grid.Column="1" Grid.Row="1">
-                                <Button DockPanel.Dock="Left" Content="..." Command="{Binding ChoosePathCommand}" />
+                                <Button DockPanel.Dock="Right" Content="Browse..." Command="{Binding ChoosePathCommand}" 
+                                        Padding="12,0"/>
                                 <TextBox Margin="3" Text="{Binding ElementName=LauncherItems, Path=SelectedItem.Command, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             </DockPanel>
 
                             <TextBlock Grid.Column="0" Grid.Row="2" Style="{StaticResource ItemDesc}" Margin="3">Icon</TextBlock>
-                            <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Vertical">
-                                <StackPanel Orientation="Horizontal">
-                                    <ComboBox ItemsSource="{Binding IconModes}" SelectedItem="{Binding ElementName=LauncherItems, Path=SelectedItem.IconMode}" Width="150" />
-                                    <Button Command="{Binding AutoResolveIconCommand}">Find automatically</Button>
-                                </StackPanel>
-                                <Image Width="32" Height="32" Source="{Binding ElementName=LauncherItems, Path=SelectedItem.IconSource}" Margin="0,4" />
-                            </StackPanel>
+                            <DockPanel Grid.Column="1" Grid.Row="2" >
+                                <Image Width="32" Height="32" VerticalAlignment="Center" Source="{Binding ElementName=LauncherItems, Path=SelectedItem.IconSource}" Margin="0,4,4,4" />
+                                <Button Height="23" VerticalAlignment="Center" DockPanel.Dock="Right" Command="{Binding AutoResolveIconCommand}">Find automatically</Button>
+                                <ComboBox Height="23" VerticalAlignment="Center" Margin="3" ItemsSource="{Binding IconModes}" SelectedItem="{Binding ElementName=LauncherItems, Path=SelectedItem.IconMode}" />
+                            </DockPanel>
                         </Grid>
 
                         <TreeView x:Name="LauncherItems" Margin="3" ItemsSource="{Binding Items}">
