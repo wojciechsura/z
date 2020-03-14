@@ -43,9 +43,32 @@ namespace Z.BusinessLogic.ViewModels.Configuration.Launcher
 
         private bool TryAutoResolveIcon()
         {
+            // Check if command is an URL
+            if (selectedItem.Command.ToLower().StartsWith("http"))
+            {
+                selectedItem.IconMode = IconMode.Url;
+                return true;
+            }
+
             try
             {
-                var icon = Icon.ExtractAssociatedIcon(selectedItem.Command);
+                string path = null;
+
+                // Checking for command in form "<path>" param1 param2 ...
+                if (selectedItem.Command.StartsWith("\""))
+                {
+                    int closingQuote = selectedItem.Command.IndexOf('"', 1);
+                    if (closingQuote > 0)
+                    {
+                        path = selectedItem.Command.Substring(1, closingQuote - 1);
+                    }
+                }
+
+                // Otherwise treat whole command as path
+                if (path == null)
+                    path = selectedItem.Command;
+
+                var icon = Icon.ExtractAssociatedIcon(path);
                 Bitmap bitmap = icon.ToBitmap();
 
                 selectedItem.Icon = bitmap;
@@ -62,6 +85,52 @@ namespace Z.BusinessLogic.ViewModels.Configuration.Launcher
         {
             if (!TryAutoResolveIcon())
                 messagingService.Warn("Could not resolve icon automatically. Choose icon manually.");            
+        }
+
+        private void DoBrowseIcon()
+        {
+            var result = dialogService.ShowOpenDialog("All supported files (*.ico, *.exe)|*.ico;*.exe", "Choose icon");
+            if (result.Result)
+            {
+                switch (System.IO.Path.GetExtension(result.FileName).ToLower())
+                {
+                    case ".exe":
+
+                        try
+                        {
+                            Icon icon = Icon.ExtractAssociatedIcon(result.FileName);
+                            Bitmap bitmap = icon.ToBitmap();
+
+                            selectedItem.Icon = bitmap;
+                            selectedItem.IconMode = IconMode.Custom;
+                        }
+                        catch
+                        {
+                            messagingService.Warn("Failed to extract icon from selected file!");
+                        }
+
+                        break;
+                    case ".ico":
+
+                        try
+                        {
+                            Icon icon = new Icon(result.FileName, 32, 32);
+                            Bitmap bitmap = icon.ToBitmap();
+
+                            selectedItem.Icon = bitmap;
+                            selectedItem.IconMode = IconMode.Custom;
+                        }
+                        catch
+                        {
+                            messagingService.Warn("Failed to extract icon from selected file!");
+                        }
+
+                        break;
+                    default:
+                        messagingService.Warn("Unsupported file type. Try .exe or .ico file.");
+                        break;
+                }
+            }
         }
 
         private void DoMoveDown()
@@ -170,6 +239,7 @@ namespace Z.BusinessLogic.ViewModels.Configuration.Launcher
             MoveUpCommand = new SimpleCommand(obj => DoMoveUp());
             MoveDownCommand = new SimpleCommand(obj => DoMoveDown());
             AutoResolveIconCommand = new SimpleCommand(obj => DoAutoResolveIcon());
+            BrowseIconCommand = new SimpleCommand(obj => DoBrowseIcon());
 
             IconModes = (IconMode[])Enum.GetValues(typeof(IconMode));
         }
@@ -203,7 +273,7 @@ namespace Z.BusinessLogic.ViewModels.Configuration.Launcher
         public ICommand MoveUpCommand { get; }
         public ICommand MoveDownCommand { get; }
         public ICommand AutoResolveIconCommand { get; }
-
+        public ICommand BrowseIconCommand { get; }
         public LauncherEntryViewModel SelectedItem
         {
             get => selectedItem;
