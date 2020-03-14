@@ -72,6 +72,7 @@ namespace Z.BusinessLogic.ViewModels.Configuration.Launcher
                 Bitmap bitmap = icon.ToBitmap();
 
                 selectedItem.Icon = bitmap;
+                selectedItem.IconMode = IconMode.Custom;
             }
             catch
             {
