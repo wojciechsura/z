@@ -10,6 +10,7 @@ namespace Z.BusinessLogic.Types.Launcher
     {
         Default,
         Folder,
+        Url,
         Custom
     }
 }

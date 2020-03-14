@@ -50,6 +50,9 @@ namespace Z.BusinessLogic.ViewModels.Configuration.Launcher
                 case IconMode.Folder:
                     iconSource = imageResources.GetIconByName("Folder32.png");
                     break;
+                case IconMode.Url:
+                    iconSource = imageResources.GetIconByName("Url32.png");
+                    break;
                 case IconMode.Custom:
                     {
                         if (icon == null)

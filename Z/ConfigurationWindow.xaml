@@ -267,14 +267,14 @@
 
                             <TextBlock Grid.Column="0" Grid.Row="1" Style="{StaticResource ItemDesc}" Margin="3">Command</TextBlock>
                             <DockPanel Grid.Column="1" Grid.Row="1">
-                                <Button DockPanel.Dock="Right" Content="Browse..." Command="{Binding ChoosePathCommand}" 
-                                        Padding="12,0"/>
+                                <Button DockPanel.Dock="Right" Command="{Binding ChoosePathCommand}" Padding="12,0">Browse...</Button>
                                 <TextBox Margin="3" Text="{Binding ElementName=LauncherItems, Path=SelectedItem.Command, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             </DockPanel>
 
                             <TextBlock Grid.Column="0" Grid.Row="2" Style="{StaticResource ItemDesc}" Margin="3">Icon</TextBlock>
                             <DockPanel Grid.Column="1" Grid.Row="2" >
                                 <Image Width="32" Height="32" VerticalAlignment="Center" Source="{Binding ElementName=LauncherItems, Path=SelectedItem.IconSource}" Margin="0,4,4,4" />
+                                <Button Height="23" VerticalAlignment="Center" DockPanel.Dock="Right" Command="{Binding BrowseIconCommand}">Browse...</Button>
                                 <Button Height="23" VerticalAlignment="Center" DockPanel.Dock="Right" Command="{Binding AutoResolveIconCommand}">Find automatically</Button>
                                 <ComboBox Height="23" VerticalAlignment="Center" Margin="3" ItemsSource="{Binding IconModes}" SelectedItem="{Binding ElementName=LauncherItems, Path=SelectedItem.IconMode}" />
                             </DockPanel>

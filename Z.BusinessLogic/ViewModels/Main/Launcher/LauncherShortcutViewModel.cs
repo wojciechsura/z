@@ -44,6 +44,10 @@ namespace Z.BusinessLogic.ViewModels.Main.Launcher
                     cachedIcon = imageResources.GetIconByName("Folder32.png");
                     cachedIconValid = true;
                     break;
+                case IconMode.Url:
+                    cachedIcon = imageResources.GetIconByName("Url32.png");
+                    cachedIconValid = true;
+                    break;
                 case IconMode.Custom:
                     {
                         if (string.IsNullOrEmpty(LauncherShortcut.IconData))
