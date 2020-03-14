@@ -567,7 +567,29 @@ namespace Z.BusinessLogic.ViewModels.Main
         {
             try
             {
-                Process.Start(shortcut.Command);
+                string path = shortcut.Command;
+                string parameters = null;
+
+                if (shortcut.Command.StartsWith("\""))
+                {
+                    int closingQuote = shortcut.Command.IndexOf('"', 1);
+                    if (closingQuote >= 0)
+                    {
+                        path = shortcut.Command.Substring(1, closingQuote - 1);
+                        if (closingQuote < shortcut.Command.Length - 1)
+                            parameters = shortcut.Command.Substring(closingQuote + 1);
+                    }
+                }
+                else if (shortcut.Command.Contains(" "))
+                {
+                    int space = shortcut.Command.IndexOf(' ');
+
+                    path = shortcut.Command.Substring(0, space);
+                    if (space < shortcut.Command.Length - 1)
+                        parameters = shortcut.Command.Substring(space + 1);
+                }
+
+                Process.Start(path, parameters);
                 InternalDismissWindow();
             }
             catch(Exception e)

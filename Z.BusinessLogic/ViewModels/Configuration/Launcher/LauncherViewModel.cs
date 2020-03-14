@@ -33,7 +33,14 @@ namespace Z.BusinessLogic.ViewModels.Configuration.Launcher
             var result = dialogService.ShowOpenDialog("Applications (*.exe)|*.exe|All files (*.*)|*.*", "Choose application");
             if (result.Result)
             {
-                selectedItem.Command = result.FileName;
+                if (result.FileName.Contains(" "))
+                {
+                    selectedItem.Command = $"\"{result.FileName}\"";
+                }
+                else
+                {
+                    selectedItem.Command = result.FileName;
+                }
                 
                 // Resolve icon if no icon is set yet.
                 if (selectedItem.Icon == null)
