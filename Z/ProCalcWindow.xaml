@@ -8,7 +8,8 @@
         xmlns:local="clr-namespace:Z"
         xmlns:types="clr-namespace:Z.Types"
                           xmlns:controls="clr-namespace:Z.Controls"
-                          mc:Ignorable="d"        
+                          xmlns:properties="clr-namespace:Z.Resources;assembly=Z.Resources"
+                          mc:Ignorable="d"      
         PreviewKeyDown="ProCalcKeyDown" LostFocus="ProCalcLostFocus" MouseDown="ProCalcWindowMouseDown" SizeChanged="ProCalcWindowSizeChanged"
         Width="400" SizeToContent="Height" WindowStyle="None" ResizeMode="NoResize" 
         ShowInTaskbar="False" Topmost="True" AllowsTransparency="True" Background="Transparent"
@@ -44,11 +45,11 @@
                                             Focusable="False" Click="GearButtonClick">
                     <Button.ContextMenu>
                         <ContextMenu>
-                            <MenuItem Click="ZLauncherMenuItem_Click" Header="Z launcher" InputGestureText="{x:Static properties:Strings.Z.Main.Context.SwitchToZShortcut}" />
-                            <MenuItem Click="ProCalcMenuItem_Click" Header="ProCalc" InputGestureText="{x:Static properties:Strings.Z.Main.Context.SwitchToProCalcShortcut}"/>
+                            <MenuItem Click="ZLauncherMenuItem_Click" Header="Z launcher" InputGestureText="{x:Static properties:Strings.Z_Main_Context_SwitchToZShortcut}" />
+                            <MenuItem Click="ProCalcMenuItem_Click" Header="ProCalc" InputGestureText="{x:Static properties:Strings.Z_Main_Context_SwitchToProCalcShortcut}"/>
                             <Separator />
-                            <MenuItem Click="ConfigurationMenuItem_Click" Header="{x:Static properties:Strings.Z.Main.Context.Configuration}" />
-                            <MenuItem Click="CloseMenuItem_Click" Header="{x:Static properties:Strings.Z.Main.Context.Close}" />
+                            <MenuItem Click="ConfigurationMenuItem_Click" Header="{x:Static properties:Strings.Z_Main_Context_Configuration}" />
+                            <MenuItem Click="CloseMenuItem_Click" Header="{x:Static properties:Strings.Z_Main_Context_Close}" />
                         </ContextMenu>
                     </Button.ContextMenu>
                 </Button>

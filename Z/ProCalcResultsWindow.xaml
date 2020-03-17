@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Z"
         xmlns:controls="clr-namespace:Z.Controls"
+        xmlns:properties="clr-namespace:Z.Resources;assembly=Z.Resources"
         mc:Ignorable="d"
         WindowStyle="None" ResizeMode="NoResize" ShowInTaskbar="False" 
         Topmost="True" AllowsTransparency="True" Background="Transparent"

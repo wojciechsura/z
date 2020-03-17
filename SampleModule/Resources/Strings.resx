@@ -114,4 +114,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Sample_ModuleDisplayName" xml:space="preserve">
+    <value>Sample module</value>
+  </data>
+  <data name="Sample_ActionDisplayName" xml:space="preserve">
+    <value>Sample action</value>
+  </data>
+  <data name="Sample_ActionComment" xml:space="preserve">
+    <value>This is sample action to demonstrate implementation of simple module for Z.</value>
+  </data>
+  <data name="Sample_KeywordIsActive" xml:space="preserve">
+    <value>Keyword is active, </value>
+  </data>
+  <data name="Sample_Message_CannotExecute" xml:space="preserve">
+    <value>Cannot execute!</value>
+  </data>
+  <data name="Sample_Message_ExecutedFromSuggestion" xml:space="preserve">
+    <value>Executed from suggestion, </value>
+  </data>
 </root>

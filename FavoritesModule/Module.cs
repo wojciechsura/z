@@ -1,4 +1,5 @@
 ﻿using FavoritesModule.Models;
+using FavoritesModule.Resources;
 using FavoritesModule.ViewModels;
 using FavoritesModule.Windows;
 using System;
@@ -54,11 +55,8 @@ namespace FavoritesModule
             }
         }
 
-        private const string MODULE_DISPLAY_NAME = "Favorites";
         private const string MODULE_NAME = "Favorites";
         private const string CONFIG_FILENAME = "config.xml";
-        private const string FAVORITE_ACTION_COMMENT = "Access favorite places or websites";
-        private const string FAVORITE_ACTION_DISPLAY = "Favorite";
         private const string FAVORITE_ACTION_KEYWORD = "fav";
         private const string FAVORITE_ACTION_NAME = "Favorite";
         private readonly ImageSource icon;
@@ -105,7 +103,7 @@ namespace FavoritesModule
                 }
                 catch (Exception e)
                 {
-                    options.ErrorText = $"Cannot execute: {e.Message}";
+                    options.ErrorText = String.Format(Strings.Favorites_Message_CannotExecute, e.Message);
                     options.PreventClose = true;
                 }
             }
@@ -144,7 +142,7 @@ namespace FavoritesModule
 
         public IEnumerable<KeywordInfo> GetKeywordActions()
         {
-            yield return new KeywordInfo(FAVORITE_ACTION_KEYWORD, FAVORITE_ACTION_NAME, FAVORITE_ACTION_DISPLAY, FAVORITE_ACTION_COMMENT);
+            yield return new KeywordInfo(FAVORITE_ACTION_KEYWORD, FAVORITE_ACTION_NAME, Strings.Favorites_ActionDisplay, Strings.Favorites_ActionComment);
         }
 
         public void Initialize(IModuleContext context)
@@ -174,7 +172,7 @@ namespace FavoritesModule
         {
             get
             {
-                return MODULE_DISPLAY_NAME;
+                return Strings.Favorites_ModuleDisplayName;
             }
         }
 

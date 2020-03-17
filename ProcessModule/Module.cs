@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProcessModule.Resources;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -15,13 +16,10 @@ namespace ProcessModule
 {
     public class Module : IZModule
     {
-        private const string MODULE_DISPLAY_NAME = "Kill process";
         private const string MODULE_NAME = "Process";
 
         private const string KILL_KEYWORD = "kill";
         private const string KILL_ACTION = "Kill";
-        private const string KILL_KEYWORD_DISPLAY = "Kill process";
-        private const string KILL_KEYWORD_COMMENT = "Kills chosen process";
 
         private ImageSource icon;
 
@@ -52,7 +50,7 @@ namespace ProcessModule
                     }
                     catch
                     {
-                        filename = "(unknown path)";
+                        filename = ProcessModule.Resources.Strings.Process_UnknownPath;
                     }
 
                     collector.AddSuggestion(new SuggestionInfo(p.ProcessName, p.ProcessName, $"{p.Id}, {filename}", icon, SuggestionUtils.EvalMatch(enteredText, p.ProcessName), p.Id));
@@ -90,10 +88,10 @@ namespace ProcessModule
 
         public IEnumerable<KeywordInfo> GetKeywordActions()
         {
-            yield return new KeywordInfo(KILL_KEYWORD, KILL_ACTION, KILL_KEYWORD_DISPLAY, KILL_KEYWORD_COMMENT);
+            yield return new KeywordInfo(KILL_KEYWORD, KILL_ACTION, Strings.Process_ActionDisplayName, Strings.Process_ActionComment);
         }
 
-        public string DisplayName => MODULE_DISPLAY_NAME;
+        public string DisplayName => Strings.Process_ModuleDisplayName;
 
         public ImageSource Icon => icon;
 
