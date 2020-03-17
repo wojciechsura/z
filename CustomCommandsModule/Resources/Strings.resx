@@ -122,7 +122,7 @@
     <value>Test input:</value>
   </data>
   <data name="CustomCommands_Config_TestInput_Default" xml:space="preserve">
-    <value>FirstParameter &amp;quot;Second parameter with spaces and &amp;quot;&amp;quot;quotes&amp;quot;&amp;quot;&amp;quot;</value>
+    <value>FirstParameter "Second parameter with spaces and "quotes"""</value>
   </data>
   <data name="CustomCommands_Config_ResultCommand" xml:space="preserve">
     <value>Result command:</value>
