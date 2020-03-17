@@ -1,0 +1,268 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+		Microsoft ResX Schema
+
+		Version 1.3
+
+		The primary goals of this format is to allow a simple XML format 
+		that is mostly human readable. The generation and parsing of the 
+		various data types are done through the TypeConverter classes 
+		associated with the data types.
+
+		Example:
+
+		... ado.net/XML headers & schema ...
+		<resheader name="resmimetype">text/microsoft-resx</resheader>
+		<resheader name="version">1.3</resheader>
+		<resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+		<resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+		<data name="Name1">this is my long string</data>
+		<data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+		<data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+			[base64 mime encoded serialized .NET Framework object]
+		</data>
+		<data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+			[base64 mime encoded string representing a byte array form of the .NET Framework object]
+		</data>
+
+		There are any number of "resheader" rows that contain simple 
+		name/value pairs.
+
+		Each data row contains a name, and value. The row also contains a 
+		type or mimetype. Type corresponds to a .NET class that support 
+		text/value conversion through the TypeConverter architecture. 
+		Classes that don't support this are serialized and stored with the 
+		mimetype set.
+
+		The mimetype is used for serialized objects, and tells the 
+		ResXResourceReader how to depersist the object. This is currently not 
+		extensible. For a given mimetype the value must be set accordingly:
+
+		Note - application/x-microsoft.net.object.binary.base64 is the format 
+		that the ResXResourceWriter will generate, however the reader can 
+		read any of the formats listed below.
+
+		mimetype: application/x-microsoft.net.object.binary.base64
+		value   : The object must be serialized with 
+			: System.Serialization.Formatters.Binary.BinaryFormatter
+			: and then encoded with base64 encoding.
+
+		mimetype: application/x-microsoft.net.object.soap.base64
+		value   : The object must be serialized with 
+			: System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+			: and then encoded with base64 encoding.
+
+		mimetype: application/x-microsoft.net.object.bytearray.base64
+		value   : The object must be serialized into a byte array 
+			: using a System.ComponentModel.TypeConverter
+			: and then encoded with base64 encoding.
+	-->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>1.3</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Z.Main.Context.SwitchToZShortcut" xml:space="preserve">
+    <value>Alt+Z or F1</value>
+  </data>
+  <data name="Z.Main.Context.SwitchToProCalcShortcut" xml:space="preserve">
+    <value>Alt+C or F3</value>
+  </data>
+  <data name="Z.Main.Context.Configuration" xml:space="preserve">
+    <value>Configuration</value>
+  </data>
+  <data name="Z.Main.Context.Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="Z.Main.Hint" xml:space="preserve">
+    <value>Enter ? to get list of keywords. Press up for launcher.</value>
+  </data>
+  <data name="Z.OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Z.Config.General.Shortcut" xml:space="preserve">
+    <value>Shortcut</value>
+  </data>
+  <data name="Z.Config.General.Modifiers" xml:space="preserve">
+    <value>Modifiers</value>
+  </data>
+  <data name="Z_Config_General_Shift" xml:space="preserve">
+    <value>Shift</value>
+  </data>
+  <data name="Z_Config_General_Control" xml:space="preserve">
+    <value>Control</value>
+  </data>
+  <data name="Z_Config_General_Alt" xml:space="preserve">
+    <value>Alt</value>
+  </data>
+  <data name="Z_Config_General_Key" xml:space="preserve">
+    <value>Key</value>
+  </data>
+  <data name="Z_Config_General_HotkeySwitchesVisibility_Label" xml:space="preserve">
+    <value>Hotkey switches visibility</value>
+  </data>
+  <data name="Z_Config_General_HotkeySwitchesVisibility" xml:space="preserve">
+    <value>Use hotkey again to hide window</value>
+  </data>
+  <data name="Z_Config_General_SynchronizeWindowPositions_Label" xml:space="preserve">
+    <value>Synchronize window positions</value>
+  </data>
+  <data name="Z_Config_General_SynchronizeWindowPositions" xml:space="preserve">
+    <value>ProCalc window position will be synchronized with Z window</value>
+  </data>
+  <data name="Z_Config_Keyword_Keywords" xml:space="preserve">
+    <value>Keywords</value>
+  </data>
+  <data name="Z_Config_Keyword_Module" xml:space="preserve">
+    <value>Module</value>
+  </data>
+  <data name="Z_Config_Keyword_Action" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="Z_Config_Keyword_Override" xml:space="preserve">
+    <value>Override</value>
+  </data>
+  <data name="Z_Config_Keyword_Keyword" xml:space="preserve">
+    <value>Keyword</value>
+  </data>
+  <data name="Z_Config_Behavior_ExecutingActions" xml:space="preserve">
+    <value>Executing actions</value>
+  </data>
+  <data name="Z_Config_Behavior_EnterCommentLine1" xml:space="preserve">
+    <value>Choose, what happens, when you press Enter key </value>
+  </data>
+  <data name="Z_Config_Behavior_EnterCommentLine2" xml:space="preserve">
+    <value>when no suggestion is selected and no keyword is used</value>
+  </data>
+  <data name="Z_Config_Behavior_EnterCommentLine3" xml:space="preserve">
+    <value>:</value>
+  </data>
+  <data name="Z_Config_Behavior_EnterBehavior_Label" xml:space="preserve">
+    <value>Enter key behavior</value>
+  </data>
+  <data name="Z_Config_Behavior_ShellExecute" xml:space="preserve">
+    <value>Shell execute</value>
+  </data>
+  <data name="Z_Config_Behavior_ShellExecute_Comment" xml:space="preserve">
+    <value>Causes the Z window to behave as Start | Run. When you press Enter, Z will try to execute entered text as command.</value>
+  </data>
+  <data name="Z_Config_Behavior_ChooseFirst" xml:space="preserve">
+    <value>Choose first</value>
+  </data>
+  <data name="Z_Config_Behavior_ChooseFirst_Comment" xml:space="preserve">
+    <value>Z will choose first result in suggestions window and perform its action. If there are no suggestions, nothing will happen.</value>
+  </data>
+  <data name="Z_Config_Behavior_ChoosePerfectlyMatched" xml:space="preserve">
+    <value>Choose perfectly matched</value>
+  </data>
+  <data name="Z_Config_Behavior_ChoosePerfectlyMatched_Comment" xml:space="preserve">
+    <value>Z will try to find perfect match for entered text among modules. If there's only one, it will be executed. If there are more, you will be asked, which one do you want to execute.</value>
+  </data>
+  <data name="Z_Config_Behavior_Suggestions_Label" xml:space="preserve">
+    <value>Suggestions</value>
+  </data>
+  <data name="Z_Config_Behavior_SuggestionDelay" xml:space="preserve">
+    <value>Suggestion delay</value>
+  </data>
+  <data name="Z_Config_Behavior_SuggestionDelay_Comment" xml:space="preserve">
+    <value>How soon should suggestion window appear, when you stop typing.</value>
+  </data>
+  <data name="Z_Config_Behavior_Ms" xml:space="preserve">
+    <value>ms</value>
+  </data>
+  <data name="Z_Config_Behavior_SuggestionSorting" xml:space="preserve">
+    <value>Suggestion sorting</value>
+  </data>
+  <data name="Z_Config_Behavior_SortByModule" xml:space="preserve">
+    <value>Sort by module</value>
+  </data>
+  <data name="Z_Config_Behavior_SortByTitle" xml:space="preserve">
+    <value>Sort by title</value>
+  </data>
+  <data name="Z_Config_Behavior_SortByMatch" xml:space="preserve">
+    <value>Sort by match</value>
+  </data>
+  <data name="Z_Config_Modules_Modules" xml:space="preserve">
+    <value>Modules</value>
+  </data>
+  <data name="Z_Config_Modules_Module" xml:space="preserve">
+    <value>Module</value>
+  </data>
+  <data name="Z_Config_Modules_Configure" xml:space="preserve">
+    <value>Configure...</value>
+  </data>
+  <data name="Z_Config_Launcher_Launcher" xml:space="preserve">
+    <value>Launcher</value>
+  </data>
+  <data name="Z_Config_Launcher_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Z_Config_Launcher_Command" xml:space="preserve">
+    <value>Command</value>
+  </data>
+  <data name="Z_Config_Launcher_Browse" xml:space="preserve">
+    <value>Browse...</value>
+  </data>
+  <data name="Z_Config_Launcher_Icon" xml:space="preserve">
+    <value>Icon</value>
+  </data>
+  <data name="Z_Config_Launcher_FindAutomatically" xml:space="preserve">
+    <value>Find automatically</value>
+  </data>
+  <data name="Z_ProCalc_Bin" xml:space="preserve">
+    <value>Bin</value>
+  </data>
+  <data name="Z_ProCalc_Oct" xml:space="preserve">
+    <value>Oct</value>
+  </data>
+  <data name="Z_ProCalc_Hex" xml:space="preserve">
+    <value>Hex</value>
+  </data>
+  <data name="Z_ProCalc_DMS" xml:space="preserve">
+    <value>DMS</value>
+  </data>
+  <data name="Z_ProCalc_Fraction" xml:space="preserve">
+    <value>Fraction</value>
+  </data>
+  <data name="Z_ProCalc_EnterExpressionToEvaluate" xml:space="preserve">
+    <value>Enter expression to evaluate</value>
+  </data>
+  <data name="Z_Suggestions_MultipleSuggestionsMatch" xml:space="preserve">
+    <value>Multiple suggestions match, choose one below:</value>
+  </data>
+</root>
