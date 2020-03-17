@@ -277,7 +277,7 @@ namespace CustomCommandsModule.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to FirstParameter &amp;quot;Second parameter with spaces and &amp;quot;&amp;quot;quotes&amp;quot;&amp;quot;&amp;quot;.
+        ///   Looks up a localized string similar to FirstParameter &quot;Second parameter with spaces and &quot;quotes&quot;&quot;&quot;.
         /// </summary>
         internal static string CustomCommands_Config_TestInput_Default {
             get {
