@@ -44,11 +44,11 @@
                                             Focusable="False" Click="GearButtonClick">
                     <Button.ContextMenu>
                         <ContextMenu>
-                            <MenuItem Click="ZLauncherMenuItem_Click" Header="Z launcher" InputGestureText="Alt+Z or F1" />
-                            <MenuItem Click="ProCalcMenuItem_Click" Header="ProCalc" InputGestureText="Alt+C or F3"/>
+                            <MenuItem Click="ZLauncherMenuItem_Click" Header="Z launcher" InputGestureText="{x:Static properties:Strings.Z.Main.Context.SwitchToZShortcut}" />
+                            <MenuItem Click="ProCalcMenuItem_Click" Header="ProCalc" InputGestureText="{x:Static properties:Strings.Z.Main.Context.SwitchToProCalcShortcut}"/>
                             <Separator />
-                            <MenuItem Click="ConfigurationMenuItem_Click" Header="Configuration" />
-                            <MenuItem Click="CloseMenuItem_Click" Header="Close" />
+                            <MenuItem Click="ConfigurationMenuItem_Click" Header="{x:Static properties:Strings.Z.Main.Context.Configuration}" />
+                            <MenuItem Click="CloseMenuItem_Click" Header="{x:Static properties:Strings.Z.Main.Context.Close}" />
                         </ContextMenu>
                     </Button.ContextMenu>
                 </Button>
@@ -56,7 +56,7 @@
                 <Grid>
                     <TextBlock Foreground="{StaticResource MainTextBrush}" Opacity="0.5" 
                                HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center"
-                               Visibility="{Binding ShowHint, Converter={StaticResource BooleanToVisibilityConverter}}">Enter expression to evaluate</TextBlock>
+                               Visibility="{Binding ShowHint, Converter={StaticResource BooleanToVisibilityConverter}}" Text="{x:Static properties:Strings.Z_ProCalc_EnterExpressionToEvaluate}"></TextBlock>
 
                     <TextBox VerticalAlignment="Center" Style="{StaticResource MainEditStyle}" x:Name="MainEdit" Margin="3" Text="{Binding EnteredText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                             PreviewKeyDown="ProCalcEditKeyDown" />

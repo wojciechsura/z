@@ -55,6 +55,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Z.Wpf", "Z.Wpf\Z.Wpf.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WSCadModule", "WSCadModule\WSCadModule.csproj", "{99F93EDE-2DDF-4E38-9048-4E1F93B341DD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Z.Resources", "Z.Resources\Z.Resources.csproj", "{FC19AC19-1546-4789-BEE2-2FDF11E43C87}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -157,6 +159,10 @@ Global
 		{99F93EDE-2DDF-4E38-9048-4E1F93B341DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{99F93EDE-2DDF-4E38-9048-4E1F93B341DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{99F93EDE-2DDF-4E38-9048-4E1F93B341DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC19AC19-1546-4789-BEE2-2FDF11E43C87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC19AC19-1546-4789-BEE2-2FDF11E43C87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC19AC19-1546-4789-BEE2-2FDF11E43C87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC19AC19-1546-4789-BEE2-2FDF11E43C87}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

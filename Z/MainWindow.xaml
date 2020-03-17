@@ -1,18 +1,19 @@
 ﻿<types:BaseOperatorWindow x:Class="Z.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"        
-        xmlns:converters="clr-namespace:Z.Common.Converters"
-        xmlns:tb="http://www.hardcodet.net/taskbar"
-        xmlns:local="clr-namespace:Z"
-        xmlns:types="clr-namespace:Z.Types"
+                          xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                          xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                          xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"        
+                          xmlns:converters="clr-namespace:Z.Common.Converters"
+                          xmlns:tb="http://www.hardcodet.net/taskbar"
+                          xmlns:local="clr-namespace:Z"
+                          xmlns:types="clr-namespace:Z.Types"
                           xmlns:controls="clr-namespace:Z.Controls"
-        mc:Ignorable="d"        
-        PreviewKeyDown="MainKeyDown" LostFocus="MainLostFocus" MouseDown="MainWindowMouseDown" SizeChanged="MainWindowSizeChanged"
-        Width="400" SizeToContent="Height" WindowStyle="None" ResizeMode="NoResize" 
-        ShowInTaskbar="False" Topmost="True" AllowsTransparency="True" Background="Transparent"
-        FocusManager.FocusedElement="{Binding ElementName=MainEdit}">
+                          xmlns:res="clr-namespace:Z.Resources;assembly=Z.Resources"
+                          mc:Ignorable="d"        
+                          PreviewKeyDown="MainKeyDown" LostFocus="MainLostFocus" MouseDown="MainWindowMouseDown" SizeChanged="MainWindowSizeChanged"
+                          Width="400" SizeToContent="Height" WindowStyle="None" ResizeMode="NoResize" 
+                          ShowInTaskbar="False" Topmost="True" AllowsTransparency="True" Background="Transparent"
+                          FocusManager.FocusedElement="{Binding ElementName=MainEdit}">
     <types:BaseOperatorWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -48,18 +49,18 @@
                                     Focusable="False" Click="GearButtonClick">
                     <Button.ContextMenu>
                         <ContextMenu>
-                            <MenuItem Click="ZLauncherMenuItem_Click" Header="Z launcher" InputGestureText="Alt+Z or F1" />
-                            <MenuItem Click="ProCalcMenuItem_Click" Header="ProCalc" InputGestureText="Alt+C or F3" />
+                            <MenuItem Click="ZLauncherMenuItem_Click" Header="Z launcher" InputGestureText="{x:Static res:Strings.Z_Main_Context_SwitchToZShortcut}" />
+                            <MenuItem Click="ProCalcMenuItem_Click" Header="ProCalc" InputGestureText="{x:Static res:Strings.Z_Main_Context_SwitchToProCalcShortcut}" />
                             <Separator />
-                            <MenuItem Click="ConfigurationMenuItem_Click" Header="Configuration" />
-                            <MenuItem Click="CloseMenuItem_Click" Header="Close" />
+                            <MenuItem Click="ConfigurationMenuItem_Click" Header="{x:Static res:Strings.Z_Main_Context_Configuration}" />
+                            <MenuItem Click="CloseMenuItem_Click" Header="{x:Static res:Strings.Z_Main_Context_Close}" />
                         </ContextMenu>
                     </Button.ContextMenu>
                 </Button>
 
                 <Grid>
                     <TextBlock Foreground="{StaticResource MainTextBrush}" Opacity="0.5" HorizontalAlignment="Left" Margin="10, 0, 0, 0" VerticalAlignment="Center"
-                                            Visibility="{Binding ShowHint, Converter={StaticResource BooleanToVisibilityConverter}}">Enter ? to get list of keywords. Press up for launcher.</TextBlock>
+                                            Visibility="{Binding ShowHint, Converter={StaticResource BooleanToVisibilityConverter}}" Text="{x:Static res:Strings.Z_Main_Hint}"></TextBlock>
 
                     <DockPanel>
                         <Border Visibility="{Binding CompleteHintVisible, Converter={StaticResource BooleanToVisibilityConverter}}" VerticalAlignment="Center" Margin="3" 
