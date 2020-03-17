@@ -17,6 +17,7 @@ using System.ComponentModel;
 using System.Xml.Serialization;
 using Filesystem.ViewModels;
 using Filesystem.Windows;
+using Filesystem.Resources;
 
 namespace Filesystem
 {
@@ -55,13 +56,10 @@ namespace Filesystem
             }
         }
 
-        private const string MODULE_DISPLAY_NAME = "Filesystem";
         private const string MODULE_NAME = "Filesystem";
 
         private const string FILE_KEYWORD = "file";
         private const string FILE_ACTION = "File";
-        private const string FILE_KEYWORD_DISPLAY = "File";
-        private const string FILE_KEYWORD_COMMENT = "Browse through the filesystem";
 
         private const string CONFIG_FILENAME = "config.xml";
 
@@ -270,7 +268,7 @@ namespace Filesystem
             }
             catch (Exception e)
             {
-                options.ErrorText = $"Cannot execute: {e.Message}";
+                options.ErrorText = string.Format(Strings.Filesystem_Message_CannotExecute, e.Message);
                 options.PreventClose = true;
             }
         }
@@ -283,14 +281,14 @@ namespace Filesystem
             }
             catch (Exception e)
             {
-                options.ErrorText = $"Cannot execute: {e.Message}";
+                options.ErrorText = string.Format(Strings.Filesystem_Message_CannotExecute, e.Message);
                 options.PreventClose = true;
             }
         }
 
         public IEnumerable<KeywordInfo> GetKeywordActions()
         {
-            yield return new KeywordInfo(FILE_KEYWORD, FILE_ACTION, FILE_KEYWORD_DISPLAY, FILE_KEYWORD_COMMENT);
+            yield return new KeywordInfo(FILE_KEYWORD, FILE_ACTION, Strings.Filesystem_ActionDisplayName, Strings.Filesystem_ActionComment);
         }
 
         public void Initialize(IModuleContext context)
@@ -317,7 +315,7 @@ namespace Filesystem
             folderImage = new BitmapImage(new Uri("pack://application:,,,/Filesystem;component/Resources/folder.png"));
         }
 
-        public string DisplayName => MODULE_DISPLAY_NAME;
+        public string DisplayName => Strings.Filesystem_ModuleDisplayName;
 
         public string Name => MODULE_NAME;
 

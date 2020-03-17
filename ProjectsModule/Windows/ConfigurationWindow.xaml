@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:ProjectsModule.Windows"
         xmlns:vm="clr-namespace:ProjectsModule.ViewModels"
         xmlns:c="clr-namespace:ProjectsModule.Converters"
+        xmlns:properties="clr-namespace:ProjectsModule.Resources"
         mc:Ignorable="d" ResizeMode="NoResize"
         Title="ConfigurationWindow" Height="600" Width="800"
         Closed="HandleWindowClosed" WindowStartupLocation="CenterScreen">
@@ -20,20 +21,20 @@
         </ResourceDictionary>
     </Window.Resources>
     <DockPanel Style="{StaticResource ConfigurationPage}">
-        <TextBlock DockPanel.Dock="Top" Margin="3" Style="{StaticResource Header}">Project folders</TextBlock>
+        <TextBlock DockPanel.Dock="Top" Margin="3" Style="{StaticResource Header}" Text="{x:Static properties:Strings.Projects_Config_Projects}"></TextBlock>
         <Separator DockPanel.Dock="Top"/>
-        <Button DockPanel.Dock="Top" Margin="3" Width="150" HorizontalAlignment="Left" Command="{Binding AddCommand}">Add</Button>
+        <Button DockPanel.Dock="Top" Margin="3" Width="150" HorizontalAlignment="Left" Command="{Binding AddCommand}" Content="{x:Static properties:Strings.Projects_Config_Add}"></Button>
 
         <!-- OK Button -->
 
         <Grid DockPanel.Dock="Bottom">
-            <Button Width="150" HorizontalAlignment="Right" Margin="6" Command="{Binding OKCommand}">OK</Button>
+            <Button Width="150" HorizontalAlignment="Right" Margin="6" Command="{Binding OKCommand}" Content="{x:Static properties:Strings.Projects_Config_OK}"></Button>
         </Grid>
 
         <!-- Editor -->
 
         <DockPanel DockPanel.Dock="Bottom" IsEnabled="{Binding ElementName=PathList, Path=SelectedItem, Converter={StaticResource SelectedToBoolConverter}}">
-            <TextBlock DockPanel.Dock="Left" Style="{StaticResource ItemDesc}" Margin="3">Project folder</TextBlock>
+            <TextBlock DockPanel.Dock="Left" Style="{StaticResource ItemDesc}" Margin="3" Text="{x:Static properties:Strings.Projects_Config_ProjectFolder}"></TextBlock>
             <TextBox Margin="3" Text="{Binding ElementName=PathList, Path=SelectedItem.Path, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         </DockPanel>
 

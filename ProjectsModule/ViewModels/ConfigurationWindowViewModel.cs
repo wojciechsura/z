@@ -68,7 +68,7 @@ namespace ProjectsModule.ViewModels
             {
                 if (!Directory.Exists(path.Path))
                 {
-                    yield return $"Project directory {path.Path} does not exist!";
+                    yield return String.Format(ProjectsModule.Resources.Strings.Projects_Message_PathDoesNotExists, path.Path);
                 }
             }
         }

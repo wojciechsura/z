@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:CustomCommandsModule.Windows"
         xmlns:vm="clr-namespace:CustomCommandsModule.ViewModels"
         xmlns:c="clr-namespace:CustomCommandsModule.Converters"
+        xmlns:properties="clr-namespace:CustomCommandsModule.Resources"
         mc:Ignorable="d" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
         Title="ConfigurationWindow" Height="600" Width="800"
         Closed="HandleWindowClosed">
@@ -22,14 +23,14 @@
         </ResourceDictionary>
     </Window.Resources>
     <DockPanel Style="{StaticResource ConfigurationPage}">
-        <TextBlock DockPanel.Dock="Top" Margin="3" Style="{StaticResource Header}">Custom commands</TextBlock>
+        <TextBlock DockPanel.Dock="Top" Margin="3" Style="{StaticResource Header}" Text="{x:Static properties:Strings.CustomCommands_Config_CustomCommands}"></TextBlock>
         <Separator DockPanel.Dock="Top"/>
-        <Button DockPanel.Dock="Top" Margin="3" Width="150" HorizontalAlignment="Left" Command="{Binding AddCommand}">Add</Button>
+        <Button DockPanel.Dock="Top" Margin="3" Width="150" HorizontalAlignment="Left" Command="{Binding AddCommand}" Content="{x:Static properties:Strings.CustomCommands_Config_Add}"></Button>
 
         <!-- OK Button -->
         
         <Grid DockPanel.Dock="Bottom">
-            <Button Width="150" HorizontalAlignment="Right" Margin="6" Command="{Binding OKCommand}">OK</Button>
+            <Button Width="150" HorizontalAlignment="Right" Margin="6" Command="{Binding OKCommand}" Content="{x:Static properties:Strings.CustomCommands_Config_OK}"></Button>
         </Grid>
 
         <!-- Demo -->
@@ -47,13 +48,13 @@
             
             <Separator Margin="3" Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="0" />
 
-            <TextBlock Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Margin="3">Test input:</TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Margin="3" Text="{x:Static properties:Strings.CustomCommands_Config_TestInput}"></TextBlock>
             <DockPanel Grid.Column="1" Grid.Row="1">
                 <TextBlock DockPanel.Dock="Left" Text="{Binding ElementName=CommandList, Path=SelectedItem.Key}" Margin="3" VerticalAlignment="Center" />
-                <TextBox x:Name="DemoInput" Text="FirstParameter &quot;Second parameter with spaces and &quot;&quot;quotes&quot;&quot;&quot;" BorderBrush="{x:Null}" Margin="3" VerticalAlignment="Center"/>
+                <TextBox x:Name="DemoInput" Text="{x:Static properties:Strings.CustomCommands_Config_TestInput_Default}" BorderBrush="{x:Null}" Margin="3" VerticalAlignment="Center"/>
             </DockPanel>
 
-            <TextBlock Grid.Column="0" Grid.Row="2" Margin="3">Result command:</TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="2" Margin="3" Text="{x:Static properties:Strings.CustomCommands_Config_ResultCommand}"></TextBlock>
             <TextBlock Grid.Column="1" Grid.Row="2" Margin="3">
                 <TextBlock.Text>
                     <MultiBinding Converter="{StaticResource CommandGeneratorConverter}">
@@ -83,56 +84,56 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Column="0" Grid.Row="0" Style="{StaticResource ItemDesc}" Margin="3">Key</TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="0" Style="{StaticResource ItemDesc}" Margin="3" Text="{x:Static properties:Strings.CustomCommands_Config_Key}"></TextBlock>
             <TextBox Grid.Column="1" Grid.Row="0" Margin="3" Text="{Binding ElementName=CommandList, Path=SelectedItem.Key, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-            <TextBlock Grid.Column="0" Grid.Row="1" Style="{StaticResource ItemDesc}" Margin="3">Command</TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="1" Style="{StaticResource ItemDesc}" Margin="3" Text="{x:Static properties:Strings.CustomCommands_Config_Command}"></TextBlock>
             <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical">
                 <DockPanel>
-                    <ToggleButton x:Name="HelpButton" DockPanel.Dock="Right" Width="24" Margin="3">?</ToggleButton>
+                    <ToggleButton x:Name="HelpButton" DockPanel.Dock="Right" Width="24" Margin="3" Content="{x:Static properties:Strings.CustomCommands_Config_CommandHelp}"></ToggleButton>
                 <TextBox Margin="3" Text="{Binding ElementName=CommandList, Path=SelectedItem.Command, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 </DockPanel>
                 <StackPanel Orientation="Vertical" Visibility="{Binding ElementName=HelpButton, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
-                    <TextBlock>Use the following special strings:</TextBlock>
+                    <TextBlock Text="{x:Static properties:Strings.CustomCommands_Config_CommandHelp1}"></TextBlock>
                     <TextBlock>
                         <TextBlock.Inlines>
-                            <Run FontWeight="Bold">{0}</Run>
-                            <Run>- to insert first parameter of command. Use {1}, {2}, ... to insert next parameters.</Run>
+                            <Run FontWeight="Bold" Text="{x:Static properties:Strings.CustomCommands_Config_CommandHelp2}"></Run>
+                            <Run Text="{x:Static properties:Strings.CustomCommands_Config_CommandHelp3}"></Run>
                         </TextBlock.Inlines>
                     </TextBlock>
                     <TextBlock>
                         <TextBlock.Inlines>
-                            <Run FontWeight="Bold">{u0}</Run>
-                            <Run>- to insert first URL-encoded parameter of command.</Run>
+                            <Run FontWeight="Bold" Text="{x:Static properties:Strings.CustomCommands_Config_CommandHelp4}"></Run>
+                            <Run Text="{x:Static properties:Strings.CustomCommands_Config_CommandHelp5}"></Run>
                         </TextBlock.Inlines>
                     </TextBlock>
                     <TextBlock>
                         <TextBlock.Inlines>
-                            <Run FontWeight="Bold">{*}</Run>
-                            <Run>- to insert whole parameter text</Run>
+                            <Run FontWeight="Bold" Text="{x:Static properties:Strings.CustomCommands_Config_CommandHelp6}"></Run>
+                            <Run Text="{x:Static properties:Strings.CustomCommands_Config_CommandHelp7}"></Run>
                         </TextBlock.Inlines>
                     </TextBlock>
                     <TextBlock>
                         <TextBlock.Inlines>
-                            <Run FontWeight="Bold">{u*}</Run>
-                            <Run>- to insert whole URL-encoded parameter text.</Run>
+                            <Run FontWeight="Bold" Text="{x:Static properties:Strings.CustomCommands_Config_CommandHelp8}"></Run>
+                            <Run Text="{x:Static properties:Strings.CustomCommands_Config_CommandHelp9}"></Run>
                         </TextBlock.Inlines>
                     </TextBlock>
                     <TextBlock>
                         <TextBlock.Inlines>
-                            <Run FontWeight="Bold">{{</Run>
-                            <Run>- to insert plain {, and</Run>
-                            <Run FontWeight="Bold">}}</Run>
-                            <Run>- to insert plain }.</Run>
+                            <Run FontWeight="Bold" Text="{x:Static properties:Strings.CustomCommands_Config_CommandHelp10}"></Run>
+                            <Run Text="{x:Static properties:Strings.CustomCommands_Config_CommandHelp11}"></Run>
+                            <Run FontWeight="Bold" Text="{x:Static properties:Strings.CustomCommands_Config_CommandHelp12}"></Run>
+                            <Run Text="{x:Static properties:Strings.CustomCommands_Config_CommandHelp13}"></Run>
                         </TextBlock.Inlines>
                     </TextBlock>
                 </StackPanel>
             </StackPanel>
 
-            <TextBlock Grid.Column="0" Grid.Row="2" Style="{StaticResource ItemDesc}" Margin="3">Comment</TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="2" Style="{StaticResource ItemDesc}" Margin="3" Text="{x:Static properties:Strings.CustomCommands_Config_Comment}"></TextBlock>
             <TextBox Grid.Column="1" Grid.Row="2" Margin="3" Text="{Binding ElementName=CommandList, Path=SelectedItem.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-            <TextBlock Grid.Column="0" Grid.Row="3" Style="{StaticResource ItemDesc}" Margin="3">Kind</TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="3" Style="{StaticResource ItemDesc}" Margin="3" Text="{x:Static properties:Strings.CustomCommands_Config_Kind}"></TextBlock>
             <ComboBox Grid.Column="1" Grid.Row="3" Margin="3" ItemsSource="{Binding CommandKinds}" SelectedItem="{Binding ElementName=CommandList, Path=SelectedItem.CommandKind, Mode=TwoWay}" />
         </Grid>
 
@@ -151,7 +152,7 @@
                         <TextBlock Grid.Column="1" Text="{Binding Key}" Margin="3,3,10,3" VerticalAlignment="Center" />
                         <TextBlock Grid.Column="2" Text="{Binding Command}" Margin="3" VerticalAlignment="Center" />
                         <Button Grid.Column="3" HorizontalAlignment="Right" Command="{Binding DeleteCommand}" 
-                                Style="{StaticResource TrashButtonStyle}" VerticalAlignment="Center">Delete</Button>
+                                Style="{StaticResource TrashButtonStyle}" VerticalAlignment="Center" Content="{x:Static properties:Strings.CustomCommands_Config_Delete}"></Button>
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>

@@ -1,4 +1,5 @@
 ﻿using PowerModule.Infrastructure;
+using PowerModule.Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,23 +34,20 @@ namespace PowerModule
             public Action Action { get; private set; }
         }
 
-        private const string MODULE_DISPLAY_NAME = "Power";
         private const string MODULE_NAME = "Power";
         private const string ACTION_KEYWORD = "power";
         private const string ACTION_NAME = "Power";
-        private const string ACTION_DISPLAY_NAME = "Power";
-        private const string ACTION_COMMENT = "Computer power commands";
 
         // Private fields -----------------------------------------------------
 
         private readonly List<PowerInfo> powerInfos = new List<PowerInfo>
         {
-            new PowerInfo("shutdown", "Shutdown", "Closes Windows and shuts down the computer.", () => WinapiInterop.Shutdown()),
-            new PowerInfo("reboot", "Reboot", "Closes Windows and reboots the computer.", () => WinapiInterop.Reboot()),
-            new PowerInfo("sleep", "Sleep", "Puts computer in the suspended state.", () => WinapiInterop.Sleep()),
-            new PowerInfo("logoff", "Log off", "Logs off current user", () => WinapiInterop.Logoff()),
-            new PowerInfo("hibernate", "Hibernate", "Hibernates current Windows session and shuts down the computer.", () => WinapiInterop.Hibernate()),
-            new PowerInfo("lock", "Lock", "Locks the current session", () => WinapiInterop.Lock())
+            new PowerInfo("shutdown", Strings.Power_Shutdown, Strings.Power_Shutdown_Comment, () => WinapiInterop.Shutdown()),
+            new PowerInfo("reboot", Strings.Power_Reboot, Strings.Power_Reboot_Comment, () => WinapiInterop.Reboot()),
+            new PowerInfo("sleep", Strings.Power_Sleep, Strings.Power_Sleep_Comment, () => WinapiInterop.Sleep()),
+            new PowerInfo("logoff", Strings.Power_LogOff, Strings.Power_LogOff_Comment, () => WinapiInterop.Logoff()),
+            new PowerInfo("hibernate", Strings.Power_Hibernate, Strings.Power_Hibernate_Comment, () => WinapiInterop.Hibernate()),
+            new PowerInfo("lock", Strings.Power_Lock, Strings.Power_Lock_Comment, () => WinapiInterop.Lock())
         };
 
         private readonly ImageSource icon;
@@ -95,7 +93,7 @@ namespace PowerModule
 
         public IEnumerable<KeywordInfo> GetKeywordActions()
         {
-            yield return new KeywordInfo(ACTION_KEYWORD, ACTION_NAME, ACTION_DISPLAY_NAME, ACTION_COMMENT);
+            yield return new KeywordInfo(ACTION_KEYWORD, ACTION_NAME, Strings.Power_ActionDisplayName, Strings.Power_ActionComment);
         }
 
         // Public properties --------------------------------------------------
@@ -104,7 +102,7 @@ namespace PowerModule
         {
             get
             {
-                return MODULE_DISPLAY_NAME;
+                return Strings.Power_ModuleDisplayName;
             }
         }
 

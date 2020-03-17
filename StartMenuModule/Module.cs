@@ -1,5 +1,6 @@
 ﻿using IWshRuntimeLibrary;
 using ShortcutModule;
+using StartMenuModule.Resources;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -17,13 +18,10 @@ namespace StartMenuModule
 {
     public class Module : BaseShortcutModule
     {
-        private const string MODULE_DISPLAY_NAME = "Start menu";
         private const string MODULE_NAME = "StartMenu";
 
         private const string ACTION_KEYWORD = "start";
         private const string ACTION_NAME = "Start";
-        private const string ACTION_DISPLAY = "Start menu";
-        private const string ACTION_COMMENT = "Browse through Start Menu entries";
 
         private readonly ImageSource icon;
 
@@ -41,8 +39,8 @@ namespace StartMenuModule
 
         protected override string ActionKeyword => ACTION_KEYWORD;
         protected override string ActionName => ACTION_NAME;
-        protected override string ActionDisplay => ACTION_DISPLAY;
-        protected override string ActionComment => ACTION_COMMENT;
+        protected override string ActionDisplay => Strings.Start_ActionDisplayName;
+        protected override string ActionComment => Strings.Start_ActionComment;
 
         // Public methods -----------------------------------------------------
 
@@ -54,7 +52,7 @@ namespace StartMenuModule
 
         // Public properties --------------------------------------------------
 
-        public override string DisplayName => MODULE_DISPLAY_NAME;
+        public override string DisplayName => Strings.Start_ModuleDisplayName;
 
         public override string Name => MODULE_NAME;
 

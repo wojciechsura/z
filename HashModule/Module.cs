@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HashModule.Resources;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
@@ -15,11 +16,8 @@ namespace HashModule
     public class Module : IZModule
     {
         private const string MODULE_NAME = "HashGenerator";
-        private const string MODULE_DISPLAY_NAME = "Hash generator";
         private const string HASH_ACTION_KEYWORD = "hash";
         private const string HASH_ACTION_NAME = "Hash";
-        private const string HASH_ACTION_DISPLAY_NAME = "Hash";
-        private const string HASH_ACTION_COMMENT = "Compute hashes of text";
 
         public void CollectSuggestions(string enteredText, string action, bool perfectMatchesOnly, ISuggestionCollector collector)
         {
@@ -56,11 +54,11 @@ namespace HashModule
 
         public IEnumerable<KeywordInfo> GetKeywordActions()
         {
-            yield return new KeywordInfo(HASH_ACTION_KEYWORD, HASH_ACTION_NAME, HASH_ACTION_DISPLAY_NAME, HASH_ACTION_COMMENT);            
+            yield return new KeywordInfo(HASH_ACTION_KEYWORD, HASH_ACTION_NAME, Strings.Hash_ActionDisplay, Strings.Hash_ActionComment);            
         }
 
         public string Name => MODULE_NAME;
-        public string DisplayName => MODULE_DISPLAY_NAME;
+        public string DisplayName => Strings.Hash_ModuleDisplayName;
         public ImageSource Icon => null;
     }
 }

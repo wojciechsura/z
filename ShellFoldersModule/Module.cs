@@ -14,6 +14,7 @@ using System.Diagnostics;
 using Microsoft.WindowsAPICodePack.Shell;
 using System.Windows.Media.Imaging;
 using Z.Api.Utils;
+using ShellFoldersModule.Resources;
 
 namespace ShellFoldersModule
 {
@@ -38,12 +39,9 @@ namespace ShellFoldersModule
         }
 
         private const string MODULE_NAME = "ShellFolders";
-        private const string MODULE_DISPLAY_NAME = "Shell folder";
 
         private const string SHELL_ACTION_KEYWORD = "shell";
         private const string SHELL_ACTION_NAME = "ShellFolder";
-        private const string SHELL_ACTION_DISPLAY = "Shell folder";
-        private const string SHELL_ACTION_COMMENT = "Open shell folder";
 
         private List<ShellFolderInfo> infos;
         private ImageSource icon;
@@ -134,13 +132,13 @@ namespace ShellFoldersModule
                 }
                 catch (Exception e)
                 {
-                    options.ErrorText = $"Cannot open folder: {e.Message}";
+                    options.ErrorText = String.Format(Strings.Shell_Message_CannotOpenFolder, e.Message);
                     options.PreventClose = true;
                 }
             }
             else
             {
-                options.ErrorText = "Multiple folders matches entered text. Use suggestion list.";
+                options.ErrorText = ShellFoldersModule.Resources.Strings.Shell_Message_MultipleFoldersMatch;
                 options.PreventClose = true;
             }
         }
@@ -154,7 +152,7 @@ namespace ShellFoldersModule
             }
             catch (Exception e)
             {
-                options.ErrorText = $"Cannot open folder: {e.Message}";
+                options.ErrorText = String.Format(Strings.Shell_Message_CannotOpenFolder, e.Message);
                 options.PreventClose = true;
             }
         }
@@ -174,7 +172,7 @@ namespace ShellFoldersModule
 
         public IEnumerable<KeywordInfo> GetKeywordActions()
         {
-            yield return new KeywordInfo(SHELL_ACTION_KEYWORD, SHELL_ACTION_NAME, SHELL_ACTION_DISPLAY, SHELL_ACTION_COMMENT);
+            yield return new KeywordInfo(SHELL_ACTION_KEYWORD, SHELL_ACTION_NAME, Strings.Shell_ActionDisplayName, Strings.Shell_ActionComment);
         }
 
         public Module()
@@ -197,7 +195,7 @@ namespace ShellFoldersModule
         {
             get
             {
-                return MODULE_DISPLAY_NAME;
+                return Strings.Shell_ModuleDisplayName;
             }
         }
 

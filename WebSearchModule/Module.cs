@@ -10,6 +10,7 @@ using Z.Api.Types;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Z.Api;
+using WebSearchModule.Resources;
 
 namespace WebSearchModule
 {
@@ -34,19 +35,18 @@ namespace WebSearchModule
         }
 
         private const string MODULE_NAME = "WebSearch";
-        private const string MODULE_DISPLAY_NAME = "Web search";
 
         private readonly ImageSource icon;
 
         private List<SearchInfo> searchInfos = new List<SearchInfo>
         {
-            new SearchInfo("GoogleSearch", "g", "Google", "Search with Google", "https://www.google.com/#q={0}"),
-            new SearchInfo("WikipediaSearch", "wiki", "Wikipedia", "Search on Wikipedia", "http://pl.wikipedia.org/w/index.php?title=Specjalna:Szukaj&search={0}"),
-            new SearchInfo("MSDNSearch", "msdn", "MSDN", "Search on MSDN", "http://social.msdn.microsoft.com/Search/en-EN?query={0}"),
-            new SearchInfo("YoutubeSearch", "y", "Youtube", "Search on Youtube", "http://www.youtube.com/results?search_query={0}&page={{startPage?}}&utm_source=opensearch"),
-            new SearchInfo("MapsSearch", "maps", "Google Maps", "Search on Google Maps", "https://www.google.pl/maps/search/{0}"),
-            new SearchInfo("DevDocs", "dd", "DevDocs.io", "Search on DevDocs.io", "http://devdocs.io/#q={0}"),
-            new SearchInfo("StackOverflow", "so", "StackOverflow", "Search on StackOverflow", "http://stackoverflow.com/search?q={0}")
+            new SearchInfo("GoogleSearch", "g", Strings.WebSearch_Google, Strings.WebSearch_Google_Comment, "https://www.google.com/#q={0}"),
+            new SearchInfo("WikipediaSearch", "wiki", Strings.WebSearch_Wikipedia, Strings.WebSearch_Wikipedia_Comment, "http://pl.wikipedia.org/w/index.php?title=Specjalna:Szukaj&search={0}"),
+            new SearchInfo("MSDNSearch", "msdn", Strings.WebSearch_MSDN, Strings.WebSearch_MSDN_Comment, "http://social.msdn.microsoft.com/Search/en-EN?query={0}"),
+            new SearchInfo("YoutubeSearch", "y", Strings.WebSearch_Youtube, Strings.WebSearch_Youtube_Comment, "http://www.youtube.com/results?search_query={0}&page={{startPage?}}&utm_source=opensearch"),
+            new SearchInfo("MapsSearch", "maps", Strings.WebSearch_GoogleMaps, Strings.WebSearch_GoogleMaps_Comment, "https://www.google.pl/maps/search/{0}"),
+            new SearchInfo("DevDocs", "dd", Strings.WebSearch_DevDocs, Strings.WebSearch_DevDocs_Comment, "http://devdocs.io/#q={0}"),
+            new SearchInfo("StackOverflow", "so", Strings.WebSearch_StackOverflow, Strings.WebSearch_StackOverflow_Comment, "http://stackoverflow.com/search?q={0}")
         };
 
         public Module()
@@ -96,7 +96,7 @@ namespace WebSearchModule
         {
             get
             {
-                return MODULE_DISPLAY_NAME;
+                return Strings.WebSearch_ModuleDisplayName;
             }
         }
 

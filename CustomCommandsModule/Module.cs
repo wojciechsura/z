@@ -1,5 +1,6 @@
 ﻿using CustomCommandsModule.Infrastructure;
 using CustomCommandsModule.Models;
+using CustomCommandsModule.Resources;
 using CustomCommandsModule.ViewModels;
 using CustomCommandsModule.Windows;
 using System;
@@ -55,7 +56,6 @@ namespace CustomCommandsModule
             }
         }
 
-        private const string MODULE_DISPLAY_NAME = "Custom";
         private const string MODULE_NAME = "Custom";
         private const string CONFIG_FILENAME = "config.xml";
         private readonly ImageSource icon;
@@ -151,7 +151,7 @@ namespace CustomCommandsModule
                 }
                 catch (Exception e)
                 {
-                    options.ErrorText = $"Cannot execute: {e.Message}";
+                    options.ErrorText = String.Format(Strings.CustomCommands_Message_CannotExecute, e.Message);
                     options.PreventClose = true;
                 }
             }
@@ -223,7 +223,7 @@ namespace CustomCommandsModule
         {
             get
             {
-                return MODULE_DISPLAY_NAME;
+                return Strings.CustomCommands_ModuleDisplayName;
             }
         }
 

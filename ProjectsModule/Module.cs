@@ -1,4 +1,5 @@
 ﻿using ProjectsModule.Models;
+using ProjectsModule.Resources;
 using ProjectsModule.ViewModels;
 using ProjectsModule.Windows;
 using System;
@@ -53,13 +54,10 @@ namespace ProjectsModule
             }
         }
 
-        private const string MODULE_DISPLAY_NAME = "Projects";
         private const string MODULE_NAME = "Projects";
 
         private const string PROJECT_KEYWORD = "project";
         private const string PROJECT_ACTION = "Project";
-        private const string PROJECT_KEYWORD_DISPLAY = "Project";
-        private const string PROJECT_KEYWORD_COMMENT = "Browse through your projects";
 
         private const string CONFIG_FILENAME = "config.xml";
 
@@ -155,7 +153,7 @@ namespace ProjectsModule
             }
             else
             {
-                options.ErrorText = "More than one project matches entered name. Use suggestion list.";
+                options.ErrorText = ProjectsModule.Resources.Strings.Projects_Message_MoreThanOneProjectMatchesName;
                 options.PreventClose = true;
             }
         }
@@ -172,7 +170,7 @@ namespace ProjectsModule
 
         public IEnumerable<KeywordInfo> GetKeywordActions()
         {
-            yield return new KeywordInfo(PROJECT_KEYWORD, PROJECT_ACTION, PROJECT_KEYWORD_DISPLAY, PROJECT_KEYWORD_COMMENT);
+            yield return new KeywordInfo(PROJECT_KEYWORD, PROJECT_ACTION, Strings.Projects_ActionDisplayName, Strings.Projects_ActionComment);
         }
 
         public void Initialize(IModuleContext context)
@@ -203,7 +201,7 @@ namespace ProjectsModule
         {
             get
             {
-                return MODULE_DISPLAY_NAME;
+                return Strings.Projects_ModuleDisplayName;
             }
         }
 

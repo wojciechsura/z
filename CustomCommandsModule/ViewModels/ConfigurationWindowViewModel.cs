@@ -57,11 +57,11 @@ namespace CustomCommandsModule.ViewModels
                 .GroupBy(k => k)
                 .Where(g => g.Count() > 1)
                 .Any())
-                errors.Add("Custom command keys must be unique!");
+                errors.Add(CustomCommandsModule.Resources.Strings.CustomCommands_Message_CustomCommandKeysMustBeUnique);
 
             if (customCommands
                 .Any(c => c.Key.Contains(" ")))
-                errors.Add("Custom command keys cannot contain space characters!");
+                errors.Add(CustomCommandsModule.Resources.Strings.CustomCommands_Message_CustomCommandKeysCannotContainSpaceCharacters);
 
             return errors;
         }
