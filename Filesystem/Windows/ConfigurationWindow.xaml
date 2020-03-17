@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Filesystem.Windows"
         xmlns:vm="clr-namespace:Filesystem.ViewModels"        
+        xmlns:properties="clr-namespace:Filesystem.Resources"
         mc:Ignorable="d" ResizeMode="NoResize"
         Title="ConfigurationWindow" Height="600" Width="800"
         Closed="HandleWindowClosed" WindowStartupLocation="CenterScreen">
@@ -16,40 +17,40 @@
         </ResourceDictionary>
     </Window.Resources>
     <DockPanel Style="{StaticResource ConfigurationPage}">
-        <TextBlock DockPanel.Dock="Top" Margin="3" Style="{StaticResource Header}">File system</TextBlock>
+        <TextBlock DockPanel.Dock="Top" Margin="3" Style="{StaticResource Header}" Text="{x:Static properties:Strings.Filesystem_Config_Filesystem}"></TextBlock>
         <Separator DockPanel.Dock="Top"/>
 
         <Grid DockPanel.Dock="Bottom">
-            <Button Width="150" HorizontalAlignment="Right" Margin="6" Command="{Binding OKCommand}">OK</Button>
+            <Button Width="150" HorizontalAlignment="Right" Margin="6" Command="{Binding OKCommand}" Content="{x:Static properties:Strings.Filesystem_Config_OK}"></Button>
         </Grid>
 
         <StackPanel Orientation="Vertical">
             <DockPanel>
-                <TextBlock DockPanel.Dock="Left" Style="{StaticResource ItemDesc}">File search strategy</TextBlock>
+                <TextBlock DockPanel.Dock="Left" Style="{StaticResource ItemDesc}" Text="{x:Static properties:Strings.Filesystem_Config_FileSearchStrategy}"></TextBlock>
                 <StackPanel Orientation="Vertical">
                     <ComboBox Width="150" SelectedItem="{Binding FileSearchStrategy}" ItemsSource="{Binding FileSearchStrategies}" HorizontalAlignment="Left" />
                     <TextBlock Margin="3" TextWrapping="Wrap">
                         <TextBlock.Inlines>
-                            <Run FontWeight="Bold">Direct</Run>
-                            <Run>strategy assumes, that path exists, so for input</Run>
-                            <Run FontWeight="Bold">C:\W\S\x</Run>
-                            <Run>will search for</Run>
-                            <Run FontWeight="Bold">C:\W\S\*x*</Run>
-                            <Run>This strategy is faster, but yields less results.</Run>
+                            <Run FontWeight="Bold" Text="{x:Static properties:Strings.Filesystem_Config_Direct}"></Run>
+                            <Run Text="{x:Static properties:Strings.Filesystem_Config_Direct_Comment1}"></Run>
+                            <Run FontWeight="Bold" Text="{x:Static properties:Strings.Filesystem_Config_Direct_Comment2}"></Run>
+                            <Run Text="{x:Static properties:Strings.Filesystem_Config_Direct_Comment3}"></Run>
+                            <Run FontWeight="Bold" Text="{x:Static properties:Strings.Filesystem_Config_Direct_Comment4}"></Run>
+                            <Run Text="{x:Static properties:Strings.Filesystem_Config_Direct_Comment5}"></Run>
                         </TextBlock.Inlines>
                     </TextBlock>
                     <TextBlock Margin="3" TextWrapping="Wrap">
                         <TextBlock.Inlines>
-                            <Run FontWeight="Bold">Deep</Run>
-                            <Run>strategy searches through all matching directories on all levels, so for input</Run>
-                            <Run FontWeight="Bold">C:\W\S\x</Run>
-                            <Run>will search for</Run>
+                            <Run FontWeight="Bold" Text="{x:Static properties:Strings.Filesystem_Config_Deep}"></Run>
+                            <Run Text="{x:Static properties:Strings.Filesystem_Config_Deep_Comment1}"></Run>
+                            <Run FontWeight="Bold" Text="{x:Static properties:Strings.Filesystem_Config_Deep_Comment2}"></Run>
+                            <Run Text="{x:Static properties:Strings.Filesystem_Config_Deep_Comment3}"></Run>
                             <LineBreak />
-                            <Run FontWeight="Bold">C:\*W*\*S*\*x*</Run>
-                            <Run>so it will find, for example,</Run>
-                            <Run FontWeight="Bold">C:\Windows\System32\x3daudio1_0.dll</Run>
-                            <Run>.</Run>
-                            <Run>This strategy is slower, but yields more results and simplifies the search.</Run>
+                            <Run FontWeight="Bold" Text="{x:Static properties:Strings.Filesystem_Config_Deep_Comment4}"></Run>
+                            <Run Text="{x:Static properties:Strings.Filesystem_Config_Deep_Comment5}"></Run>
+                            <Run FontWeight="Bold" Text="{x:Static properties:Strings.Filesystem_Config_Deep_Comment6}"></Run>
+                            <Run Text="{x:Static properties:Strings.Filesystem_Config_Deep_Comment7}"></Run>
+                            <Run Text="{x:Static properties:Strings.Filesystem_Config_Deep_Comment8}"></Run>
                         </TextBlock.Inlines>
                     </TextBlock>
                 </StackPanel>

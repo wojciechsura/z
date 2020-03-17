@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RunModule.Resources;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -14,13 +15,9 @@ namespace RunModule
 {
     public class Module : IZModule
     {
-        private const string MODULE_DISPLAY_NAME = "Run";
         private const string MODULE_NAME = "Run";
-        private const string COMMENT = "Execute command";
         private const string ACTION_KEYWORD = "run";
         private const string ACTION_NAME = "Run";
-        private const string ACTION_DISPLAY = "Run";
-        private const string ACTION_COMMENT = "Execute command";
 
         private ImageSource icon;
 
@@ -31,7 +28,7 @@ namespace RunModule
 
         public void CollectSuggestions(string enteredText, string action, bool perfectMatchesOnly, ISuggestionCollector collector)
         {
-            collector.AddSuggestion(new SuggestionInfo(enteredText, $"Run {enteredText}", COMMENT, icon, 0));
+            collector.AddSuggestion(new SuggestionInfo(enteredText, $"Run {enteredText}", Strings.Run_Comment, icon, 0));
         }
 
         public void ExecuteKeywordAction(string action, string expression, ExecuteOptions options)
@@ -42,7 +39,7 @@ namespace RunModule
             }
             catch 
             {
-                options.ErrorText = "Couldn't execute command.";
+                options.ErrorText = RunModule.Resources.Strings.Run_Message_CannotExecute;
                 options.PreventClose = true;
             }
         }
@@ -55,19 +52,19 @@ namespace RunModule
             }
             catch
             {
-                options.ErrorText = "Couldn't execute command.";
+                options.ErrorText = RunModule.Resources.Strings.Run_Message_CannotExecute;
                 options.PreventClose = true;
             }
         }
 
         public IEnumerable<KeywordInfo> GetKeywordActions()
         {
-            yield return new KeywordInfo(ACTION_KEYWORD, ACTION_NAME, ACTION_DISPLAY, ACTION_COMMENT);
+            yield return new KeywordInfo(ACTION_KEYWORD, ACTION_NAME, Strings.Run_ActionDisplayName, Strings.Run_ActionComment);
         }
 
         public string Name => MODULE_NAME;
 
-        public string DisplayName => MODULE_DISPLAY_NAME;
+        public string DisplayName => Strings.Run_ModuleDisplayName;
 
         public ImageSource Icon => icon;
     }

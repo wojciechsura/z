@@ -1,5 +1,6 @@
 ﻿using ProCalc.NET;
 using ProCalc.NET.Numerics;
+using ProCalcModule.Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,13 +17,10 @@ namespace ProCalcModule
 {
     public class Module : IZModule
     {
-        private const string MODULE_DISPLAY_NAME = "Calculator";
         private const string MODULE_NAME = "Calculator";
         private const string COMMENT = "Copy result to clipboard";
         private const string ACTION_KEYWORD = "calc";
         private const string ACTION_NAME = "Calc";
-        private const string ACTION_DISPLAY = "Evaluate";
-        private const string ACTION_COMMENT = "Evaluate mathematical expressions";
 
         // Private fields -----------------------------------------------------
 
@@ -76,12 +74,12 @@ namespace ProCalcModule
 
         public IEnumerable<KeywordInfo> GetKeywordActions()
         {
-            yield return new KeywordInfo(ACTION_KEYWORD, ACTION_NAME, ACTION_DISPLAY, ACTION_COMMENT);
+            yield return new KeywordInfo(ACTION_KEYWORD, ACTION_NAME, Strings.Calculator_ActionDisplayName, Strings.Calculator_ActionComment);
         }
 
         // Public properties --------------------------------------------------
 
-        public string DisplayName => MODULE_DISPLAY_NAME;
+        public string DisplayName => Strings.Calculator_ActionComment;
 
         public string Name => MODULE_NAME;
 

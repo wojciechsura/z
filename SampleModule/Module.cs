@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SampleModule.Resources;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,13 +29,10 @@ namespace SampleModule
             public string Message { get; private set; }
         }
 
-        private const string MODULE_DISPLAY_NAME = "Sample module";
         private const string MODULE_NAME = "Sample";
 
         private const string ACTION_KEYWORD = "sample";
-        private const string ACTION_DISPLAY_NAME = "Sample action";
         private const string ACTION_NAME = "Sample";
-        private const string ACTION_COMMENT = "This is sample action to demonstrate implementation of simple module for Z.";
 
         private List<SampleEntry> entries;
         private ImageSource icon;
@@ -75,7 +73,7 @@ namespace SampleModule
                 StringBuilder sb = new StringBuilder();
 
                 if (action == ACTION_NAME)
-                    sb.Append("Keyword is active, ");
+                    sb.Append(Strings.Sample_KeywordIsActive);
 
                 sb.Append(entry.Message);
 
@@ -83,7 +81,7 @@ namespace SampleModule
             }
             else
             {
-                options.ErrorText = "Cannot execute!";
+                options.ErrorText = Strings.Sample_Message_CannotExecute;
                 options.PreventClose = true;
             }
         }
@@ -92,7 +90,7 @@ namespace SampleModule
         {
             StringBuilder sb = new StringBuilder();
 
-            sb.Append("Executed from suggestion, ");
+            sb.Append(Strings.Sample_Message_ExecutedFromSuggestion);
             sb.Append(suggestion.Data as string);
 
             System.Windows.MessageBox.Show(sb.ToString());
@@ -100,10 +98,10 @@ namespace SampleModule
 
         public IEnumerable<KeywordInfo> GetKeywordActions()
         {
-            yield return new KeywordInfo(ACTION_KEYWORD, ACTION_NAME, ACTION_DISPLAY_NAME, ACTION_COMMENT);
+            yield return new KeywordInfo(ACTION_KEYWORD, ACTION_NAME, Strings.Sample_ActionDisplayName, Strings.Sample_ActionComment);
         }
 
-        public string DisplayName => MODULE_DISPLAY_NAME;
+        public string DisplayName => Strings.Sample_ModuleDisplayName;
 
         public ImageSource Icon => icon;
 

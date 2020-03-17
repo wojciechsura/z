@@ -61,6 +61,15 @@ namespace Z.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string Z_Cancel {
+            get {
+                return ResourceManager.GetString("Z.Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Choose first.
         /// </summary>
         public static string Z_Config_Behavior_ChooseFirst {

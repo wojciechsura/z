@@ -1,4 +1,5 @@
-﻿using ShortcutModule;
+﻿using DesktopModule.Resources;
+using ShortcutModule;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +12,7 @@ namespace DesktopModule
 {
     public class Module : BaseShortcutModule
     {
-        private const string MODULE_DISPLAY_NAME = "Desktop";
         private const string MODULE_NAME = "Desktop";
-        private const string DESKTOP_ACTION_COMMENT = "Browse through shourtcuts on desktop";
-        private const string DESKTOP_ACTION_DISPLAY = "Desktop";
         private const string DESKTOP_ACTION_KEYWORD = "desktop";
         private const string DESKTOP_ACTION_NAME = "Desktop";
 
@@ -24,8 +22,8 @@ namespace DesktopModule
 
         // Protected properties -----------------------------------------------
 
-        protected override string ActionComment => DESKTOP_ACTION_COMMENT;
-        protected override string ActionDisplay => DESKTOP_ACTION_DISPLAY;
+        protected override string ActionComment => Strings.Desktop_ActionComment;
+        protected override string ActionDisplay => Strings.Desktop_ActionDisplay;
         protected override string ActionKeyword => DESKTOP_ACTION_KEYWORD;
         protected override string ActionName => DESKTOP_ACTION_NAME;
 
@@ -50,7 +48,7 @@ namespace DesktopModule
 
         // Public properties --------------------------------------------------
 
-        public override string DisplayName => MODULE_DISPLAY_NAME;
+        public override string DisplayName => Strings.Desktop_ModuleDisplayName;
         public override string Name => MODULE_NAME;
         public override ImageSource Icon => icon;
     }

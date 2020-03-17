@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:FavoritesModule.Windows"
         xmlns:vm="clr-namespace:FavoritesModule.ViewModels"
         xmlns:c="clr-namespace:FavoritesModule.Converters"
+        xmlns:properties="clr-namespace:FavoritesModule.Resources"
         mc:Ignorable="d" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
         Title="ConfigurationWindow" Height="600" Width="800"
         Closed="HandleWindowClosed">
@@ -21,14 +22,14 @@
         </ResourceDictionary>
     </Window.Resources>
     <DockPanel Style="{StaticResource ConfigurationPage}">
-        <TextBlock DockPanel.Dock="Top" Margin="3" Style="{StaticResource Header}">Favorites</TextBlock>
+        <TextBlock DockPanel.Dock="Top" Margin="3" Style="{StaticResource Header}" Text="{x:Static properties:Strings.Favorites_Config_Favorites}"></TextBlock>
         <Separator DockPanel.Dock="Top"/>
-        <Button DockPanel.Dock="Top" Margin="3" Width="150" HorizontalAlignment="Left" Command="{Binding AddFavoriteCommand}">Add</Button>
+        <Button DockPanel.Dock="Top" Margin="3" Width="150" HorizontalAlignment="Left" Command="{Binding AddFavoriteCommand}" Content="{x:Static properties:Strings.Favorites_Config_Add}"></Button>
 
         <!-- OK Button -->
         
         <Grid DockPanel.Dock="Bottom">
-            <Button Width="150" HorizontalAlignment="Right" Margin="6" Command="{Binding OKCommand}">OK</Button>
+            <Button Width="150" HorizontalAlignment="Right" Margin="6" Command="{Binding OKCommand}" Content="{x:Static properties:Strings.Favorites_Config_OK}"></Button>
         </Grid>
 
         <!-- Demo -->
@@ -61,13 +62,13 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Column="0" Grid.Row="0" Style="{StaticResource ItemDesc}" Margin="3">Name (key)</TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="0" Style="{StaticResource ItemDesc}" Margin="3" Text="{x:Static properties:Strings.Favorites_Config_Name}"></TextBlock>
             <TextBox Grid.Column="1" Grid.Row="0" Margin="3" Text="{Binding ElementName=FavoriteList, Path=SelectedItem.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-            <TextBlock Grid.Column="0" Grid.Row="1" Style="{StaticResource ItemDesc}" Margin="3">Place or URL</TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="1" Style="{StaticResource ItemDesc}" Margin="3" Text="{x:Static properties:Strings.Favorites_Config_PlaceOrURL}"></TextBlock>
             <TextBox Grid.Column="1" Grid.Row="1" Margin="3" Text="{Binding ElementName=FavoriteList, Path=SelectedItem.Command, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-            <TextBlock Grid.Column="0" Grid.Row="2" Style="{StaticResource ItemDesc}" Margin="3">Comment</TextBlock>
+            <TextBlock Grid.Column="0" Grid.Row="2" Style="{StaticResource ItemDesc}" Margin="3" Text="{x:Static properties:Strings.Favorites_Config_Comment}"></TextBlock>
             <TextBox Grid.Column="1" Grid.Row="2" Margin="3" Text="{Binding ElementName=FavoriteList, Path=SelectedItem.Comment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         </Grid>
 
@@ -86,7 +87,7 @@
                         <TextBlock Grid.Column="1" Text="{Binding Name}" Margin="3,3,10,3" VerticalAlignment="Center" />
                         <TextBlock Grid.Column="2" Text="{Binding Command}" Margin="3" VerticalAlignment="Center" />
                         <Button Grid.Column="3" HorizontalAlignment="Right" Command="{Binding DeleteCommand}" 
-                                Style="{StaticResource TrashButtonStyle}" VerticalAlignment="Center">Delete</Button>
+                                Style="{StaticResource TrashButtonStyle}" VerticalAlignment="Center" Content="{x:Static properties:Strings.Favorites_Config_Delete}"></Button>
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>

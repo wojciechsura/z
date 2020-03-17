@@ -54,7 +54,7 @@ namespace FavoritesModule.ViewModels
                 .GroupBy(k => k)
                 .Where(g => g.Count() > 1)
                 .Any())
-                errors.Add("Favorite names must be unique!");
+                errors.Add(FavoritesModule.Resources.Strings.Favorites_Message_FavoriteNamesMustBeUnique);
 
             return errors;
         }
