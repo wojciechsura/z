@@ -15,6 +15,7 @@
         xmlns:clnc="clr-namespace:Z.BusinessLogic.ViewModels.Configuration.Launcher;assembly=Z.BusinessLogic"
         xmlns:t="clr-namespace:Z.Common.Types;assembly=Z.Common"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:properties="clr-namespace:Z.Resources;assembly=Z.Resources"
         mc:Ignorable="d"
         Title="Z Configuration" Height="600" Width="800" ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">
@@ -31,8 +32,8 @@
     <DockPanel>
         <Grid DockPanel.Dock="Bottom">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Margin="6" Width="150" Height="24" Command="{Binding OkCommand}">OK</Button>
-                <Button Margin="6" Width="150" Height="24" Command="{Binding CancelCommand}" IsCancel="True">Cancel</Button>
+                <Button Margin="6" Width="150" Height="24" Command="{Binding OkCommand}" Content="{x:Static properties:Strings.Z_OK}" />
+                <Button Margin="6" Width="150" Height="24" Command="{Binding CancelCommand}" IsCancel="True" Content="{x:Static properties:Strings.Z_Cancel}" />
             </StackPanel>
         </Grid>
         <ListBox x:Name="Pages" DockPanel.Dock="Left" Width="200" Margin="6" ItemsSource="{Binding Pages}">
@@ -49,17 +50,17 @@
                     <!-- General settings -->
                     
                     <StackPanel Orientation="Vertical" Style="{StaticResource ConfigurationPage}">
-                        <TextBlock Margin="3" Style="{StaticResource Header}">Shortcut</TextBlock>
-	                    <Separator />
+                        <TextBlock Margin="3" Style="{StaticResource Header}" Text="{x:Static properties:Strings.Z_Config_General_Shortcut}" />
+                        <Separator />
                         <TextBlock Margin="3" Text="Choose global shortcut to bring the Z window to the front" />
                         <StackPanel Orientation="Horizontal" Style="{StaticResource ItemBlock}">
-                            <TextBlock Style="{StaticResource SingleItemDesc}">Modifiers</TextBlock>
-                            <CheckBox IsChecked="{Binding ShiftModifier, Mode=TwoWay}" Width="80">Shift</CheckBox>
-                            <CheckBox IsChecked="{Binding ControlModifier, Mode=TwoWay}" Width="80">Control</CheckBox>
-                            <CheckBox IsChecked="{Binding AltModifier, Mode=TwoWay}" Width="80">Alt</CheckBox>
+                            <TextBlock Style="{StaticResource SingleItemDesc}" Text="{x:Static properties:Strings.Z_Config_General_Modifiers}" />
+                            <CheckBox IsChecked="{Binding ShiftModifier, Mode=TwoWay}" Width="80" Content="{x:Static properties:Strings.Z_Config_General_Shift}" />
+                            <CheckBox IsChecked="{Binding ControlModifier, Mode=TwoWay}" Width="80" Content="{x:Static properties:Strings.Z_Config_General_Control}"></CheckBox>
+                            <CheckBox IsChecked="{Binding AltModifier, Mode=TwoWay}" Width="80" Content="{x:Static properties:Strings.Z_Config_General_Alt}"></CheckBox>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Style="{StaticResource ItemBlock}">
-                            <TextBlock Style="{StaticResource SingleItemDesc}">Key</TextBlock>
+                            <TextBlock Style="{StaticResource SingleItemDesc}" Text="{x:Static properties:Strings.Z_Config_General_Key}"></TextBlock>
                             <ComboBox Margin="3" ItemsSource="{Binding Keys}" SelectedItem="{Binding Key, Mode=TwoWay}" Width="120">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
@@ -69,12 +70,12 @@
                             </ComboBox>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Style="{StaticResource ItemBlock}">
-                            <TextBlock Style="{StaticResource SingleItemDesc}">Hotkey switches visibility</TextBlock>
-                            <CheckBox IsChecked="{Binding HotkeySwitchesVisibility, Mode=TwoWay}">Use hotkey again to hide window</CheckBox>
+                            <TextBlock Style="{StaticResource SingleItemDesc}" Text="{x:Static properties:Strings.Z_Config_General_HotkeySwitchesVisibility_Label}" />
+                            <CheckBox IsChecked="{Binding HotkeySwitchesVisibility, Mode=TwoWay}" Content="{x:Static properties:Strings.Z_Config_General_HotkeySwitchesVisibility}" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Style="{StaticResource ItemBlock}">
-                            <TextBlock Style="{StaticResource SingleItemDesc}">Synchronize window positions</TextBlock>
-                            <CheckBox IsChecked="{Binding SynchronizeWindowPositions, Mode=TwoWay}">ProCalc window position will be synchronized with Z window</CheckBox>
+                            <TextBlock Style="{StaticResource SingleItemDesc}" Text="{x:Static properties:Strings.Z_Config_General_SynchronizeWindowPositions_Label}" />
+                            <CheckBox IsChecked="{Binding SynchronizeWindowPositions, Mode=TwoWay}" Content="{x:Static properties:Strings.Z_Config_General_SynchronizeWindowPositions}" />
                         </StackPanel>
                     </StackPanel>
                         
@@ -84,7 +85,7 @@
                     <!-- Keyword settings -->
 
                     <DockPanel Style="{StaticResource ConfigurationPage}">
-                        <TextBlock DockPanel.Dock="Top" Margin="3" Style="{StaticResource Header}">Keywords</TextBlock>
+                        <TextBlock DockPanel.Dock="Top" Margin="3" Style="{StaticResource Header}" Text="{x:Static properties:Strings.Z_Config_Keyword_Keywords}"></TextBlock>
                         <Separator DockPanel.Dock="Top" />
 
                         <ListView ItemsSource="{Binding Keywords}">
@@ -98,21 +99,21 @@
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
                                     <GridViewColumn DisplayMemberBinding="{Binding ModuleDisplayName, Mode=OneTime}">
-                                        <GridViewColumnHeader>Module</GridViewColumnHeader>
+                                        <GridViewColumnHeader Content="{x:Static properties:Strings.Z_Config_Keyword_Module}" />
                                     </GridViewColumn>
                                     <GridViewColumn DisplayMemberBinding="{Binding ActionDisplayName, Mode=OneTime}">
-                                        <GridViewColumnHeader>Action</GridViewColumnHeader>
+                                        <GridViewColumnHeader Content="{x:Static properties:Strings.Z_Config_Keyword_Action}" />
                                     </GridViewColumn>
                                     <GridViewColumn>
-                                        <GridViewColumnHeader>Override</GridViewColumnHeader>
+                                        <GridViewColumnHeader Content="{x:Static properties:Strings.Z_Config_Keyword_Override}" />
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
-                                                <CheckBox IsChecked="{Binding Override, Mode=TwoWay}"></CheckBox>
+                                                <CheckBox IsChecked="{Binding Override, Mode=TwoWay}" />
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
                                     <GridViewColumn>
-                                        <GridViewColumnHeader>Keyword</GridViewColumnHeader>
+                                        <GridViewColumnHeader Content="{x:Static properties:Strings.Z_Config_Keyword_Keyword}"></GridViewColumnHeader>
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
                                                 <TextBox Text="{Binding Keyword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="150"></TextBox>
@@ -130,45 +131,39 @@
                     <!-- Behavior settings -->
                     
                     <StackPanel Orientation="Vertical" Style="{StaticResource ConfigurationPage}">
-                        <TextBlock Margin="3" Style="{StaticResource Header}">Executing actions</TextBlock>
+                        <TextBlock Margin="3" Style="{StaticResource Header}" Text="{x:Static properties:Strings.Z_Config_Behavior_ExecutingActions}"></TextBlock>
                         <Separator />
                         <TextBlock Margin="3" HorizontalAlignment="Stretch" TextWrapping="Wrap">
                             <TextBlock.Inlines>
-                                <Run>Choose, what happens, when you press Enter key </Run>
-                                <Run FontWeight="Bold">when no suggestion is selected and no keyword is used</Run>
-                                <Run>:</Run>
+                                <Run Text="{x:Static properties:Strings.Z_Config_Behavior_EnterCommentLine1}"></Run>
+                                <Run FontWeight="Bold" Text="{x:Static properties:Strings.Z_Config_Behavior_EnterCommentLine2}"></Run>
+                                <Run Text="{x:Static properties:Strings.Z_Config_Behavior_EnterCommentLine3}"></Run>
                             </TextBlock.Inlines>
                         </TextBlock>
                         <DockPanel Style="{StaticResource ItemBlock}">
-                            <TextBlock DockPanel.Dock="Left" Style="{StaticResource ItemDesc}">Enter key behavior</TextBlock>
+                            <TextBlock DockPanel.Dock="Left" Style="{StaticResource ItemDesc}" Text="{x:Static properties:Strings.Z_Config_Behavior_EnterBehavior_Label}"></TextBlock>
                             <StackPanel Orientation="Vertical">
-                                <RadioButton IsChecked="{Binding EnterBehavior, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static t:EnterBehavior.ShellExecute}}">Shell execute</RadioButton>
-                                <TextBlock Margin="20,8,0,8" TextWrapping="Wrap">
-                                    Causes the Z window to behave as Start | Run. When you press Enter, Z will try to execute entered text as command.
-                                </TextBlock>
-                                <RadioButton IsChecked="{Binding EnterBehavior, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static t:EnterBehavior.ChooseFirst}}">Choose first</RadioButton>
-                                <TextBlock Margin="20,8,0,8" TextWrapping="Wrap">
-                                    Z will choose first result in suggestions window and perform its action. If there are no suggestions, nothing will happen.
-                                </TextBlock>
-                                <RadioButton IsChecked="{Binding EnterBehavior, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static t:EnterBehavior.ChoosePerfectlyMatching}}">Choose perfectly match</RadioButton>
-                                <TextBlock Margin="20,8,0,8" TextWrapping="Wrap">
-                                    Z will try to find perfect match for entered text among modules. If there's only one, it will be executed. If there are more, you will be asked, which one do you want to execute.
-                                </TextBlock>
+                                <RadioButton IsChecked="{Binding EnterBehavior, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static t:EnterBehavior.ShellExecute}}" Content="{x:Static properties:Strings.Z_Config_Behavior_ShellExecute}" />
+                                <TextBlock Margin="20,8,0,8" TextWrapping="Wrap" Text="{x:Static properties:Strings.Z_Config_Behavior_ShellExecute_Comment}" />
+                                <RadioButton IsChecked="{Binding EnterBehavior, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static t:EnterBehavior.ChooseFirst}}" Content="{x:Static properties:Strings.Z_Config_Behavior_ChooseFirst}" />
+                                <TextBlock Margin="20,8,0,8" TextWrapping="Wrap" Text="{x:Static properties:Strings.Z_Config_Behavior_ChooseFirst_Comment}" />
+                                <RadioButton IsChecked="{Binding EnterBehavior, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static t:EnterBehavior.ChoosePerfectlyMatching}}" Content="{x:Static properties:Strings.Z_Config_Behavior_ChoosePerfectlyMatched}" />
+                                <TextBlock Margin="20,8,0,8" TextWrapping="Wrap" Text="{x:Static properties:Strings.Z_Config_Behavior_ChoosePerfectlyMatched_Comment}" />
                             </StackPanel>
                         </DockPanel>
 
-                        <TextBlock Margin="3" Style="{StaticResource Header}">Suggestions</TextBlock>
+                        <TextBlock Margin="3" Style="{StaticResource Header}" Text="{x:Static properties:Strings.Z_Config_Behavior_Suggestions_Label}"></TextBlock>
                         <Separator />
 
                         <DockPanel Style="{StaticResource ItemBlock}">
-                            <TextBlock DockPanel.Dock="Left" Style="{StaticResource ItemDesc}">Suggestion delay</TextBlock>
+                            <TextBlock DockPanel.Dock="Left" Style="{StaticResource ItemDesc}" Text="{x:Static properties:Strings.Z_Config_Behavior_SuggestionDelay}"></TextBlock>
                             <StackPanel Orientation="Vertical">
-                                <TextBlock Margin="3">How soon should suggestion window appear, when you stop typing.</TextBlock>
+                                <TextBlock Margin="3" Text="{x:Static properties:Strings.Z_Config_Behavior_SuggestionDelay_Comment}"></TextBlock>
                                 <DockPanel>
                                     <TextBlock DockPanel.Dock="Right" Margin="8" VerticalAlignment="Center">
                                         <TextBlock.Inlines>
                                             <Run Text="{Binding ElementName=SuggestionDelaySlider, Path=Value}" />
-                                            <Run Text="ms" />
+                                            <Run Text="{x:Static properties:Strings.Z_Config_Behavior_Ms}" />
                                         </TextBlock.Inlines>
                                     </TextBlock>
                                     <Slider x:Name="SuggestionDelaySlider" Minimum="100" Maximum="1000" SmallChange="50" LargeChange="100" TickFrequency="50" IsSnapToTickEnabled="True" 
@@ -178,11 +173,11 @@
                         </DockPanel>
 
                         <DockPanel Style="{StaticResource ItemBlock}">
-                            <TextBlock DockPanel.Dock="Left" Style="{StaticResource ItemDesc}">Suggestion sorting</TextBlock>
+                            <TextBlock DockPanel.Dock="Left" Style="{StaticResource ItemDesc}" Text="{x:Static properties:Strings.Z_Config_Behavior_SuggestionSorting}"></TextBlock>
                             <StackPanel Orientation="Vertical">
-                                <RadioButton IsChecked="{Binding SuggestionSorting, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static t:SuggestionSorting.ByModule}}">Sort by module</RadioButton>
-                                <RadioButton IsChecked="{Binding SuggestionSorting, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static t:SuggestionSorting.ByDisplay}}">Sort by title</RadioButton>
-                                <RadioButton IsChecked="{Binding SuggestionSorting, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static t:SuggestionSorting.ByMatch}}">Sort by match</RadioButton>
+                                <RadioButton IsChecked="{Binding SuggestionSorting, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static t:SuggestionSorting.ByModule}}" Content="{x:Static properties:Strings.Z_Config_Behavior_SortByModule}" />
+                                <RadioButton IsChecked="{Binding SuggestionSorting, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static t:SuggestionSorting.ByDisplay}}" Content="{x:Static properties:Strings.Z_Config_Behavior_SortByTitle}" />
+                                <RadioButton IsChecked="{Binding SuggestionSorting, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static t:SuggestionSorting.ByMatch}}" Content="{x:Static properties:Strings.Z_Config_Behavior_SortByMatch}" />
                             </StackPanel>
                         </DockPanel>
                         
@@ -194,7 +189,7 @@
                     <!-- Modules -->
                     
                     <DockPanel Style="{StaticResource ConfigurationPage}">
-                        <TextBlock DockPanel.Dock="Top" Margin="3" Style="{StaticResource Header}">Modules</TextBlock>
+                        <TextBlock DockPanel.Dock="Top" Margin="3" Style="{StaticResource Header}" Text="{x:Static properties:Strings.Z_Config_Modules_Modules}"></TextBlock>
                         <Separator DockPanel.Dock="Top" />
 
                         <ListView ItemsSource="{Binding Modules}">
@@ -208,13 +203,13 @@
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
                                     <GridViewColumn Width="150" DisplayMemberBinding="{Binding Module, Mode=OneTime}">
-                                        <GridViewColumnHeader>Module</GridViewColumnHeader>
+                                        <GridViewColumnHeader Content="{x:Static properties:Strings.Z_Config_Modules_Module}" />
                                     </GridViewColumn>
                                     <GridViewColumn>
                                         <GridViewColumnHeader>Configure</GridViewColumnHeader>
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
-                                                <Button Command="{Binding ShowConfigCommand}" Padding="2" Margin="3">Configure...</Button>
+                                                <Button Command="{Binding ShowConfigCommand}" Padding="2" Margin="3" Content="{x:Static properties:Strings.Z_Config_Modules_Configure}"></Button>
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
@@ -227,7 +222,7 @@
                 <DataTemplate DataType="{x:Type clnc:LauncherViewModel}">
 
                     <DockPanel Style="{StaticResource ConfigurationPage}">
-                        <TextBlock DockPanel.Dock="Top" Margin="3" Style="{StaticResource Header}">Launcher</TextBlock>
+                        <TextBlock DockPanel.Dock="Top" Margin="3" Style="{StaticResource Header}" Text="{x:Static properties:Strings.Z_Config_Launcher_Launcher}"></TextBlock>
                         <Separator DockPanel.Dock="Top" />
 
                         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
@@ -262,20 +257,20 @@
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
 
-                            <TextBlock Grid.Column="0" Grid.Row="0" Style="{StaticResource ItemDesc}" Margin="3">Name</TextBlock>
+                            <TextBlock Grid.Column="0" Grid.Row="0" Style="{StaticResource ItemDesc}" Margin="3" Text="{x:Static properties:Strings.Z_Config_Launcher_Name}" />
                             <TextBox Grid.Column="1" Grid.Row="0" Margin="3" Text="{Binding ElementName=LauncherItems, Path=SelectedItem.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-                            <TextBlock Grid.Column="0" Grid.Row="1" Style="{StaticResource ItemDesc}" Margin="3">Command</TextBlock>
+                            <TextBlock Grid.Column="0" Grid.Row="1" Style="{StaticResource ItemDesc}" Margin="3" Text="{x:Static properties:Strings.Z_Config_Launcher_Command}" />
                             <DockPanel Grid.Column="1" Grid.Row="1">
-                                <Button DockPanel.Dock="Right" Command="{Binding ChoosePathCommand}" Padding="12,0">Browse...</Button>
+                                <Button DockPanel.Dock="Right" Command="{Binding ChoosePathCommand}" Padding="12,0" Content="{x:Static properties:Strings.Z_Config_Launcher_Browse}" />
                                 <TextBox Margin="3" Text="{Binding ElementName=LauncherItems, Path=SelectedItem.Command, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             </DockPanel>
 
-                            <TextBlock Grid.Column="0" Grid.Row="2" Style="{StaticResource ItemDesc}" Margin="3">Icon</TextBlock>
+                            <TextBlock Grid.Column="0" Grid.Row="2" Style="{StaticResource ItemDesc}" Margin="3" Text="{x:Static properties:Strings.Z_Config_Launcher_Icon}"></TextBlock>
                             <DockPanel Grid.Column="1" Grid.Row="2" >
                                 <Image Width="32" Height="32" VerticalAlignment="Center" Source="{Binding ElementName=LauncherItems, Path=SelectedItem.IconSource}" Margin="0,4,4,4" />
-                                <Button Height="23" VerticalAlignment="Center" DockPanel.Dock="Right" Command="{Binding BrowseIconCommand}">Browse...</Button>
-                                <Button Height="23" VerticalAlignment="Center" DockPanel.Dock="Right" Command="{Binding AutoResolveIconCommand}">Find automatically</Button>
+                                <Button Height="23" VerticalAlignment="Center" DockPanel.Dock="Right" Command="{Binding BrowseIconCommand}" Content="{x:Static properties:Strings.Z_Config_Launcher_Browse}" />
+                                <Button Height="23" VerticalAlignment="Center" DockPanel.Dock="Right" Command="{Binding AutoResolveIconCommand}" Content="{x:Static properties:Strings.Z_Config_Launcher_FindAutomatically}" />
                                 <ComboBox Height="23" VerticalAlignment="Center" Margin="3" ItemsSource="{Binding IconModes}" SelectedItem="{Binding ElementName=LauncherItems, Path=SelectedItem.IconMode}" />
                             </DockPanel>
                         </Grid>

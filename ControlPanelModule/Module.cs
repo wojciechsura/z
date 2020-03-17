@@ -1,4 +1,5 @@
 ﻿using ControlPanelModule.Infrastructure;
+using ControlPanelModule.Resources;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -17,11 +18,8 @@ namespace ControlPanelModule
     public class Module : IZModule
     {
         private const string MODULE_NAME = "ControlPanel";
-        private const string MODULE_DISPLAY_NAME = "Control panel";
         private const string CPANEL_KEYWORD = "cpanel";
         private const string CPANEL_KEYWORD_ACTION = "ControlPanelEntry";
-        private const string CPANEL_KEYWORD_DISPLAY = "Control panel";
-        private const string CPANEL_KEYWORD_COMMENT = "Access to Control Panel entries";
         private List<BaseControlPanelEntry> controlPanelEntries;
         private BitmapImage icon;
 
@@ -115,14 +113,14 @@ namespace ControlPanelModule
 
         public IEnumerable<KeywordInfo> GetKeywordActions()
         {
-            yield return new KeywordInfo(CPANEL_KEYWORD, CPANEL_KEYWORD_ACTION, CPANEL_KEYWORD_DISPLAY, CPANEL_KEYWORD_COMMENT);
+            yield return new KeywordInfo(CPANEL_KEYWORD, CPANEL_KEYWORD_ACTION, Strings.ControlPanel_KeywordDisplayName, Strings.ControlPanel_KeywordComment);
         }
 
         public string DisplayName
         {
             get
             {
-                return MODULE_DISPLAY_NAME;
+                return Strings.ControlPanel_ModuleDisplayName;
             }
         }
 

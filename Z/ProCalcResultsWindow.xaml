@@ -36,23 +36,23 @@
             <TextBox Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" Margin="2,6"
                                      Style="{StaticResource MainResultEditStyle}" Text="{Binding Result, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-            <Label Grid.Column="0" Grid.Row="1" Margin="2" Style="{StaticResource MainResultLabel}">Bin</Label>
+            <Label Grid.Column="0" Grid.Row="1" Margin="2" Style="{StaticResource MainResultLabel}" Content="{x:Static properties:Strings.Z_ProCalc_Bin}"></Label>
             <TextBox Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch" Margin="2" 
                                      Style="{StaticResource ResultEditStyle}" Text="{Binding BinResult, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-            <Label Grid.Column="0" Grid.Row="2" Margin="2" Style="{StaticResource MainResultLabel}">Oct</Label>
+            <Label Grid.Column="0" Grid.Row="2" Margin="2" Style="{StaticResource MainResultLabel}" Content="{x:Static properties:Strings.Z_ProCalc_Oct}" />
             <TextBox Grid.Column="1" Grid.Row="2" HorizontalAlignment="Stretch" Margin="2" 
                                      Style="{StaticResource ResultEditStyle}" Text="{Binding OctResult, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-            <Label Grid.Column="0" Grid.Row="3" Margin="2" Style="{StaticResource MainResultLabel}">Hex</Label>
+            <Label Grid.Column="0" Grid.Row="3" Margin="2" Style="{StaticResource MainResultLabel}" Content="{x:Static properties:Strings.Z_ProCalc_Hex}" />
             <TextBox Grid.Column="1" Grid.Row="3" HorizontalAlignment="Stretch" Margin="2" 
                                      Style="{StaticResource ResultEditStyle}" Text="{Binding HexResult, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-            <Label Grid.Column="0" Grid.Row="4" Margin="2" Style="{StaticResource MainResultLabel}">DMS</Label>
+            <Label Grid.Column="0" Grid.Row="4" Margin="2" Style="{StaticResource MainResultLabel}" Content="{x:Static properties:Strings.Z_ProCalc_DMS}" />
             <TextBox Grid.Column="1" Grid.Row="4" HorizontalAlignment="Stretch" Margin="2" 
                                      Style="{StaticResource ResultEditStyle}" Text="{Binding DmsResult, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-            <Label Grid.Column="0" Grid.Row="5" Margin="2" Style="{StaticResource MainResultLabel}">Fraction</Label>
+            <Label Grid.Column="0" Grid.Row="5" Margin="2" Style="{StaticResource MainResultLabel}" Content="{x:Static properties:Strings.Z_ProCalc_Fraction}" />
             <TextBox Grid.Column="1" Grid.Row="5" HorizontalAlignment="Stretch" Margin="2" 
                                     Style="{StaticResource ResultEditStyle}" Text="{Binding FractionResult, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>

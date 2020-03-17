@@ -24,7 +24,7 @@
     <controls:WindowChrome>
         <StackPanel Orientation="Vertical">
 
-            <TextBlock Margin="8" Foreground="{StaticResource MainTextBrush}">Multiple suggestions match, choose one below:</TextBlock>
+            <TextBlock Margin="8" Foreground="{StaticResource MainTextBrush}" Text="{x:Static properties:Strings.Z_Suggestions_MultipleSuggestionsMatch}"></TextBlock>
                         
             <!-- Display contents above shadow -->
             <ListBox x:Name="SuggestionList" Style="{StaticResource SuggestionListboxStyle}" ItemContainerStyle="{StaticResource SuggestionListboxItemStyle}"
