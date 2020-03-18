@@ -126,4 +126,13 @@
   <data name="Hash_ModuleDisplayName" xml:space="preserve">
     <value>Generator haszy</value>
   </data>
+  <data name="Hash_Md5_Comment" xml:space="preserve">
+    <value>Skopiuj MD5 do schowka</value>
+  </data>
+  <data name="Hash_Message_ChooseSuggestion" xml:space="preserve">
+    <value>Wybierz jedną z sugestii by skopiować skrót do schowka!</value>
+  </data>
+  <data name="Hash_SHA1_Comment" xml:space="preserve">
+    <value>Skopiuj SHA1 do schowka</value>
+  </data>
 </root>

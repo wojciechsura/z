@@ -106,4 +106,13 @@
   <data name="Hash_ActionComment" xml:space="preserve">
     <value>Compute hashes of text</value>
   </data>
+  <data name="Hash_Md5_Comment" xml:space="preserve">
+    <value>Copy MD5 to clipboard</value>
+  </data>
+  <data name="Hash_SHA1_Comment" xml:space="preserve">
+    <value>Copy SHA1 to clipboard</value>
+  </data>
+  <data name="Hash_Message_ChooseSuggestion" xml:space="preserve">
+    <value>Choose one of suggestions to copy hash to clipboard!</value>
+  </data>
 </root>

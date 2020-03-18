@@ -7,13 +7,12 @@ using System.Threading.Tasks;
 using Z.BusinessLogic.Services.Config;
 using Z.BusinessLogic.ViewModels.Configuration.Base;
 using Z.Common.Types;
+using Z.Resources;
 
 namespace Z.BusinessLogic.ViewModels.Configuration.Behavior
 {
     public class BehaviorViewModel : BaseConfigurationViewModel, INotifyPropertyChanged
     {
-        private const string PAGE_DISPLAY_NAME = "Behavior";
-
         private readonly IConfigurationService configurationService;
 
         private EnterBehavior enterBehavior;
@@ -47,7 +46,7 @@ namespace Z.BusinessLogic.ViewModels.Configuration.Behavior
         {
             get
             {
-                return PAGE_DISPLAY_NAME;
+                return Strings.Z_ConfigurationPage_Behavior;
             }
         }
 

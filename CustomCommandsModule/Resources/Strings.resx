@@ -184,4 +184,7 @@
   <data name="CustomCommands_Config_Delete" xml:space="preserve">
     <value>Delete</value>
   </data>
+  <data name="CustomCommands_Message_InvalidCommandSyntax" xml:space="preserve">
+    <value>Invalid command syntax or broken command input.</value>
+  </data>
 </root>

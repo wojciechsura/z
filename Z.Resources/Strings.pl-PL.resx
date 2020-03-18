@@ -253,7 +253,7 @@
     <value>Ikona</value>
   </data>
   <data name="Z_Config_Launcher_Launcher" xml:space="preserve">
-    <value>Wyrzutnia</value>
+    <value>Launcher</value>
   </data>
   <data name="Z_Config_Launcher_Name" xml:space="preserve">
     <value>Nazwa</value>
@@ -287,5 +287,68 @@
   </data>
   <data name="Z_Suggestions_MultipleSuggestionsMatch" xml:space="preserve">
     <value>Kilka sugestii pasuje, wybierz jedną:</value>
+  </data>
+  <data name="Z_ConfigurationPage_Behavior" xml:space="preserve">
+    <value>Zachowanie</value>
+  </data>
+  <data name="Z_ConfigurationPage_General" xml:space="preserve">
+    <value>Ogólne</value>
+  </data>
+  <data name="Z_ConfigurationPage_Keywords" xml:space="preserve">
+    <value>Skróty</value>
+  </data>
+  <data name="Z_ConfigurationPage_Launcher" xml:space="preserve">
+    <value>Launcher</value>
+  </data>
+  <data name="Z_ConfigurationPage_Modules" xml:space="preserve">
+    <value>Moduły</value>
+  </data>
+  <data name="Z_DefaultDialogTitle" xml:space="preserve">
+    <value>Z</value>
+  </data>
+  <data name="Z_DefaultFilter" xml:space="preserve">
+    <value>Wszystkie pliki (*.*)|*.*</value>
+  </data>
+  <data name="Z_DialogTitle_ChooseApplication" xml:space="preserve">
+    <value>Wybierz aplikację</value>
+  </data>
+  <data name="Z_DialogTitle_ChooseIcon" xml:space="preserve">
+    <value>Wybierz ikonę</value>
+  </data>
+  <data name="Z_DialogTitle_Configuration" xml:space="preserve">
+    <value>Konfiguracja</value>
+  </data>
+  <data name="Z_Filter_Application" xml:space="preserve">
+    <value>Aplikacje (*.exe)|*.exe|Wszystkie pliki (*.*)|*.*</value>
+  </data>
+  <data name="Z_Filter_IconFiles" xml:space="preserve">
+    <value>Wszystkie obsługiwane formaty (*.ico, *.exe)|*.ico;*.exe</value>
+  </data>
+  <data name="Z_HelpModule_ModuleDisplayName" xml:space="preserve">
+    <value>Pomoc</value>
+  </data>
+  <data name="Z_LauncherBreadcrumbsRoot" xml:space="preserve">
+    <value>Launcher</value>
+  </data>
+  <data name="Z_Message_CannotExecute" xml:space="preserve">
+    <value>Nie mogę wykonać: {0}</value>
+  </data>
+  <data name="Z_Message_CouldNotResolveIconAutomatically" xml:space="preserve">
+    <value>Nie mogę pobrać ikony automatycznie. Wybierz ją manualnie.</value>
+  </data>
+  <data name="Z_Message_FailedToExtractIconFromSelectedFile" xml:space="preserve">
+    <value>Nie udało się pobrać ikony z wybranego pliku!</value>
+  </data>
+  <data name="Z_Message_FailedToOpenShortcut" xml:space="preserve">
+    <value>Nie udało się otworzyć skrótu: {0}</value>
+  </data>
+  <data name="Z_Message_ModuleReportsError" xml:space="preserve">
+    <value>Moduł "{0}" zgłasza błąd:
+ {1}
+ 
+Użyj konfiguracji modułu żeby go poprawić lub anuluj zmiany.</value>
+  </data>
+  <data name="Z_Message_UnsupportedFileType" xml:space="preserve">
+    <value>Nieobsługiwany format pliku. Wybierz plik .exe lub .ico.</value>
   </data>
 </root>
