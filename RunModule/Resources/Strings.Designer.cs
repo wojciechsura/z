@@ -104,5 +104,14 @@ namespace RunModule.Resources {
                 return ResourceManager.GetString("Run_ModuleDisplayName", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Run {0}.
+        /// </summary>
+        internal static string Run_SuggestionText {
+            get {
+                return ResourceManager.GetString("Run_SuggestionText", resourceCulture);
+            }
+        }
     }
 }

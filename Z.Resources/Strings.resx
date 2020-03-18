@@ -288,4 +288,67 @@
   <data name="Z.Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="Z_DefaultFilter" xml:space="preserve">
+    <value>All files (*.*)|*.*</value>
+  </data>
+  <data name="Z_DefaultDialogTitle" xml:space="preserve">
+    <value>Z</value>
+  </data>
+  <data name="Z_ConfigurationPage_Behavior" xml:space="preserve">
+    <value>Behavior</value>
+  </data>
+  <data name="Z_DialogTitle_Configuration" xml:space="preserve">
+    <value>Configuration</value>
+  </data>
+  <data name="Z_ConfigurationPage_General" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="Z_ConfigurationPage_Keywords" xml:space="preserve">
+    <value>Keywords</value>
+  </data>
+  <data name="Z_Message_FailedToExtractIconFromSelectedFile" xml:space="preserve">
+    <value>Failed to extract icon from selected file!</value>
+  </data>
+  <data name="Z_Message_UnsupportedFileType" xml:space="preserve">
+    <value>Unsupported file type. Try .exe or .ico file.</value>
+  </data>
+  <data name="Z_Message_CouldNotResolveIconAutomatically" xml:space="preserve">
+    <value>Could not resolve icon automatically. Choose icon manually.</value>
+  </data>
+  <data name="Z_Filter_IconFiles" xml:space="preserve">
+    <value>All supported files (*.ico, *.exe)|*.ico;*.exe</value>
+  </data>
+  <data name="Z_DialogTitle_ChooseIcon" xml:space="preserve">
+    <value>Choose icon</value>
+  </data>
+  <data name="Z_Filter_Application" xml:space="preserve">
+    <value>Applications (*.exe)|*.exe|All files (*.*)|*.*</value>
+  </data>
+  <data name="Z_DialogTitle_ChooseApplication" xml:space="preserve">
+    <value>Choose application</value>
+  </data>
+  <data name="Z_ConfigurationPage_Launcher" xml:space="preserve">
+    <value>Launcher</value>
+  </data>
+  <data name="Z_Message_ModuleReportsError" xml:space="preserve">
+    <value>Module "{0}" reports error:
+ {1}
+ 
+Use module configuration to fix it or cancel your changes.</value>
+  </data>
+  <data name="Z_ConfigurationPage_Modules" xml:space="preserve">
+    <value>Modules</value>
+  </data>
+  <data name="Z_LauncherBreadcrumbsRoot" xml:space="preserve">
+    <value>Launcher</value>
+  </data>
+  <data name="Z_Message_CannotExecute" xml:space="preserve">
+    <value>Cannot execute: {0}</value>
+  </data>
+  <data name="Z_Message_FailedToOpenShortcut" xml:space="preserve">
+    <value>Failed to open shortcut: {0}</value>
+  </data>
+  <data name="Z_HelpModule_ModuleDisplayName" xml:space="preserve">
+    <value>Help</value>
+  </data>
 </root>

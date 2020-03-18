@@ -38,7 +38,7 @@ namespace Z.BusinessLogic.ViewModels.Configuration
                 List<string> messages = page.Validate()?.ToList();
                 if (messages != null && messages.Any())
                 {
-                    configWindowAccess.ShowWarning(messages.First(), "Configuration");
+                    configWindowAccess.ShowWarning(messages.First(), Strings.Z_DialogTitle_Configuration);
                     return;
                 }
             }
