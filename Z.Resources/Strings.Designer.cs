@@ -685,6 +685,15 @@ namespace Z.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Z launcher is already running!.
+        /// </summary>
+        public static string Z_Message_ZLauncherIsAlreadyRunning {
+            get {
+                return ResourceManager.GetString("Z_Message_ZLauncherIsAlreadyRunning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OK.
         /// </summary>
         public static string Z_OK {
