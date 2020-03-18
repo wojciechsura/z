@@ -282,13 +282,19 @@
                             <TreeView.Resources>
                                 <Style TargetType="TreeViewItem">
                                     <Setter Property="IsExpanded" Value="{Binding IsExpanded}" />
+                                    <Style.Triggers>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter Property="Background" Value="{x:Static SystemColors.HighlightBrush}" />
+                                            <Setter Property="TextBlock.Foreground" Value="{x:Static SystemColors.HighlightTextBrush}" />
+                                        </Trigger>
+                                    </Style.Triggers>
                                 </Style>
                             </TreeView.Resources>
                             <TreeView.ItemTemplate>
                                 <HierarchicalDataTemplate DataType="{x:Type clnc:LauncherEntryViewModel}" ItemsSource="{Binding Items}">
                                     <StackPanel Orientation="Horizontal">
                                         <Image Source="Resources/Images/New16.png" Margin="3"/>
-                                        <Label Content="{Binding Name}" />
+                                        <Label Content="{Binding Name}" Foreground="{Binding RelativeSource={RelativeSource AncestorType=StackPanel}, Path=(TextBlock.Foreground)}" />
                                     </StackPanel>
                                 </HierarchicalDataTemplate>
                             </TreeView.ItemTemplate>
