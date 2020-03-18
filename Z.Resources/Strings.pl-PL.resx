@@ -354,4 +354,7 @@ Użyj konfiguracji modułu żeby go poprawić lub anuluj zmiany.</value>
   <data name="Z_Message_ZLauncherIsAlreadyRunning" xml:space="preserve">
     <value>Z już działa!</value>
   </data>
+  <data name="Z_Config_General_GlobalShortcut" xml:space="preserve">
+    <value>Wybierz globalny skrót pokazujący okno Z</value>
+  </data>
 </root>

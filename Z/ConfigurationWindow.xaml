@@ -52,7 +52,7 @@
                     <StackPanel Orientation="Vertical" Style="{StaticResource ConfigurationPage}">
                         <TextBlock Margin="3" Style="{StaticResource Header}" Text="{x:Static properties:Strings.Z_Config_General_Shortcut}" />
                         <Separator />
-                        <TextBlock Margin="3" Text="Choose global shortcut to bring the Z window to the front" />
+                        <TextBlock Margin="3" Text="{x:Static properties:Strings.Z_Config_General_GlobalShortcut}" />
                         <StackPanel Orientation="Horizontal" Style="{StaticResource ItemBlock}">
                             <TextBlock Style="{StaticResource SingleItemDesc}" Text="{x:Static properties:Strings.Z_Config_General_Modifiers}" />
                             <CheckBox IsChecked="{Binding ShiftModifier, Mode=TwoWay}" Width="80" Content="{x:Static properties:Strings.Z_Config_General_Shift}" />
