@@ -351,4 +351,7 @@ Użyj konfiguracji modułu żeby go poprawić lub anuluj zmiany.</value>
   <data name="Z_Message_UnsupportedFileType" xml:space="preserve">
     <value>Nieobsługiwany format pliku. Wybierz plik .exe lub .ico.</value>
   </data>
+  <data name="Z_Message_ZLauncherIsAlreadyRunning" xml:space="preserve">
+    <value>Z już działa!</value>
+  </data>
 </root>
