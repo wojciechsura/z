@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Z.BusinessLogic.Models;
 using Z.BusinessLogic.Services.Dialogs;
+using Z.Resources;
 
 namespace Z.Services.Dialogs
 {
@@ -19,12 +20,12 @@ namespace Z.Services.Dialogs
             if (filter != null)
                 dialog.Filter = filter;
             else
-                dialog.Filter = "All files (*.*)|*.*";
+                dialog.Filter = Strings.Z_DefaultFilter;
 
             if (title != null)
                 dialog.Title = title;
             else
-                dialog.Title = "Z";
+                dialog.Title = Strings.Z_DefaultDialogTitle;
 
             if (path != null)
                 dialog.InitialDirectory = path;

@@ -204,4 +204,7 @@
   <data name="CustomCommands_ModuleDisplayName" xml:space="preserve">
     <value>Komendy użytkownika</value>
   </data>
+  <data name="CustomCommands_Message_InvalidCommandSyntax" xml:space="preserve">
+    <value>Nieprawidłowa składnia polecenia lub nieprawidłowe dane wejściowe.</value>
+  </data>
 </root>

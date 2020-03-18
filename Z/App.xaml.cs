@@ -45,7 +45,7 @@ namespace Z
             singleInstanceMutex = new Mutex(true, "Spooksoft.ZLauncher", out isNewInstance);
             if (!isNewInstance)
             {
-                MessageBox.Show("Z launcher is already running!");
+                MessageBox.Show(Resources.Z_Message_ZLauncherIsAlreadyRunning);
                 App.Current.Shutdown();
                 return;
             }

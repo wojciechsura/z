@@ -457,6 +457,132 @@ namespace Z.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Behavior.
+        /// </summary>
+        public static string Z_ConfigurationPage_Behavior {
+            get {
+                return ResourceManager.GetString("Z_ConfigurationPage_Behavior", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to General.
+        /// </summary>
+        public static string Z_ConfigurationPage_General {
+            get {
+                return ResourceManager.GetString("Z_ConfigurationPage_General", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Keywords.
+        /// </summary>
+        public static string Z_ConfigurationPage_Keywords {
+            get {
+                return ResourceManager.GetString("Z_ConfigurationPage_Keywords", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Launcher.
+        /// </summary>
+        public static string Z_ConfigurationPage_Launcher {
+            get {
+                return ResourceManager.GetString("Z_ConfigurationPage_Launcher", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Modules.
+        /// </summary>
+        public static string Z_ConfigurationPage_Modules {
+            get {
+                return ResourceManager.GetString("Z_ConfigurationPage_Modules", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Z.
+        /// </summary>
+        public static string Z_DefaultDialogTitle {
+            get {
+                return ResourceManager.GetString("Z_DefaultDialogTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All files (*.*)|*.*.
+        /// </summary>
+        public static string Z_DefaultFilter {
+            get {
+                return ResourceManager.GetString("Z_DefaultFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose application.
+        /// </summary>
+        public static string Z_DialogTitle_ChooseApplication {
+            get {
+                return ResourceManager.GetString("Z_DialogTitle_ChooseApplication", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose icon.
+        /// </summary>
+        public static string Z_DialogTitle_ChooseIcon {
+            get {
+                return ResourceManager.GetString("Z_DialogTitle_ChooseIcon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Configuration.
+        /// </summary>
+        public static string Z_DialogTitle_Configuration {
+            get {
+                return ResourceManager.GetString("Z_DialogTitle_Configuration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Applications (*.exe)|*.exe|All files (*.*)|*.*.
+        /// </summary>
+        public static string Z_Filter_Application {
+            get {
+                return ResourceManager.GetString("Z_Filter_Application", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All supported files (*.ico, *.exe)|*.ico;*.exe.
+        /// </summary>
+        public static string Z_Filter_IconFiles {
+            get {
+                return ResourceManager.GetString("Z_Filter_IconFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Help.
+        /// </summary>
+        public static string Z_HelpModule_ModuleDisplayName {
+            get {
+                return ResourceManager.GetString("Z_HelpModule_ModuleDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Launcher.
+        /// </summary>
+        public static string Z_LauncherBreadcrumbsRoot {
+            get {
+                return ResourceManager.GetString("Z_LauncherBreadcrumbsRoot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Close.
         /// </summary>
         public static string Z_Main_Context_Close {
@@ -498,6 +624,63 @@ namespace Z.Resources {
         public static string Z_Main_Hint {
             get {
                 return ResourceManager.GetString("Z.Main.Hint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot execute: {0}.
+        /// </summary>
+        public static string Z_Message_CannotExecute {
+            get {
+                return ResourceManager.GetString("Z_Message_CannotExecute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not resolve icon automatically. Choose icon manually..
+        /// </summary>
+        public static string Z_Message_CouldNotResolveIconAutomatically {
+            get {
+                return ResourceManager.GetString("Z_Message_CouldNotResolveIconAutomatically", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to extract icon from selected file!.
+        /// </summary>
+        public static string Z_Message_FailedToExtractIconFromSelectedFile {
+            get {
+                return ResourceManager.GetString("Z_Message_FailedToExtractIconFromSelectedFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to open shortcut: {0}.
+        /// </summary>
+        public static string Z_Message_FailedToOpenShortcut {
+            get {
+                return ResourceManager.GetString("Z_Message_FailedToOpenShortcut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Module &quot;{0}&quot; reports error:
+        /// {1}
+        /// 
+        ///Use module configuration to fix it or cancel your changes..
+        /// </summary>
+        public static string Z_Message_ModuleReportsError {
+            get {
+                return ResourceManager.GetString("Z_Message_ModuleReportsError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unsupported file type. Try .exe or .ico file..
+        /// </summary>
+        public static string Z_Message_UnsupportedFileType {
+            get {
+                return ResourceManager.GetString("Z_Message_UnsupportedFileType", resourceCulture);
             }
         }
         

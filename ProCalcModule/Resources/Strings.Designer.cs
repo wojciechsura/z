@@ -79,6 +79,24 @@ namespace ProCalcModule.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copy result to clipboard.
+        /// </summary>
+        internal static string Calculator_Comment {
+            get {
+                return ResourceManager.GetString("Calculator_Comment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot evaluate: {0}.
+        /// </summary>
+        internal static string Calculator_Message_CannotEvaluate {
+            get {
+                return ResourceManager.GetString("Calculator_Message_CannotEvaluate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Calculator.
         /// </summary>
         internal static string Calculator_ModuleDisplayName {

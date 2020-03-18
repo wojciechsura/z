@@ -106,4 +106,10 @@
   <data name="Calculator_ActionComment" xml:space="preserve">
     <value>Evaluate mathematical expressions</value>
   </data>
+  <data name="Calculator_Message_CannotEvaluate" xml:space="preserve">
+    <value>Cannot evaluate: {0}</value>
+  </data>
+  <data name="Calculator_Comment" xml:space="preserve">
+    <value>Copy result to clipboard</value>
+  </data>
 </root>

@@ -220,6 +220,10 @@
       <Project>{4d075ffa-1213-4dad-8f14-50f6edf2f5bf}</Project>
       <Name>Z.Dependencies</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Z.Resources\Z.Resources.csproj">
+      <Project>{FC19AC19-1546-4789-BEE2-2FDF11E43C87}</Project>
+      <Name>Z.Resources</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Z.Wpf\Z.Wpf.csproj">
       <Project>{7a248954-2ade-41ef-b42e-0dc48d20174e}</Project>
       <Name>Z.Wpf</Name>

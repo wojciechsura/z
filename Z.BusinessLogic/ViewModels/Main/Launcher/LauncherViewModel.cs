@@ -37,7 +37,7 @@ namespace Z.BusinessLogic.ViewModels.Main.Launcher
                     .Select(i => new LauncherShortcutViewModel(imageResources, i))
                     .ToList();
 
-                var row = new LauncherRowViewModel("Launcher", items);
+                var row = new LauncherRowViewModel(Strings.Z_LauncherBreadcrumbsRoot, items);
                 rows.Add(row);
             }
 

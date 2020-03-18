@@ -13,14 +13,13 @@ using Z.BusinessLogic.Services.Image;
 using Z.BusinessLogic.Services.Messaging;
 using Z.BusinessLogic.Types.Launcher;
 using Z.BusinessLogic.ViewModels.Configuration.Base;
+using Z.Resources;
 using Z.Wpf.Types;
 
 namespace Z.BusinessLogic.ViewModels.Configuration.Launcher
 {
     public class LauncherViewModel : BaseConfigurationViewModel
     {
-        public const string PAGE_DISPLAY_NAME = "Launcher";
-
         private readonly ObservableCollection<LauncherEntryViewModel> items = new ObservableCollection<LauncherEntryViewModel>();
         private readonly IConfigurationService configurationService;
         private readonly IDialogService dialogService;
@@ -30,7 +29,7 @@ namespace Z.BusinessLogic.ViewModels.Configuration.Launcher
 
         private void DoChoosePath()
         {
-            var result = dialogService.ShowOpenDialog("Applications (*.exe)|*.exe|All files (*.*)|*.*", "Choose application");
+            var result = dialogService.ShowOpenDialog(Strings.Z_Filter_Application, Strings.Z_DialogTitle_ChooseApplication);
             if (result.Result)
             {
                 if (result.FileName.Contains(" "))
@@ -92,12 +91,12 @@ namespace Z.BusinessLogic.ViewModels.Configuration.Launcher
         private void DoAutoResolveIcon()
         {
             if (!TryAutoResolveIcon())
-                messagingService.Warn("Could not resolve icon automatically. Choose icon manually.");            
+                messagingService.Warn(Strings.Z_Message_CouldNotResolveIconAutomatically);            
         }
 
         private void DoBrowseIcon()
         {
-            var result = dialogService.ShowOpenDialog("All supported files (*.ico, *.exe)|*.ico;*.exe", "Choose icon");
+            var result = dialogService.ShowOpenDialog(Strings.Z_Filter_IconFiles, Strings.Z_DialogTitle_ChooseIcon);
             if (result.Result)
             {
                 switch (System.IO.Path.GetExtension(result.FileName).ToLower())
@@ -114,7 +113,7 @@ namespace Z.BusinessLogic.ViewModels.Configuration.Launcher
                         }
                         catch
                         {
-                            messagingService.Warn("Failed to extract icon from selected file!");
+                            messagingService.Warn(Strings.Z_Message_FailedToExtractIconFromSelectedFile);
                         }
 
                         break;
@@ -130,12 +129,12 @@ namespace Z.BusinessLogic.ViewModels.Configuration.Launcher
                         }
                         catch
                         {
-                            messagingService.Warn("Failed to extract icon from selected file!");
+                            messagingService.Warn(Strings.Z_Message_FailedToExtractIconFromSelectedFile);
                         }
 
                         break;
                     default:
-                        messagingService.Warn("Unsupported file type. Try .exe or .ico file.");
+                        messagingService.Warn(Strings.Z_Message_UnsupportedFileType);
                         break;
                 }
             }
@@ -271,7 +270,7 @@ namespace Z.BusinessLogic.ViewModels.Configuration.Launcher
 
         public ObservableCollection<LauncherEntryViewModel> Items => items;
 
-        public override string DisplayName => PAGE_DISPLAY_NAME;
+        public override string DisplayName => Strings.Z_ConfigurationPage_Launcher;
 
         public ICommand ChoosePathCommand { get; }
 

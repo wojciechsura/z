@@ -1,4 +1,5 @@
 ﻿using CustomCommandsModule.Infrastructure;
+using CustomCommandsModule.Resources;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -22,7 +23,7 @@ namespace CustomCommandsModule.Converters
                 }
                 catch
                 {
-                    return "Invalid command syntax or broken command input.";
+                    return Strings.CustomCommands_Message_InvalidCommandSyntax;
                 }
             }
             else

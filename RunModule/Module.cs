@@ -28,7 +28,7 @@ namespace RunModule
 
         public void CollectSuggestions(string enteredText, string action, bool perfectMatchesOnly, ISuggestionCollector collector)
         {
-            collector.AddSuggestion(new SuggestionInfo(enteredText, $"Run {enteredText}", Strings.Run_Comment, icon, 0));
+            collector.AddSuggestion(new SuggestionInfo(enteredText, string.Format(Strings.Run_SuggestionText, enteredText), Strings.Run_Comment, icon, 0));
         }
 
         public void ExecuteKeywordAction(string action, string expression, ExecuteOptions options)

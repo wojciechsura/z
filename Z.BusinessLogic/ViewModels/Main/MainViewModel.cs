@@ -29,6 +29,7 @@ using Z.BusinessLogic.Models;
 using Z.BusinessLogic.Types.Main;
 using Z.BusinessLogic.ViewModels.Main.Launcher;
 using Z.BusinessLogic.Services.Image;
+using Z.Resources;
 
 namespace Z.BusinessLogic.ViewModels.Main
 {
@@ -53,7 +54,6 @@ namespace Z.BusinessLogic.ViewModels.Main
 
         private class HelpModule : IZModule, IZExclusiveSuggestions
         {
-            private const string MODULE_DISPLAY_NAME = "Help";
             private const string MODULE_NAME = "Help";
             private const string HELP_KEYWORD = "?";
             private readonly MainViewModel logic;
@@ -112,7 +112,7 @@ namespace Z.BusinessLogic.ViewModels.Main
                 return null;
             }
 
-            public string DisplayName => MODULE_DISPLAY_NAME;
+            public string DisplayName => Strings.Z_HelpModule_ModuleDisplayName;
 
             public string Name => MODULE_NAME;
 
@@ -339,7 +339,7 @@ namespace Z.BusinessLogic.ViewModels.Main
                             }
                             catch (Exception e)
                             {
-                                options.ErrorText = $"Cannot execute: {e.Message}";
+                                options.ErrorText = string.Format(Strings.Z_Message_CannotExecute, e.Message);
                                 options.PreventClose = true;
                             }
 
@@ -594,7 +594,7 @@ namespace Z.BusinessLogic.ViewModels.Main
             }
             catch(Exception e)
             {
-                ErrorText = $"Failed to open shortcut: {e.Message}";
+                ErrorText = string.Format(Strings.Z_Message_FailedToOpenShortcut, e.Message);
             }
         }
 

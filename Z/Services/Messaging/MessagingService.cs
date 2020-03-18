@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using Z.BusinessLogic.Services.Messaging;
+using Z.Resources;
 
 namespace Z.Services.Messaging
 {
@@ -14,7 +15,7 @@ namespace Z.Services.Messaging
         public bool AskYesNo(string message, string title = null)
         {
             if (title == null)
-                title = "Z";
+                title = Strings.Z_DefaultDialogTitle;
 
             var result = MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Question);
 
@@ -29,7 +30,7 @@ namespace Z.Services.Messaging
         public bool? AskYesNoCancel(string message, string title = null)
         {
             if (title == null)
-                title = "Z";
+                title = Strings.Z_DefaultDialogTitle;
 
             var result = MessageBox.Show(message, title, MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
 
@@ -46,7 +47,7 @@ namespace Z.Services.Messaging
         public bool WarnYesNo(string message, string title = null)
         {
             if (title == null)
-                title = "Z";
+                title = Strings.Z_DefaultDialogTitle;
 
             var result = MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
@@ -61,7 +62,7 @@ namespace Z.Services.Messaging
         public void Warn(string message, string title = null)
         {
             if (title == null)
-                title = "Z";
+                title = Strings.Z_DefaultDialogTitle;
 
             MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Warning);
         }
@@ -69,7 +70,7 @@ namespace Z.Services.Messaging
         public void ShowError(string message, string title = null)
         {
             if (title == null)
-                title = "Z";
+                title = Strings.Z_DefaultDialogTitle;
 
             MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
         }
@@ -77,7 +78,7 @@ namespace Z.Services.Messaging
         public void Inform(string message, string title = null)
         {
             if (title == null)
-                title = "Z";
+                title = Strings.Z_DefaultDialogTitle;
 
             MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Information);
         }

@@ -132,4 +132,7 @@
   <data name="Run_ModuleDisplayName" xml:space="preserve">
     <value>Uruchom</value>
   </data>
+  <data name="Run_SuggestionText" xml:space="preserve">
+    <value>Uruchom {0}</value>
+  </data>
 </root>

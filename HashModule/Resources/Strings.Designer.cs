@@ -79,11 +79,38 @@ namespace HashModule.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copy MD5 to clipboard.
+        /// </summary>
+        internal static string Hash_Md5_Comment {
+            get {
+                return ResourceManager.GetString("Hash_Md5_Comment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose one of suggestions to copy hash to clipboard!.
+        /// </summary>
+        internal static string Hash_Message_ChooseSuggestion {
+            get {
+                return ResourceManager.GetString("Hash_Message_ChooseSuggestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hash generator.
         /// </summary>
         internal static string Hash_ModuleDisplayName {
             get {
                 return ResourceManager.GetString("Hash_ModuleDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy SHA1 to clipboard.
+        /// </summary>
+        internal static string Hash_SHA1_Comment {
+            get {
+                return ResourceManager.GetString("Hash_SHA1_Comment", resourceCulture);
             }
         }
     }

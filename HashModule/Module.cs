@@ -29,7 +29,7 @@ namespace HashModule
                     .Select(s => s.ToString("x2")))
                     .ToLower();
 
-                collector.AddSuggestion(new SuggestionInfo(md5String, $"{md5String.Substring(0, 16)}...", "Copy MD5 to clipboard", null, 100));
+                collector.AddSuggestion(new SuggestionInfo(md5String, $"{md5String.Substring(0, 16)}...", Strings.Hash_Md5_Comment, null, 100));
                 
                 SHA1 sha1Hash = new SHA1CryptoServiceProvider();
                 var sha1 = sha1Hash.ComputeHash(Encoding.UTF8.GetBytes(enteredText));
@@ -37,14 +37,14 @@ namespace HashModule
                     .Select(s => s.ToString("x2")))
                     .ToLower();
 
-                collector.AddSuggestion(new SuggestionInfo(sha1String, $"{sha1String.Substring(0, 16)}...", "Copy SHA1 to clipboard", null, 100));
+                collector.AddSuggestion(new SuggestionInfo(sha1String, $"{sha1String.Substring(0, 16)}...", Strings.Hash_SHA1_Comment, null, 100));
             }
         }
 
         public void ExecuteKeywordAction(string action, string expression, ExecuteOptions options)
         {
             options.PreventClose = true;
-            options.ErrorText = "Choose one of suggestions to copy hash to clipboard!";
+            options.ErrorText = Strings.Hash_Message_ChooseSuggestion;
         }
 
         public void ExecuteSuggestion(SuggestionInfo suggestion, ExecuteOptions options)

@@ -126,4 +126,10 @@
   <data name="Calculator_ModuleDisplayName" xml:space="preserve">
     <value>Kalkulator</value>
   </data>
+  <data name="Calculator_Message_CannotEvaluate" xml:space="preserve">
+    <value>Nie mogę obliczyć: {0}</value>
+  </data>
+  <data name="Calculator_Comment" xml:space="preserve">
+    <value>Skopiuj wynik do schowka</value>
+  </data>
 </root>

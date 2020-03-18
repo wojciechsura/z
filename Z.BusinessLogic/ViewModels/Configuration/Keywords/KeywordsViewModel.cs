@@ -12,13 +12,12 @@ using Z.BusinessLogic.ViewModels.Configuration.Base;
 using Z.BusinessLogic.Services.Config;
 using Z.BusinessLogic.Services.Keyword;
 using Z.BusinessLogic.Services.Module;
+using Z.Resources;
 
 namespace Z.BusinessLogic.ViewModels.Configuration.Keywords
 {
     public class KeywordsViewModel : BaseConfigurationViewModel
     {
-        public const string PAGE_DISPLAY_NAME = "Keywords";
-
         private readonly IConfigurationService configurationService;
         private readonly IKeywordService keywordService;
         private readonly IModuleService moduleService;
@@ -85,6 +84,6 @@ namespace Z.BusinessLogic.ViewModels.Configuration.Keywords
 
         public IEnumerable<KeywordOverrideViewModel> Keywords => keywordOverrides;
 
-        public override string DisplayName => PAGE_DISPLAY_NAME;
+        public override string DisplayName => Strings.Z_ConfigurationPage_Keywords;
     }
 }

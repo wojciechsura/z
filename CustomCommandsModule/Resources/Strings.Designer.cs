@@ -313,6 +313,15 @@ namespace CustomCommandsModule.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid command syntax or broken command input..
+        /// </summary>
+        internal static string CustomCommands_Message_InvalidCommandSyntax {
+            get {
+                return ResourceManager.GetString("CustomCommands_Message_InvalidCommandSyntax", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Custom.
         /// </summary>
         internal static string CustomCommands_ModuleDisplayName {

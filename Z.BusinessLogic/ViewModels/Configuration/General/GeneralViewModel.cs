@@ -9,6 +9,7 @@ using Z.Wpf.Types;
 using Z.Common.Types;
 using Z.BusinessLogic.ViewModels.Configuration.Base;
 using Z.BusinessLogic.Services.Config;
+using Z.Resources;
 
 namespace Z.BusinessLogic.ViewModels.Configuration.General
 {
@@ -21,10 +22,6 @@ namespace Z.BusinessLogic.ViewModels.Configuration.General
             public Key Key { get; set; }
             public string Description { get; set; }
         }
-
-        // Private constants --------------------------------------------------
-
-        private const string PAGE_DISPLAY_NAME = "General";
 
         // Private fields -----------------------------------------------------
 
@@ -171,7 +168,7 @@ namespace Z.BusinessLogic.ViewModels.Configuration.General
         {
             get
             {
-                return PAGE_DISPLAY_NAME;
+                return Strings.Z_ConfigurationPage_General;
             }
         }
 

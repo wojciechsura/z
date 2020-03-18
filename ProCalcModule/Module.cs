@@ -18,7 +18,6 @@ namespace ProCalcModule
     public class Module : IZModule
     {
         private const string MODULE_NAME = "Calculator";
-        private const string COMMENT = "Copy result to clipboard";
         private const string ACTION_KEYWORD = "calc";
         private const string ACTION_NAME = "Calc";
 
@@ -42,7 +41,7 @@ namespace ProCalcModule
                 var expression = proCalc.Compile(enteredText);
                 var result = proCalc.Execute(expression);
 
-                collector.AddSuggestion(new SuggestionInfo(enteredText, result.AsString(), COMMENT, null, 100, result));
+                collector.AddSuggestion(new SuggestionInfo(enteredText, result.AsString(), Strings.Calculator_Comment, null, 100, result));
             }
             catch
             {
@@ -61,7 +60,7 @@ namespace ProCalcModule
             }
             catch (Exception e)
             {
-                options.ErrorText = $"Cannot evaluate: {e.Message}";
+                options.ErrorText = string.Format(Strings.Calculator_Message_CannotEvaluate, e.Message);
                 options.PreventClose = true;
             }
         }

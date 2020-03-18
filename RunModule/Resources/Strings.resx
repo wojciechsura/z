@@ -112,4 +112,7 @@
   <data name="Run_Message_CannotExecute" xml:space="preserve">
     <value>Couldn't execute command.</value>
   </data>
+  <data name="Run_SuggestionText" xml:space="preserve">
+    <value>Run {0}</value>
+  </data>
 </root>

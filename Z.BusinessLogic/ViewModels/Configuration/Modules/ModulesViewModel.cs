@@ -9,6 +9,7 @@ using Z.Api.Interfaces;
 using Z.BusinessLogic.Services.Module;
 using Z.BusinessLogic.ViewModels.Configuration.Base;
 using Z.BusinessLogic.ViewModels.Configuration.Modules;
+using Z.Resources;
 
 namespace Z.BusinessLogic.ViewModels.Configuration.Modules
 {
@@ -25,8 +26,6 @@ namespace Z.BusinessLogic.ViewModels.Configuration.Modules
             public IZModule Module { get; private set; }
             public IConfigurationProvider ConfigProvider { get; private set; }
         }
-
-        private const string PAGE_DISPLAY_NAME = "Modules";
 
         private readonly List<ConfigProviderInfo> configProviders;
         private readonly IModuleService moduleService;
@@ -45,7 +44,7 @@ namespace Z.BusinessLogic.ViewModels.Configuration.Modules
         {
             return configProviders.SelectMany(
                 cp => cp.ConfigProvider.Validate() ?? new string[] { }
-                    .Select(m => $"Module \"{cp.Module.DisplayName}\" reports error:\n\t{m}\n\nUse module configuration to fix it or cancel your changes."));
+                    .Select(m => string.Format(Strings.Z_Message_ModuleReportsError, cp.Module.DisplayName, m)));
         }
 
         public void Dispose()
@@ -83,7 +82,7 @@ namespace Z.BusinessLogic.ViewModels.Configuration.Modules
         {
             get
             {
-                return PAGE_DISPLAY_NAME;
+                return Strings.Z_ConfigurationPage_Modules;
             }
         }
 
