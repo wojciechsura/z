@@ -351,4 +351,7 @@ Use module configuration to fix it or cancel your changes.</value>
   <data name="Z_HelpModule_ModuleDisplayName" xml:space="preserve">
     <value>Help</value>
   </data>
+  <data name="Z_Message_ZLauncherIsAlreadyRunning" xml:space="preserve">
+    <value>Z launcher is already running!</value>
+  </data>
 </root>

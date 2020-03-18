@@ -9,6 +9,7 @@ using Z.BusinessLogic.Services.Config;
 using Z.BusinessLogic.Services.EventBus;
 using Z.BusinessLogic.Services.Image;
 using Z.BusinessLogic.ViewModels.Base;
+using Z.Resources;
 
 namespace Z.BusinessLogic.ViewModels.Main.Launcher
 {

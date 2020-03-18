@@ -15,6 +15,7 @@ using Z.BusinessLogic.ViewModels.Configuration.Keywords;
 using Z.BusinessLogic.ViewModels.Configuration.Modules;
 using Z.BusinessLogic.Services.Config;
 using Z.BusinessLogic.ViewModels.Configuration.Launcher;
+using Z.Resources;
 
 namespace Z.BusinessLogic.ViewModels.Configuration
 {

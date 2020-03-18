@@ -15,6 +15,7 @@ using System.Windows.Threading;
 using System.Reflection;
 using Z.BusinessLogic.ViewModels.Application;
 using Z.BusinessLogic.Services.Application;
+using Z.Resources;
 
 namespace Z
 {
@@ -45,7 +46,7 @@ namespace Z
             singleInstanceMutex = new Mutex(true, "Spooksoft.ZLauncher", out isNewInstance);
             if (!isNewInstance)
             {
-                MessageBox.Show(Resources.Z_Message_ZLauncherIsAlreadyRunning);
+                MessageBox.Show(Strings.Z_Message_ZLauncherIsAlreadyRunning);
                 App.Current.Shutdown();
                 return;
             }
