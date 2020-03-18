@@ -259,6 +259,15 @@ namespace Z.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Choose global shortcut to bring the Z window to the front.
+        /// </summary>
+        public static string Z_Config_General_GlobalShortcut {
+            get {
+                return ResourceManager.GetString("Z_Config_General_GlobalShortcut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Use hotkey again to hide window.
         /// </summary>
         public static string Z_Config_General_HotkeySwitchesVisibility {

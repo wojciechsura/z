@@ -61,7 +61,7 @@ namespace ProCalcModule.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Evaluate mathematical expressions.
+        ///   Looks up a localized string similar to Calculator.
         /// </summary>
         internal static string Calculator_ActionComment {
             get {

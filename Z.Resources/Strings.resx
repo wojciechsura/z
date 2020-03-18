@@ -354,4 +354,7 @@ Use module configuration to fix it or cancel your changes.</value>
   <data name="Z_Message_ZLauncherIsAlreadyRunning" xml:space="preserve">
     <value>Z launcher is already running!</value>
   </data>
+  <data name="Z_Config_General_GlobalShortcut" xml:space="preserve">
+    <value>Choose global shortcut to bring the Z window to the front</value>
+  </data>
 </root>

@@ -104,7 +104,7 @@
     <value>Evaluate</value>
   </data>
   <data name="Calculator_ActionComment" xml:space="preserve">
-    <value>Evaluate mathematical expressions</value>
+    <value>Calculator</value>
   </data>
   <data name="Calculator_Message_CannotEvaluate" xml:space="preserve">
     <value>Cannot evaluate: {0}</value>
