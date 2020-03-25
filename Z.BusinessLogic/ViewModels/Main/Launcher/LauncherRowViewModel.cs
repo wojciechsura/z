@@ -64,6 +64,10 @@ namespace Z.BusinessLogic.ViewModels.Main.Launcher
                 {
                     SelectedItem = Items[index - 1];
                 }
+                else
+                {
+                    SelectedItem = Items?.LastOrDefault();
+                }
             }
         }
 
@@ -79,6 +83,10 @@ namespace Z.BusinessLogic.ViewModels.Main.Launcher
                 if (index < Items.Count - 1)
                 {
                     SelectedItem = Items[index + 1];
+                }
+                else
+                {
+                    SelectedItem = Items.FirstOrDefault();
                 }
             }
         }
