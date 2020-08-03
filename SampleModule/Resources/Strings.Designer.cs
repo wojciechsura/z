@@ -22,7 +22,7 @@ namespace SampleModule.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Strings {
+    public class Strings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace SampleModule.Resources {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SampleModule.Resources.Strings", typeof(Strings).Assembly);
@@ -51,7 +51,7 @@ namespace SampleModule.Resources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace SampleModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to This is sample action to demonstrate implementation of simple module for Z..
         /// </summary>
-        internal static string Sample_ActionComment {
+        public static string Sample_ActionComment {
             get {
                 return ResourceManager.GetString("Sample_ActionComment", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace SampleModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Sample action.
         /// </summary>
-        internal static string Sample_ActionDisplayName {
+        public static string Sample_ActionDisplayName {
             get {
                 return ResourceManager.GetString("Sample_ActionDisplayName", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace SampleModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Keyword is active, .
         /// </summary>
-        internal static string Sample_KeywordIsActive {
+        public static string Sample_KeywordIsActive {
             get {
                 return ResourceManager.GetString("Sample_KeywordIsActive", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace SampleModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Cannot execute!.
         /// </summary>
-        internal static string Sample_Message_CannotExecute {
+        public static string Sample_Message_CannotExecute {
             get {
                 return ResourceManager.GetString("Sample_Message_CannotExecute", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace SampleModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Executed from suggestion, .
         /// </summary>
-        internal static string Sample_Message_ExecutedFromSuggestion {
+        public static string Sample_Message_ExecutedFromSuggestion {
             get {
                 return ResourceManager.GetString("Sample_Message_ExecutedFromSuggestion", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace SampleModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Sample module.
         /// </summary>
-        internal static string Sample_ModuleDisplayName {
+        public static string Sample_ModuleDisplayName {
             get {
                 return ResourceManager.GetString("Sample_ModuleDisplayName", resourceCulture);
             }

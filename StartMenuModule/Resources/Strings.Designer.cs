@@ -22,7 +22,7 @@ namespace StartMenuModule.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Strings {
+    public class Strings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace StartMenuModule.Resources {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("StartMenuModule.Resources.Strings", typeof(Strings).Assembly);
@@ -51,7 +51,7 @@ namespace StartMenuModule.Resources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace StartMenuModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Browse through Start Menu entries.
         /// </summary>
-        internal static string Start_ActionComment {
+        public static string Start_ActionComment {
             get {
                 return ResourceManager.GetString("Start_ActionComment", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace StartMenuModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Start menu.
         /// </summary>
-        internal static string Start_ActionDisplayName {
+        public static string Start_ActionDisplayName {
             get {
                 return ResourceManager.GetString("Start_ActionDisplayName", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace StartMenuModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Start menu.
         /// </summary>
-        internal static string Start_ModuleDisplayName {
+        public static string Start_ModuleDisplayName {
             get {
                 return ResourceManager.GetString("Start_ModuleDisplayName", resourceCulture);
             }

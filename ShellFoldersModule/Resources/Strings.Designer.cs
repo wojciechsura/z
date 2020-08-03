@@ -22,7 +22,7 @@ namespace ShellFoldersModule.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Strings {
+    public class Strings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace ShellFoldersModule.Resources {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ShellFoldersModule.Resources.Strings", typeof(Strings).Assembly);
@@ -51,7 +51,7 @@ namespace ShellFoldersModule.Resources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace ShellFoldersModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Open shell folder.
         /// </summary>
-        internal static string Shell_ActionComment {
+        public static string Shell_ActionComment {
             get {
                 return ResourceManager.GetString("Shell_ActionComment", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace ShellFoldersModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Shell folder.
         /// </summary>
-        internal static string Shell_ActionDisplayName {
+        public static string Shell_ActionDisplayName {
             get {
                 return ResourceManager.GetString("Shell_ActionDisplayName", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace ShellFoldersModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Cannot open folder: {0}.
         /// </summary>
-        internal static string Shell_Message_CannotOpenFolder {
+        public static string Shell_Message_CannotOpenFolder {
             get {
                 return ResourceManager.GetString("Shell_Message_CannotOpenFolder", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace ShellFoldersModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Multiple folders matches entered text. Use suggestion list..
         /// </summary>
-        internal static string Shell_Message_MultipleFoldersMatch {
+        public static string Shell_Message_MultipleFoldersMatch {
             get {
                 return ResourceManager.GetString("Shell_Message_MultipleFoldersMatch", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace ShellFoldersModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Shell folder.
         /// </summary>
-        internal static string Shell_ModuleDisplayName {
+        public static string Shell_ModuleDisplayName {
             get {
                 return ResourceManager.GetString("Shell_ModuleDisplayName", resourceCulture);
             }
