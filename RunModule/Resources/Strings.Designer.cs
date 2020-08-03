@@ -22,7 +22,7 @@ namespace RunModule.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Strings {
+    public class Strings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace RunModule.Resources {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("RunModule.Resources.Strings", typeof(Strings).Assembly);
@@ -51,7 +51,7 @@ namespace RunModule.Resources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace RunModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Execute command.
         /// </summary>
-        internal static string Run_ActionComment {
+        public static string Run_ActionComment {
             get {
                 return ResourceManager.GetString("Run_ActionComment", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace RunModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Run.
         /// </summary>
-        internal static string Run_ActionDisplayName {
+        public static string Run_ActionDisplayName {
             get {
                 return ResourceManager.GetString("Run_ActionDisplayName", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace RunModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Execute command.
         /// </summary>
-        internal static string Run_Comment {
+        public static string Run_Comment {
             get {
                 return ResourceManager.GetString("Run_Comment", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace RunModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Couldn&apos;t execute command..
         /// </summary>
-        internal static string Run_Message_CannotExecute {
+        public static string Run_Message_CannotExecute {
             get {
                 return ResourceManager.GetString("Run_Message_CannotExecute", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace RunModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Run.
         /// </summary>
-        internal static string Run_ModuleDisplayName {
+        public static string Run_ModuleDisplayName {
             get {
                 return ResourceManager.GetString("Run_ModuleDisplayName", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace RunModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Run {0}.
         /// </summary>
-        internal static string Run_SuggestionText {
+        public static string Run_SuggestionText {
             get {
                 return ResourceManager.GetString("Run_SuggestionText", resourceCulture);
             }

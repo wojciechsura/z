@@ -22,7 +22,7 @@ namespace WebSearchModule.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Strings {
+    public class Strings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace WebSearchModule.Resources {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("WebSearchModule.Resources.Strings", typeof(Strings).Assembly);
@@ -51,7 +51,7 @@ namespace WebSearchModule.Resources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace WebSearchModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to DevDocs.io.
         /// </summary>
-        internal static string WebSearch_DevDocs {
+        public static string WebSearch_DevDocs {
             get {
                 return ResourceManager.GetString("WebSearch_DevDocs", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace WebSearchModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Search on DevDocs.io.
         /// </summary>
-        internal static string WebSearch_DevDocs_Comment {
+        public static string WebSearch_DevDocs_Comment {
             get {
                 return ResourceManager.GetString("WebSearch_DevDocs_Comment", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace WebSearchModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Google.
         /// </summary>
-        internal static string WebSearch_Google {
+        public static string WebSearch_Google {
             get {
                 return ResourceManager.GetString("WebSearch_Google", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace WebSearchModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Search with Google.
         /// </summary>
-        internal static string WebSearch_Google_Comment {
+        public static string WebSearch_Google_Comment {
             get {
                 return ResourceManager.GetString("WebSearch_Google_Comment", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace WebSearchModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Google Maps.
         /// </summary>
-        internal static string WebSearch_GoogleMaps {
+        public static string WebSearch_GoogleMaps {
             get {
                 return ResourceManager.GetString("WebSearch_GoogleMaps", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace WebSearchModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Search on Google Maps.
         /// </summary>
-        internal static string WebSearch_GoogleMaps_Comment {
+        public static string WebSearch_GoogleMaps_Comment {
             get {
                 return ResourceManager.GetString("WebSearch_GoogleMaps_Comment", resourceCulture);
             }
@@ -117,7 +117,7 @@ namespace WebSearchModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Web search.
         /// </summary>
-        internal static string WebSearch_ModuleDisplayName {
+        public static string WebSearch_ModuleDisplayName {
             get {
                 return ResourceManager.GetString("WebSearch_ModuleDisplayName", resourceCulture);
             }
@@ -126,7 +126,7 @@ namespace WebSearchModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to MSDN.
         /// </summary>
-        internal static string WebSearch_MSDN {
+        public static string WebSearch_MSDN {
             get {
                 return ResourceManager.GetString("WebSearch_MSDN", resourceCulture);
             }
@@ -135,7 +135,7 @@ namespace WebSearchModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Search on MSDN.
         /// </summary>
-        internal static string WebSearch_MSDN_Comment {
+        public static string WebSearch_MSDN_Comment {
             get {
                 return ResourceManager.GetString("WebSearch_MSDN_Comment", resourceCulture);
             }
@@ -144,7 +144,7 @@ namespace WebSearchModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to StackOverflow.
         /// </summary>
-        internal static string WebSearch_StackOverflow {
+        public static string WebSearch_StackOverflow {
             get {
                 return ResourceManager.GetString("WebSearch_StackOverflow", resourceCulture);
             }
@@ -153,7 +153,7 @@ namespace WebSearchModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Search on StackOverflow.
         /// </summary>
-        internal static string WebSearch_StackOverflow_Comment {
+        public static string WebSearch_StackOverflow_Comment {
             get {
                 return ResourceManager.GetString("WebSearch_StackOverflow_Comment", resourceCulture);
             }
@@ -162,7 +162,7 @@ namespace WebSearchModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Wikipedia.
         /// </summary>
-        internal static string WebSearch_Wikipedia {
+        public static string WebSearch_Wikipedia {
             get {
                 return ResourceManager.GetString("WebSearch_Wikipedia", resourceCulture);
             }
@@ -171,7 +171,7 @@ namespace WebSearchModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Search on Wikipedia.
         /// </summary>
-        internal static string WebSearch_Wikipedia_Comment {
+        public static string WebSearch_Wikipedia_Comment {
             get {
                 return ResourceManager.GetString("WebSearch_Wikipedia_Comment", resourceCulture);
             }
@@ -180,7 +180,7 @@ namespace WebSearchModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Youtube.
         /// </summary>
-        internal static string WebSearch_Youtube {
+        public static string WebSearch_Youtube {
             get {
                 return ResourceManager.GetString("WebSearch_Youtube", resourceCulture);
             }
@@ -189,7 +189,7 @@ namespace WebSearchModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Search on Youtube.
         /// </summary>
-        internal static string WebSearch_Youtube_Comment {
+        public static string WebSearch_Youtube_Comment {
             get {
                 return ResourceManager.GetString("WebSearch_Youtube_Comment", resourceCulture);
             }

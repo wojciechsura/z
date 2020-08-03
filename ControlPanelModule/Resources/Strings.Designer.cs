@@ -22,7 +22,7 @@ namespace ControlPanelModule.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Strings {
+    public class Strings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace ControlPanelModule.Resources {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ControlPanelModule.Resources.Strings", typeof(Strings).Assembly);
@@ -51,7 +51,7 @@ namespace ControlPanelModule.Resources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace ControlPanelModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Access to Control Panel entries.
         /// </summary>
-        internal static string ControlPanel_KeywordComment {
+        public static string ControlPanel_KeywordComment {
             get {
                 return ResourceManager.GetString("ControlPanel_KeywordComment", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace ControlPanelModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Control panel.
         /// </summary>
-        internal static string ControlPanel_KeywordDisplayName {
+        public static string ControlPanel_KeywordDisplayName {
             get {
                 return ResourceManager.GetString("ControlPanel_KeywordDisplayName", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace ControlPanelModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Control panel.
         /// </summary>
-        internal static string ControlPanel_ModuleDisplayName {
+        public static string ControlPanel_ModuleDisplayName {
             get {
                 return ResourceManager.GetString("ControlPanel_ModuleDisplayName", resourceCulture);
             }

@@ -22,7 +22,7 @@ namespace ProjectsModule.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Strings {
+    public class Strings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace ProjectsModule.Resources {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ProjectsModule.Resources.Strings", typeof(Strings).Assembly);
@@ -51,7 +51,7 @@ namespace ProjectsModule.Resources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace ProjectsModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Browse through your projects.
         /// </summary>
-        internal static string Projects_ActionComment {
+        public static string Projects_ActionComment {
             get {
                 return ResourceManager.GetString("Projects_ActionComment", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace ProjectsModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Project.
         /// </summary>
-        internal static string Projects_ActionDisplayName {
+        public static string Projects_ActionDisplayName {
             get {
                 return ResourceManager.GetString("Projects_ActionDisplayName", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace ProjectsModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Add.
         /// </summary>
-        internal static string Projects_Config_Add {
+        public static string Projects_Config_Add {
             get {
                 return ResourceManager.GetString("Projects_Config_Add", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace ProjectsModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to OK.
         /// </summary>
-        internal static string Projects_Config_OK {
+        public static string Projects_Config_OK {
             get {
                 return ResourceManager.GetString("Projects_Config_OK", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace ProjectsModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Project folder.
         /// </summary>
-        internal static string Projects_Config_ProjectFolder {
+        public static string Projects_Config_ProjectFolder {
             get {
                 return ResourceManager.GetString("Projects_Config_ProjectFolder", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace ProjectsModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Project folders.
         /// </summary>
-        internal static string Projects_Config_Projects {
+        public static string Projects_Config_Projects {
             get {
                 return ResourceManager.GetString("Projects_Config_Projects", resourceCulture);
             }
@@ -117,7 +117,7 @@ namespace ProjectsModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to More than one project matches entered name. Use suggestion list..
         /// </summary>
-        internal static string Projects_Message_MoreThanOneProjectMatchesName {
+        public static string Projects_Message_MoreThanOneProjectMatchesName {
             get {
                 return ResourceManager.GetString("Projects_Message_MoreThanOneProjectMatchesName", resourceCulture);
             }
@@ -126,7 +126,7 @@ namespace ProjectsModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Project directory {0} does not exist!.
         /// </summary>
-        internal static string Projects_Message_PathDoesNotExists {
+        public static string Projects_Message_PathDoesNotExists {
             get {
                 return ResourceManager.GetString("Projects_Message_PathDoesNotExists", resourceCulture);
             }
@@ -135,7 +135,7 @@ namespace ProjectsModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Projects.
         /// </summary>
-        internal static string Projects_ModuleDisplayName {
+        public static string Projects_ModuleDisplayName {
             get {
                 return ResourceManager.GetString("Projects_ModuleDisplayName", resourceCulture);
             }

@@ -22,7 +22,7 @@ namespace HashModule.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Strings {
+    public class Strings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace HashModule.Resources {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HashModule.Resources.Strings", typeof(Strings).Assembly);
@@ -51,7 +51,7 @@ namespace HashModule.Resources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace HashModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Compute hashes of text.
         /// </summary>
-        internal static string Hash_ActionComment {
+        public static string Hash_ActionComment {
             get {
                 return ResourceManager.GetString("Hash_ActionComment", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace HashModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Hash.
         /// </summary>
-        internal static string Hash_ActionDisplay {
+        public static string Hash_ActionDisplay {
             get {
                 return ResourceManager.GetString("Hash_ActionDisplay", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace HashModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Copy MD5 to clipboard.
         /// </summary>
-        internal static string Hash_Md5_Comment {
+        public static string Hash_Md5_Comment {
             get {
                 return ResourceManager.GetString("Hash_Md5_Comment", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace HashModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Choose one of suggestions to copy hash to clipboard!.
         /// </summary>
-        internal static string Hash_Message_ChooseSuggestion {
+        public static string Hash_Message_ChooseSuggestion {
             get {
                 return ResourceManager.GetString("Hash_Message_ChooseSuggestion", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace HashModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Hash generator.
         /// </summary>
-        internal static string Hash_ModuleDisplayName {
+        public static string Hash_ModuleDisplayName {
             get {
                 return ResourceManager.GetString("Hash_ModuleDisplayName", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace HashModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Copy SHA1 to clipboard.
         /// </summary>
-        internal static string Hash_SHA1_Comment {
+        public static string Hash_SHA1_Comment {
             get {
                 return ResourceManager.GetString("Hash_SHA1_Comment", resourceCulture);
             }

@@ -22,7 +22,7 @@ namespace CustomCommandsModule.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Strings {
+    public class Strings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace CustomCommandsModule.Resources {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("CustomCommandsModule.Resources.Strings", typeof(Strings).Assembly);
@@ -51,7 +51,7 @@ namespace CustomCommandsModule.Resources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace CustomCommandsModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Add.
         /// </summary>
-        internal static string CustomCommands_Config_Add {
+        public static string CustomCommands_Config_Add {
             get {
                 return ResourceManager.GetString("CustomCommands_Config_Add", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace CustomCommandsModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Command.
         /// </summary>
-        internal static string CustomCommands_Config_Command {
+        public static string CustomCommands_Config_Command {
             get {
                 return ResourceManager.GetString("CustomCommands_Config_Command", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace CustomCommandsModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to ?.
         /// </summary>
-        internal static string CustomCommands_Config_CommandHelp {
+        public static string CustomCommands_Config_CommandHelp {
             get {
                 return ResourceManager.GetString("CustomCommands_Config_CommandHelp", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace CustomCommandsModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Use the following special strings:.
         /// </summary>
-        internal static string CustomCommands_Config_CommandHelp1 {
+        public static string CustomCommands_Config_CommandHelp1 {
             get {
                 return ResourceManager.GetString("CustomCommands_Config_CommandHelp1", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace CustomCommandsModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to {{.
         /// </summary>
-        internal static string CustomCommands_Config_CommandHelp10 {
+        public static string CustomCommands_Config_CommandHelp10 {
             get {
                 return ResourceManager.GetString("CustomCommands_Config_CommandHelp10", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace CustomCommandsModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to - to insert plain {, and.
         /// </summary>
-        internal static string CustomCommands_Config_CommandHelp11 {
+        public static string CustomCommands_Config_CommandHelp11 {
             get {
                 return ResourceManager.GetString("CustomCommands_Config_CommandHelp11", resourceCulture);
             }
@@ -117,7 +117,7 @@ namespace CustomCommandsModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to }}.
         /// </summary>
-        internal static string CustomCommands_Config_CommandHelp12 {
+        public static string CustomCommands_Config_CommandHelp12 {
             get {
                 return ResourceManager.GetString("CustomCommands_Config_CommandHelp12", resourceCulture);
             }
@@ -126,7 +126,7 @@ namespace CustomCommandsModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to - to insert plain }..
         /// </summary>
-        internal static string CustomCommands_Config_CommandHelp13 {
+        public static string CustomCommands_Config_CommandHelp13 {
             get {
                 return ResourceManager.GetString("CustomCommands_Config_CommandHelp13", resourceCulture);
             }
@@ -135,7 +135,7 @@ namespace CustomCommandsModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to {0}.
         /// </summary>
-        internal static string CustomCommands_Config_CommandHelp2 {
+        public static string CustomCommands_Config_CommandHelp2 {
             get {
                 return ResourceManager.GetString("CustomCommands_Config_CommandHelp2", resourceCulture);
             }
@@ -144,7 +144,7 @@ namespace CustomCommandsModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to - to insert first parameter of command. Use {1}, {2}, ... to insert next parameters..
         /// </summary>
-        internal static string CustomCommands_Config_CommandHelp3 {
+        public static string CustomCommands_Config_CommandHelp3 {
             get {
                 return ResourceManager.GetString("CustomCommands_Config_CommandHelp3", resourceCulture);
             }
@@ -153,7 +153,7 @@ namespace CustomCommandsModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to {u0}.
         /// </summary>
-        internal static string CustomCommands_Config_CommandHelp4 {
+        public static string CustomCommands_Config_CommandHelp4 {
             get {
                 return ResourceManager.GetString("CustomCommands_Config_CommandHelp4", resourceCulture);
             }
@@ -162,7 +162,7 @@ namespace CustomCommandsModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to - to insert first URL-encoded parameter of command..
         /// </summary>
-        internal static string CustomCommands_Config_CommandHelp5 {
+        public static string CustomCommands_Config_CommandHelp5 {
             get {
                 return ResourceManager.GetString("CustomCommands_Config_CommandHelp5", resourceCulture);
             }
@@ -171,7 +171,7 @@ namespace CustomCommandsModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to {*}.
         /// </summary>
-        internal static string CustomCommands_Config_CommandHelp6 {
+        public static string CustomCommands_Config_CommandHelp6 {
             get {
                 return ResourceManager.GetString("CustomCommands_Config_CommandHelp6", resourceCulture);
             }
@@ -180,7 +180,7 @@ namespace CustomCommandsModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to - to insert whole parameter text.
         /// </summary>
-        internal static string CustomCommands_Config_CommandHelp7 {
+        public static string CustomCommands_Config_CommandHelp7 {
             get {
                 return ResourceManager.GetString("CustomCommands_Config_CommandHelp7", resourceCulture);
             }
@@ -189,7 +189,7 @@ namespace CustomCommandsModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to {u*}.
         /// </summary>
-        internal static string CustomCommands_Config_CommandHelp8 {
+        public static string CustomCommands_Config_CommandHelp8 {
             get {
                 return ResourceManager.GetString("CustomCommands_Config_CommandHelp8", resourceCulture);
             }
@@ -198,7 +198,7 @@ namespace CustomCommandsModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to - to insert whole URL-encoded parameter text..
         /// </summary>
-        internal static string CustomCommands_Config_CommandHelp9 {
+        public static string CustomCommands_Config_CommandHelp9 {
             get {
                 return ResourceManager.GetString("CustomCommands_Config_CommandHelp9", resourceCulture);
             }
@@ -207,7 +207,7 @@ namespace CustomCommandsModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Comment.
         /// </summary>
-        internal static string CustomCommands_Config_Comment {
+        public static string CustomCommands_Config_Comment {
             get {
                 return ResourceManager.GetString("CustomCommands_Config_Comment", resourceCulture);
             }
@@ -216,7 +216,7 @@ namespace CustomCommandsModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Custom commands.
         /// </summary>
-        internal static string CustomCommands_Config_CustomCommands {
+        public static string CustomCommands_Config_CustomCommands {
             get {
                 return ResourceManager.GetString("CustomCommands_Config_CustomCommands", resourceCulture);
             }
@@ -225,7 +225,7 @@ namespace CustomCommandsModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
-        internal static string CustomCommands_Config_Delete {
+        public static string CustomCommands_Config_Delete {
             get {
                 return ResourceManager.GetString("CustomCommands_Config_Delete", resourceCulture);
             }
@@ -234,7 +234,7 @@ namespace CustomCommandsModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Key.
         /// </summary>
-        internal static string CustomCommands_Config_Key {
+        public static string CustomCommands_Config_Key {
             get {
                 return ResourceManager.GetString("CustomCommands_Config_Key", resourceCulture);
             }
@@ -243,7 +243,7 @@ namespace CustomCommandsModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Kind.
         /// </summary>
-        internal static string CustomCommands_Config_Kind {
+        public static string CustomCommands_Config_Kind {
             get {
                 return ResourceManager.GetString("CustomCommands_Config_Kind", resourceCulture);
             }
@@ -252,7 +252,7 @@ namespace CustomCommandsModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to OK.
         /// </summary>
-        internal static string CustomCommands_Config_OK {
+        public static string CustomCommands_Config_OK {
             get {
                 return ResourceManager.GetString("CustomCommands_Config_OK", resourceCulture);
             }
@@ -261,7 +261,7 @@ namespace CustomCommandsModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Result command:.
         /// </summary>
-        internal static string CustomCommands_Config_ResultCommand {
+        public static string CustomCommands_Config_ResultCommand {
             get {
                 return ResourceManager.GetString("CustomCommands_Config_ResultCommand", resourceCulture);
             }
@@ -270,7 +270,7 @@ namespace CustomCommandsModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Test input:.
         /// </summary>
-        internal static string CustomCommands_Config_TestInput {
+        public static string CustomCommands_Config_TestInput {
             get {
                 return ResourceManager.GetString("CustomCommands_Config_TestInput", resourceCulture);
             }
@@ -279,7 +279,7 @@ namespace CustomCommandsModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to FirstParameter &quot;Second parameter with spaces and &quot;quotes&quot;&quot;&quot;.
         /// </summary>
-        internal static string CustomCommands_Config_TestInput_Default {
+        public static string CustomCommands_Config_TestInput_Default {
             get {
                 return ResourceManager.GetString("CustomCommands_Config_TestInput_Default", resourceCulture);
             }
@@ -288,7 +288,7 @@ namespace CustomCommandsModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Cannot execute: {0}.
         /// </summary>
-        internal static string CustomCommands_Message_CannotExecute {
+        public static string CustomCommands_Message_CannotExecute {
             get {
                 return ResourceManager.GetString("CustomCommands_Message_CannotExecute", resourceCulture);
             }
@@ -297,7 +297,7 @@ namespace CustomCommandsModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Custom command keys cannot contain space characters!.
         /// </summary>
-        internal static string CustomCommands_Message_CustomCommandKeysCannotContainSpaceCharacters {
+        public static string CustomCommands_Message_CustomCommandKeysCannotContainSpaceCharacters {
             get {
                 return ResourceManager.GetString("CustomCommands_Message_CustomCommandKeysCannotContainSpaceCharacters", resourceCulture);
             }
@@ -306,7 +306,7 @@ namespace CustomCommandsModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Custom command keys must be unique!.
         /// </summary>
-        internal static string CustomCommands_Message_CustomCommandKeysMustBeUnique {
+        public static string CustomCommands_Message_CustomCommandKeysMustBeUnique {
             get {
                 return ResourceManager.GetString("CustomCommands_Message_CustomCommandKeysMustBeUnique", resourceCulture);
             }
@@ -315,7 +315,7 @@ namespace CustomCommandsModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Invalid command syntax or broken command input..
         /// </summary>
-        internal static string CustomCommands_Message_InvalidCommandSyntax {
+        public static string CustomCommands_Message_InvalidCommandSyntax {
             get {
                 return ResourceManager.GetString("CustomCommands_Message_InvalidCommandSyntax", resourceCulture);
             }
@@ -324,7 +324,7 @@ namespace CustomCommandsModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Custom.
         /// </summary>
-        internal static string CustomCommands_ModuleDisplayName {
+        public static string CustomCommands_ModuleDisplayName {
             get {
                 return ResourceManager.GetString("CustomCommands_ModuleDisplayName", resourceCulture);
             }

@@ -22,7 +22,7 @@ namespace ProCalcModule.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Strings {
+    public class Strings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace ProCalcModule.Resources {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ProCalcModule.Resources.Strings", typeof(Strings).Assembly);
@@ -51,7 +51,7 @@ namespace ProCalcModule.Resources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace ProCalcModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Calculator.
         /// </summary>
-        internal static string Calculator_ActionComment {
+        public static string Calculator_ActionComment {
             get {
                 return ResourceManager.GetString("Calculator_ActionComment", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace ProCalcModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Evaluate.
         /// </summary>
-        internal static string Calculator_ActionDisplayName {
+        public static string Calculator_ActionDisplayName {
             get {
                 return ResourceManager.GetString("Calculator_ActionDisplayName", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace ProCalcModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Copy result to clipboard.
         /// </summary>
-        internal static string Calculator_Comment {
+        public static string Calculator_Comment {
             get {
                 return ResourceManager.GetString("Calculator_Comment", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace ProCalcModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Cannot evaluate: {0}.
         /// </summary>
-        internal static string Calculator_Message_CannotEvaluate {
+        public static string Calculator_Message_CannotEvaluate {
             get {
                 return ResourceManager.GetString("Calculator_Message_CannotEvaluate", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace ProCalcModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Calculator.
         /// </summary>
-        internal static string Calculator_ModuleDisplayName {
+        public static string Calculator_ModuleDisplayName {
             get {
                 return ResourceManager.GetString("Calculator_ModuleDisplayName", resourceCulture);
             }
