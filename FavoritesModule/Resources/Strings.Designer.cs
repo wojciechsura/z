@@ -22,7 +22,7 @@ namespace FavoritesModule.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Strings {
+    public class Strings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace FavoritesModule.Resources {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("FavoritesModule.Resources.Strings", typeof(Strings).Assembly);
@@ -51,7 +51,7 @@ namespace FavoritesModule.Resources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace FavoritesModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Access favorite places or websites.
         /// </summary>
-        internal static string Favorites_ActionComment {
+        public static string Favorites_ActionComment {
             get {
                 return ResourceManager.GetString("Favorites_ActionComment", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace FavoritesModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Favorite.
         /// </summary>
-        internal static string Favorites_ActionDisplay {
+        public static string Favorites_ActionDisplay {
             get {
                 return ResourceManager.GetString("Favorites_ActionDisplay", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace FavoritesModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Add.
         /// </summary>
-        internal static string Favorites_Config_Add {
+        public static string Favorites_Config_Add {
             get {
                 return ResourceManager.GetString("Favorites_Config_Add", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace FavoritesModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Comment.
         /// </summary>
-        internal static string Favorites_Config_Comment {
+        public static string Favorites_Config_Comment {
             get {
                 return ResourceManager.GetString("Favorites_Config_Comment", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace FavoritesModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
-        internal static string Favorites_Config_Delete {
+        public static string Favorites_Config_Delete {
             get {
                 return ResourceManager.GetString("Favorites_Config_Delete", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace FavoritesModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Favorites.
         /// </summary>
-        internal static string Favorites_Config_Favorites {
+        public static string Favorites_Config_Favorites {
             get {
                 return ResourceManager.GetString("Favorites_Config_Favorites", resourceCulture);
             }
@@ -117,7 +117,7 @@ namespace FavoritesModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Name (key).
         /// </summary>
-        internal static string Favorites_Config_Name {
+        public static string Favorites_Config_Name {
             get {
                 return ResourceManager.GetString("Favorites_Config_Name", resourceCulture);
             }
@@ -126,7 +126,7 @@ namespace FavoritesModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to OK.
         /// </summary>
-        internal static string Favorites_Config_OK {
+        public static string Favorites_Config_OK {
             get {
                 return ResourceManager.GetString("Favorites_Config_OK", resourceCulture);
             }
@@ -135,7 +135,7 @@ namespace FavoritesModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Place or URL.
         /// </summary>
-        internal static string Favorites_Config_PlaceOrURL {
+        public static string Favorites_Config_PlaceOrURL {
             get {
                 return ResourceManager.GetString("Favorites_Config_PlaceOrURL", resourceCulture);
             }
@@ -144,7 +144,7 @@ namespace FavoritesModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Cannot execute: {0}.
         /// </summary>
-        internal static string Favorites_Message_CannotExecute {
+        public static string Favorites_Message_CannotExecute {
             get {
                 return ResourceManager.GetString("Favorites_Message_CannotExecute", resourceCulture);
             }
@@ -153,7 +153,7 @@ namespace FavoritesModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Favorite names must be unique!.
         /// </summary>
-        internal static string Favorites_Message_FavoriteNamesMustBeUnique {
+        public static string Favorites_Message_FavoriteNamesMustBeUnique {
             get {
                 return ResourceManager.GetString("Favorites_Message_FavoriteNamesMustBeUnique", resourceCulture);
             }
@@ -162,7 +162,7 @@ namespace FavoritesModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Favorites.
         /// </summary>
-        internal static string Favorites_ModuleDisplayName {
+        public static string Favorites_ModuleDisplayName {
             get {
                 return ResourceManager.GetString("Favorites_ModuleDisplayName", resourceCulture);
             }

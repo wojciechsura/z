@@ -22,7 +22,7 @@ namespace ProcessModule.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Strings {
+    public class Strings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace ProcessModule.Resources {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ProcessModule.Resources.Strings", typeof(Strings).Assembly);
@@ -51,7 +51,7 @@ namespace ProcessModule.Resources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace ProcessModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Kills chosen process.
         /// </summary>
-        internal static string Process_ActionComment {
+        public static string Process_ActionComment {
             get {
                 return ResourceManager.GetString("Process_ActionComment", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace ProcessModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Kill process.
         /// </summary>
-        internal static string Process_ActionDisplayName {
+        public static string Process_ActionDisplayName {
             get {
                 return ResourceManager.GetString("Process_ActionDisplayName", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace ProcessModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Kill process.
         /// </summary>
-        internal static string Process_ModuleDisplayName {
+        public static string Process_ModuleDisplayName {
             get {
                 return ResourceManager.GetString("Process_ModuleDisplayName", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace ProcessModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to (unknown path).
         /// </summary>
-        internal static string Process_UnknownPath {
+        public static string Process_UnknownPath {
             get {
                 return ResourceManager.GetString("Process_UnknownPath", resourceCulture);
             }

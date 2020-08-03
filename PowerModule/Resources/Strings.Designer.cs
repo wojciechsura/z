@@ -22,7 +22,7 @@ namespace PowerModule.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Strings {
+    public class Strings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace PowerModule.Resources {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("PowerModule.Resources.Strings", typeof(Strings).Assembly);
@@ -51,7 +51,7 @@ namespace PowerModule.Resources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace PowerModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Computer power commands.
         /// </summary>
-        internal static string Power_ActionComment {
+        public static string Power_ActionComment {
             get {
                 return ResourceManager.GetString("Power_ActionComment", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace PowerModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Power.
         /// </summary>
-        internal static string Power_ActionDisplayName {
+        public static string Power_ActionDisplayName {
             get {
                 return ResourceManager.GetString("Power_ActionDisplayName", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace PowerModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Hibernate.
         /// </summary>
-        internal static string Power_Hibernate {
+        public static string Power_Hibernate {
             get {
                 return ResourceManager.GetString("Power_Hibernate", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace PowerModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Hibernates current Windows session and shuts down the computer..
         /// </summary>
-        internal static string Power_Hibernate_Comment {
+        public static string Power_Hibernate_Comment {
             get {
                 return ResourceManager.GetString("Power_Hibernate_Comment", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace PowerModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Lock.
         /// </summary>
-        internal static string Power_Lock {
+        public static string Power_Lock {
             get {
                 return ResourceManager.GetString("Power_Lock", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace PowerModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Locks the current session.
         /// </summary>
-        internal static string Power_Lock_Comment {
+        public static string Power_Lock_Comment {
             get {
                 return ResourceManager.GetString("Power_Lock_Comment", resourceCulture);
             }
@@ -117,7 +117,7 @@ namespace PowerModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Log off.
         /// </summary>
-        internal static string Power_LogOff {
+        public static string Power_LogOff {
             get {
                 return ResourceManager.GetString("Power_LogOff", resourceCulture);
             }
@@ -126,7 +126,7 @@ namespace PowerModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Logs off current user.
         /// </summary>
-        internal static string Power_LogOff_Comment {
+        public static string Power_LogOff_Comment {
             get {
                 return ResourceManager.GetString("Power_LogOff_Comment", resourceCulture);
             }
@@ -135,7 +135,7 @@ namespace PowerModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Power.
         /// </summary>
-        internal static string Power_ModuleDisplayName {
+        public static string Power_ModuleDisplayName {
             get {
                 return ResourceManager.GetString("Power_ModuleDisplayName", resourceCulture);
             }
@@ -144,7 +144,7 @@ namespace PowerModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Reboot.
         /// </summary>
-        internal static string Power_Reboot {
+        public static string Power_Reboot {
             get {
                 return ResourceManager.GetString("Power_Reboot", resourceCulture);
             }
@@ -153,7 +153,7 @@ namespace PowerModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Closes Windows and reboots the computer..
         /// </summary>
-        internal static string Power_Reboot_Comment {
+        public static string Power_Reboot_Comment {
             get {
                 return ResourceManager.GetString("Power_Reboot_Comment", resourceCulture);
             }
@@ -162,7 +162,7 @@ namespace PowerModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Shutdown.
         /// </summary>
-        internal static string Power_Shutdown {
+        public static string Power_Shutdown {
             get {
                 return ResourceManager.GetString("Power_Shutdown", resourceCulture);
             }
@@ -171,7 +171,7 @@ namespace PowerModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Closes Windows and shuts down the computer..
         /// </summary>
-        internal static string Power_Shutdown_Comment {
+        public static string Power_Shutdown_Comment {
             get {
                 return ResourceManager.GetString("Power_Shutdown_Comment", resourceCulture);
             }
@@ -180,7 +180,7 @@ namespace PowerModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Sleep.
         /// </summary>
-        internal static string Power_Sleep {
+        public static string Power_Sleep {
             get {
                 return ResourceManager.GetString("Power_Sleep", resourceCulture);
             }
@@ -189,7 +189,7 @@ namespace PowerModule.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Puts computer in the suspended state..
         /// </summary>
-        internal static string Power_Sleep_Comment {
+        public static string Power_Sleep_Comment {
             get {
                 return ResourceManager.GetString("Power_Sleep_Comment", resourceCulture);
             }

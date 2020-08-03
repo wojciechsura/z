@@ -22,7 +22,7 @@ namespace Filesystem.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Strings {
+    public class Strings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace Filesystem.Resources {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Filesystem.Resources.Strings", typeof(Strings).Assembly);
@@ -51,7 +51,7 @@ namespace Filesystem.Resources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace Filesystem.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Browse through the filesystem.
         /// </summary>
-        internal static string Filesystem_ActionComment {
+        public static string Filesystem_ActionComment {
             get {
                 return ResourceManager.GetString("Filesystem_ActionComment", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace Filesystem.Resources {
         /// <summary>
         ///   Looks up a localized string similar to File.
         /// </summary>
-        internal static string Filesystem_ActionDisplayName {
+        public static string Filesystem_ActionDisplayName {
             get {
                 return ResourceManager.GetString("Filesystem_ActionDisplayName", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace Filesystem.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Deep.
         /// </summary>
-        internal static string Filesystem_Config_Deep {
+        public static string Filesystem_Config_Deep {
             get {
                 return ResourceManager.GetString("Filesystem_Config_Deep", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace Filesystem.Resources {
         /// <summary>
         ///   Looks up a localized string similar to strategy searches through all matching directories on all levels, so for input.
         /// </summary>
-        internal static string Filesystem_Config_Deep_Comment1 {
+        public static string Filesystem_Config_Deep_Comment1 {
             get {
                 return ResourceManager.GetString("Filesystem_Config_Deep_Comment1", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace Filesystem.Resources {
         /// <summary>
         ///   Looks up a localized string similar to C:\W\S\x.
         /// </summary>
-        internal static string Filesystem_Config_Deep_Comment2 {
+        public static string Filesystem_Config_Deep_Comment2 {
             get {
                 return ResourceManager.GetString("Filesystem_Config_Deep_Comment2", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace Filesystem.Resources {
         /// <summary>
         ///   Looks up a localized string similar to will search for.
         /// </summary>
-        internal static string Filesystem_Config_Deep_Comment3 {
+        public static string Filesystem_Config_Deep_Comment3 {
             get {
                 return ResourceManager.GetString("Filesystem_Config_Deep_Comment3", resourceCulture);
             }
@@ -117,7 +117,7 @@ namespace Filesystem.Resources {
         /// <summary>
         ///   Looks up a localized string similar to C:\*W*\*S*\*x*.
         /// </summary>
-        internal static string Filesystem_Config_Deep_Comment4 {
+        public static string Filesystem_Config_Deep_Comment4 {
             get {
                 return ResourceManager.GetString("Filesystem_Config_Deep_Comment4", resourceCulture);
             }
@@ -126,7 +126,7 @@ namespace Filesystem.Resources {
         /// <summary>
         ///   Looks up a localized string similar to so it will find, for example,.
         /// </summary>
-        internal static string Filesystem_Config_Deep_Comment5 {
+        public static string Filesystem_Config_Deep_Comment5 {
             get {
                 return ResourceManager.GetString("Filesystem_Config_Deep_Comment5", resourceCulture);
             }
@@ -135,7 +135,7 @@ namespace Filesystem.Resources {
         /// <summary>
         ///   Looks up a localized string similar to C:\Windows\System32\x3daudio1_0.dll.
         /// </summary>
-        internal static string Filesystem_Config_Deep_Comment6 {
+        public static string Filesystem_Config_Deep_Comment6 {
             get {
                 return ResourceManager.GetString("Filesystem_Config_Deep_Comment6", resourceCulture);
             }
@@ -144,7 +144,7 @@ namespace Filesystem.Resources {
         /// <summary>
         ///   Looks up a localized string similar to ..
         /// </summary>
-        internal static string Filesystem_Config_Deep_Comment7 {
+        public static string Filesystem_Config_Deep_Comment7 {
             get {
                 return ResourceManager.GetString("Filesystem_Config_Deep_Comment7", resourceCulture);
             }
@@ -153,7 +153,7 @@ namespace Filesystem.Resources {
         /// <summary>
         ///   Looks up a localized string similar to This strategy is slower, but yields more results and simplifies the search..
         /// </summary>
-        internal static string Filesystem_Config_Deep_Comment8 {
+        public static string Filesystem_Config_Deep_Comment8 {
             get {
                 return ResourceManager.GetString("Filesystem_Config_Deep_Comment8", resourceCulture);
             }
@@ -162,7 +162,7 @@ namespace Filesystem.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Direct.
         /// </summary>
-        internal static string Filesystem_Config_Direct {
+        public static string Filesystem_Config_Direct {
             get {
                 return ResourceManager.GetString("Filesystem_Config_Direct", resourceCulture);
             }
@@ -171,7 +171,7 @@ namespace Filesystem.Resources {
         /// <summary>
         ///   Looks up a localized string similar to strategy assumes, that path exists, so for input.
         /// </summary>
-        internal static string Filesystem_Config_Direct_Comment1 {
+        public static string Filesystem_Config_Direct_Comment1 {
             get {
                 return ResourceManager.GetString("Filesystem_Config_Direct_Comment1", resourceCulture);
             }
@@ -180,7 +180,7 @@ namespace Filesystem.Resources {
         /// <summary>
         ///   Looks up a localized string similar to C:\W\S\x.
         /// </summary>
-        internal static string Filesystem_Config_Direct_Comment2 {
+        public static string Filesystem_Config_Direct_Comment2 {
             get {
                 return ResourceManager.GetString("Filesystem_Config_Direct_Comment2", resourceCulture);
             }
@@ -189,7 +189,7 @@ namespace Filesystem.Resources {
         /// <summary>
         ///   Looks up a localized string similar to will search for.
         /// </summary>
-        internal static string Filesystem_Config_Direct_Comment3 {
+        public static string Filesystem_Config_Direct_Comment3 {
             get {
                 return ResourceManager.GetString("Filesystem_Config_Direct_Comment3", resourceCulture);
             }
@@ -198,7 +198,7 @@ namespace Filesystem.Resources {
         /// <summary>
         ///   Looks up a localized string similar to C:\W\S\*x*.
         /// </summary>
-        internal static string Filesystem_Config_Direct_Comment4 {
+        public static string Filesystem_Config_Direct_Comment4 {
             get {
                 return ResourceManager.GetString("Filesystem_Config_Direct_Comment4", resourceCulture);
             }
@@ -207,7 +207,7 @@ namespace Filesystem.Resources {
         /// <summary>
         ///   Looks up a localized string similar to This strategy is faster, but yields less results..
         /// </summary>
-        internal static string Filesystem_Config_Direct_Comment5 {
+        public static string Filesystem_Config_Direct_Comment5 {
             get {
                 return ResourceManager.GetString("Filesystem_Config_Direct_Comment5", resourceCulture);
             }
@@ -216,7 +216,7 @@ namespace Filesystem.Resources {
         /// <summary>
         ///   Looks up a localized string similar to File search strategy.
         /// </summary>
-        internal static string Filesystem_Config_FileSearchStrategy {
+        public static string Filesystem_Config_FileSearchStrategy {
             get {
                 return ResourceManager.GetString("Filesystem_Config_FileSearchStrategy", resourceCulture);
             }
@@ -225,7 +225,7 @@ namespace Filesystem.Resources {
         /// <summary>
         ///   Looks up a localized string similar to File system.
         /// </summary>
-        internal static string Filesystem_Config_Filesystem {
+        public static string Filesystem_Config_Filesystem {
             get {
                 return ResourceManager.GetString("Filesystem_Config_Filesystem", resourceCulture);
             }
@@ -234,7 +234,7 @@ namespace Filesystem.Resources {
         /// <summary>
         ///   Looks up a localized string similar to OK.
         /// </summary>
-        internal static string Filesystem_Config_OK {
+        public static string Filesystem_Config_OK {
             get {
                 return ResourceManager.GetString("Filesystem_Config_OK", resourceCulture);
             }
@@ -243,7 +243,7 @@ namespace Filesystem.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Cannot execute: {0}.
         /// </summary>
-        internal static string Filesystem_Message_CannotExecute {
+        public static string Filesystem_Message_CannotExecute {
             get {
                 return ResourceManager.GetString("Filesystem_Message_CannotExecute", resourceCulture);
             }
@@ -252,7 +252,7 @@ namespace Filesystem.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Filesystem.
         /// </summary>
-        internal static string Filesystem_ModuleDisplayName {
+        public static string Filesystem_ModuleDisplayName {
             get {
                 return ResourceManager.GetString("Filesystem_ModuleDisplayName", resourceCulture);
             }
