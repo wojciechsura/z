@@ -57,6 +57,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WSCadModule", "WSCadModule\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Z.Resources", "Z.Resources\Z.Resources.csproj", "{FC19AC19-1546-4789-BEE2-2FDF11E43C87}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7A167956-8017-4EE9-BDC5-03857D5C280F}"
+	ProjectSection(SolutionItems) = preProject
+		Changelog.txt = Changelog.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
