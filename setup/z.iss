@@ -8,7 +8,7 @@
 #define MyAppExeName "Z.exe"
 
 ; #define PGS
-#define WSCAD
+; #define WSCAD
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
@@ -73,6 +73,7 @@ Source: "..\Z\bin\Release\DesktopModule.dll"; DestDir: "{app}"; Flags: ignorever
 Source: "..\Z\bin\Release\CustomCommandsModule.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Z\bin\Release\ControlPanelModule.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Z\bin\Release\Z.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Changelog.txt"; DestDir:"{app}"; Flags: ignoreversion
 ; Sample module
 Source: "..\SampleModule\Module.cs"; DestDir: "{app}\samples\SampleModule\"; Flags: ignoreversion; Components: CustomModuleSample
 Source: "..\SampleModule\SampleModule.csproj"; DestDir: "{app}\samples\SampleModule\"; Flags: ignoreversion; Components: CustomModuleSample
