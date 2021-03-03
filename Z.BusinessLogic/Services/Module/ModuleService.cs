@@ -143,7 +143,7 @@ namespace Z.BusinessLogic.Services.Module
 
         private bool IsValidName(string moduleName)
         {
-            return Regex.Match(moduleName.ToUpper(), "^[A-Z0-9_][A-Z0-9_\\.]*$").Success;
+            return Regex.Match(moduleName.ToUpperInvariant(), "^[A-Z0-9_][A-Z0-9_\\.]*$").Success;
         }
 
         // Protected methods --------------------------------------------------
