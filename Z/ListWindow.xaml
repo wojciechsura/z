@@ -7,6 +7,7 @@
     xmlns:local="clr-namespace:Z"
     xmlns:models="clr-namespace:Z.BusinessLogic.ViewModels.Main;assembly=Z.BusinessLogic"
     xmlns:controls="clr-namespace:Z.Controls"
+    xmlns:api="clr-namespace:Z.Api;assembly=Z.Api"
     mc:Ignorable="d"
     WindowStyle="None" ResizeMode="NoResize" Visibility="Hidden" ShowInTaskbar="False" 
     Topmost="True" AllowsTransparency="True" Background="Transparent"
@@ -20,16 +21,35 @@
                 <ResourceDictionary Source="SuggestionListboxStyles.xaml" />
                 <ResourceDictionary Source="ListWindowResources.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <CollectionViewSource x:Key="SuggestionItems" Source="{Binding Suggestions}">
+                <CollectionViewSource.GroupDescriptions>
+                    <PropertyGroupDescription PropertyName="Module"/>
+                </CollectionViewSource.GroupDescriptions>
+            </CollectionViewSource>
         </ResourceDictionary>
     </Window.Resources>
 
     <controls:WindowChrome>
-        <ListBox x:Name="mainListBox" Style="{StaticResource SuggestionListboxStyle}" 
+        <ListView x:Name="mainListBox" Style="{StaticResource SuggestionListboxStyle}" 
                  ItemContainerStyle="{StaticResource SuggestionListboxItemStyle}"
-                 ItemsSource="{Binding Suggestions}" 
+                 ItemsSource="{Binding Source={StaticResource SuggestionItems}}" 
                  SelectedIndex="{Binding SelectedItemIndex, Mode=TwoWay}"
-                 MouseDoubleClick="HandleListDoubleClick">
-        </ListBox>
+                 MouseDoubleClick="HandleListDoubleClick"
+                  SelectionChanged="mainListBox_SelectionChanged">
+            <ListView.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.HeaderTemplate>
+                        <DataTemplate>
+                            <DockPanel>
+                                <Label DockPanel.Dock="Left" Content="{Binding Path=Name}" />
+                                <Separator Margin="10,0" />
+                            </DockPanel>
+                        </DataTemplate>
+                    </GroupStyle.HeaderTemplate>
+                </GroupStyle>
+            </ListView.GroupStyle>
+        </ListView>
     </controls:WindowChrome>
 
 </controls:BaseSubWindow>

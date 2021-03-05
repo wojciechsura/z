@@ -61,5 +61,10 @@ namespace Z
                 e.Handled = true;
             }
         }
+
+        private void mainListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            mainListBox.ScrollIntoView(mainListBox.SelectedItem);
+        }
     }
 }
