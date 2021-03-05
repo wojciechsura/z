@@ -106,4 +106,7 @@
   <data name="Desktop_ActionDisplay" xml:space="preserve">
     <value>Desktop</value>
   </data>
+  <data name="Desktop_CannotExecute" xml:space="preserve">
+    <value>Cannot execute: {0}</value>
+  </data>
 </root>

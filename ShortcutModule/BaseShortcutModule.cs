@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
@@ -83,6 +84,8 @@ namespace ShortcutModule
         protected abstract string ActionDisplay { get; }
         protected abstract string ActionComment { get; }
 
+        protected abstract string FormatError(string errorText);
+
         // Protected methods --------------------------------------------------
 
         protected IEnumerable<ShortcutInfo> LoadShortcutsFrom(string path, bool recursive)
@@ -130,8 +133,9 @@ namespace ShortcutModule
                 {
                     Process.Start(shortcut.Path);
                 }
-                catch
+                catch (Exception e)
                 {
+                    options.ErrorText = FormatError(e.Message);
                     options.PreventClose = true;
                 }
             }
@@ -144,8 +148,9 @@ namespace ShortcutModule
             {
                 Process.Start(shortcut.Path);
             }
-            catch
+            catch (Exception e)
             {
+                options.ErrorText = FormatError(e.Message);
                 options.PreventClose = true;
             }
         }

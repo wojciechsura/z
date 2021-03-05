@@ -79,6 +79,15 @@ namespace StartMenuModule.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot execute: {0}.
+        /// </summary>
+        public static string Start_CannotExecute {
+            get {
+                return ResourceManager.GetString("Start_CannotExecute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Start menu.
         /// </summary>
         public static string Start_ModuleDisplayName {

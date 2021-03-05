@@ -39,6 +39,11 @@ namespace DesktopModule
                 .ToList();
         }
 
+        protected override string FormatError(string errorText)
+        {
+            return string.Format(Resources.Strings.Desktop_CannotExecute, errorText);
+        }
+
         // Public methods -----------------------------------------------------
 
         public Module()

@@ -79,6 +79,15 @@ namespace DesktopModule.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot execute: {0}.
+        /// </summary>
+        public static string Desktop_CannotExecute {
+            get {
+                return ResourceManager.GetString("Desktop_CannotExecute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Desktop.
         /// </summary>
         public static string Desktop_ModuleDisplayName {

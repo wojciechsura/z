@@ -35,6 +35,11 @@ namespace StartMenuModule
                 .ToList();
         }
 
+        protected override string FormatError(string errorText)
+        {
+            return string.Format(Resources.Strings.Start_CannotExecute, errorText);
+        }
+
         // Protected properties -----------------------------------------------
 
         protected override string ActionKeyword => ACTION_KEYWORD;

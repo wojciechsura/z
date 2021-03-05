@@ -106,4 +106,7 @@
   <data name="Start_ActionComment" xml:space="preserve">
     <value>Browse through Start Menu entries</value>
   </data>
+  <data name="Start_CannotExecute" xml:space="preserve">
+    <value>Cannot execute: {0}</value>
+  </data>
 </root>
