@@ -126,4 +126,7 @@
   <data name="Start_ModuleDisplayName" xml:space="preserve">
     <value>Menu Start</value>
   </data>
+  <data name="Start_CannotExecute" xml:space="preserve">
+    <value>Nie mogę uruchomić: {0}</value>
+  </data>
 </root>

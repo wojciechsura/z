@@ -41,38 +41,38 @@ Name: "autostart"; Description: "Start Z automatically with Windows"; GroupDescr
 
 [Files]
 ; Application files
-Source: "..\Z\bin\Release\Z.exe.config"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Z\bin\Release\Z.Wpf.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Z\bin\Release\Z.Resources.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Z\bin\Release\Z.Dependencies.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Z\bin\Release\Z.Common.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Z\bin\Release\Z.BusinessLogic.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Z\bin\Release\Z.Api.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Z\bin\Release\WebSearchModule.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Z\bin\Release\StartMenuModule.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Z\bin\Release\ShortcutModule.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Z\bin\Release\ShellFoldersModule.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Z\bin\Release\RunModule.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Z\bin\Release\ProjectsModule.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Z\bin\Release\ProcessModule.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Z\bin\Release\ProCalcModule.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Z\bin\Release\ProCalc.NET.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Z\bin\Release\PowerModule.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Z\bin\Release\Microsoft.Xaml.Behaviors.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Z\bin\Release\Microsoft.WindowsAPICodePack.Shell.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Z\bin\Release\Microsoft.WindowsAPICodePack.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Z\bin\Release\Microsoft.Practices.Unity.RegistrationByConvention.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Z\bin\Release\Microsoft.Practices.Unity.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Z\bin\Release\Microsoft.Practices.Unity.Configuration.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Z\bin\Release\Microsoft.Practices.ServiceLocation.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Z\bin\Release\HashModule.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Z\bin\Release\Hardcodet.Wpf.TaskbarNotification.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Z\bin\Release\Filesystem.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Z\bin\Release\FavoritesModule.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Z\bin\Release\DesktopModule.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Z\bin\Release\CustomCommandsModule.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Z\bin\Release\ControlPanelModule.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Z\bin\Release\Z.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Z\bin\x64\Release\Z.exe.config"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Z\bin\x64\Release\Z.Wpf.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Z\bin\x64\Release\Z.Resources.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Z\bin\x64\Release\Z.Dependencies.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Z\bin\x64\Release\Z.Common.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Z\bin\x64\Release\Z.BusinessLogic.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Z\bin\x64\Release\Z.Api.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Z\bin\x64\Release\WebSearchModule.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Z\bin\x64\Release\StartMenuModule.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Z\bin\x64\Release\ShortcutModule.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Z\bin\x64\Release\ShellFoldersModule.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Z\bin\x64\Release\RunModule.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Z\bin\x64\Release\ProjectsModule.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Z\bin\x64\Release\ProcessModule.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Z\bin\x64\Release\ProCalcModule.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Z\bin\x64\Release\ProCalc.NET.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Z\bin\x64\Release\PowerModule.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Z\bin\x64\Release\Microsoft.Xaml.Behaviors.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Z\bin\x64\Release\Microsoft.WindowsAPICodePack.Shell.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Z\bin\x64\Release\Microsoft.WindowsAPICodePack.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Z\bin\x64\Release\Microsoft.Practices.Unity.RegistrationByConvention.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Z\bin\x64\Release\Microsoft.Practices.Unity.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Z\bin\x64\Release\Microsoft.Practices.Unity.Configuration.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Z\bin\x64\Release\Microsoft.Practices.ServiceLocation.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Z\bin\x64\Release\HashModule.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Z\bin\x64\Release\Hardcodet.Wpf.TaskbarNotification.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Z\bin\x64\Release\Filesystem.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Z\bin\x64\Release\FavoritesModule.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Z\bin\x64\Release\DesktopModule.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Z\bin\x64\Release\CustomCommandsModule.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Z\bin\x64\Release\ControlPanelModule.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Z\bin\x64\Release\Z.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Changelog.txt"; DestDir:"{app}"; Flags: ignoreversion
 ; Sample module
 Source: "..\SampleModule\Module.cs"; DestDir: "{app}\samples\SampleModule\"; Flags: ignoreversion; Components: CustomModuleSample
@@ -86,29 +86,29 @@ Source: "..\SampleModule\Properties\Settings.Designer.cs"; DestDir: "{app}\sampl
 Source: "..\SampleModule\Properties\Settings.settings"; DestDir: "{app}\samples\SampleModule\Properties\"; Flags: ignoreversion; Components: CustomModuleSample
 ; PGS module
 #ifdef PGS
-Source: "..\PgsModule\bin\Release\PgsModule.dll"; DestDir: "{app}\plugins\"; Flags: ignoreversion
+Source: "..\PgsModule\bin\x64\Release\PgsModule.dll"; DestDir: "{app}\plugins\"; Flags: ignoreversion
 #endif
 ; WSCad module
 #ifdef WSCAD
-Source: "..\WsCADModule\bin\Release\WsCADModule.dll"; DestDir: "{app}\plugins\"; Flags: ignoreversion
+Source: "..\WsCADModule\bin\x64\Release\WsCADModule.dll"; DestDir: "{app}\plugins\"; Flags: ignoreversion
 #endif
 ; Polish localization
-Source: "..\Z\bin\Release\pl-PL\ControlPanelModule.resources.dll"; DestDir: "{app}\pl-PL\"; Flags: ignoreversion
-Source: "..\Z\bin\Release\pl-PL\CustomCommandsModule.resources.dll"; DestDir: "{app}\pl-PL\"; Flags: ignoreversion
-Source: "..\Z\bin\Release\pl-PL\DesktopModule.resources.dll"; DestDir: "{app}\pl-PL\"; Flags: ignoreversion
-Source: "..\Z\bin\Release\pl-PL\FavoritesModule.resources.dll"; DestDir: "{app}\pl-PL\"; Flags: ignoreversion
-Source: "..\Z\bin\Release\pl-PL\Filesystem.resources.dll"; DestDir: "{app}\pl-PL\"; Flags: ignoreversion
-Source: "..\Z\bin\Release\pl-PL\HashModule.resources.dll"; DestDir: "{app}\pl-PL\"; Flags: ignoreversion
-Source: "..\Z\bin\Release\pl-PL\PowerModule.resources.dll"; DestDir: "{app}\pl-PL\"; Flags: ignoreversion
-Source: "..\Z\bin\Release\pl-PL\ProCalcModule.resources.dll"; DestDir: "{app}\pl-PL\"; Flags: ignoreversion
-Source: "..\Z\bin\Release\pl-PL\ProcessModule.resources.dll"; DestDir: "{app}\pl-PL\"; Flags: ignoreversion
-Source: "..\Z\bin\Release\pl-PL\ProjectsModule.resources.dll"; DestDir: "{app}\pl-PL\"; Flags: ignoreversion
-Source: "..\Z\bin\Release\pl-PL\RunModule.resources.dll"; DestDir: "{app}\pl-PL\"; Flags: ignoreversion
-Source: "..\Z\bin\Release\pl-PL\ShellFoldersModule.resources.dll"; DestDir: "{app}\pl-PL\"; Flags: ignoreversion
-Source: "..\Z\bin\Release\pl-PL\StartMenuModule.resources.dll"; DestDir: "{app}\pl-PL\"; Flags: ignoreversion
-Source: "..\Z\bin\Release\pl-PL\WebSearchModule.resources.dll"; DestDir: "{app}\pl-PL\"; Flags: ignoreversion
-Source: "..\Z\bin\Release\pl-PL\Z.BusinessLogic.resources.dll"; DestDir: "{app}\pl-PL\"; Flags: ignoreversion
-Source: "..\Z\bin\Release\pl-PL\Z.Resources.resources.dll"; DestDir: "{app}\pl-PL\"; Flags: ignoreversion
+Source: "..\Z\bin\x64\Release\pl-PL\ControlPanelModule.resources.dll"; DestDir: "{app}\pl-PL\"; Flags: ignoreversion
+Source: "..\Z\bin\x64\Release\pl-PL\CustomCommandsModule.resources.dll"; DestDir: "{app}\pl-PL\"; Flags: ignoreversion
+Source: "..\Z\bin\x64\Release\pl-PL\DesktopModule.resources.dll"; DestDir: "{app}\pl-PL\"; Flags: ignoreversion
+Source: "..\Z\bin\x64\Release\pl-PL\FavoritesModule.resources.dll"; DestDir: "{app}\pl-PL\"; Flags: ignoreversion
+Source: "..\Z\bin\x64\Release\pl-PL\Filesystem.resources.dll"; DestDir: "{app}\pl-PL\"; Flags: ignoreversion
+Source: "..\Z\bin\x64\Release\pl-PL\HashModule.resources.dll"; DestDir: "{app}\pl-PL\"; Flags: ignoreversion
+Source: "..\Z\bin\x64\Release\pl-PL\PowerModule.resources.dll"; DestDir: "{app}\pl-PL\"; Flags: ignoreversion
+Source: "..\Z\bin\x64\Release\pl-PL\ProCalcModule.resources.dll"; DestDir: "{app}\pl-PL\"; Flags: ignoreversion
+Source: "..\Z\bin\x64\Release\pl-PL\ProcessModule.resources.dll"; DestDir: "{app}\pl-PL\"; Flags: ignoreversion
+Source: "..\Z\bin\x64\Release\pl-PL\ProjectsModule.resources.dll"; DestDir: "{app}\pl-PL\"; Flags: ignoreversion
+Source: "..\Z\bin\x64\Release\pl-PL\RunModule.resources.dll"; DestDir: "{app}\pl-PL\"; Flags: ignoreversion
+Source: "..\Z\bin\x64\Release\pl-PL\ShellFoldersModule.resources.dll"; DestDir: "{app}\pl-PL\"; Flags: ignoreversion
+Source: "..\Z\bin\x64\Release\pl-PL\StartMenuModule.resources.dll"; DestDir: "{app}\pl-PL\"; Flags: ignoreversion
+Source: "..\Z\bin\x64\Release\pl-PL\WebSearchModule.resources.dll"; DestDir: "{app}\pl-PL\"; Flags: ignoreversion
+Source: "..\Z\bin\x64\Release\pl-PL\Z.BusinessLogic.resources.dll"; DestDir: "{app}\pl-PL\"; Flags: ignoreversion
+Source: "..\Z\bin\x64\Release\pl-PL\Z.Resources.resources.dll"; DestDir: "{app}\pl-PL\"; Flags: ignoreversion
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
