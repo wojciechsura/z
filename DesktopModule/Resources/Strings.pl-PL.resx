@@ -126,4 +126,7 @@
   <data name="Desktop_ModuleDisplayName" xml:space="preserve">
     <value>Pulpit</value>
   </data>
+  <data name="Desktop_CannotExecute" xml:space="preserve">
+    <value>Nie mogę uruchomić: {0}</value>
+  </data>
 </root>
