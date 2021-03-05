@@ -230,6 +230,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Z.Api\Z.Api.csproj">
+      <Project>{a33e1f1a-34dd-4360-aa1b-6cb613e74c15}</Project>
+      <Name>Z.Api</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Z.BusinessLogic\Z.BusinessLogic.csproj">
       <Project>{f3cb7dbc-68ba-409f-ae9b-16929c165cb0}</Project>
       <Name>Z.BusinessLogic</Name>
