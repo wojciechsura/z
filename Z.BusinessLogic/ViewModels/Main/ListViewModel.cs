@@ -13,6 +13,7 @@ namespace Z.BusinessLogic.ViewModels.Main
         // Private fields -----------------------------------------------------
 
         private List<SuggestionViewModel> suggestions;
+        private string suggestionGroupByProperty;
         private int selectedItemIndex;
         private IListWindowAccess listWindowAccess;
         private readonly IMainHandler handler;
@@ -90,6 +91,12 @@ namespace Z.BusinessLogic.ViewModels.Main
         {
             get => suggestions;
             set => Set(ref suggestions, () => Suggestions, value, HandleSuggestionsChanged);
+        }
+
+        public string SuggestionGroupByProperty
+        {
+            get => suggestionGroupByProperty;
+            set => Set(ref suggestionGroupByProperty, () => SuggestionGroupByProperty, value);
         }
 
         public int SelectedItemIndex
