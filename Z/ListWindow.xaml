@@ -8,6 +8,7 @@
     xmlns:models="clr-namespace:Z.BusinessLogic.ViewModels.Main;assembly=Z.BusinessLogic"
     xmlns:controls="clr-namespace:Z.Controls"
     xmlns:api="clr-namespace:Z.Api;assembly=Z.Api"
+    xmlns:ext="clr-namespace:Z.Extensions"
     mc:Ignorable="d"
     WindowStyle="None" ResizeMode="NoResize" Visibility="Hidden" ShowInTaskbar="False" 
     Topmost="True" AllowsTransparency="True" Background="Transparent"
@@ -22,11 +23,7 @@
                 <ResourceDictionary Source="ListWindowResources.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <CollectionViewSource x:Key="SuggestionItems" Source="{Binding Suggestions}">
-                <CollectionViewSource.GroupDescriptions>
-                    <PropertyGroupDescription PropertyName="Module"/>
-                </CollectionViewSource.GroupDescriptions>
-            </CollectionViewSource>
+            <CollectionViewSource x:Key="SuggestionItems" Source="{Binding Suggestions}" ext:SourceDisplay.GroupByProperty="{Binding SuggestionGroupByProperty}" />
         </ResourceDictionary>
     </Window.Resources>
 
@@ -36,7 +33,7 @@
                  ItemsSource="{Binding Source={StaticResource SuggestionItems}}" 
                  SelectedIndex="{Binding SelectedItemIndex, Mode=TwoWay}"
                  MouseDoubleClick="HandleListDoubleClick"
-                  SelectionChanged="mainListBox_SelectionChanged">
+                 SelectionChanged="mainListBox_SelectionChanged">
             <ListView.GroupStyle>
                 <GroupStyle>
                     <GroupStyle.HeaderTemplate>

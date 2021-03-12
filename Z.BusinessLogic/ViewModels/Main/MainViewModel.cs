@@ -405,6 +405,7 @@ namespace Z.BusinessLogic.ViewModels.Main
         private void HandleConfigurationChanged()
         {
             enteredTextTimer.Interval = TimeSpan.FromMilliseconds(configurationService.Configuration.Behavior.SuggestionDelay);
+            SetSuggestionGroupBy();
         }
 
         private void HandleCurrentKeywordChanged()
@@ -546,6 +547,22 @@ namespace Z.BusinessLogic.ViewModels.Main
         {
             WorkingMode = MainWorkingMode.Idle;
             launcherViewModel.Clear();
+        }
+
+        private void SetSuggestionGroupBy()
+        {
+            switch (configurationService.Configuration.Behavior.SuggestionSorting)
+            {
+                case SuggestionSorting.ByModule:
+                    listViewModel.SuggestionGroupByProperty = nameof(SuggestionViewModel.Module);
+                    break;
+                case SuggestionSorting.ByDisplay:
+                case SuggestionSorting.ByMatch:
+                    listViewModel.SuggestionGroupByProperty = null;
+                    break;
+                default:
+                    throw new InvalidEnumArgumentException("Unsupported suggestion sorting!");
+            }
         }
 
         // Private properties -------------------------------------------------
@@ -691,6 +708,8 @@ namespace Z.BusinessLogic.ViewModels.Main
 
             listViewModel = new ListViewModel(this);
             listViewModel.PropertyChanged += HandleListViewModelPropertyChanged;
+
+            SetSuggestionGroupBy();            
             
             launcherViewModel = new LauncherViewModel(this, imageResources, configurationService);
         }
