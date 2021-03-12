@@ -117,6 +117,7 @@
     <Compile Include="Controls\BaseSubWindow.cs" />
     <Compile Include="Controls\WindowChrome.cs" />
     <Compile Include="Dependencies\Configuration.cs" />
+    <Compile Include="Extensions\SourceDisplay.cs" />
     <Compile Include="LauncherWindow.xaml.cs">
       <DependentUpon>LauncherWindow.xaml</DependentUpon>
     </Compile>
@@ -279,6 +280,7 @@
   <ItemGroup>
     <Resource Include="Resources\Images\Url32.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
