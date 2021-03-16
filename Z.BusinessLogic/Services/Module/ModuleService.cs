@@ -109,6 +109,7 @@ namespace Z.BusinessLogic.Services.Module
             AddModule(new HashModule.Module());
             AddModule(new RunModule.Module());
             AddModule(new FavoritesModule.Module());
+            AddModule(new MorseModule.Module());
         }
 
         private void LoadPluginModules()
