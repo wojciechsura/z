@@ -190,6 +190,10 @@
       <Project>{8a6a43dd-2708-4bfc-badd-d109314acd36}</Project>
       <Name>HashModule</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MorseModule\MorseModule.csproj">
+      <Project>{9f404405-4aa6-4167-ba66-0ec983b2aea7}</Project>
+      <Name>MorseModule</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PowerModule\PowerModule.csproj">
       <Project>{78162a98-98f9-4354-8b67-06e74a72422f}</Project>
       <Name>PowerModule</Name>
