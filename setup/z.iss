@@ -58,6 +58,7 @@ Source: "..\Z\bin\x64\Release\ProcessModule.dll"; DestDir: "{app}"; Flags: ignor
 Source: "..\Z\bin\x64\Release\ProCalcModule.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Z\bin\x64\Release\ProCalc.NET.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Z\bin\x64\Release\PowerModule.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Z\bin\x64\Release\MorseModule.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Z\bin\x64\Release\Microsoft.Xaml.Behaviors.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Z\bin\x64\Release\Microsoft.WindowsAPICodePack.Shell.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Z\bin\x64\Release\Microsoft.WindowsAPICodePack.dll"; DestDir: "{app}"; Flags: ignoreversion
