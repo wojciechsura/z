@@ -201,30 +201,54 @@ namespace Z.BusinessLogic.ViewModels.Main
                     return String.Compare(x.Suggestion.SortGroup, y.Suggestion.SortGroup);
             };
 
-            Func<SuggestionData, SuggestionData, int> compareDisplayNames = (x, y) => String.Compare(x.Suggestion.Display, y.Suggestion.Display);
-
-            Func<SuggestionData, SuggestionData, int> compareModuleDisplayNames = (x, y) => String.Compare(x.Module.DisplayName, y.Module.DisplayName);
-
-            Func<SuggestionData, SuggestionData, int> compareMatches = (x, y) => (int)y.Suggestion.Match - (int)x.Suggestion.Match;
-
-            Func<SuggestionData, SuggestionData, IEnumerable<Func<SuggestionData, SuggestionData, int>>, int> combineCompares =
-                (x, y, compares) =>
-                {
-                    return compares.Select(c => c(x, y))
-                        .FirstOrDefault(r => r != 0);
-                };
-                
+               
             if (!String.IsNullOrEmpty(enteredText) || currentKeyword != null)
             {
                 suggestionData = moduleService.GetSuggestionsFor(enteredText, currentKeyword?.Keyword);
 
+                var moduleMatchStats = suggestionData
+                    .GroupBy(sg => sg.Module)
+                    .ToDictionary(g => g.Key, g => new { MaxMatch = g.Max(s => s.Suggestion.Match), AvgMatch = g.Average(s => s.Suggestion.Match) } );
+                    
+
                 if (suggestionData.Count > 0)
                 {
+                    Func<SuggestionData, SuggestionData, int> compareDisplayNames = (x, y) => String.Compare(x.Suggestion.Display, y.Suggestion.Display);
+
+                    Func<SuggestionData, SuggestionData, int> compareModules = (x, y) =>
+                    {
+                        // Promote modules, which maximum match is bigger than others and then
+                        // those, which average match is bigger than others. Finally, sort by name.
+
+                        var diff = (int)moduleMatchStats[y.Module].MaxMatch - (int)moduleMatchStats[x.Module].MaxMatch;
+                        if (diff != 0)
+                            return diff;
+
+                        diff = (int)moduleMatchStats[y.Module].AvgMatch - (int)moduleMatchStats[x.Module].AvgMatch;
+                        if (diff != 0)
+                            return diff;
+
+                        diff = String.Compare(x.Module.DisplayName, y.Module.DisplayName);
+                        if (diff != 0)
+                            return diff;
+
+                        return (int)y.Suggestion.Match - (int)x.Suggestion.Match;
+                    };
+
+                    Func<SuggestionData, SuggestionData, int> compareMatches = (x, y) => (int)y.Suggestion.Match - (int)x.Suggestion.Match;
+
+                    Func<SuggestionData, SuggestionData, IEnumerable<Func<SuggestionData, SuggestionData, int>>, int> combineCompares =
+                        (x, y, compares) =>
+                        {
+                            return compares.Select(c => c(x, y))
+                                .FirstOrDefault(r => r != 0);
+                        };
+
                     switch (configurationService.Configuration.Behavior.SuggestionSorting)
                     {
                         case SuggestionSorting.ByModule:
                             {
-                                suggestionData.Sort((x, y) => combineCompares(x, y, new[] { compareGroups, compareModuleDisplayNames, compareDisplayNames }));
+                                suggestionData.Sort((x, y) => combineCompares(x, y, new[] { compareGroups, compareModules, compareDisplayNames }));
                                 break;
                             }
                         case SuggestionSorting.ByDisplay:
