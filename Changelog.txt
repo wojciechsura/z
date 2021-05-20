@@ -1,3 +1,11 @@
+Version 1.1
+20.05.2021
+[*] Fix for Turkish regional settings
+[*] Switched to .NET Framework 4.7.2, application is 64-bit now
+[+] Search results are now groupped in the list
+[+] Added Morse encoder/decoder
+[*] Improved sorting of results
+
 Version 1.0
 13.11.2020
 First public official release
