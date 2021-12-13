@@ -866,7 +866,6 @@ namespace Z.BusinessLogic.ViewModels.Main
             switch (workingMode)
             {
                 case MainWorkingMode.Idle:
-                    return false;
                 case MainWorkingMode.SuggestionList:
                     {
                         if (String.IsNullOrEmpty(enteredText))
