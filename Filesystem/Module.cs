@@ -165,7 +165,7 @@ namespace Filesystem
 
                                     var plain = System.IO.Path.GetFileName(dir);
 
-                                    var match = search[j].match * (plain.Length > 0 ? (float)pathElements[i].Length / (float)plain.Length : 1.0f);
+                                    var match = search[j].match * ((plain.Length > 0 && pathElements[i].Length > 0) ? (float)pathElements[i].Length / (float)plain.Length : 1.0f);
 
                                     newSearch.Add((path, match));
                                 }
@@ -195,7 +195,7 @@ namespace Filesystem
 
                                 string plain = System.IO.Path.GetFileName(file);
 
-                                var match = search[i].match * (plain.Length > 0 ? (float)pathElements.Last().Length / (float)plain.Length : 1.0f);
+                                var match = search[i].match * ((plain.Length > 0 && pathElements.Last().Length > 0) ? (float)pathElements.Last().Length / (float)plain.Length : 1.0f);
 
                                 collector.AddSuggestion(new SuggestionInfo(file, display, null, folderImage, (byte)Math.Round(match * 100.0f), null,
                                     $"{MODULE_NAME}0"));
@@ -210,7 +210,7 @@ namespace Filesystem
 
                                 string plain = System.IO.Path.GetFileName(file);
 
-                                var match = search[i].match * (plain.Length > 0 ? (float)pathElements.Last().Length / (float)plain.Length : 1.0f);
+                                var match = search[i].match * ((plain.Length > 0 && pathElements.Length > 0) ? (float)pathElements.Last().Length / (float)plain.Length : 1.0f);
 
                                 collector.AddSuggestion(new SuggestionInfo(file, file, null, fileImage, (byte)Math.Round(match * 100.0f), null,
                                     $"{MODULE_NAME}1"));
