@@ -147,23 +147,27 @@ namespace Filesystem
                 {
                     string[] pathElements = enteredText.Split(Path.DirectorySeparatorChar);
 
-                    List<string> search = new List<string> { pathElements[0] + Path.DirectorySeparatorChar.ToString() };
+                    List<(string path, float match)> search = new List<(string, float)> { (pathElements[0] + Path.DirectorySeparatorChar.ToString(), 1.0f) };
 
                     for (int i = 1; i < pathElements.Length - 1; i++)
                     {
-                        List<string> newSearch = new List<string>();
+                        List<(string path, float match)> newSearch = new List<(string path, float match)>();
 
                         for (int j = 0; j < search.Count; j++)
                         {
                             try
                             {
-                                foreach (var dir in Directory.EnumerateDirectories(search[j], $"*{pathElements[i]}*"))
+                                foreach (var dir in Directory.EnumerateDirectories(search[j].path, $"*{pathElements[i]}*"))
                                 {
                                     var path = dir.EndsWith(Path.DirectorySeparatorChar.ToString())
                                         ? dir
                                         : $"{dir}{Path.DirectorySeparatorChar}";
 
-                                    newSearch.Add(path);
+                                    var plain = System.IO.Path.GetFileName(dir);
+
+                                    var match = search[j].match * (plain.Length > 0 ? (float)pathElements[i].Length / (float)plain.Length : 1.0f);
+
+                                    newSearch.Add((path, match));
                                 }
                             }
                             catch
@@ -183,22 +187,32 @@ namespace Filesystem
                         {
 
                             // Directories
-                            foreach (var file in Directory.EnumerateDirectories(search[i], searchString))
+                            foreach (var file in Directory.EnumerateDirectories(search[i].path, searchString))
                             {
                                 string display = file.Length < LONG_FILENAME
                                     ? file
                                     : $"...{file.Substring(file.Length - LONG_FILENAME)}";
-                                collector.AddSuggestion(new SuggestionInfo(file, display, null, folderImage, 100, null,
+
+                                string plain = System.IO.Path.GetFileName(file);
+
+                                var match = search[i].match * (plain.Length > 0 ? (float)pathElements.Last().Length / (float)plain.Length : 1.0f);
+
+                                collector.AddSuggestion(new SuggestionInfo(file, display, null, folderImage, (byte)Math.Round(match * 100.0f), null,
                                     $"{MODULE_NAME}0"));
                             }
 
                             // Files
-                            foreach (var file in Directory.EnumerateFiles(search[i], searchString))
+                            foreach (var file in Directory.EnumerateFiles(search[i].path, searchString))
                             {
                                 string display = file.Length < LONG_FILENAME
                                     ? file
                                     : $"...{file.Substring(file.Length - LONG_FILENAME)}";
-                                collector.AddSuggestion(new SuggestionInfo(file, file, null, fileImage, 100, null,
+
+                                string plain = System.IO.Path.GetFileName(file);
+
+                                var match = search[i].match * (plain.Length > 0 ? (float)pathElements.Last().Length / (float)plain.Length : 1.0f);
+
+                                collector.AddSuggestion(new SuggestionInfo(file, file, null, fileImage, (byte)Math.Round(match * 100.0f), null,
                                     $"{MODULE_NAME}1"));
                             }
                         }
