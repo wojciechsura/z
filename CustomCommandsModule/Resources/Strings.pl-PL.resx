@@ -193,7 +193,7 @@
     <value>PierwszyParametr "DrugiParametr ze spacjami i ""cudzysłowami"""</value>
   </data>
   <data name="CustomCommands_Message_CannotExecute" xml:space="preserve">
-    <value>Nie mogę uruchomić: {0}</value>
+    <value>Nie mogę uruchomić {0}: {1}</value>
   </data>
   <data name="CustomCommands_Message_CustomCommandKeysCannotContainSpaceCharacters" xml:space="preserve">
     <value>Skróty komend użytkownika nie mogą zawierać znaków spacji!</value>
