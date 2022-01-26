@@ -101,7 +101,7 @@
     <value>Custom</value>
   </data>
   <data name="CustomCommands_Message_CannotExecute" xml:space="preserve">
-    <value>Cannot execute: {0}</value>
+    <value>Cannot execute {0}: {1}</value>
   </data>
   <data name="CustomCommands_Message_CustomCommandKeysMustBeUnique" xml:space="preserve">
     <value>Custom command keys must be unique!</value>
