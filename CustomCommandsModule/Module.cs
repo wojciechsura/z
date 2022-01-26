@@ -137,12 +137,30 @@ namespace CustomCommandsModule
                         case CommandKinds.Command:
                             {
                                 CommandParams cp = GetCommandInfo(cmd);
-                                Process.Start(cp.Command, cp.Params);
+
+                                try
+                                {
+                                    Process.Start(cp.Command, cp.Params);
+                                }
+                                catch (Exception e)
+                                {
+                                    options.ErrorText = String.Format(Strings.CustomCommands_Message_CannotExecute, cp.Command, e.Message);
+                                    options.PreventClose = true;
+                                }
+
                                 break;
                             }
                         case CommandKinds.Url:
                             {
-                                Process.Start(cmd);
+                                try
+                                {
+                                    Process.Start(cmd);
+                                }
+                                catch (Exception e)
+                                {
+                                    options.ErrorText = String.Format(Strings.CustomCommands_Message_CannotExecute, cmd, e.Message);
+                                    options.PreventClose = true;
+                                }
                                 break;
                             }
                         default:
@@ -151,7 +169,7 @@ namespace CustomCommandsModule
                 }
                 catch (Exception e)
                 {
-                    options.ErrorText = String.Format(Strings.CustomCommands_Message_CannotExecute, e.Message);
+                    options.ErrorText = String.Format(Strings.CustomCommands_Message_CannotExecute, command.Key, e.Message);
                     options.PreventClose = true;
                 }
             }
