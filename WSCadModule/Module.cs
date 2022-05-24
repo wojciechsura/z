@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -17,13 +18,15 @@ namespace WSCadModule
     {
         // Private constants --------------------------------------------------
 
-        private const string MODULE_NAME = "WsCAD";
-        private const string MODULE_DISPLAY_NAME = "WsCAD";
+        private const string MODULE_NAME = "WSCAD";
+        private const string MODULE_DISPLAY_NAME = "WSCAD";
 
-        private const string WSCAD_ACTION = "WsCADShortcut";
+        private const string WSCAD_ACTION = "WSCADShortcut";
         private const string WSCAD_KEYWORD = "ws";
-        private const string WSCAD_KEYWORD_DISPLAY = "WsCAD";
+        private const string WSCAD_KEYWORD_DISPLAY = "WSCAD";
         private const string WSCAD_KEYWORD_COMMENT = "Shortcuts to internal WsCAD services";
+
+        private readonly Regex taskNumberRegex = new Regex(@"^[0-9]{5,6}$");
 
         // Private types ------------------------------------------------------
 
@@ -82,6 +85,11 @@ namespace WSCadModule
                 .Select(op => new SuggestionInfo(op.Word, op.Word, op.Description, icon, SuggestionUtils.EvalMatch(enteredText, op.Word, op.Description)))
                 .ToList()
                 .ForEach(s => collector.AddSuggestion(s));
+
+            if (taskNumberRegex.IsMatch(enteredText))
+            {
+                collector.AddSuggestion(new SuggestionInfo($"{enteredText}", $"Open task {enteredText}", "Opens task in TFS", icon, 0, null, MODULE_DISPLAY_NAME));
+            }
         }
 
         public void ExecuteKeywordAction(string action, string expression, ExecuteOptions options)
@@ -94,10 +102,17 @@ namespace WSCadModule
 
         public void ExecuteSuggestion(SuggestionInfo suggestion, ExecuteOptions options)
         {
-            OperationInfo info = operations.FirstOrDefault(op => op.Word.ToUpper() == suggestion.Text.ToUpper());
+            if (taskNumberRegex.IsMatch(suggestion.Text))
+            {
+                Process.Start($"http://srv-tfs:8080/tfs/DefaultCollection/WSCAD%20SUITE/_workitems?id={suggestion.Text}");
+            }
+            else
+            {
+                OperationInfo info = operations.FirstOrDefault(op => op.Word.ToUpper() == suggestion.Text.ToUpper());
 
-            if (info != null)
-                Process.Start(info.Command);
+                if (info != null)
+                    Process.Start(info.Command);
+            }
         }
 
         public IEnumerable<KeywordInfo> GetKeywordActions()
