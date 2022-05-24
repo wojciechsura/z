@@ -188,20 +188,7 @@ namespace Z.BusinessLogic.ViewModels.Main
         {
             if (workingMode != MainWorkingMode.SuggestionList)
                 System.Diagnostics.Debug.WriteLine("CollectSuggestions not in suggestion list mode!");
-
-            Func<SuggestionData, SuggestionData, int> compareGroups = (x, y) =>
-            {
-                if (String.IsNullOrEmpty(x.Suggestion.SortGroup) && String.IsNullOrEmpty(y.Suggestion.SortGroup))
-                    return 0;
-                else if (String.IsNullOrEmpty(x.Suggestion.SortGroup))
-                    return 1;
-                else if (String.IsNullOrEmpty(y.Suggestion.SortGroup))
-                    return -1;
-                else
-                    return String.Compare(x.Suggestion.SortGroup, y.Suggestion.SortGroup);
-            };
-
-               
+                          
             if (!String.IsNullOrEmpty(enteredText) || currentKeyword != null)
             {
                 suggestionData = moduleService.GetSuggestionsFor(enteredText, currentKeyword?.Keyword);
@@ -209,7 +196,10 @@ namespace Z.BusinessLogic.ViewModels.Main
                 var moduleMatchStats = suggestionData
                     .GroupBy(sg => sg.Module)
                     .ToDictionary(g => g.Key, g => new { MaxMatch = g.Max(s => s.Suggestion.Match), AvgMatch = g.Average(s => s.Suggestion.Match) } );
-                    
+
+                var averageGroupMatches = suggestionData.GroupBy(sd => sd.Suggestion.SortGroup)
+                    .Select(g => new { Name = g.Key ?? string.Empty, Match = g.Average(sd => (double)sd.Suggestion.Match) })
+                    .ToDictionary(x => x.Name, x => x.Match);
 
                 if (suggestionData.Count > 0)
                 {
@@ -236,6 +226,30 @@ namespace Z.BusinessLogic.ViewModels.Main
                     };
 
                     Func<SuggestionData, SuggestionData, int> compareMatches = (x, y) => (int)y.Suggestion.Match - (int)x.Suggestion.Match;
+
+                    Func<SuggestionData, SuggestionData, int> compareGroups = (x, y) =>
+                    {
+                        if (String.IsNullOrEmpty(x.Suggestion.SortGroup) && String.IsNullOrEmpty(y.Suggestion.SortGroup))
+                            return 0;
+                        else if (String.IsNullOrEmpty(x.Suggestion.SortGroup))
+                            return 1;
+                        else if (String.IsNullOrEmpty(y.Suggestion.SortGroup))
+                            return -1;
+                        else
+                        {
+                            if (averageGroupMatches.TryGetValue(x.Suggestion.SortGroup, out double first) && averageGroupMatches.TryGetValue(y.Suggestion.SortGroup, out double second))
+                            {
+                                if (first > second)
+                                    return -1;
+                                else if (first < second)
+                                    return 1;
+                                else
+                                    return 0;
+                            }
+                            else
+                                return string.Compare(x.Suggestion.SortGroup, y.Suggestion.SortGroup);
+                        }
+                    };
 
                     Func<SuggestionData, SuggestionData, IEnumerable<Func<SuggestionData, SuggestionData, int>>, int> combineCompares =
                         (x, y, compares) =>
