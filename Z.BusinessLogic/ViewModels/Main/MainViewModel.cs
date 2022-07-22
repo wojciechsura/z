@@ -331,7 +331,7 @@ namespace Z.BusinessLogic.ViewModels.Main
         {
             StopEnteredTextTimer();
 
-            if (EnteredText.Length > 0)
+            if (EnteredText != null && EnteredText.Length > 0)
             {
                 WorkingMode = MainWorkingMode.SuggestionList;
                 CollectSuggestions();
