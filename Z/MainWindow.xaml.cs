@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Autofac;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,7 +16,6 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Z.Common;
 using Z.Dependencies;
-using Microsoft.Practices.Unity;
 using System.Windows.Threading;
 using System.ComponentModel;
 using System.Runtime.InteropServices;

@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Autofac;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Z.BusinessLogic.ViewModels.Configuration;
 using Z.Dependencies;
-using Microsoft.Practices.Unity;
 using System.Windows.Input;
 using Z.Wpf.Types;
 using Z.BusinessLogic.ViewModels.Configuration.Base;

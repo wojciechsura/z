@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 using System.Windows;
 using Z.BusinessLogic.ViewModels;
 using Z.Dependencies;
-using Microsoft.Practices.Unity;
 using System.Windows.Threading;
 using System.Reflection;
 using Z.BusinessLogic.ViewModels.Application;
 using Z.BusinessLogic.Services.Application;
 using Z.Resources;
+using Autofac;
 
 namespace Z
 {
@@ -51,8 +51,8 @@ namespace Z
                 return;
             }
 
-            Configuration.Configure(this);
-            Configuration.LateConfigure();
+
+            Dependencies.Container.Configure(builder => Configuration.Configure(builder, this));
 
             viewModel = Dependencies.Container.Instance.Resolve<AppViewModel>();
             viewModel.ApplicationAccess = this;
@@ -86,7 +86,6 @@ namespace Z
         protected override void OnExit(ExitEventArgs e)
         {
             singleInstanceMutex.Dispose();
-            Configuration.Dispose();
 
             base.OnExit(e);
         }
