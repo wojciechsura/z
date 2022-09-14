@@ -1,4 +1,4 @@
-﻿using Microsoft.Practices.Unity;
+﻿using Autofac;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,28 +21,25 @@ namespace Z.BusinessLogic.Dependencies
 {
     public static class Configuration
     {
-        public static void Configure(IUnityContainer container)
+        public static void Configure(ContainerBuilder container)
         {
-            container.RegisterType<IGlobalHotkeyService, GlobalHotkeyService>(new ContainerControlledLifetimeManager());            
-            container.RegisterType<IKeywordService, KeywordService>(new ContainerControlledLifetimeManager());
-            container.RegisterType<IConfigurationService, ConfigurationService>(new ContainerControlledLifetimeManager());
-            container.RegisterType<IPathService, PathService>(new ContainerControlledLifetimeManager());
-            container.RegisterType<IEventBus, EventBus>(new ContainerControlledLifetimeManager());
+            container.RegisterType<GlobalHotkeyService>().As<IGlobalHotkeyService>().SingleInstance();            
+            container.RegisterType<KeywordService>().As<IKeywordService>().SingleInstance();
+            container.RegisterType<ConfigurationService>().As<IConfigurationService>().SingleInstance();
+            container.RegisterType<PathService>().As<IPathService>().SingleInstance();
+            container.RegisterType<EventBus>().As<IEventBus>().SingleInstance();
+            container.RegisterType<ModuleService>().As<IModuleService>().SingleInstance();
 
-            container.RegisterType<MainViewModel>(new ContainerControlledLifetimeManager());
-            container.RegisterType<ProCalcViewModel>(new ContainerControlledLifetimeManager());
-            container.RegisterType<AppViewModel>(new ContainerControlledLifetimeManager());
+            container.RegisterType<MainViewModel>().As<MainViewModel>().SingleInstance();
+            container.RegisterType<ProCalcViewModel>().As<ProCalcViewModel>().SingleInstance();
+            container.RegisterType<AppViewModel>().As<AppViewModel>().SingleInstance();
+            
             container.RegisterType<ConfigurationViewModel>();
             container.RegisterType<ViewModels.Configuration.General.GeneralViewModel>();
             container.RegisterType<ViewModels.Configuration.Behavior.BehaviorViewModel>();
             container.RegisterType<ViewModels.Configuration.Keywords.KeywordsViewModel>();
             container.RegisterType<ViewModels.Configuration.Modules.ModulesViewModel>();
             container.RegisterType<ViewModels.Configuration.Launcher.LauncherViewModel>();
-        }
-
-        public static void LateConfigure(IUnityContainer container)
-        {
-            container.RegisterInstance<IModuleService>(container.Resolve<ModuleService>());
         }
     }
 }

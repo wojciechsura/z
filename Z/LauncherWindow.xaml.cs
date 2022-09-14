@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Autofac;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -13,7 +14,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Z.BusinessLogic.ViewModels.Main;
-using Microsoft.Practices.Unity;
 using Z.BusinessLogic.ViewModels.Main.Launcher;
 using Z.Controls;
 
