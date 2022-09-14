@@ -1,4 +1,9 @@
-Version 1.1
+Version 1.0.2
+14.09.2022
+[+] Z now watches for filesystem changes in the Start Menu folders and Desktop folders
+[+] Holding Ctrl key makes Z windows temporarily transparent to reveal what is underneath
+
+Version 1.0.1
 20.05.2021
 [*] Fix for Turkish regional settings
 [*] Switched to .NET Framework 4.7.2, application is 64-bit now
