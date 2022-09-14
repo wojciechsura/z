@@ -16,7 +16,7 @@ using Z.Api.Types;
 
 namespace StartMenuModule
 {
-    public class Module : BaseShortcutModule
+    public class Module : BaseFilesystemShortcutModule
     {
         private const string MODULE_NAME = "StartMenu";
 
@@ -25,14 +25,13 @@ namespace StartMenuModule
 
         private readonly ImageSource icon;
 
-        protected override List<ShortcutInfo> LoadShortcuts()
+        protected override List<(string path, bool recursive)> GetShortcutDirectories()
         {
-            string startMenu = Environment.GetFolderPath(Environment.SpecialFolder.StartMenu);
-            string commonStartMenu = Environment.GetFolderPath(Environment.SpecialFolder.CommonStartMenu);
-
-            return LoadShortcutsFrom(startMenu, true)
-                .Union(LoadShortcutsFrom(commonStartMenu, true))
-                .ToList();
+            return new List<(string path, bool recursive)>
+            {
+                (Environment.GetFolderPath(Environment.SpecialFolder.StartMenu), true),
+                (Environment.GetFolderPath(Environment.SpecialFolder.CommonStartMenu), true)
+            };
         }
 
         protected override string FormatError(string errorText)
@@ -51,7 +50,6 @@ namespace StartMenuModule
 
         public Module()
         {
-            LoadShortcuts();
             icon = new BitmapImage(new Uri("pack://application:,,,/StartMenuModule;component/Resources/winlogo.png"));
         }
 

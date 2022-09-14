@@ -10,7 +10,7 @@ using System.Windows.Media.Imaging;
 
 namespace DesktopModule
 {
-    public class Module : BaseShortcutModule
+    public class Module : BaseFilesystemShortcutModule
     {
         private const string MODULE_NAME = "Desktop";
         private const string DESKTOP_ACTION_KEYWORD = "desktop";
@@ -29,14 +29,13 @@ namespace DesktopModule
 
         // Protected methods --------------------------------------------------
 
-        protected override List<ShortcutInfo> LoadShortcuts()
+        protected override List<(string path, bool recursive)> GetShortcutDirectories()
         {
-            string desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            string commonDesktop = Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory);
-
-            return LoadShortcutsFrom(desktop, false)
-                .Union(LoadShortcutsFrom(commonDesktop, false))
-                .ToList();
+            return new List<(string path, bool recursive)>
+            {
+                (Environment.GetFolderPath(Environment.SpecialFolder.Desktop), false),
+                (Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory), false)
+            };
         }
 
         protected override string FormatError(string errorText)
