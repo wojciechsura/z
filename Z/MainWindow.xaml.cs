@@ -70,6 +70,20 @@ namespace Z
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool SetForegroundWindow(IntPtr hWnd);
 
+        private void DimWindow()
+        {
+            this.Opacity = 0.4;
+            listWindow.Opacity = 0.4;
+            launcherWindow.Opacity = 0.4;
+        }
+
+        private void UndimWindow()
+        {
+            this.Opacity = 1.0;
+            listWindow.Opacity = 1.0;
+            launcherWindow.Opacity = 1.0;
+        }
+
         private void MainKeyDown(object sender, KeyEventArgs e)
         {
             switch (e.Key)
@@ -78,6 +92,32 @@ namespace Z
                     {
                         bool handled = viewModel.EscapePressed();
                         e.Handled = handled;
+                        break;
+                    }
+                case Key.LeftCtrl:
+                case Key.RightCtrl:
+                    {
+                        DimWindow();
+                        e.Handled = false;
+                        break;
+                    }
+                default:
+                    {
+                        e.Handled = false;
+                        break;
+                    }
+            }
+        }
+
+        private void MainKeyUp(object sender, KeyEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case Key.LeftCtrl:
+                case Key.RightCtrl:
+                    {
+                        UndimWindow();
+                        e.Handled = false;
                         break;
                     }
                 default:
@@ -213,6 +253,7 @@ namespace Z
 
         void IMainWindowAccess.Show()
         {
+            UndimWindow();
             Show();
 
             var positionInfo = GetWindowPositioningInfo(this.ActualWidth, this.ActualHeight);
