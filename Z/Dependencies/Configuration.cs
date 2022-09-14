@@ -1,4 +1,4 @@
-﻿using Microsoft.Practices.Unity;
+﻿using Autofac;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,25 +19,15 @@ namespace Z.Dependencies
 {
     public static class Configuration
     {
-        public static void Configure(App app)
+        public static void Configure(ContainerBuilder builder, App app)
         {
-            Container.Instance.RegisterInstance<IApplicationController>(app);
-            Container.Instance.RegisterType<IAppWindowService, AppWindowService>(new ContainerControlledLifetimeManager());
-            Container.Instance.RegisterType<IDialogService, DialogService>(new ContainerControlledLifetimeManager());
-            Container.Instance.RegisterType<IMessagingService, MessagingService>(new ContainerControlledLifetimeManager());
-            Container.Instance.RegisterType<IImageResources, ImageResources>(new ContainerControlledLifetimeManager());
+            builder.RegisterInstance<IApplicationController>(app);
+            builder.RegisterType<AppWindowService>().As<IAppWindowService>().SingleInstance();
+            builder.RegisterType<DialogService>().As<IDialogService>().SingleInstance();
+            builder.RegisterType<MessagingService>().As<IMessagingService>().SingleInstance();
+            builder.RegisterType<ImageResources>().As<IImageResources>().SingleInstance();
 
-            BusinessLogic.Dependencies.Configuration.Configure(Container.Instance);
-        }
-
-        public static void Dispose()
-        {
-            Container.Dispose();
-        }
-
-        internal static void LateConfigure()
-        {
-            BusinessLogic.Dependencies.Configuration.LateConfigure(Container.Instance);
+            BusinessLogic.Dependencies.Configuration.Configure(builder);
         }
     }
 }

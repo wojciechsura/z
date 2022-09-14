@@ -1,4 +1,4 @@
-﻿using Microsoft.Practices.Unity;
+﻿using Autofac;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,20 +9,19 @@ namespace Z.Dependencies
 {
     public static class Container
     {
-        private static Lazy<UnityContainer> container = new Lazy<UnityContainer>(() => new UnityContainer());
+        private static IContainer container;
 
-        public static IUnityContainer Instance
+        public static void Configure(Action<ContainerBuilder> buildAction)
         {
-            get
-            {
-                return container.Value;
-            }
+            if (container != null)
+                throw new InvalidOperationException("Container is already configured");
+
+            var builder = new ContainerBuilder();
+            builder.RegisterSource(new Autofac.Features.ResolveAnything.AnyConcreteTypeNotAlreadyRegisteredSource());
+            buildAction(builder);
+            container = builder.Build();
         }
 
-        public static void Dispose()
-        {
-            container.Value.Dispose();
-            container = null;
-        }
+        public static IContainer Instance => container;
     }
 }

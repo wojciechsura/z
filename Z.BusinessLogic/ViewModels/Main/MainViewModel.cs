@@ -5,8 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Threading;
-
-using Microsoft.Practices.Unity;
 using System.Diagnostics;
 using Z.Api.Interfaces;
 using Z.Api.Types;
