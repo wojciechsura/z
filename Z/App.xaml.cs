@@ -16,6 +16,9 @@ using Z.BusinessLogic.ViewModels.Application;
 using Z.BusinessLogic.Services.Application;
 using Z.Resources;
 using Autofac;
+using Z.BusinessLogic.Services.Module;
+using Z.BusinessLogic.Services.Keyword;
+using Z.BusinessLogic.Services.Config;
 
 namespace Z
 {
@@ -53,6 +56,12 @@ namespace Z
 
 
             Dependencies.Container.Configure(builder => Configuration.Configure(builder, this));
+
+            // Pre-construct several services to speed up first summon
+
+            _ = Dependencies.Container.Instance.Resolve<IConfigurationService>();
+            _ = Dependencies.Container.Instance.Resolve<IModuleService>();
+            _ = Dependencies.Container.Instance.Resolve<IKeywordService>();
 
             viewModel = Dependencies.Container.Instance.Resolve<AppViewModel>();
             viewModel.ApplicationAccess = this;
