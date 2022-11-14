@@ -1,3 +1,7 @@
+Version 1.0.3
+14.11.2022
+[*] Small optimization to speed up first Z window summon
+
 Version 1.0.2
 14.09.2022
 [+] Z now watches for filesystem changes in the Start Menu folders and Desktop folders
