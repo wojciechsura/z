@@ -206,12 +206,12 @@ namespace Z.BusinessLogic.ViewModels.ProCalc
                 var compiled = proCalcCore.Compile(enteredText);
                 var result = proCalcCore.Execute(compiled);
 
-                Result = result.AsString();
-                BinResult = result.AsBin();
-                OctResult = result.AsOct();
-                HexResult = result.AsHex();
-                DmsResult = result.AsDMS();
-                FractionResult = result.AsIntFraction();
+                Result = result.AsString;
+                BinResult = result.AsBin;
+                OctResult = result.AsOct;
+                HexResult = result.AsHex;
+                DmsResult = result.AsDMS;
+                FractionResult = result.AsIntFraction;
 
                 ErrorText = null;
 
