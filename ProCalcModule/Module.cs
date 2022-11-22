@@ -41,7 +41,7 @@ namespace ProCalcModule
                 var expression = proCalc.Compile(enteredText);
                 var result = proCalc.Execute(expression);
 
-                collector.AddSuggestion(new SuggestionInfo(enteredText, result.AsString(), Strings.Calculator_Comment, icon, 100, result, Strings.Calculator_ModuleDisplayName));
+                collector.AddSuggestion(new SuggestionInfo(enteredText, result.AsString, Strings.Calculator_Comment, icon, 100, result, Strings.Calculator_ModuleDisplayName));
             }
             catch
             {
@@ -68,7 +68,7 @@ namespace ProCalcModule
         public void ExecuteSuggestion(SuggestionInfo suggestion, ExecuteOptions options)
         {
             BaseNumeric result = suggestion.Data as BaseNumeric;
-            Clipboard.SetText(result.AsString());
+            Clipboard.SetText(result.AsString);
         }
 
         public IEnumerable<KeywordInfo> GetKeywordActions()
