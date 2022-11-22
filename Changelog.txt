@@ -1,3 +1,7 @@
+Version 1.0.4
+22.11.2022
+[*] Updated ProCalc.NET to the newest version
+
 Version 1.0.3
 14.11.2022
 [*] Small optimization to speed up first Z window summon
