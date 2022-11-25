@@ -228,8 +228,8 @@ namespace Z.BusinessLogic.ViewModels.ProCalc
 
                 if (e is ExpressionException expressionException)
                 {
-                    if (expressionException.ExpressionPos >= 0)
-                        access.CaretPosition = expressionException.ExpressionPos;                    
+                    if (expressionException.Column >= 0)
+                        access.CaretPosition = expressionException.Column;
                 }
 
                 if (e is UserException userException)

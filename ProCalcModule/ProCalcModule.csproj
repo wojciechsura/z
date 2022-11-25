@@ -49,6 +49,9 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Irony">
+      <HintPath>..\lib\Irony.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="ProCalc.NET">
       <HintPath>..\lib\ProCalc.NET.dll</HintPath>
