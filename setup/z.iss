@@ -7,9 +7,6 @@
 #define MyAppURL "https://www.spooksoft.pl"
 #define MyAppExeName "Z.exe"
 
-; #define PGS
-; #define WSCAD
-
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
 ; Do not use the same AppId value in installers for other applications.
@@ -91,16 +88,6 @@ Source: "..\SampleModule\Resources\sample.png"; DestDir: "{app}\samples\SampleMo
 Source: "..\SampleModule\Properties\AssemblyInfo.cs"; DestDir: "{app}\samples\SampleModule\Properties\"; Flags: ignoreversion; Components: CustomModuleSample
 Source: "..\SampleModule\Properties\Settings.Designer.cs"; DestDir: "{app}\samples\SampleModule\Properties\"; Flags: ignoreversion; Components: CustomModuleSample
 Source: "..\SampleModule\Properties\Settings.settings"; DestDir: "{app}\samples\SampleModule\Properties\"; Flags: ignoreversion; Components: CustomModuleSample
-
-; PGS module
-#ifdef PGS
-Source: "..\PgsModule\bin\x64\Release\PgsModule.dll"; DestDir: "{app}\plugins\"; Flags: ignoreversion
-#endif
-
-; WSCad module
-#ifdef WSCAD
-Source: "..\WsCADModule\bin\x64\Release\WsCADModule.dll"; DestDir: "{app}\plugins\"; Flags: ignoreversion
-#endif
 
 ; Polish localization
 Source: "..\Z\bin\x64\Release\pl-PL\ControlPanelModule.resources.dll"; DestDir: "{app}\pl-PL"; Flags: ignoreversion
