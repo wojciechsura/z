@@ -10,7 +10,7 @@ namespace Z.Api.Utils
     {
         public static byte EvalMatch(string enteredText, string suggestion)
         {
-            if (!suggestion.ToUpper().Contains(enteredText.ToUpper()))
+            if (string.IsNullOrEmpty(suggestion) || !suggestion.ToUpper().Contains(enteredText.ToUpper()))
                 return 0;
 
             return (byte)(100 * enteredText.Length / suggestion.Length);
