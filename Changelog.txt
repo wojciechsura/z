@@ -1,3 +1,7 @@
+Version 1.0.5
+04.05.2023
+[*] Changed icon to one matching other Spooksoft applications
+
 Version 1.0.4
 22.11.2022
 [*] Updated ProCalc.NET to the newest version

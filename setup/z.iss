@@ -2,9 +2,9 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Z"
-#define MyAppVersion "1.0"
+#define MyAppVersion "1.0.5"
 #define MyAppPublisher "Spooksoft"
-#define MyAppURL "http://www.spooksoft.pl"
+#define MyAppURL "https://www.spooksoft.pl"
 #define MyAppExeName "Z.exe"
 
 ; #define PGS
@@ -41,6 +41,7 @@ Name: "autostart"; Description: "Start Z automatically with Windows"; GroupDescr
 
 [Files]
 ; Application files
+
 Source: "..\Z\bin\x64\Release\Autofac.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Z\bin\x64\Release\ControlPanelModule.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Z\bin\x64\Release\CustomCommandsModule.dll"; DestDir: "{app}"; Flags: ignoreversion
@@ -49,6 +50,7 @@ Source: "..\Z\bin\x64\Release\FavoritesModule.dll"; DestDir: "{app}"; Flags: ign
 Source: "..\Z\bin\x64\Release\Filesystem.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Z\bin\x64\Release\Hardcodet.Wpf.TaskbarNotification.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Z\bin\x64\Release\HashModule.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Z\bin\x64\Release\Irony.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Z\bin\x64\Release\Microsoft.Bcl.AsyncInterfaces.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Z\bin\x64\Release\Microsoft.Practices.ServiceLocation.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Z\bin\x64\Release\Microsoft.WindowsAPICodePack.dll"; DestDir: "{app}"; Flags: ignoreversion
@@ -73,12 +75,9 @@ Source: "..\Z\bin\x64\Release\System.Threading.Tasks.Extensions.dll"; DestDir: "
 Source: "..\Z\bin\x64\Release\WebSearchModule.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Z\bin\x64\Release\Z.Api.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Z\bin\x64\Release\Z.BusinessLogic.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Z\bin\x64\Release\Z.BusinessLogic.dll.config"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Z\bin\x64\Release\Z.Common.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Z\bin\x64\Release\Z.Dependencies.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Z\bin\x64\Release\Z.Dependencies.dll.config"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Z\bin\x64\Release\Z.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Z\bin\x64\Release\Z.exe.config"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Z\bin\x64\Release\Z.Resources.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Z\bin\x64\Release\Z.Wpf.dll"; DestDir: "{app}"; Flags: ignoreversion
 
