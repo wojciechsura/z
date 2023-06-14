@@ -53,8 +53,8 @@
       <HintPath>..\packages\Irony.1.1.0\lib\net40\Irony.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
-    <Reference Include="ProCalc.NET, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ProCalc.NET.1.1.1\lib\net472\ProCalc.NET.dll</HintPath>
+    <Reference Include="ProCalc.NET, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ProCalc.NET.1.1.2\lib\net472\ProCalc.NET.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
